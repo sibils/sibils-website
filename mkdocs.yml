@@ -1,0 +1,55 @@
+site_name: SIBiLS
+site_description: Swiss Institute of Bioinformatics Literature Services
+site_url: https://sibils.github.io/
+repo_url: https://github.com/sibils/sibils.github.io/
+nav:
+  - Quick Start: 'index.md'
+  - Vocabularies: 'vocabularies.md'
+  - API:
+    - 'fetch in MEDLINE': 'api/fetch_medline.md'
+    - 'fetch in PubMed Central': 'api/fetch_pmc.md'
+    - 'search in MEDLINE': 'api/search_medline.md'
+    - 'search in PubMed Central': 'api/search_pmc.md'
+  - Architecture:
+    - 'Overview': 'arch/overview.md'
+    - Processing:
+      - 'Data sources': 'arch/datasources.md'
+      - 'Data source parsing': 'arch/datasource_parsing.md'
+      - 'Terminologies': 'arch/terminologies.md'
+      - 'Annotation': 'arch/annotations.md'
+      - 'Full text search': 'arch/elasticsearch.md'
+    - Query services: 'arch/query_service.md'
+  - 'Demo': https://denver.hesge.ch/SIBiLS/demo/
+markdown_extensions:
+  - abbr
+  - attr_list
+  - md_in_html
+  - admonition
+  - tables
+  - footnotes
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+theme:
+  name: material
+  custom_dir: overrides
+  locale: en
+  include_sidebar: false
+  font: false
+  palette:
+    scheme: sibils
+  features:
+    - navigation.tabs
+  logo: assets/sib.png
+extra_css:
+  - assets/extra.css

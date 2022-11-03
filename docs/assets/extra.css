@@ -1,0 +1,38 @@
+[data-md-color-scheme="sibils"] {
+    --md-primary-fg-color:        #c40300;
+    --md-primary-fg-color--light: #ff0300;
+    --md-primary-fg-color--dark:  #b20200;
+}
+
+article ul.partners {
+	list-style: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+}
+
+article ul.partners li {
+	display: block;
+    margin: 1rem 0 !important;
+}
+
+article ul.partners li a {
+	display: block;
+}
+
+article ul.partners li span {
+	display: none;
+}
+
+article ul.partners li a img {
+	display: block;
+	margin: auto 1rem;
+	max-width: 7rem;
+	height: 3rem;
+	object-fit: contain;
+}
+
+article ul.partners li a img.bigger {
+	height: 5rem;
+}
