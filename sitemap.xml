@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://candy.hesge.ch/SIBiLS/</loc>
+         <loc>https://sibils.github.io/</loc>
          <lastmod>2022-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://candy.hesge.ch/SIBiLS/vocabularies/</loc>
+         <loc>https://sibils.github.io/vocabularies/</loc>
          <lastmod>2022-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://candy.hesge.ch/SIBiLS/api/fetch_medline/</loc>
+         <loc>https://sibils.github.io/api/fetch_medline/</loc>
          <lastmod>2022-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://candy.hesge.ch/SIBiLS/api/fetch_pmc/</loc>
+         <loc>https://sibils.github.io/api/fetch_pmc/</loc>
          <lastmod>2022-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://candy.hesge.ch/SIBiLS/api/search_medline/</loc>
+         <loc>https://sibils.github.io/api/search_medline/</loc>
          <lastmod>2022-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://candy.hesge.ch/SIBiLS/api/search_pmc/</loc>
+         <loc>https://sibils.github.io/api/search_pmc/</loc>
          <lastmod>2022-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://candy.hesge.ch/SIBiLS/arch/annotations/</loc>
+         <loc>https://sibils.github.io/arch/annotations/</loc>
          <lastmod>2022-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://candy.hesge.ch/SIBiLS/arch/datasource_parsing/</loc>
+         <loc>https://sibils.github.io/arch/datasource_parsing/</loc>
          <lastmod>2022-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://candy.hesge.ch/SIBiLS/arch/datasources/</loc>
+         <loc>https://sibils.github.io/arch/datasources/</loc>
          <lastmod>2022-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://candy.hesge.ch/SIBiLS/arch/elasticsearch/</loc>
+         <loc>https://sibils.github.io/arch/elasticsearch/</loc>
          <lastmod>2022-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://candy.hesge.ch/SIBiLS/arch/overview/</loc>
+         <loc>https://sibils.github.io/arch/overview/</loc>
          <lastmod>2022-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://candy.hesge.ch/SIBiLS/arch/query_service/</loc>
+         <loc>https://sibils.github.io/arch/query_service/</loc>
          <lastmod>2022-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://candy.hesge.ch/SIBiLS/arch/terminologies/</loc>
+         <loc>https://sibils.github.io/arch/terminologies/</loc>
          <lastmod>2022-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
