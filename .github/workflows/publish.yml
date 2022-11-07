@@ -9,11 +9,29 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: git clone
+        # see https://github.com/actions/checkout
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v2
+      - name: Set up Python
+        # see https://github.com/actions/setup-python
+        uses: actions/setup-python@v4
         with:
           python-version: 3.x
-      - run: pip install -r requirements.txt
-      - run: mkdocs gh-deploy --force
+      - uses: actions/cache@v2
+        # see https://squidfunk.github.io/mkdocs-material/setup/setting-up-social-cards/#caching
+        with:
+          key: ${{ github.ref }}
+          path: .cache
+      - name: Install dependencies for the social plugin
+        # see https://squidfunk.github.io/mkdocs-material/setup/setting-up-social-cards/#dependencies
+        run: |
+          sudo apt-get install -y libcairo2-dev libfreetype6-dev libffi-dev libjpeg-dev libpng-dev libz-dev
+          pip install pillow cairosvg
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Build and deploy the branch gh-pages
+        # https://www.mkdocs.org/user-guide/deploying-your-docs/
+        run: CARDS=true mkdocs gh-deploy --force

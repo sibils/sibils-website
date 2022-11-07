@@ -4,6 +4,7 @@
 
 ### Git clone
 
+* Python must be installed
 * `git clone git@github.com:sibils/sibils.github.io.git`
 * `cd sibils.github.io`
 * Start mkdocs:
@@ -34,8 +35,8 @@
     * [Diagrams](https://squidfunk.github.io/mkdocs-material/reference/diagrams/), see also [mermaid documentation](https://mermaid-js.github.io/mermaid/#/README?id=diagram-types)
     * [Content tabs](https://squidfunk.github.io/mkdocs-material/reference/content-tabs/)
     * [Footnotes](https://squidfunk.github.io/mkdocs-material/reference/footnotes/)
-    * [Images with captions][https://squidfunk.github.io/mkdocs-material/reference/images/#image-captions]
-    * [Various list types][https://squidfunk.github.io/mkdocs-material/reference/lists/]
+    * [Images with captions](https://squidfunk.github.io/mkdocs-material/reference/images/#image-captions)
+    * [Various list types](https://squidfunk.github.io/mkdocs-material/reference/lists/)
     * [Abbreviations](https://squidfunk.github.io/mkdocs-material/reference/tooltips/#adding-abbreviations)
     * [Icons and emojis](https://squidfunk.github.io/mkdocs-material/reference/icons-emojis/)
 
@@ -44,7 +45,22 @@
 * [MkDocs](https://www.mkdocs.org/) for documentation generator
 * [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/getting-started/) for theme
 
-### Customizations used in this repository
+## Customizations used in this repository
 
 * https://squidfunk.github.io/mkdocs-material/customization/
+    * `mkdocs.yml`, section `theme.custom_dir`
+    * `overrides/partials/copyright.html`: custom footer.
 * https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#custom-color-schemes
+    * `mkdocs.yml`, section `extra_css`
+    * `mkdocs.yml`, section `theme.palette.scheme`
+    * `docs/assets/extra.css`
+* https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/#autoloading
+    * disable Google Font to complying with the General Data Protection Regulation (GDPR)
+    * `mkdocs.yml`, section `theme.font`
+* https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs
+    * `mkdocs.yml`, `theme.features.navigation.tabs`
+* https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#section-index-pages
+    * `mkdocs.yml`, `theme.features.navigation.indexes`
+* https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#hiding-the-sidebars
+    * `docs/index.md`
+    * `docs/vocabularies.md`
