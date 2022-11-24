@@ -17,7 +17,7 @@ This API allows to retrieve annotated contents from MEDLINE. The input is a set 
 
 python script for demonstrating POST calls to the API
 
-```json
+```python
 import requests # not installed in default Python
 import json
 
