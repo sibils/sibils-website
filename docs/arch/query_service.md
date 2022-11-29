@@ -1,6 +1,0 @@
-# Query service
-
-Source code:
-
-* Front-end: ...
-* Query reformulator: ...
