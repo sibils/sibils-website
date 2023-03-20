@@ -46,10 +46,10 @@ plugins:
 #### nav section ####
 nav:
   - Quick Start: 'index.md'
-  - Vocabularies: 'vocabularies.md'
+  - Vocabularies: 'doc/vocabularies.md'
   - API:
-    - 'fetch in MEDLINE': 'api/fetch_medline.md'
-    - 'fetch in PubMed Central': 'api/fetch_pmc.md'
-    - 'search in MEDLINE': 'api/search_medline.md'
-    - 'search in PubMed Central': 'api/search_pmc.md'
+    - 'fetch in MEDLINE': 'doc/api/fetch_medline.md'
+    - 'fetch in PubMed Central': 'doc/api/fetch_pmc.md'
+    - 'search in MEDLINE': 'doc/api/search_medline.md'
+    - 'search in PubMed Central': 'doc/api/search_pmc.md'
   - 'Demo': https://denver.hesge.ch/SIBiLS/demo/
