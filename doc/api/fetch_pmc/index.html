@@ -10,27 +10,27 @@
       
       
       
-        <link rel="canonical" href="https://sibils.github.io/api/fetch_medline/">
+        <link rel="canonical" href="https://sibils.github.io/doc/api/fetch_pmc/">
       
       
-        <link rel="prev" href="../../vocabularies/">
+        <link rel="prev" href="../fetch_medline/">
       
       
-        <link rel="next" href="../fetch_pmc/">
+        <link rel="next" href="../search_medline/">
       
-      <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.1">
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.3">
     
     
       
-        <title>fetch in MEDLINE - SIBiLS</title>
+        <title>fetch in PubMed Central - SIBiLS</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.402914a4.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.c4a75a56.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.a0c5b2b5.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a0c5b2b5.min.css">
       
       
 
@@ -40,9 +40,9 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/extra.css">
+      <link rel="stylesheet" href="../../../assets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -51,11 +51,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="fetch in MEDLINE - SIBiLS" >
+        <meta  property="og:title"  content="fetch in PubMed Central - SIBiLS" >
       
         <meta  property="og:description"  content="Swiss Institute of Bioinformatics Literature Services" >
       
-        <meta  property="og:image"  content="https://sibils.github.io/assets/images/social/api/fetch_medline.png" >
+        <meta  property="og:image"  content="https://sibils.github.io/assets/images/social/doc/api/fetch_pmc.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -63,15 +63,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://sibils.github.io/api/fetch_medline/" >
+        <meta  property="og:url"  content="https://sibils.github.io/doc/api/fetch_pmc/" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="fetch in MEDLINE - SIBiLS" >
+        <meta  name="twitter:title"  content="fetch in PubMed Central - SIBiLS" >
       
         <meta  name="twitter:description"  content="Swiss Institute of Bioinformatics Literature Services" >
       
-        <meta  name="twitter:image"  content="https://sibils.github.io/assets/images/social/api/fetch_medline.png" >
+        <meta  name="twitter:image"  content="https://sibils.github.io/assets/images/social/doc/api/fetch_pmc.png" >
       
     
     
@@ -93,7 +93,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sibils-medline-citations-and-annotations-fetch-api" class="md-skip">
+        <a href="#sibils-pubmed-central-full-texts-and-annotations-fetch-api" class="md-skip">
           Skip to content
         </a>
       
@@ -107,9 +107,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="SIBiLS" class="md-header__button md-logo" aria-label="SIBiLS" data-md-component="logo">
+    <a href="../../.." title="SIBiLS" class="md-header__button md-logo" aria-label="SIBiLS" data-md-component="logo">
       
-  <img src="../../assets/sib.png" alt="logo">
+  <img src="../../../assets/sib.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              fetch in MEDLINE
+              fetch in PubMed Central
             
           </span>
         </div>
@@ -167,7 +167,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../.." class="md-tabs__link">
+    <a href="../../.." class="md-tabs__link">
       Quick Start
     </a>
   </li>
@@ -196,7 +196,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="./" class="md-tabs__link md-tabs__link--active">
+      <a href="../fetch_medline/" class="md-tabs__link md-tabs__link--active">
         API
       </a>
     </li>
@@ -236,9 +236,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="SIBiLS" class="md-nav__button md-logo" aria-label="SIBiLS" data-md-component="logo">
+    <a href="../../.." title="SIBiLS" class="md-nav__button md-logo" aria-label="SIBiLS" data-md-component="logo">
       
-  <img src="../../assets/sib.png" alt="logo">
+  <img src="../../../assets/sib.png" alt="logo">
 
     </a>
     SIBiLS
@@ -266,7 +266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         Quick Start
       </a>
     </li>
@@ -333,6 +333,20 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../fetch_medline/" class="md-nav__link">
+        fetch in MEDLINE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -345,12 +359,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          fetch in MEDLINE
+          fetch in PubMed Central
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        fetch in MEDLINE
+        fetch in PubMed Central
       </a>
       
         
@@ -400,20 +414,6 @@
   
 </nav>
       
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../fetch_pmc/" class="md-nav__link">
-        fetch in PubMed Central
-      </a>
     </li>
   
 
@@ -540,30 +540,29 @@
   
 
 
-<h1 id="sibils-medline-citations-and-annotations-fetch-api">SIBiLS MEDLINE citations and annotations fetch API</h1>
+<h1 id="sibils-pubmed-central-full-texts-and-annotations-fetch-api">SIBiLS PubMed central full-texts and annotations fetch API</h1>
 <h2 id="description">Description</h2>
-<p>This API allows to retrieve annotated contents from MEDLINE. The input is a set of pmids (up to 1,000 per request). The output is a set of parsed and annotated citations, in both JATS and BioC formats. Delivered and annotated fields include for example abstracts, or MeSH terms. Annotations are delivered with many features including the type of the mapped entity (drug, gene, disease...), the vocabulary used, the vocabulary unique identifier and preferred term, or the mapping characters offsets.</p>
+<p>This API allows to retrieve annotated contents from PMC Open Access. The input is a set of pmcids (up to 1,000 per request). The output is a set of parsed and annotated full-texts, in both JATS and BioC formats. Delivered and annotated fields include for example full texts, paragraphs provided with their hierarchical level in the document structure, or figure captions. Annotations are delivered with many features including the type of the mapped entity (drug, gene, disease...), the vocabulary used, the vocabulary unique identifier and preferred term, or the mapping characters offsets.</p>
 <h2 id="api-endpoint">API endpoint</h2>
-<p><strong>URL</strong>: <a href="https://candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp">candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp</a></p>
-<p><strong>Mandatory input</strong>: the list of requested PMIDs (&amp;ids=). PMIDs are separated by any non-digit character.</p>
-<p><strong>Example</strong>: fetch two PMIDs
-<a href="https://candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp?ids=14691011,25190367">https://candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp?ids=14691011,25190367</a></p>
+<p><strong>URL</strong>: <a href="https://candy.hesge.ch/SIBiLS/PMC/fetch.jsp">candy.hesge.ch/SIBiLS/PMC/fetch.jsp</a></p>
+<p><strong>Mandatory input</strong>: the list of requested PMCIDs (&amp;ids=). PMCIDs are separated by any non-digit character.</p>
+<p><strong>Example</strong>: fetch two PMCIDs: <a href="https://candy.hesge.ch/SIBiLS/PMC/fetch.jsp?ids=PMC5805723,PMC3706742">candy.hesge.ch/SIBiLS/PMC/fetch.jsp?ids=PMC5805723,PMC3706742</a></p>
 <h2 id="code-sample">Code sample</h2>
 <p>python script for demonstrating POST calls to the API</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span> <span class="c1"># not installed in default Python</span>
 <span class="kn">import</span> <span class="nn">json</span>
 
 <span class="c1"># PMIDs to fetch (limited to 1000)</span>
-<span class="n">pmids</span> <span class="o">=</span> <span class="s2">&quot;14691011,25190367&quot;</span>
+<span class="n">pmcids</span> <span class="o">=</span> <span class="s2">&quot;PMC5805723,PMC3706742&quot;</span>
 
 <span class="c1"># call with POST</span>
-<span class="n">url_API</span> <span class="o">=</span> <span class="s2">&quot;https://candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp&quot;</span>
-<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ids&quot;</span><span class="p">:</span> <span class="n">pmids</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
+<span class="n">url_API</span> <span class="o">=</span> <span class="s2">&quot;https://candy.hesge.ch/SIBiLS/PMC/fetch.jsp&quot;</span>
+<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ids&quot;</span><span class="p">:</span> <span class="n">pmcids</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="n">url_API</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">my_params</span><span class="p">)</span>
 
-<span class="c1"># get response and print in output</span>
+<span class="c1"># get response and print in output file</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;SIBiLS_MED_fetch.json&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;SIBiLS_PMC_fetch.json&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="output">Output</h2>
@@ -576,6 +575,7 @@
 <span class="w">            </span><span class="p">[</span><span class="err">Array</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="err">passages</span><span class="w"> </span><span class="err">spli</span><span class="kc">tte</span><span class="err">d</span><span class="w"> </span><span class="kc">fr</span><span class="err">om</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">docume</span><span class="kc">nt</span><span class="p">]</span>
 <span class="w">            </span><span class="p">{</span><span class="nt">&quot;infons&quot;</span><span class="p">:</span><span class="w"> </span>
 <span class="w">                </span><span class="p">[</span><span class="err">Array</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="err">i</span><span class="kc">nf</span><span class="err">orma</span><span class="kc">t</span><span class="err">io</span><span class="kc">ns</span><span class="w"> </span><span class="err">rela</span><span class="kc">t</span><span class="err">ive</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">passage</span><span class="p">]</span>
+<span class="w">                </span><span class="p">{</span><span class="nt">&quot;section_title&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">sec</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">where</span><span class="w"> </span><span class="err">passage</span><span class="w"> </span><span class="err">(</span><span class="kc">te</span><span class="err">x</span><span class="kc">t</span><span class="err">)</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="kc">f</span><span class="err">ou</span><span class="kc">n</span><span class="err">d</span>
 <span class="w">                </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">nature</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">passage</span><span class="w"> </span><span class="err">(e.g.</span><span class="w"> </span><span class="s2">&quot;title&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;abstract&quot;</span><span class="err">)</span>
 <span class="w">            </span><span class="p">{</span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">passage</span>
 <span class="w">            </span><span class="p">{</span><span class="nt">&quot;annotations&quot;</span><span class="p">:</span><span class="w"> </span>
@@ -629,10 +629,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.b78d2936.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.efa0ade1.min.js"></script>
       
     
   </body>

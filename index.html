@@ -14,10 +14,10 @@
       
       
       
-        <link rel="next" href="vocabularies/">
+        <link rel="next" href="doc/vocabularies/">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.1">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.3">
     
     
       
@@ -25,7 +25,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.402914a4.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.c4a75a56.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.a0c5b2b5.min.css">
@@ -179,7 +179,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="vocabularies/" class="md-tabs__link">
+    <a href="doc/vocabularies/" class="md-tabs__link">
       Vocabularies
     </a>
   </li>
@@ -194,7 +194,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="api/fetch_medline/" class="md-tabs__link">
+      <a href="doc/api/fetch_medline/" class="md-tabs__link">
         API
       </a>
     </li>
@@ -346,7 +346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="vocabularies/" class="md-nav__link">
+      <a href="doc/vocabularies/" class="md-nav__link">
         Vocabularies
       </a>
     </li>
@@ -398,7 +398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api/fetch_medline/" class="md-nav__link">
+      <a href="doc/api/fetch_medline/" class="md-nav__link">
         fetch in MEDLINE
       </a>
     </li>
@@ -412,7 +412,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api/fetch_pmc/" class="md-nav__link">
+      <a href="doc/api/fetch_pmc/" class="md-nav__link">
         fetch in PubMed Central
       </a>
     </li>
@@ -426,7 +426,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api/search_medline/" class="md-nav__link">
+      <a href="doc/api/search_medline/" class="md-nav__link">
         search in MEDLINE
       </a>
     </li>
@@ -440,7 +440,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api/search_pmc/" class="md-nav__link">
+      <a href="doc/api/search_pmc/" class="md-nav__link">
         search in PubMed Central
       </a>
     </li>
@@ -565,29 +565,29 @@
   }
 </style>
 
-<h1><img src="SIBiLS_logo.png" alt="SIBiLS"></h1>
+<h1><img src="assets/SIBiLS_logo.png" alt="SIBiLS"></h1>
 
 <p>COVID-19 outbreak: explore our literature triage <a href="http://candy.hesge.ch/COVTriage/">interface</a> and <a href="http://candy.hesge.ch/COVTriage/documentation/">APIs</a>.</p>
 <h2 id="introduction">Introduction</h2>
 <p>This page provides a description of SIBiLS (Swiss Institute of Bioinformatics Literature Services). SIBiLS provide <strong>personalized Information Retrieval</strong> in the biological literature. Indeed, SIBiLS allow <strong>fully customizable search</strong> in <strong>semantically enriched contents</strong>, based on keywords and/or mapped biomedical entities from a growing set of standardized and legacy vocabularies. The services have been used and favourably evaluated to assist the curation of genes and gene products, by delivering <strong>customized literature triage</strong> engines to different curation teams. SIBiLS are freely accessible via <strong>REST APIs</strong> and are <strong>ready to empower any curation workflow</strong>, built on modern technologies scalable with big data: MongoDB and Elasticsearch. </p>
 <h2 id="data">Data</h2>
-<p>SIBiLS cover MEDLINE and PubMed Central Open Access, <strong>daily updated</strong>. Contents are parsed, then enriched by nearly <strong>2 billion of mapped biomedical entities</strong> from reference vocabularies (described <a href="vocabularies/">here</a>). Output are json, in JATS-BioC (for fetch) or native Elasticsearch (for search) formats. Today: <strong>34,639,171</strong> MEDLINE citations, along with <strong>900,618,446</strong> tagged bioentities / <strong>5,252,751 PMC</strong> full-texts, along with <strong>2,232,419,175</strong> tagged bioentities. </p>
+<p>SIBiLS cover MEDLINE and PubMed Central Open Access, <strong>daily updated</strong>. Contents are parsed, then enriched by nearly <strong>2 billion of mapped biomedical entities</strong> from reference vocabularies (described <a href="doc/vocabularies/">here</a>). Output are json, in JATS-BioC (for fetch) or native Elasticsearch (for search) formats. Today: <strong>34,639,171</strong> MEDLINE citations, along with <strong>900,618,446</strong> tagged bioentities / <strong>5,252,751 PMC</strong> full-texts, along with <strong>2,232,419,175</strong> tagged bioentities. </p>
 <h2 id="fetch-apis">Fetch APIs</h2>
 <p>They allow to retrieve annotated contents from MEDLINE or PMC Open Access. The input is a set of pmids, or pmcids (up to 1,000 per request). The output is a set of parsed and annotated contents, in both JATS and BioC formats. For MEDLINE citations, delivered and annotated fields include for example abstracts, or MeSH terms; for PMC full texts, paragraphs provided with their hierarchical level in the document structure, or figure captions. Annotations are delivered with many features including the type of the mapped entity (drug, gene, disease...), the vocabulary used, the vocabulary unique identifier and preferred term, or the mapping characters offsets.</p>
 <ul>
-<li><a href="api/fetch_medline/">fetch in MEDLINE</a></li>
-<li><a href="api/fetch_pmc/">fetch in PubMed Central</a></li>
+<li><a href="doc/api/fetch_medline/">fetch in MEDLINE</a></li>
+<li><a href="doc/api/fetch_pmc/">fetch in PubMed Central</a></li>
 </ul>
 <h2 id="customizable-search-apis">Customizable search APIs</h2>
 <p>They allow to perform a fully customizable search for valuable documents in MEDLINE or PMC Open Access. The power of these services is based on the efficiency of Elasticsearch engines, and on the rich Lucene query language, which allows to investigate a large panel of searching strategies. For example: basic search with keywords or entity identifiers (“ZBED1” or “NP_NX_O96006”), searches in specified fields (“figures_captions: ZBED1” or “tables: mapped treatments”), boosting fields or query parts, Boolean, exploiting identified concepts or identified concept types... The input is thus a Lucene json query. The output is the Elasticsearch ranked result set in its native json format; for each document (up to 10,000 per request), a relevance score and the indexed content.</p>
 <ul>
-<li><a href="api/search_medline/">search in MEDLINE</a></li>
-<li><a href="api/search_pmc/">search in PubMed Central</a></li>
+<li><a href="doc/api/search_medline/">search in MEDLINE</a></li>
+<li><a href="doc/api/search_pmc/">search in PubMed Central</a></li>
 </ul>
 <h2 id="reference">Reference</h2>
 <p>SIBiLS are detailed in the 2020 web server issue of Nucleic Acids Research: <a href="https://academic.oup.com/nar/article/48/W1/W12/5831752">SIB Literature Services: RESTful customizable search engines in biomedical literature, enriched with automatically mapped biomedical concepts</a>. Here is the graphical abstract designed for the publication :</p>
 <figure>
-<p><img alt="graphical abstract" loading="lazy" src="graphical_abstract.png" style="width: calc(min(100%, 35rem)); margin: auto;" />
+<p><img alt="graphical abstract" loading="lazy" src="assets/graphical_abstract.png" style="width: calc(min(100%, 35rem)); margin: auto;" />
   </p>
 <figcaption></figcaption>
 </figure>
@@ -664,7 +664,7 @@
     <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.indexes"], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.b78d2936.min.js"></script>
+      <script src="assets/javascripts/bundle.efa0ade1.min.js"></script>
       
     
   </body>
