@@ -53,4 +53,4 @@ nav:
     - 'search in MEDLINE': 'doc/api/search_medline.md'
     - 'search in PubMed Central': 'doc/api/search_pmc.md'
     - 'SPARQL': 'doc/api/sparql.md'
-  - 'Demo': https://denver.hesge.ch/SIBiLS/demo/
+  - 'Search': search/
