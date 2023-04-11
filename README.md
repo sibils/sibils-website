@@ -9,7 +9,7 @@
 * `cd sibils.github.io`
 * Start mkdocs:
     * Linux and Mac: `./serve`
-    * Windows: `./serve.bat`
+    * Windows: `.\serve.bat`
 * Open http://127.0.0.1:8000/
 * Change some files; the browser page is updated automatically.
 * `git add .; git commit; git push`
