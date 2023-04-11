@@ -1,9 +1,8 @@
 @echo off
-if exist venv\ (
-    venv\Scripts\activate.bat
+if exist "venv\" (
+    venv\Scripts\mkdocs.exe serve
 ) else (
     python -m venv venv
-    venv\Scripts\activate.bat
-    pip install -r requirements.txt
+    venv\Scripts\pip.exe install -r requirements.txt
+    venv\Scripts\mkdocs.exe serve
 )
-mkdocs serve
