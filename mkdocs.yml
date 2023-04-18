@@ -34,6 +34,7 @@ theme:
   features:
     - navigation.tabs
     - navigation.indexes
+    - content.code.copy       # ajouter un bouton "copier" à droite dans les blocs de code
 extra_css:
   - assets/extra.css
 plugins:
