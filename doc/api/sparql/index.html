@@ -447,22 +447,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#rq_001-number-of-publications-by-type" class="md-nav__link">
-    RQ_001 - Number of publications by type
+  <a href="#number-of-publications-by-type" class="md-nav__link">
+    Number of publications by type
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#rq_002-annotations-of-a-given-publication" class="md-nav__link">
-    RQ_002 - Annotations of a given publication
+  <a href="#annotations-of-a-given-publication" class="md-nav__link">
+    Annotations of a given publication
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#rq_003-diseases-associated-to-ticks-in-the-same-discourse-element-of-a-publication-at-a-distance-of-less-than-30-characters" class="md-nav__link">
-    RQ_003 - Diseases associated to ticks in the same discourse element of a publication at a distance of less than 30 characters
+  <a href="#diseases-associated-to-ticks-in-the-same-discourse-element-of-a-publication-at-a-distance-of-less-than-30-characters" class="md-nav__link">
+    Diseases associated to ticks in the same discourse element of a publication at a distance of less than 30 characters
   </a>
   
 </li>
@@ -551,22 +551,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#rq_001-number-of-publications-by-type" class="md-nav__link">
-    RQ_001 - Number of publications by type
+  <a href="#number-of-publications-by-type" class="md-nav__link">
+    Number of publications by type
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#rq_002-annotations-of-a-given-publication" class="md-nav__link">
-    RQ_002 - Annotations of a given publication
+  <a href="#annotations-of-a-given-publication" class="md-nav__link">
+    Annotations of a given publication
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#rq_003-diseases-associated-to-ticks-in-the-same-discourse-element-of-a-publication-at-a-distance-of-less-than-30-characters" class="md-nav__link">
-    RQ_003 - Diseases associated to ticks in the same discourse element of a publication at a distance of less than 30 characters
+  <a href="#diseases-associated-to-ticks-in-the-same-discourse-element-of-a-publication-at-a-distance-of-less-than-30-characters" class="md-nav__link">
+    Diseases associated to ticks in the same discourse element of a publication at a distance of less than 30 characters
   </a>
   
 </li>
@@ -599,70 +599,89 @@
 <p><a href="https://sibils.text-analytics.ch/sparql">https://sibils.text-analytics.ch/sparql</a></p>
 <h2 id="ontologies">Ontologies</h2>
 <ul>
-<li><a href="https://sibils.text-analytics.ch/doc/api/sparql/ontology/sibils-ontology.html">html format</a></li>
-<li><a href="https://sibils.text-analytics.ch/doc/api/sparql/ontology/sibils-ontology.ttl">ttl format</a></li>
+<li><a href="https://sibils.text-analytics.ch/doc/api/sparql/ontology/sibils-ontology.html">HTML format</a></li>
+<li><a href="https://sibils.text-analytics.ch/doc/api/sparql/ontology/sibils-ontology.ttl">TTL format</a></li>
 </ul>
 <h2 id="examples">Examples</h2>
-<h3 id="rq_001-number-of-publications-by-type">RQ_001 - Number of publications by type</h3>
-<div class="highlight"><pre><span></span><code><span class="k">PREFIX</span> <span class="p">:</span> <span class="nl">&lt;http://sibils.org/rdf#&gt;</span>
-<span class="k">select</span>  <span class="nv">?publi_class</span> <span class="p">(</span><span class="nf">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?count</span><span class="p">)</span> <span class="k">where</span> <span class="p">{</span>
+<h3 id="number-of-publications-by-type">Number of publications by type</h3>
+<div class="highlight"><span class="filename">RQ_001.sparql</span><pre><span></span><code><span class="k">PREFIX</span> <span class="p">:</span> <span class="nl">&lt;http://sibils.org/rdf#&gt;</span>
+<span class="k">SELECT</span> 
+  <span class="nv">?publi_class</span> <span class="p">(</span><span class="nf">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?count</span><span class="p">)</span>
+<span class="k">WHERE</span> <span class="p">{</span>
   <span class="nv">?s</span> <span class="p">:</span><span class="nt">hasPubMedCentralId</span> <span class="nv">?o</span><span class="p">.</span>
   <span class="nv">?s</span> <span class="k">a</span> <span class="nv">?publi_class</span><span class="p">.</span>
-<span class="p">}</span> <span class="k">group by</span> <span class="nv">?publi_class</span>
+<span class="p">}</span>
+<span class="k">GROUP BY</span> <span class="nv">?publi_class</span>
 </code></pre></div>
-<h3 id="rq_002-annotations-of-a-given-publication">RQ_002 - Annotations of a given publication</h3>
-<div class="highlight"><pre><span></span><code><span class="k">PREFIX</span> <span class="p">:</span> <span class="nl">&lt;http://sibils.org/rdf#&gt;</span>
+<h3 id="annotations-of-a-given-publication">Annotations of a given publication</h3>
+<div class="highlight"><span class="filename">RQ_002.sparql</span><pre><span></span><code><span class="k">PREFIX</span> <span class="p">:</span> <span class="nl">&lt;http://sibils.org/rdf#&gt;</span>
 <span class="k">PREFIX</span> <span class="nn">sibils</span><span class="p">:</span> <span class="nl">&lt;http://sibils.org/rdf/data/&gt;</span>
 <span class="k">PREFIX</span> <span class="nn">rdf</span><span class="p">:</span> <span class="nl">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span>
 <span class="k">PREFIX</span> <span class="nn">rdfs</span><span class="p">:</span> <span class="nl">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span>
 <span class="k">PREFIX</span> <span class="nn">skos</span><span class="p">:</span> <span class="nl">&lt;http://www.w3.org/2004/02/skos/core#&gt;</span> 
 
-<span class="k">select</span>  <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?doi</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?doi</span><span class="p">)</span> <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?cpt_id</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?cpt_id</span><span class="p">)</span> <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?scheme</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?scheme</span><span class="p">)</span> <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?start</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?start</span><span class="p">)</span> <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?token</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?token</span><span class="p">)</span> <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?part</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?section</span><span class="p">)</span> <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?part_type</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?part_type</span><span class="p">)</span>
-<span class="k">where</span> <span class="p">{</span>
-<span class="k">values</span> <span class="nv">?publi</span> <span class="p">{</span> <span class="nn">sibils</span><span class="p">:</span><span class="nt">PMC2718325</span> <span class="p">}</span>
+<span class="k">SELECT</span>
+  <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?doi</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?doi</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?cpt_id</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?cpt_id</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?scheme</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?scheme</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?start</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?start</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?token</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?token</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?part</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?section</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?part_type</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?part_type</span><span class="p">)</span>
+<span class="k">WHERE</span> <span class="p">{</span>
+  <span class="k">VALUES</span> <span class="nv">?publi</span> <span class="p">{</span> <span class="nn">sibils</span><span class="p">:</span><span class="nt">PMC2718325</span> <span class="p">}</span>
   <span class="nv">?publi</span> <span class="p">:</span><span class="nt">doi</span> <span class="nv">?doi</span><span class="p">.</span>
-   <span class="nv">?publi</span> <span class="p">:</span><span class="nt">hasAnnotation</span> <span class="nv">?a</span> <span class="p">.</span>
+  <span class="nv">?publi</span> <span class="p">:</span><span class="nt">hasAnnotation</span> <span class="nv">?a</span> <span class="p">.</span>
   <span class="nv">?a</span> <span class="p">:</span><span class="nt">hasBody</span> <span class="nv">?cpt</span> <span class="p">.</span>
-   <span class="nv">?cpt</span> <span class="nn">skos</span><span class="p">:</span><span class="nt">notation</span> <span class="nv">?cpt_id</span> <span class="p">.</span>
+  <span class="nv">?cpt</span> <span class="nn">skos</span><span class="p">:</span><span class="nt">notation</span> <span class="nv">?cpt_id</span> <span class="p">.</span>
   <span class="nv">?cpt</span> <span class="nn">skos</span><span class="p">:</span><span class="nt">inScheme</span> <span class="o">/</span> <span class="nn">rdfs</span><span class="p">:</span><span class="nt">label</span> <span class="nv">?scheme</span> <span class="p">.</span>
-   <span class="nv">?a</span> <span class="p">:</span><span class="nt">hasTarget</span> <span class="nv">?trg</span><span class="p">.</span>
+
+  <span class="nv">?a</span> <span class="p">:</span><span class="nt">hasTarget</span> <span class="nv">?trg</span><span class="p">.</span>
   <span class="nv">?trg</span> <span class="p">:</span><span class="nt">hasSource</span> <span class="nv">?part</span><span class="p">.</span>
-<span class="nv">?part</span> <span class="k">a</span> <span class="nv">?part_type</span> <span class="p">.</span>
+  <span class="nv">?part</span> <span class="k">a</span> <span class="nv">?part_type</span> <span class="p">.</span>
+
   <span class="nv">?trg</span> <span class="p">:</span><span class="nt">hasSelector</span> <span class="nv">?sel</span> <span class="p">.</span>
   <span class="nv">?sel</span> <span class="p">:</span><span class="nt">start</span> <span class="nv">?start</span><span class="p">.</span>
   <span class="nv">?sel</span> <span class="p">:</span><span class="nt">exact</span> <span class="nv">?token</span><span class="p">.</span>
-<span class="c"># filter (?part_type != :Paragraph )</span>
-<span class="p">}</span> 
-<span class="k">order by</span> <span class="nv">?part</span> <span class="nv">?start</span> <span class="nv">?token</span>
+  <span class="c"># FILTER (?part_type != :Paragraph )</span>
+<span class="p">}</span>
+<span class="k">ORDER BY</span> <span class="nv">?part</span> <span class="nv">?start</span> <span class="nv">?token</span>
 <span class="k">LIMIT</span> <span class="mi">100</span>
 </code></pre></div>
-<h3 id="rq_003-diseases-associated-to-ticks-in-the-same-discourse-element-of-a-publication-at-a-distance-of-less-than-30-characters">RQ_003 - Diseases associated to ticks in the same discourse element of a publication at a distance of less than 30 characters</h3>
-<div class="highlight"><pre><span></span><code><span class="k">PREFIX</span> <span class="p">:</span> <span class="nl">&lt;http://sibils.org/rdf#&gt;</span>
+<h3 id="diseases-associated-to-ticks-in-the-same-discourse-element-of-a-publication-at-a-distance-of-less-than-30-characters">Diseases associated to ticks in the same discourse element of a publication at a distance of less than 30 characters</h3>
+<div class="highlight"><span class="filename">RQ_003.sparql</span><pre><span></span><code><span class="k">PREFIX</span> <span class="p">:</span> <span class="nl">&lt;http://sibils.org/rdf#&gt;</span>
 <span class="k">PREFIX</span> <span class="nn">sibils</span><span class="p">:</span> <span class="nl">&lt;http://sibils.org/rdf/data/&gt;</span>
 <span class="k">PREFIX</span> <span class="nn">sibilc</span><span class="p">:</span> <span class="nl">&lt;http://sibils.org/rdf/concept/&gt;</span>
 <span class="k">PREFIX</span> <span class="nn">rdf</span><span class="p">:</span> <span class="nl">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span>
 <span class="k">PREFIX</span> <span class="nn">rdfs</span><span class="p">:</span> <span class="nl">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span>
 <span class="k">PREFIX</span> <span class="nn">skos</span><span class="p">:</span> <span class="nl">&lt;http://www.w3.org/2004/02/skos/core#&gt;</span>
 
-<span class="k">select</span> <span class="nv">?part</span> <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?word</span><span class="p">)</span>  <span class="k">as</span> <span class="nv">?token</span><span class="p">)</span> <span class="nv">?pos</span> <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?word2</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?token2</span><span class="p">)</span> <span class="nv">?pos2</span> <span class="k">where</span> <span class="p">{</span>
-<span class="nv">?publi</span> <span class="p">:</span><span class="nt">hasAnnotation</span> <span class="nv">?a</span> <span class="p">.</span>
+<span class="k">SELECT</span>
+  <span class="nv">?part</span>
+  <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?word</span><span class="p">)</span>  <span class="k">as</span> <span class="nv">?token</span><span class="p">)</span>
+  <span class="nv">?pos</span>
+  <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?word2</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?token2</span><span class="p">)</span>
+  <span class="nv">?pos2</span>
+<span class="k">WHERE</span> <span class="p">{</span>
+  <span class="nv">?publi</span> <span class="p">:</span><span class="nt">hasAnnotation</span> <span class="nv">?a</span> <span class="p">.</span>
   <span class="nv">?a</span> <span class="p">:</span><span class="nt">hasBody</span> <span class="nn">sibilc</span><span class="p">:</span><span class="nt">MESH_MESH%7CD013987</span> <span class="p">.</span>
- <span class="nv">?a</span> <span class="p">:</span><span class="nt">hasTarget</span> <span class="nv">?trg</span> <span class="p">.</span>
- <span class="nv">?trg</span> <span class="p">:</span><span class="nt">hasSelector</span> <span class="nv">?sel</span> <span class="p">.</span>
-<span class="nv">?sel</span> <span class="p">:</span><span class="nt">exact</span> <span class="nv">?word</span><span class="p">.</span>
-<span class="nv">?sel</span> <span class="p">:</span><span class="nt">start</span> <span class="nv">?pos</span> <span class="p">.</span>
-<span class="nv">?trg</span> <span class="p">:</span><span class="nt">hasSource</span> <span class="nv">?part</span><span class="p">.</span>
+  <span class="nv">?a</span> <span class="p">:</span><span class="nt">hasTarget</span> <span class="nv">?trg</span> <span class="p">.</span>
+  <span class="nv">?trg</span> <span class="p">:</span><span class="nt">hasSelector</span> <span class="nv">?sel</span> <span class="p">.</span>
+  <span class="nv">?sel</span> <span class="p">:</span><span class="nt">exact</span> <span class="nv">?word</span><span class="p">.</span>
+  <span class="nv">?sel</span> <span class="p">:</span><span class="nt">start</span> <span class="nv">?pos</span> <span class="p">.</span>
+  <span class="nv">?trg</span> <span class="p">:</span><span class="nt">hasSource</span> <span class="nv">?part</span><span class="p">.</span>
 
-<span class="nv">?publi</span> <span class="p">:</span><span class="nt">hasAnnotation</span> <span class="nv">?a2</span> <span class="p">.</span>
-<span class="nv">?a2</span> <span class="p">:</span><span class="nt">hasTarget</span> <span class="nv">?trg2</span><span class="p">.</span>
- <span class="nv">?trg2</span> <span class="p">:</span><span class="nt">hasSelector</span> <span class="nv">?sel2</span> <span class="p">.</span>
-<span class="nv">?sel2</span> <span class="p">:</span><span class="nt">exact</span> <span class="nv">?word2</span><span class="p">.</span>
-<span class="nv">?sel2</span> <span class="p">:</span><span class="nt">start</span> <span class="nv">?pos2</span> <span class="p">.</span>
-<span class="nv">?trg2</span> <span class="p">:</span><span class="nt">hasSource</span> <span class="nv">?part</span><span class="p">.</span>
-<span class="nv">?a2</span> <span class="p">:</span><span class="nt">hasBody</span> <span class="nv">?cpt2</span><span class="p">.</span>
-<span class="nv">?cpt2</span> <span class="nn">skos</span><span class="p">:</span><span class="nt">inScheme</span> <span class="p">:</span><span class="nt">NCI_Thesaurus_Disease</span><span class="p">.</span>
-<span class="c">#?cpt2 skos:inScheme :MESH_MESH</span>
-<span class="k">filter</span> <span class="p">(</span><span class="nf">abs</span><span class="p">(</span><span class="nv">?pos2</span> <span class="o">-</span> <span class="nv">?pos</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">30</span> <span class="o">&amp;&amp;</span> <span class="nv">?a</span> <span class="o">!=</span><span class="nv">?a2</span><span class="p">)</span>
+  <span class="nv">?publi</span> <span class="p">:</span><span class="nt">hasAnnotation</span> <span class="nv">?a2</span> <span class="p">.</span>
+  <span class="nv">?a2</span> <span class="p">:</span><span class="nt">hasTarget</span> <span class="nv">?trg2</span><span class="p">.</span>
+  <span class="nv">?trg2</span> <span class="p">:</span><span class="nt">hasSelector</span> <span class="nv">?sel2</span> <span class="p">.</span>
+  <span class="nv">?sel2</span> <span class="p">:</span><span class="nt">exact</span> <span class="nv">?word2</span><span class="p">.</span>
+  <span class="nv">?sel2</span> <span class="p">:</span><span class="nt">start</span> <span class="nv">?pos2</span> <span class="p">.</span>
+  <span class="nv">?trg2</span> <span class="p">:</span><span class="nt">hasSource</span> <span class="nv">?part</span><span class="p">.</span>
+  <span class="nv">?a2</span> <span class="p">:</span><span class="nt">hasBody</span> <span class="nv">?cpt2</span><span class="p">.</span>
+  <span class="nv">?cpt2</span> <span class="nn">skos</span><span class="p">:</span><span class="nt">inScheme</span> <span class="p">:</span><span class="nt">NCI_Thesaurus_Disease</span><span class="p">.</span>
+  <span class="c">#?cpt2 skos:inScheme :MESH_MESH</span>
+
+  <span class="k">FILTER</span> <span class="p">(</span><span class="nf">abs</span><span class="p">(</span><span class="nv">?pos2</span> <span class="o">-</span> <span class="nv">?pos</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">30</span> <span class="o">&amp;&amp;</span> <span class="nv">?a</span> <span class="o">!=</span> <span class="nv">?a2</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -701,7 +720,7 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../../../assets/javascripts/bundle.51198bba.min.js"></script>
