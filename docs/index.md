@@ -29,6 +29,11 @@ COVID-19 outbreak: explore our literature triage [interface](http://candy.hesge.
 
 This page provides a description of SIBiLS (Swiss Institute of Bioinformatics Literature Services). SIBiLS provide **personalized Information Retrieval** in the biological literature. Indeed, SIBiLS allow **fully customizable search** in **semantically enriched contents**, based on keywords and/or mapped biomedical entities from a growing set of standardized and legacy vocabularies. The services have been used and favourably evaluated to assist the curation of genes and gene products, by delivering **customized literature triage** engines to different curation teams. SIBiLS are freely accessible via **REST APIs** and are **ready to empower any curation workflow**, built on modern technologies scalable with big data: MongoDB and Elasticsearch. 
 
+
+<p style="text-align: center" markdown>
+  [SIBiLS Search](/search/){ .md-button .md-button--primary }
+</p>
+
 ## Data
 
 SIBiLS cover MEDLINE and PubMed Central Open Access, **daily updated**. Contents are parsed, then enriched by nearly **2 billion of mapped biomedical entities** from reference vocabularies (described [here](doc/vocabularies.md)). Output are json, in JATS-BioC (for fetch) or native Elasticsearch (for search) formats. Today: **34,639,171** MEDLINE citations, along with **900,618,446** tagged bioentities / **5,252,751 PMC** full-texts, along with **2,232,419,175** tagged bioentities. 
