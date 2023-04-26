@@ -1,20 +1,22 @@
-# SIBiLS MEDLINE customizable search API
+# SIBiLS customizable search API
 
 ## Description
 
-This API allows to perform a fully customizable search for valuable annotated citations in MEDLINE. The power of SIBiLS is based on the efficiency of Elasticsearch engines, and on the rich Lucene query language, which allows to investigate a large panel of searching strategies. For example: basic search with keywords or entity identifiers (“ZBED1” or “NP_NX_O96006”), searches in specified fields (“title: ZBED1” or “annotations_str: genes”), boosting fields or query parts, Boolean, exploiting identified concepts or identified concept types...) The input is thus a Lucene json query. The output is the Elasticsearch ranked result set, ranked by relevance, in its native json format; for each retrieved citation (up to 10,000 per request), a relevance score and the indexed content are included.
+This API allows to perform a fully customizable search for valuable annotated citations in a given collection. The power of SIBiLS is based on the efficiency of Elasticsearch engines, and on the rich Lucene query language, which allows to investigate a large panel of searching strategies. For example: basic search with keywords or entity identifiers (“ZBED1” or “NP_NX_O96006”), searches in specified fields (“title: ZBED1” or “annotations_str: genes”), boosting fields or query parts, Boolean, exploiting identified concepts or identified concept types...) The input is thus a Lucene json query. The output is the Elasticsearch ranked result set, ranked by relevance, in its native json format; for each retrieved citation (up to 10,000 per request), a relevance score and the indexed content are included.
 
 ## API endpoint
 
-**URL**: [candy.hesge.ch/SIBiLS/MEDLINE/search.jsp](https://candy.hesge.ch/SIBiLS/MEDLINE/search.jsp)
+**URL**: [sibils.text-analytics.ch/api/search](https://sibils.text-analytics.ch/api/search)
 
-**Mandatory input**: keywords (&keywords=) for simple search, or json_query (&json_query=) for customizable search.
+**Mandatory input**: q OR jq: a query q in free text, which is interpreted by query analyzer, OR a Lucene json_query jq
+**Mandatory input**: one collection (&col=), amongst "medline", "pmc", "plazi" and "suppdata"
+**Optional input**: the number of requested documents (&n=, default 10, max 1000)
 
-**Example**: simple search (&keywords) for MEDLINE citations containing the "BRCA2" keyword in title or abstract.
+**Example**: simple search for MEDLINE (&col=) documents containing (&q=) Rhinolophus and Pangolin.
 
-[candy.hesge.ch/SIBiLS/MEDLINE/search.jsp?keywords=BRCA2](https://candy.hesge.ch/SIBiLS/MEDLINE/search.jsp?keywords=BRCA2)
+[sibils.text-analytics.ch/api/search?q=Rhinolophus%20and%20Pangolin&col=medline](https://sibils.text-analytics.ch/api/search?q=Rhinolophus%20and%20Pangolin&col=medline)
 
-**Example**: customizable search (&json_query) with a Lucene style json query
+**Example**: customizable search (&jq) with a Lucene style json query
 
 ```json
 {"query": {"bool" : {"must": {"match" : { "title" : "Digitoxin metabolism" }},"should" : {"match" : { "annotations_str" : "GO" }},"boost": 1}}}
@@ -117,17 +119,17 @@ my_query = {
 
 
 # call
-url_API = "http://candy.hesge.ch/SIBiLS/MEDLINE/search.jsp"
+url_API = "https://sibils.text-analytics.ch/api/search"
 my_json_query = json.dumps(my_query) # json to string
-my_params = {"json_query": my_json_query} # parameters dictionary
-r = requests.post(url = url_API, params = my_params)
+my_params = {"jq": my_json_query;col="pmc"} # parameters dictionary
+r = requests.post(url = url_API, data = my_params)
 
 # get response and print in output file
 response = r.text
-with open("SIBiLS_MED_search.json","w",encoding="utf-8") as file:
+with open("SIBiLS_search.json","w",encoding="utf-8") as file:
    file.write(r.text)
 ```
 
 ## Output
 
-Output is a native Elasticsearch response (json formatted), and includes retrieval scores for each citation.
+Output is a native Elasticsearch response (json formatted), and includes retrieval scores for each document.

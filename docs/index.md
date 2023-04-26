@@ -21,9 +21,7 @@ hide:
   }
 </style>
 
-<h1><img src="assets/SIBiLS_logo.png" alt="SIBiLS"></h1>
-
-COVID-19 outbreak: explore our literature triage [interface](http://candy.hesge.ch/COVTriage/) and [APIs](http://candy.hesge.ch/COVTriage/documentation/).
+<h1><img src="assets/SIBiLS_logo_red.png" alt="SIBiLS"></h1>
 
 ## Introduction
 
@@ -36,22 +34,26 @@ This page provides a description of SIBiLS (Swiss Institute of Bioinformatics Li
 
 ## Data
 
-SIBiLS cover MEDLINE and PubMed Central Open Access, **daily updated**. Contents are parsed, then enriched by nearly **2 billion of mapped biomedical entities** from reference vocabularies (described [here](doc/vocabularies.md)). Output are json, in JATS-BioC (for fetch) or native Elasticsearch (for search) formats. Today: **34,639,171** MEDLINE citations, along with **900,618,446** tagged bioentities / **5,252,751 PMC** full-texts, along with **2,232,419,175** tagged bioentities. 
+SIBiLS today cover 4 collections: MEDLINE, PubMedCentral (PMC), Plazi treatments, and PMC supplementary files. Collections are **daily updated**. Contents are parsed, then enriched by **billions of mapped biomedical entities** from reference vocabularies (described [here](doc/vocabularies.md)). Output are json, in BioC (for fetch) or native Elasticsearch (for search) formats. 
 
 
-## Fetch APIs
+## Fetch API
 
-They allow to retrieve annotated contents from MEDLINE or PMC Open Access. The input is a set of pmids, or pmcids (up to 1,000 per request). The output is a set of parsed and annotated contents, in both JATS and BioC formats. For MEDLINE citations, delivered and annotated fields include for example abstracts, or MeSH terms; for PMC full texts, paragraphs provided with their hierarchical level in the document structure, or figure captions. Annotations are delivered with many features including the type of the mapped entity (drug, gene, disease...), the vocabulary used, the vocabulary unique identifier and preferred term, or the mapping characters offsets.
+It allows to retrieve annotated contents from a given collection. The input is a set of document ids (up to 1,000 per request). The output is a set of parsed and annotated contents, in JSON and/or BioC formats. For MEDLINE citations, delivered and annotated fields include for example abstracts, or MeSH terms; for PMC full texts, paragraphs provided with their hierarchical level in the document structure, or figure captions; for supplementary data, text extracted from Excel files or ocerized from images. Annotations are delivered with many features including the type of the mapped entity (drug, gene, disease...), the vocabulary used, the vocabulary unique identifier and preferred term, or the mapping characters offsets.
 
-* [fetch in MEDLINE](doc/api/fetch_medline.md)
-* [fetch in PubMed Central](doc/api/fetch_pmc.md)
+* [how to fetch](doc/api/fetch.md)
 
-## Customizable search APIs
+## Customizable search API
 
-They allow to perform a fully customizable search for valuable documents in MEDLINE or PMC Open Access. The power of these services is based on the efficiency of Elasticsearch engines, and on the rich Lucene query language, which allows to investigate a large panel of searching strategies. For example: basic search with keywords or entity identifiers (“ZBED1” or “NP_NX_O96006”), searches in specified fields (“figures_captions: ZBED1” or “tables: mapped treatments”), boosting fields or query parts, Boolean, exploiting identified concepts or identified concept types... The input is thus a Lucene json query. The output is the Elasticsearch ranked result set in its native json format; for each document (up to 10,000 per request), a relevance score and the indexed content.
+It allows to perform a fully customizable search for valuable documents in a given collection. The power of this service is based on the efficiency of Elasticsearch engines, and on the rich Lucene query language, which allows to investigate a large panel of searching strategies. For example: basic search with keywords or entity identifiers (“ZBED1” or “NP_NX_O96006”), searches in specified fields (“figures_captions: ZBED1” or “tables: mapped treatments”), boosting fields or query parts, Boolean, exploiting identified concepts or identified concept types... The input is thus a Lucene json query. The output is the Elasticsearch ranked result set in its native json format; for each document (up to 10,000 per request), a relevance score and the indexed content.
 
-* [search in MEDLINE](doc/api/search_medline.md)
-* [search in PubMed Central](doc/api/search_pmc.md)
+* [how to search](doc/api/search.md)
+
+## Question Answering API
+
+it allows to ask questions in natural languages, and to obtain answers extracted from documents from a given collection. The power of this service is based on previous Elasticserch indexes, and BERT language model. For example: asking for "what diseases are transmitted by ticks ?" in Plazi treatments. The input is a free text question. The output is a set of answers, ranked by scores, along with documents' snippet.
+
+* [how to question](doc/api/qa.md)
 
 ## Reference
 

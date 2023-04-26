@@ -49,9 +49,8 @@ nav:
   - Quick Start: 'index.md'
   - Vocabularies: 'doc/vocabularies.md'
   - API:
-    - 'fetch in MEDLINE': 'doc/api/fetch_medline.md'
-    - 'fetch in PubMed Central': 'doc/api/fetch_pmc.md'
-    - 'search in MEDLINE': 'doc/api/search_medline.md'
-    - 'search in PubMed Central': 'doc/api/search_pmc.md'
+    - 'fetch': 'doc/api/fetch.md'
+    - 'search': 'doc/api/search.md'
+    - 'qa': 'doc/api/qa.md'
     - 'SPARQL': 'doc/api/sparql.md'
   - 'SIBiLS Search': search/

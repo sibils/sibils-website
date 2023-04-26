@@ -1,17 +1,19 @@
-# SIBiLS MEDLINE citations and annotations fetch API
+# SIBiLS documents and annotations fetch API
 
 ## Description
 
-This API allows to retrieve annotated contents from MEDLINE. The input is a set of pmids (up to 1,000 per request). The output is a set of parsed and annotated citations, in both JATS and BioC formats. Delivered and annotated fields include for example abstracts, or MeSH terms. Annotations are delivered with many features including the type of the mapped entity (drug, gene, disease...), the vocabulary used, the vocabulary unique identifier and preferred term, or the mapping characters offsets.
+This API allows to retrieve annotated contents from a given collection. The input is a set of docids (up to 1,000 per request). The output is a set of parsed and annotated documents, in json and/or BioC formats.
 
 ## API endpoint
 
-**URL**: [candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp](https://candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp)
+**URL**: [sibils.text-analytics.ch/api/fetch](https://sibils.text-analytics.ch/api/fetch)
 
-**Mandatory input**: the list of requested PMIDs (&ids=). PMIDs are separated by any non-digit character.
+**Mandatory input**: one collection (&col=), amongst "medline", "pmc", "plazi" and "suppdata"
+**Mandatory input**: the list of requested document ids (&ids=). Docids are separated by commas.
+**Optional input**: the output format (&format=) amongst "json" (default) or "BioC" (to come)
 
-**Example**: fetch two PMIDs
-[https://candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp?ids=14691011,25190367](https://candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp?ids=14691011,25190367)
+**Example**: fetch two PMIDs from MEDLINE
+[https://sibils.text-analytics.ch/api/fetch?ids=14691011,25190367&col=medline](https://sibils.text-analytics.ch/api/fetch?ids=14691011,25190367&col=medline)
 
 ## Code sample
 
@@ -23,21 +25,22 @@ import json
 
 # PMIDs to fetch (limited to 1000)
 pmids = "14691011,25190367"
+collection = "medline"
 
 # call with POST
-url_API = "https://candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp"
-my_params = {"ids": pmids} # parameters dictionary
-r = requests.post(url = url_API, params = my_params)
+url_API = "https://sibils.text-analytics.ch/api/fetch"
+my_params = {"ids": pmids ; "col": collections} # parameters dictionary
+r = requests.post(url = url_API, data = my_params)
 
 # get response and print in output
 response = r.text
-with open("SIBiLS_MED_fetch.json","w",encoding="utf-8") as file:
+with open("SIBiLS_fetch.json","w",encoding="utf-8") as file:
    file.write(r.text)
 ```
 
 ## Output
 
-Output is [BioC](http://bioc.sourceforge.net/) json formatted :
+Output is json and/OR BiOC [BioC](http://bioc.sourceforge.net/) formatted :
 
 ```json
 {"documents": 
