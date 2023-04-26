@@ -10,20 +10,20 @@
       
       
       
-        <link rel="canonical" href="https://sibils.github.io/doc/api/search_pmc/">
+        <link rel="canonical" href="https://sibils.github.io/doc/api/search/">
       
       
-        <link rel="prev" href="../search_medline/">
+        <link rel="prev" href="../fetch/">
       
       
-        <link rel="next" href="../sparql/">
+        <link rel="next" href="../qa/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.8">
     
     
       
-        <title>search in PubMed Central - SIBiLS</title>
+        <title>search - SIBiLS</title>
       
     
     
@@ -51,11 +51,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="search in PubMed Central - SIBiLS" >
+        <meta  property="og:title"  content="search - SIBiLS" >
       
         <meta  property="og:description"  content="Swiss Institute of Bioinformatics Literature Services" >
       
-        <meta  property="og:image"  content="https://sibils.github.io/assets/images/social/doc/api/search_pmc.png" >
+        <meta  property="og:image"  content="https://sibils.github.io/assets/images/social/doc/api/search.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -63,15 +63,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://sibils.github.io/doc/api/search_pmc/" >
+        <meta  property="og:url"  content="https://sibils.github.io/doc/api/search/" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="search in PubMed Central - SIBiLS" >
+        <meta  name="twitter:title"  content="search - SIBiLS" >
       
         <meta  name="twitter:description"  content="Swiss Institute of Bioinformatics Literature Services" >
       
-        <meta  name="twitter:image"  content="https://sibils.github.io/assets/images/social/doc/api/search_pmc.png" >
+        <meta  name="twitter:image"  content="https://sibils.github.io/assets/images/social/doc/api/search.png" >
       
     
     
@@ -83,7 +83,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="sibils" data-md-color-primary="" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="sibils" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
     
@@ -93,7 +93,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sibils-pmc-customizable-search-api" class="md-skip">
+        <a href="#sibils-customizable-search-api" class="md-skip">
           Skip to content
         </a>
       
@@ -125,12 +125,14 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              search in PubMed Central
+              search
             
           </span>
         </div>
       </div>
     </div>
+    
+      
     
     
     
@@ -196,7 +198,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../fetch_medline/" class="md-tabs__link md-tabs__link--active">
+      <a href="../fetch/" class="md-tabs__link md-tabs__link--active">
         API
       </a>
     </li>
@@ -315,8 +317,6 @@
         
           
         
-          
-        
       
       
         <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -337,36 +337,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../fetch_medline/" class="md-nav__link">
-        fetch in MEDLINE
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../fetch_pmc/" class="md-nav__link">
-        fetch in PubMed Central
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../search_medline/" class="md-nav__link">
-        search in MEDLINE
+      <a href="../fetch/" class="md-nav__link">
+        fetch
       </a>
     </li>
   
@@ -389,12 +361,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          search in PubMed Central
+          search
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        search in PubMed Central
+        search
       </a>
       
         
@@ -444,6 +416,20 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qa/" class="md-nav__link">
+        qa
+      </a>
     </li>
   
 
@@ -556,20 +542,22 @@
   
 
 
-<h1 id="sibils-pmc-customizable-search-api">SIBiLS PMC customizable search API</h1>
+<h1 id="sibils-customizable-search-api">SIBiLS customizable search API</h1>
 <h2 id="description">Description</h2>
-<p>This API allows to perform a fully customizable search for valuable annotated full-texts in PubMed Central. The power of SIBiLS is based on the efficiency of Elasticsearch engines, and on the rich Lucene query language, which allows to investigate a large panel of searching strategies. For example: basic search with keywords or entity identifiers (“ZBED1” or “NP_NX_O96006”), searches in specified fields (“figures_captions: ZBED1” or “annotations_str: genes”), boosting fields or query parts, Boolean, exploiting identified concepts or identified concept types...) The input is thus a Lucene json query. The output is the Elasticsearch ranked result set, ranked by relevance, in its native json format; for each retrieved full-text (up to 10,000 per request), a relevance score and the indexed content are included.</p>
+<p>This API allows to perform a fully customizable search for valuable annotated citations in a given collection. The power of SIBiLS is based on the efficiency of Elasticsearch engines, and on the rich Lucene query language, which allows to investigate a large panel of searching strategies. For example: basic search with keywords or entity identifiers (“ZBED1” or “NP_NX_O96006”), searches in specified fields (“title: ZBED1” or “annotations_str: genes”), boosting fields or query parts, Boolean, exploiting identified concepts or identified concept types...) The input is thus a Lucene json query. The output is the Elasticsearch ranked result set, ranked by relevance, in its native json format; for each retrieved citation (up to 10,000 per request), a relevance score and the indexed content are included.</p>
 <h2 id="api-endpoint">API endpoint</h2>
-<p><strong>URL</strong>: <a href="https://candy.hesge.ch/SIBiLS/PMC/search.jsp">candy.hesge.ch/SIBiLS/PMC/search.jsp</a></p>
-<p><strong>Mandatory input</strong> : keywords (&amp;keywords=) for simple search, or json_query (&amp;json_query=) for customizable search.</p>
-<p><strong>Example</strong>: simple search (&amp;keywords) for PMC full-texts containing the "BRCA2" keyword in full-text</p>
-<p><a href="https://candy.hesge.ch/SIBiLS/PMC/search.jsp?keywords=BRCA2">candy.hesge.ch/SIBiLS/PMC/search.jsp?keywords=BRCA2</a></p>
-<p><strong>Example</strong>: customizable search (&amp;json_query) with a Lucene style json query</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;bool&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;must&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;match&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;figures_capations&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Digitoxin metabolism&quot;</span><span class="w"> </span><span class="p">}},</span><span class="nt">&quot;should&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;match&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;annotations_str&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GO&quot;</span><span class="w"> </span><span class="p">}},</span><span class="nt">&quot;boost&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}}}</span>
+<p><strong>URL</strong>: <a href="https://sibils.text-analytics.ch/api/search">sibils.text-analytics.ch/api/search</a></p>
+<p><strong>Mandatory input</strong>: q OR jq: a query q in free text, which is interpreted by query analyzer, OR a Lucene json_query jq
+<strong>Mandatory input</strong>: one collection (&amp;col=), amongst "medline", "pmc", "plazi" and "suppdata"
+<strong>Optional input</strong>: the number of requested documents (&amp;n=, default 10, max 1000)</p>
+<p><strong>Example</strong>: simple search for MEDLINE (&amp;col=) documents containing (&amp;q=) Rhinolophus and Pangolin.</p>
+<p><a href="https://sibils.text-analytics.ch/api/search?q=Rhinolophus%20and%20Pangolin&amp;col=medline">sibils.text-analytics.ch/api/search?q=Rhinolophus%20and%20Pangolin&amp;col=medline</a></p>
+<p><strong>Example</strong>: customizable search (&amp;jq) with a Lucene style json query</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;bool&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;must&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;match&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;title&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Digitoxin metabolism&quot;</span><span class="w"> </span><span class="p">}},</span><span class="nt">&quot;should&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;match&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;annotations_str&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GO&quot;</span><span class="w"> </span><span class="p">}},</span><span class="nt">&quot;boost&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}}}</span>
 </code></pre></div>
 <p><strong>Query language</strong>: JSON queries for Elasticsearch are described in <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html">elastic.co</a></p>
 <h2 id="code-sample">Code sample</h2>
-<p>a python script for demonstrating POST calls to the API, with multiple examples of Lucene style queries, is available at candy.hesge.ch/SIBiLS/PMC/PMC_search_POST_examples.py</p>
+<p>A python script for demonstrating POST calls to the API, with multiple examples of Lucene style queries, is available at candy.hesge.ch/SIBiLS/MEDLINE/MEDLINE_search_POST_examples.py</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span> <span class="c1"># not installed in default Python</span>
 <span class="kn">import</span> <span class="nn">json</span>
 
@@ -583,14 +571,14 @@
 <span class="c1"># MULTI_MATCH queries</span>
 <span class="c1"># use it for searching in specific fields, with a general OR or AND</span>
 
-<span class="n">search_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;figures_captions&quot;</span><span class="p">,</span><span class="s2">&quot;full_text&quot;</span><span class="p">]</span>
-<span class="c1"># you can use &quot;figures_captions^3&quot; for boosting by 3 scores in figures_captions</span>
+<span class="n">search_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">,</span><span class="s2">&quot;abstract&quot;</span><span class="p">,</span><span class="s2">&quot;keywords&quot;</span><span class="p">,</span><span class="s2">&quot;mesh_terms&quot;</span><span class="p">]</span>
+<span class="c1"># you can use &quot;title^3&quot; for boosting by 3 scores in title</span>
 <span class="n">keywords</span> <span class="o">=</span> <span class="s2">&quot;BRCA2 cancer&quot;</span>
 <span class="n">my_operator</span> <span class="o">=</span> <span class="s2">&quot;and&quot;</span> <span class="c1"># default is &quot;or&quot;</span>
 <span class="n">my_type</span> <span class="o">=</span> <span class="s2">&quot;phrase&quot;</span> <span class="c1"># use it for phrase matching (exact expression)</span>
 
 <span class="n">my_query</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="c1"># maximum amount of hits returned</span>
+    <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="c1"># maximum amount of hits returned</span>
     <span class="s2">&quot;from&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1"># offset from the first result you want to fetch</span>
     <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;multi_match&quot;</span> <span class="p">:</span> <span class="p">{</span>
@@ -612,7 +600,7 @@
 <span class="c1"># https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd"># ex: (&quot;EML4&quot; OR &quot;ALK&quot; in figure_captions) AND (&quot;Lung Cancer&quot; in journal)</span>
+<span class="sd"># ex: (&quot;EML4&quot; OR &quot;ALK&quot; in title) AND (&quot;Lung Cancer&quot; in journal)</span>
 <span class="sd">my_query = {</span>
 <span class="sd">    &quot;query&quot;: {</span>
 <span class="sd">        &quot;bool&quot; : {</span>
@@ -621,8 +609,8 @@
 <span class="sd">                    &quot;bool&quot; : {</span>
 <span class="sd">                        &quot;should&quot; :[ # OR</span>
 <span class="sd">                            {</span>
-<span class="sd">                                &quot;match&quot; : {&quot;figure_captions&quot;: &quot;EML4&quot;},</span>
-<span class="sd">                                &quot;match&quot; : {&quot;figure_captions&quot;: &quot;ALK&quot;}</span>
+<span class="sd">                                &quot;match&quot; : {&quot;title&quot;: &quot;EML4&quot;},</span>
+<span class="sd">                                &quot;match&quot; : {&quot;title&quot;: &quot;ALK&quot;}</span>
 <span class="sd">                                }</span>
 <span class="sd">                            ]</span>
 <span class="sd">                        }</span>
@@ -660,18 +648,18 @@
 
 
 <span class="c1"># call</span>
-<span class="n">url_API</span> <span class="o">=</span> <span class="s2">&quot;http://candy.hesge.ch/SIBiLS/PMC/search.jsp&quot;</span>
+<span class="n">url_API</span> <span class="o">=</span> <span class="s2">&quot;https://sibils.text-analytics.ch/api/search&quot;</span>
 <span class="n">my_json_query</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">my_query</span><span class="p">)</span> <span class="c1"># json to string</span>
-<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;json_query&quot;</span><span class="p">:</span> <span class="n">my_json_query</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="n">url_API</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">my_params</span><span class="p">)</span>
+<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;jq&quot;</span><span class="p">:</span> <span class="n">my_json_query</span><span class="p">;</span><span class="n">col</span><span class="o">=</span><span class="s2">&quot;pmc&quot;</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="n">url_API</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">my_params</span><span class="p">)</span>
 
 <span class="c1"># get response and print in output file</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;SIBiLS_PMC_search.json&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;SIBiLS_search.json&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="output">Output</h2>
-<p>Output is an Elasticsearch response (json formatted), and includes retrieval scores for each citation.</p>
+<p>Output is a native Elasticsearch response (json formatted), and includes retrieval scores for each document.</p>
 
 
 

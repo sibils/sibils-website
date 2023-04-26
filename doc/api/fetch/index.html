@@ -10,20 +10,20 @@
       
       
       
-        <link rel="canonical" href="https://sibils.github.io/doc/api/fetch_medline/">
+        <link rel="canonical" href="https://sibils.github.io/doc/api/fetch/">
       
       
         <link rel="prev" href="../../vocabularies/">
       
       
-        <link rel="next" href="../fetch_pmc/">
+        <link rel="next" href="../search/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.8">
     
     
       
-        <title>fetch in MEDLINE - SIBiLS</title>
+        <title>fetch - SIBiLS</title>
       
     
     
@@ -51,11 +51,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="fetch in MEDLINE - SIBiLS" >
+        <meta  property="og:title"  content="fetch - SIBiLS" >
       
         <meta  property="og:description"  content="Swiss Institute of Bioinformatics Literature Services" >
       
-        <meta  property="og:image"  content="https://sibils.github.io/assets/images/social/doc/api/fetch_medline.png" >
+        <meta  property="og:image"  content="https://sibils.github.io/assets/images/social/doc/api/fetch.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -63,15 +63,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://sibils.github.io/doc/api/fetch_medline/" >
+        <meta  property="og:url"  content="https://sibils.github.io/doc/api/fetch/" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="fetch in MEDLINE - SIBiLS" >
+        <meta  name="twitter:title"  content="fetch - SIBiLS" >
       
         <meta  name="twitter:description"  content="Swiss Institute of Bioinformatics Literature Services" >
       
-        <meta  name="twitter:image"  content="https://sibils.github.io/assets/images/social/doc/api/fetch_medline.png" >
+        <meta  name="twitter:image"  content="https://sibils.github.io/assets/images/social/doc/api/fetch.png" >
       
     
     
@@ -83,7 +83,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="sibils" data-md-color-primary="" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="sibils" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
     
@@ -93,7 +93,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#sibils-medline-citations-and-annotations-fetch-api" class="md-skip">
+        <a href="#sibils-documents-and-annotations-fetch-api" class="md-skip">
           Skip to content
         </a>
       
@@ -125,12 +125,14 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              fetch in MEDLINE
+              fetch
             
           </span>
         </div>
       </div>
     </div>
+    
+      
     
     
     
@@ -315,8 +317,6 @@
         
           
         
-          
-        
       
       
         <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -347,12 +347,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          fetch in MEDLINE
+          fetch
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        fetch in MEDLINE
+        fetch
       </a>
       
         
@@ -413,8 +413,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../fetch_pmc/" class="md-nav__link">
-        fetch in PubMed Central
+      <a href="../search/" class="md-nav__link">
+        search
       </a>
     </li>
   
@@ -427,22 +427,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../search_medline/" class="md-nav__link">
-        search in MEDLINE
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../search_pmc/" class="md-nav__link">
-        search in PubMed Central
+      <a href="../qa/" class="md-nav__link">
+        qa
       </a>
     </li>
   
@@ -556,14 +542,16 @@
   
 
 
-<h1 id="sibils-medline-citations-and-annotations-fetch-api">SIBiLS MEDLINE citations and annotations fetch API</h1>
+<h1 id="sibils-documents-and-annotations-fetch-api">SIBiLS documents and annotations fetch API</h1>
 <h2 id="description">Description</h2>
-<p>This API allows to retrieve annotated contents from MEDLINE. The input is a set of pmids (up to 1,000 per request). The output is a set of parsed and annotated citations, in both JATS and BioC formats. Delivered and annotated fields include for example abstracts, or MeSH terms. Annotations are delivered with many features including the type of the mapped entity (drug, gene, disease...), the vocabulary used, the vocabulary unique identifier and preferred term, or the mapping characters offsets.</p>
+<p>This API allows to retrieve annotated contents from a given collection. The input is a set of docids (up to 1,000 per request). The output is a set of parsed and annotated documents, in json and/or BioC formats.</p>
 <h2 id="api-endpoint">API endpoint</h2>
-<p><strong>URL</strong>: <a href="https://candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp">candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp</a></p>
-<p><strong>Mandatory input</strong>: the list of requested PMIDs (&amp;ids=). PMIDs are separated by any non-digit character.</p>
-<p><strong>Example</strong>: fetch two PMIDs
-<a href="https://candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp?ids=14691011,25190367">https://candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp?ids=14691011,25190367</a></p>
+<p><strong>URL</strong>: <a href="https://sibils.text-analytics.ch/api/fetch">sibils.text-analytics.ch/api/fetch</a></p>
+<p><strong>Mandatory input</strong>: one collection (&amp;col=), amongst "medline", "pmc", "plazi" and "suppdata"
+<strong>Mandatory input</strong>: the list of requested document ids (&amp;ids=). Docids are separated by commas.
+<strong>Optional input</strong>: the output format (&amp;format=) amongst "json" (default) or "BioC" (to come)</p>
+<p><strong>Example</strong>: fetch two PMIDs from MEDLINE
+<a href="https://sibils.text-analytics.ch/api/fetch?ids=14691011,25190367&amp;col=medline">https://sibils.text-analytics.ch/api/fetch?ids=14691011,25190367&amp;col=medline</a></p>
 <h2 id="code-sample">Code sample</h2>
 <p>python script for demonstrating POST calls to the API</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span> <span class="c1"># not installed in default Python</span>
@@ -571,19 +559,20 @@
 
 <span class="c1"># PMIDs to fetch (limited to 1000)</span>
 <span class="n">pmids</span> <span class="o">=</span> <span class="s2">&quot;14691011,25190367&quot;</span>
+<span class="n">collection</span> <span class="o">=</span> <span class="s2">&quot;medline&quot;</span>
 
 <span class="c1"># call with POST</span>
-<span class="n">url_API</span> <span class="o">=</span> <span class="s2">&quot;https://candy.hesge.ch/SIBiLS/MEDLINE/fetch.jsp&quot;</span>
-<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ids&quot;</span><span class="p">:</span> <span class="n">pmids</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="n">url_API</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">my_params</span><span class="p">)</span>
+<span class="n">url_API</span> <span class="o">=</span> <span class="s2">&quot;https://sibils.text-analytics.ch/api/fetch&quot;</span>
+<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ids&quot;</span><span class="p">:</span> <span class="n">pmids</span> <span class="p">;</span> <span class="s2">&quot;col&quot;</span><span class="p">:</span> <span class="n">collections</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="n">url_API</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">my_params</span><span class="p">)</span>
 
 <span class="c1"># get response and print in output</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;SIBiLS_MED_fetch.json&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;SIBiLS_fetch.json&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="output">Output</h2>
-<p>Output is <a href="http://bioc.sourceforge.net/">BioC</a> json formatted :</p>
+<p>Output is json and/OR BiOC <a href="http://bioc.sourceforge.net/">BioC</a> formatted :</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;documents&quot;</span><span class="p">:</span><span class="w"> </span>
 <span class="w">    </span><span class="p">[</span><span class="err">Array</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="err">docume</span><span class="kc">nts</span><span class="w"> </span><span class="err">correspo</span><span class="kc">n</span><span class="err">di</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">query</span><span class="p">]</span>
 <span class="w">        </span><span class="p">{</span><span class="nt">&quot;infons&quot;</span><span class="p">:</span><span class="w"> </span>

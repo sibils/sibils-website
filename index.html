@@ -17,7 +17,7 @@
         <link rel="next" href="doc/vocabularies/">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.8">
     
     
       
@@ -81,7 +81,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="sibils" data-md-color-primary="" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="sibils" data-md-color-primary="indigo" data-md-color-accent="indigo">
   
     
     
@@ -129,6 +129,8 @@
         </div>
       </div>
     </div>
+    
+      
     
     
     
@@ -194,7 +196,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="doc/api/fetch_medline/" class="md-tabs__link">
+      <a href="doc/api/fetch/" class="md-tabs__link">
         API
       </a>
     </li>
@@ -310,15 +312,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fetch-apis" class="md-nav__link">
-    Fetch APIs
+  <a href="#fetch-api" class="md-nav__link">
+    Fetch API
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#customizable-search-apis" class="md-nav__link">
-    Customizable search APIs
+  <a href="#customizable-search-api" class="md-nav__link">
+    Customizable search API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#question-answering-api" class="md-nav__link">
+    Question Answering API
   </a>
   
 </li>
@@ -378,8 +387,6 @@
         
           
         
-          
-        
       
       
         <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -400,8 +407,8 @@
   
   
     <li class="md-nav__item">
-      <a href="doc/api/fetch_medline/" class="md-nav__link">
-        fetch in MEDLINE
+      <a href="doc/api/fetch/" class="md-nav__link">
+        fetch
       </a>
     </li>
   
@@ -414,8 +421,8 @@
   
   
     <li class="md-nav__item">
-      <a href="doc/api/fetch_pmc/" class="md-nav__link">
-        fetch in PubMed Central
+      <a href="doc/api/search/" class="md-nav__link">
+        search
       </a>
     </li>
   
@@ -428,22 +435,8 @@
   
   
     <li class="md-nav__item">
-      <a href="doc/api/search_medline/" class="md-nav__link">
-        search in MEDLINE
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="doc/api/search_pmc/" class="md-nav__link">
-        search in PubMed Central
+      <a href="doc/api/qa/" class="md-nav__link">
+        qa
       </a>
     </li>
   
@@ -526,15 +519,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fetch-apis" class="md-nav__link">
-    Fetch APIs
+  <a href="#fetch-api" class="md-nav__link">
+    Fetch API
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#customizable-search-apis" class="md-nav__link">
-    Customizable search APIs
+  <a href="#customizable-search-api" class="md-nav__link">
+    Customizable search API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#question-answering-api" class="md-nav__link">
+    Question Answering API
   </a>
   
 </li>
@@ -581,27 +581,29 @@
   }
 </style>
 
-<h1><img src="assets/SIBiLS_logo.png" alt="SIBiLS"></h1>
+<h1><img src="assets/SIBiLS_logo_red.png" alt="SIBiLS"></h1>
 
-<p>COVID-19 outbreak: explore our literature triage <a href="http://candy.hesge.ch/COVTriage/">interface</a> and <a href="http://candy.hesge.ch/COVTriage/documentation/">APIs</a>.</p>
 <h2 id="introduction">Introduction</h2>
 <p>This page provides a description of SIBiLS (Swiss Institute of Bioinformatics Literature Services). SIBiLS provide <strong>personalized Information Retrieval</strong> in the biological literature. Indeed, SIBiLS allow <strong>fully customizable search</strong> in <strong>semantically enriched contents</strong>, based on keywords and/or mapped biomedical entities from a growing set of standardized and legacy vocabularies. The services have been used and favourably evaluated to assist the curation of genes and gene products, by delivering <strong>customized literature triage</strong> engines to different curation teams. SIBiLS are freely accessible via <strong>REST APIs</strong> and are <strong>ready to empower any curation workflow</strong>, built on modern technologies scalable with big data: MongoDB and Elasticsearch. </p>
 <p style="text-align: center">
   <a class="md-button md-button--primary" href="/search/">SIBiLS Search</a>
 </p>
 <h2 id="data">Data</h2>
-<p>SIBiLS cover MEDLINE and PubMed Central Open Access, <strong>daily updated</strong>. Contents are parsed, then enriched by nearly <strong>2 billion of mapped biomedical entities</strong> from reference vocabularies (described <a href="doc/vocabularies/">here</a>). Output are json, in JATS-BioC (for fetch) or native Elasticsearch (for search) formats. Today: <strong>34,639,171</strong> MEDLINE citations, along with <strong>900,618,446</strong> tagged bioentities / <strong>5,252,751 PMC</strong> full-texts, along with <strong>2,232,419,175</strong> tagged bioentities. </p>
-<h2 id="fetch-apis">Fetch APIs</h2>
-<p>They allow to retrieve annotated contents from MEDLINE or PMC Open Access. The input is a set of pmids, or pmcids (up to 1,000 per request). The output is a set of parsed and annotated contents, in both JATS and BioC formats. For MEDLINE citations, delivered and annotated fields include for example abstracts, or MeSH terms; for PMC full texts, paragraphs provided with their hierarchical level in the document structure, or figure captions. Annotations are delivered with many features including the type of the mapped entity (drug, gene, disease...), the vocabulary used, the vocabulary unique identifier and preferred term, or the mapping characters offsets.</p>
+<p>SIBiLS today cover 4 collections: MEDLINE, PubMedCentral (PMC), Plazi treatments, and PMC supplementary files. Collections are <strong>daily updated</strong>. Contents are parsed, then enriched by <strong>billions of mapped biomedical entities</strong> from reference vocabularies (described <a href="doc/vocabularies/">here</a>). Output are json, in BioC (for fetch) or native Elasticsearch (for search) formats. </p>
+<h2 id="fetch-api">Fetch API</h2>
+<p>It allows to retrieve annotated contents from a given collection. The input is a set of document ids (up to 1,000 per request). The output is a set of parsed and annotated contents, in JSON and/or BioC formats. For MEDLINE citations, delivered and annotated fields include for example abstracts, or MeSH terms; for PMC full texts, paragraphs provided with their hierarchical level in the document structure, or figure captions; for supplementary data, text extracted from Excel files or ocerized from images. Annotations are delivered with many features including the type of the mapped entity (drug, gene, disease...), the vocabulary used, the vocabulary unique identifier and preferred term, or the mapping characters offsets.</p>
 <ul>
-<li><a href="doc/api/fetch_medline/">fetch in MEDLINE</a></li>
-<li><a href="doc/api/fetch_pmc/">fetch in PubMed Central</a></li>
+<li><a href="doc/api/fetch/">how to fetch</a></li>
 </ul>
-<h2 id="customizable-search-apis">Customizable search APIs</h2>
-<p>They allow to perform a fully customizable search for valuable documents in MEDLINE or PMC Open Access. The power of these services is based on the efficiency of Elasticsearch engines, and on the rich Lucene query language, which allows to investigate a large panel of searching strategies. For example: basic search with keywords or entity identifiers (“ZBED1” or “NP_NX_O96006”), searches in specified fields (“figures_captions: ZBED1” or “tables: mapped treatments”), boosting fields or query parts, Boolean, exploiting identified concepts or identified concept types... The input is thus a Lucene json query. The output is the Elasticsearch ranked result set in its native json format; for each document (up to 10,000 per request), a relevance score and the indexed content.</p>
+<h2 id="customizable-search-api">Customizable search API</h2>
+<p>It allows to perform a fully customizable search for valuable documents in a given collection. The power of this service is based on the efficiency of Elasticsearch engines, and on the rich Lucene query language, which allows to investigate a large panel of searching strategies. For example: basic search with keywords or entity identifiers (“ZBED1” or “NP_NX_O96006”), searches in specified fields (“figures_captions: ZBED1” or “tables: mapped treatments”), boosting fields or query parts, Boolean, exploiting identified concepts or identified concept types... The input is thus a Lucene json query. The output is the Elasticsearch ranked result set in its native json format; for each document (up to 10,000 per request), a relevance score and the indexed content.</p>
 <ul>
-<li><a href="doc/api/search_medline/">search in MEDLINE</a></li>
-<li><a href="doc/api/search_pmc/">search in PubMed Central</a></li>
+<li><a href="doc/api/search/">how to search</a></li>
+</ul>
+<h2 id="question-answering-api">Question Answering API</h2>
+<p>it allows to ask questions in natural languages, and to obtain answers extracted from documents from a given collection. The power of this service is based on previous Elasticserch indexes, and BERT language model. For example: asking for "what diseases are transmitted by ticks ?" in Plazi treatments. The input is a free text question. The output is a set of answers, ranked by scores, along with documents' snippet.</p>
+<ul>
+<li><a href="doc/api/qa/">how to question</a></li>
 </ul>
 <h2 id="reference">Reference</h2>
 <p>SIBiLS are detailed in the 2020 web server issue of Nucleic Acids Research: <a href="https://academic.oup.com/nar/article/48/W1/W12/5831752">SIB Literature Services: RESTful customizable search engines in biomedical literature, enriched with automatically mapped biomedical concepts</a>. Here is the graphical abstract designed for the publication :</p>

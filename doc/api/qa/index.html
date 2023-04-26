@@ -10,21 +10,27 @@
       
       
       
+        <link rel="canonical" href="https://sibils.github.io/doc/api/qa/">
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+        <link rel="prev" href="../search/">
+      
+      
+        <link rel="next" href="../sparql/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.8">
     
     
       
-        <title>SIBiLS</title>
+        <title>qa - SIBiLS</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.ded33207.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ded33207.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.a0c5b2b5.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a0c5b2b5.min.css">
       
       
 
@@ -34,13 +40,39 @@
       
     
     
-      <link rel="stylesheet" href="/assets/extra.css">
+      <link rel="stylesheet" href="../../../assets/extra.css">
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="qa - SIBiLS" >
+      
+        <meta  property="og:description"  content="Swiss Institute of Bioinformatics Literature Services" >
+      
+        <meta  property="og:image"  content="https://sibils.github.io/assets/images/social/doc/api/qa.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://sibils.github.io/doc/api/qa/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="qa - SIBiLS" >
+      
+        <meta  name="twitter:description"  content="Swiss Institute of Bioinformatics Literature Services" >
+      
+        <meta  name="twitter:image"  content="https://sibils.github.io/assets/images/social/doc/api/qa.png" >
+      
     
     
   </head>
@@ -60,6 +92,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#sibils-question-answering-api" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -70,9 +107,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="SIBiLS" class="md-header__button md-logo" aria-label="SIBiLS" data-md-component="logo">
+    <a href="../../.." title="SIBiLS" class="md-header__button md-logo" aria-label="SIBiLS" data-md-component="logo">
       
-  <img src="/assets/sib.png" alt="logo">
+  <img src="../../../assets/sib.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -88,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              qa
             
           </span>
         </div>
@@ -132,7 +169,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="/." class="md-tabs__link">
+    <a href="../../.." class="md-tabs__link">
       Quick Start
     </a>
   </li>
@@ -144,7 +181,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="/doc/vocabularies/" class="md-tabs__link">
+    <a href="../../vocabularies/" class="md-tabs__link">
       Vocabularies
     </a>
   </li>
@@ -153,13 +190,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="/doc/api/fetch/" class="md-tabs__link">
+      <a href="../fetch/" class="md-tabs__link md-tabs__link--active">
         API
       </a>
     </li>
@@ -172,7 +211,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="/search/" class="md-tabs__link">
+    <a href="../../../search/" class="md-tabs__link">
       SIBiLS Search
     </a>
   </li>
@@ -199,9 +238,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="SIBiLS" class="md-nav__button md-logo" aria-label="SIBiLS" data-md-component="logo">
+    <a href="../../.." title="SIBiLS" class="md-nav__button md-logo" aria-label="SIBiLS" data-md-component="logo">
       
-  <img src="/assets/sib.png" alt="logo">
+  <img src="../../../assets/sib.png" alt="logo">
 
     </a>
     SIBiLS
@@ -229,7 +268,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         Quick Start
       </a>
     </li>
@@ -244,7 +283,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/doc/vocabularies/" class="md-nav__link">
+      <a href="../../vocabularies/" class="md-nav__link">
         Vocabularies
       </a>
     </li>
@@ -257,14 +296,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
       
       
         
@@ -283,7 +324,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           API
@@ -296,7 +337,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/doc/api/fetch/" class="md-nav__link">
+      <a href="../fetch/" class="md-nav__link">
         fetch
       </a>
     </li>
@@ -310,7 +351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/doc/api/search/" class="md-nav__link">
+      <a href="../search/" class="md-nav__link">
         search
       </a>
     </li>
@@ -322,11 +363,66 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="/doc/api/qa/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          qa
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         qa
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-endpoint" class="md-nav__link">
+    API endpoint
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    Output
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -338,7 +434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/doc/api/sparql/" class="md-nav__link">
+      <a href="../sparql/" class="md-nav__link">
         SPARQL
       </a>
     </li>
@@ -360,7 +456,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/search/" class="md-nav__link">
+      <a href="../../../search/" class="md-nav__link">
         SIBiLS Search
       </a>
     </li>
@@ -384,6 +480,37 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-endpoint" class="md-nav__link">
+    API endpoint
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    Output
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -395,8 +522,30 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+  
+  
+
+
+<h1 id="sibils-question-answering-api">SIBiLS question answering API</h1>
+<h2 id="description">Description</h2>
+<p>This API allows sk questions in natural languages, and to obtain answers extracted from documents from a given collection. The input is a free text question. The output is a set of answers, ranked by scores, along with documents' snippet.</p>
+<h2 id="api-endpoint">API endpoint</h2>
+<p><strong>URL</strong>: <a href="https://sibils.text-analytics.ch/api/qa">sibils.text-analytics.ch/api/QA</a></p>
+<p><strong>Mandatory input</strong>: one collection (&amp;col=), amongst "medline" and "plazi"
+<strong>Mandatory input</strong>: a question (&amp;q=) in natural language
+<strong>Optional input</strong>: the number of documents (&amp;n=, default 5) to work with. Each documents asks ~5 seconds of processing.</p>
+<p><strong>Example</strong>: ask what diseases are transmitted by ticks ?
+<a href="https://sibils.text-analytics.ch/api/QA?q=What%20diseases%20are%20transmitted%20by%20ticks%20?&amp;col=medline">https://sibils.text-analytics.ch/api/QA?q=What%20diseases%20are%20transmitted%20by%20ticks%20?&amp;col=medline</a></p>
+<h2 id="output">Output</h2>
+<p>Output is json records of proposed answers.</p>
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -427,10 +576,10 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "/", "features": ["navigation.tabs", "navigation.indexes", "content.code.copy"], "search": "/assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.51198bba.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.51198bba.min.js"></script>
       
     
   </body>
