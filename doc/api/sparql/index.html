@@ -635,37 +635,40 @@
 <span class="k">LIMIT</span> <span class="mi">100</span>
 </code></pre></div>
 <h3 id="diseases-associated-to-ticks-in-the-same-discourse-element-of-a-publication-at-a-distance-of-less-than-30-characters">Diseases associated to ticks in the same discourse element of a publication at a distance of less than 30 characters</h3>
-<p>```PREFIX : <a href="http://sibils.org/rdf#">http://sibils.org/rdf#</a>
-PREFIX sibils: <a href="http://sibils.org/rdf/data/">http://sibils.org/rdf/data/</a>
-PREFIX sibilc: <a href="http://sibils.org/rdf/concept/">http://sibils.org/rdf/concept/</a>
-PREFIX rdf: <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a>
-PREFIX rdfs: <a href="http://www.w3.org/2000/01/rdf-schema#">http://www.w3.org/2000/01/rdf-schema#</a>
-PREFIX skos: <a href="http://www.w3.org/2004/02/skos/core#">http://www.w3.org/2004/02/skos/core#</a></p>
-<p>SELECT
-  ?part
-  (str(?word)  as ?token)
-  ?pos
-  (str(?word2) as ?token2)
-  ?pos2
-WHERE {
-  ?publi :hasAnnotation ?a .
-  ?a :hasBody sibilc:mesh%7CD013987 .
-  ?a :hasTarget ?trg .
-  ?trg :hasSelector ?sel .
-  ?sel :exact ?word.
-  ?sel :start ?pos .
-  ?trg :hasSource ?part.</p>
-<p>?publi :hasAnnotation ?a2 .
-  ?a2 :hasTarget ?trg2.
-  ?trg2 :hasSelector ?sel2 .
-  ?sel2 :exact ?word2.
-  ?sel2 :start ?pos2 .
-  ?trg2 :hasSource ?part.
-  ?a2 :hasBody ?cpt2.
-  ?cpt2 skos:inScheme :ncit.</p>
-<p>FILTER (abs(?pos2 - ?pos) &lt; 30 &amp;&amp; ?a != ?a2)
-}
-```</p>
+<div class="highlight"><span class="filename">RQ_003.sparql</span><pre><span></span><code><span class="k">PREFIX</span> <span class="p">:</span> <span class="nl">&lt;http://sibils.org/rdf#&gt;</span>
+<span class="k">PREFIX</span> <span class="nn">sibils</span><span class="p">:</span> <span class="nl">&lt;http://sibils.org/rdf/data/&gt;</span>
+<span class="k">PREFIX</span> <span class="nn">sibilc</span><span class="p">:</span> <span class="nl">&lt;http://sibils.org/rdf/concept/&gt;</span>
+<span class="k">PREFIX</span> <span class="nn">rdf</span><span class="p">:</span> <span class="nl">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span>
+<span class="k">PREFIX</span> <span class="nn">rdfs</span><span class="p">:</span> <span class="nl">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span>
+<span class="k">PREFIX</span> <span class="nn">skos</span><span class="p">:</span> <span class="nl">&lt;http://www.w3.org/2004/02/skos/core#&gt;</span>
+
+<span class="k">SELECT</span>
+  <span class="nv">?part</span>
+  <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?word</span><span class="p">)</span>  <span class="k">as</span> <span class="nv">?token</span><span class="p">)</span>
+  <span class="nv">?pos</span>
+  <span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="nv">?word2</span><span class="p">)</span> <span class="k">as</span> <span class="nv">?token2</span><span class="p">)</span>
+  <span class="nv">?pos2</span>
+<span class="k">WHERE</span> <span class="p">{</span>
+  <span class="nv">?publi</span> <span class="p">:</span><span class="nt">hasAnnotation</span> <span class="nv">?a</span> <span class="p">.</span>
+  <span class="nv">?a</span> <span class="p">:</span><span class="nt">hasBody</span> <span class="nn">sibilc</span><span class="p">:</span><span class="nt">mesh%7CD013987</span> <span class="p">.</span>
+  <span class="nv">?a</span> <span class="p">:</span><span class="nt">hasTarget</span> <span class="nv">?trg</span> <span class="p">.</span>
+  <span class="nv">?trg</span> <span class="p">:</span><span class="nt">hasSelector</span> <span class="nv">?sel</span> <span class="p">.</span>
+  <span class="nv">?sel</span> <span class="p">:</span><span class="nt">exact</span> <span class="nv">?word</span><span class="p">.</span>
+  <span class="nv">?sel</span> <span class="p">:</span><span class="nt">start</span> <span class="nv">?pos</span> <span class="p">.</span>
+  <span class="nv">?trg</span> <span class="p">:</span><span class="nt">hasSource</span> <span class="nv">?part</span><span class="p">.</span>
+
+  <span class="nv">?publi</span> <span class="p">:</span><span class="nt">hasAnnotation</span> <span class="nv">?a2</span> <span class="p">.</span>
+  <span class="nv">?a2</span> <span class="p">:</span><span class="nt">hasTarget</span> <span class="nv">?trg2</span><span class="p">.</span>
+  <span class="nv">?trg2</span> <span class="p">:</span><span class="nt">hasSelector</span> <span class="nv">?sel2</span> <span class="p">.</span>
+  <span class="nv">?sel2</span> <span class="p">:</span><span class="nt">exact</span> <span class="nv">?word2</span><span class="p">.</span>
+  <span class="nv">?sel2</span> <span class="p">:</span><span class="nt">start</span> <span class="nv">?pos2</span> <span class="p">.</span>
+  <span class="nv">?trg2</span> <span class="p">:</span><span class="nt">hasSource</span> <span class="nv">?part</span><span class="p">.</span>
+  <span class="nv">?a2</span> <span class="p">:</span><span class="nt">hasBody</span> <span class="nv">?cpt2</span><span class="p">.</span>
+  <span class="nv">?cpt2</span> <span class="nn">skos</span><span class="p">:</span><span class="nt">inScheme</span> <span class="p">:</span><span class="nt">ncit</span><span class="p">.</span>
+
+ <span class="k">FILTER</span> <span class="p">(</span><span class="nf">abs</span><span class="p">(</span><span class="nv">?pos2</span> <span class="o">-</span> <span class="nv">?pos</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">30</span> <span class="o">&amp;&amp;</span> <span class="nv">?a</span> <span class="o">!=</span> <span class="nv">?a2</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 
 
