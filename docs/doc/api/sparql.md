@@ -9,8 +9,6 @@
 * [HTML format](https://sibils.text-analytics.ch/doc/api/sparql/ontology/sibils-ontology.html)
 * [TTL format](https://sibils.text-analytics.ch/doc/api/sparql/ontology/sibils-ontology.ttl)
 
-oups
-
 ## Examples
 
 
@@ -45,7 +43,7 @@ SELECT
   (str(?part) as ?section)
   (str(?part_type) as ?part_type)
 WHERE {
-  VALUES ?publi { sibils:PMC2718325 }
+  VALUES ?publi { sibils:PMC2196267 }
   ?publi :doi ?doi.
   ?publi :hasAnnotation ?a .
   ?a :hasBody ?cpt .
@@ -67,8 +65,7 @@ LIMIT 100
 
 ### Diseases associated to ticks in the same discourse element of a publication at a distance of less than 30 characters
 
-```sparql title="RQ_003.sparql"
-PREFIX : <http://sibils.org/rdf#>
+```PREFIX : <http://sibils.org/rdf#>
 PREFIX sibils: <http://sibils.org/rdf/data/>
 PREFIX sibilc: <http://sibils.org/rdf/concept/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -83,7 +80,7 @@ SELECT
   ?pos2
 WHERE {
   ?publi :hasAnnotation ?a .
-  ?a :hasBody sibilc:MESH_MESH%7CD013987 .
+  ?a :hasBody sibilc:mesh%7CD013987 .
   ?a :hasTarget ?trg .
   ?trg :hasSelector ?sel .
   ?sel :exact ?word.
@@ -97,9 +94,8 @@ WHERE {
   ?sel2 :start ?pos2 .
   ?trg2 :hasSource ?part.
   ?a2 :hasBody ?cpt2.
-  ?cpt2 skos:inScheme :NCI_Thesaurus_Disease.
-  #?cpt2 skos:inScheme :MESH_MESH
+  ?cpt2 skos:inScheme :ncit.
 
-  FILTER (abs(?pos2 - ?pos) < 30 && ?a != ?a2)
+ FILTER (abs(?pos2 - ?pos) < 30 && ?a != ?a2)
 }
 ```
