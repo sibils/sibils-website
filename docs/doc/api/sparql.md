@@ -65,7 +65,8 @@ LIMIT 100
 
 ### Diseases associated to ticks in the same discourse element of a publication at a distance of less than 30 characters
 
-```PREFIX : <http://sibils.org/rdf#>
+```sparql title="RQ_003.sparql"
+PREFIX : <http://sibils.org/rdf#>
 PREFIX sibils: <http://sibils.org/rdf/data/>
 PREFIX sibilc: <http://sibils.org/rdf/concept/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
