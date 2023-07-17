@@ -81,7 +81,7 @@ SELECT
   ?pos2
 WHERE {
   ?publi :hasAnnotation ?a .
-  ?a :hasBody sibilc:mesh%7CD013987 .
+  ?a :hasBody sibilc:Mesh_St%7CD013987 .
   ?a :hasTarget ?trg .
   ?trg :hasSelector ?sel .
   ?sel :exact ?word.
@@ -95,7 +95,7 @@ WHERE {
   ?sel2 :start ?pos2 .
   ?trg2 :hasSource ?part.
   ?a2 :hasBody ?cpt2.
-  ?cpt2 skos:inScheme :ncit.
+  ?cpt2 skos:inScheme :Ncit_St.
 
  FILTER (abs(?pos2 - ?pos) < 30 && ?a != ?a2)
 }
