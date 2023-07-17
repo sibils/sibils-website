@@ -2,32 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://sibils.github.io/</loc>
-         <lastmod>2023-07-12</lastmod>
+         <lastmod>2023-07-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://sibils.github.io/doc/vocabularies/</loc>
-         <lastmod>2023-07-12</lastmod>
+         <lastmod>2023-07-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://sibils.github.io/doc/api/fetch/</loc>
-         <lastmod>2023-07-12</lastmod>
+         <lastmod>2023-07-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://sibils.github.io/doc/api/qa/</loc>
-         <lastmod>2023-07-12</lastmod>
+         <lastmod>2023-07-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://sibils.github.io/doc/api/search/</loc>
-         <lastmod>2023-07-12</lastmod>
+         <lastmod>2023-07-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://sibils.github.io/doc/api/sparql/</loc>
-         <lastmod>2023-07-12</lastmod>
+         <lastmod>2023-07-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
