@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://sibils.github.io/</loc>
+         <loc>https://sibils.text-analytics.ch/</loc>
          <lastmod>2023-09-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://sibils.github.io/doc/vocabularies/</loc>
+         <loc>https://sibils.text-analytics.ch/doc/vocabularies/</loc>
          <lastmod>2023-09-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://sibils.github.io/doc/api/fetch/</loc>
+         <loc>https://sibils.text-analytics.ch/doc/api/fetch/</loc>
          <lastmod>2023-09-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://sibils.github.io/doc/api/qa/</loc>
+         <loc>https://sibils.text-analytics.ch/doc/api/qa/</loc>
          <lastmod>2023-09-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://sibils.github.io/doc/api/search/</loc>
+         <loc>https://sibils.text-analytics.ch/doc/api/search/</loc>
          <lastmod>2023-09-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://sibils.github.io/doc/api/sparql/</loc>
+         <loc>https://sibils.text-analytics.ch/doc/api/sparql/</loc>
          <lastmod>2023-09-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
