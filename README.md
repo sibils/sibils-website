@@ -5,7 +5,7 @@
 ### Git clone
 
 * Python must be installed
-* `git clone git@github.com:sibils/sibils.github.io.git`
+* `git clone git@github.com:sibils/sibils-website`
 * `cd sibils.github.io`
 * Start mkdocs:
     * Linux and Mac: `./serve`
