@@ -1,21 +1,25 @@
 [data-md-color-scheme="sibils"] {
-    --md-primary-fg-color:        #c40300;
-    --md-primary-fg-color--light: #ff0300;
-    --md-primary-fg-color--dark:  #b20200;
-    --md-accent-fg-color: #b20200;
+	--md-primary-fg-color: #c40300;
+	--md-primary-fg-color--light: #ff0300;
+	--md-primary-fg-color--dark: #b20200;
+	--md-accent-fg-color: #b20200;
+}
+
+p a.md-button--primary {
+	margin: 1rem 3rem;
 }
 
 article ul.partners {
 	list-style: none !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex-wrap: wrap !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	flex-wrap: wrap !important;
 }
 
 article ul.partners li {
 	display: block;
-    margin: 1rem 0 !important;
+	margin: 1rem 0 !important;
 }
 
 article ul.partners li a {
