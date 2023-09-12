@@ -41,7 +41,7 @@ jobs:
         # see API on https://candy.hesge.ch/ghupdate/
         # ${{ github.repository }} is replaced by the repository name, for example bitem-heg-geneve/bicikl-fair-data-place
         run: |
-          curl -f -X 'POST' "https://candy.hesge.ch/ghupdate/curl/${{ github.repository }}/gh-pages" \
+          curl -f -X 'POST' "https://infra.text-analytics.ch/api/webstatic/deploy/github.com/${{ github.repository }}/gh-pages" \
                -H 'accept: application/json' \
                -H 'Content-Type: application/x-www-form-urlencoded' \
                -d 'secret_key=${{secrets.SECRET_KEY}}'
