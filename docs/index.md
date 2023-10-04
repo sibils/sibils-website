@@ -32,9 +32,12 @@ This page provides a description of SIBiLS (Swiss Institute of Bioinformatics Li
   [SIBiLS Search](/search/){ .md-button .md-button--primary }
 </p>
 
-<iframe
-  src="https://candy.hesge.ch/Speech.mp4"
-></iframe>
+<p style="text-align: center" markdown>
+  <iframe
+    src="https://candy.hesge.ch/Speech.mp4"
+    style="width:100%; height:100%;"
+  ></iframe>
+</p>
 
 
 ## Data
