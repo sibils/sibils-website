@@ -36,9 +36,7 @@ This page provides a description of SIBiLS (Swiss Institute of Bioinformatics Li
 
 SIBiLS today cover 4 collections: MEDLINE, PubMedCentral (PMC), Plazi treatments, and PMC supplementary files. Collections are **daily updated**. Contents are parsed, then enriched by **billions of mapped biomedical entities** from reference vocabularies (described [here](doc/vocabularies.md)). Output are json, in BioC (for fetch) or native Elasticsearch (for search) formats. 
 
-<div style="text-align: center;">
-  <video src="https://candy.hesge.ch/Speech.mp4" controls></video>
-</div>
+[![Video](https://candy.hesge.ch/Speech.mp4)
 
 ## Fetch API
 
