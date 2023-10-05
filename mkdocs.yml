@@ -36,12 +36,6 @@ theme:
     - content.code.copy       # ajouter un bouton "copier" à droite dans les blocs de code
 extra_css:
   - assets/extra.css
-plugins:
-  - social:
-      cards: !ENV [CARDS, false]
-      cards_color:
-        fill: "#C40300"
-        text: "#FFFFFF"
 
 #### nav section ####
 nav:

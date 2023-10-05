@@ -64,3 +64,22 @@
 * https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#hiding-the-sidebars
     * `docs/index.md`
     * `docs/vocabularies.md`
+
+## mkdocs.publish.yml
+
+After each commit, the website is built and updated automaticaly using `.github\workflows\publish.yml`.
+
+The [mkdocs plugin social](https://squidfunk.github.io/mkdocs-material/setup/setting-up-social-cards/) adds card when links
+from the website are shared (the preview link on Teams, Outlook, social media etc...).
+
+This plugin requires dependencies that are complicated to install especially on Windows.
+[An option](https://squidfunk.github.io/mkdocs-material/setup/setting-up-social-cards/#disabling-social-cards) ask to plugin not to build the cards, however the dependencies are still required.
+
+The implemented solution uses two mkdocs configuration file:
+* `mkdocs.yml` is the default configuration.
+* `mkdocs.publish.yml` inherits from `mkdocs.yml` and adds the social plugin. The GitHub workflow uses this configuration file.
+
+To sum up:
+* don't care about `mkdocs.publish.yml`.
+* make change in `mkdocs.yml` as expected.
+* the scripts `serve` and `serve.bat` should work everything (Windows, Mac, Linux).

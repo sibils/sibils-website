@@ -32,9 +32,9 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
-      - name: Build and deploy the branch gh-pages
+      - name: Build and deploy the branch gh-pages using mkdocs.publish.yml
         # https://www.mkdocs.org/user-guide/deploying-your-docs/
-        run: CARDS=true mkdocs gh-deploy --force
+        run: mkdocs gh-deploy -f mkdocs.publish.yml --force
       - name: Deploy on sibils.text-analytics.ch
         # CURL options:
         # -f : GitHub workflow fail if the HTTP status code is not 200

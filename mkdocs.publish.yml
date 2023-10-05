@@ -1,0 +1,8 @@
+# this is the configuration used by the GitHub workflow .github\workflows\publish.yml
+# most probably you don't need to change this file: make our changes in mkdocs.yml
+INHERIT: mkdocs.yml
+plugins:
+  - social:
+      cards_color:
+        fill: "#C40300"
+        text: "#FFFFFF"
