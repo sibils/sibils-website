@@ -29,7 +29,7 @@ This page provides a description of SIBiLS (Swiss Institute of Bioinformatics Li
 
 
 <p style="text-align: center" markdown>
-  [SIBiLS Search](/search/){ .md-button .md-button--primary }
+  [BiodiversityPMC Search](/search/){ .md-button .md-button--primary }
 </p>
 
 
