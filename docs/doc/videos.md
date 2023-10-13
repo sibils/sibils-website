@@ -8,17 +8,17 @@ hide:
 
 ## Biodiversity PMC
 
-<video src="https://candy.hesge.ch/Speech.mp4" controls="controls">
+<video width="560" height="315" src="https://candy.hesge.ch/Speech.mp4" controls="controls">
 </video>
 
 ## SPARQL Endpoint
 
-<video src="https://candy.hesge.ch/sibils-sparql.mov" controls="controls">
+<video width="560" height="315" src="https://candy.hesge.ch/sibils-sparql.mov" controls="controls">
 </video>
 
 ## BiotXplorer
 
-<video src="https://candy.hesge.ch/biotxplorer.mp4" controls="controls">
+<video width="560" height="315" src="https://candy.hesge.ch/biotxplorer.mp4" controls="controls">
 </video>
 
 ## Variomes
