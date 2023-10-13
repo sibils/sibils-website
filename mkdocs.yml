@@ -47,4 +47,5 @@ nav:
     - 'search': 'doc/api/search.md'
     - 'qa': 'doc/api/qa.md'
     - 'SPARQL': 'doc/api/sparql.md'
+  - 'SAB': 'doc/sab.md'
   - 'BiodiversityPMC': search/
