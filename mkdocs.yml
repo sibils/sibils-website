@@ -41,6 +41,7 @@ extra_css:
 nav:
   - Quick Start: 'index.md'
   - Vocabularies: 'doc/vocabularies.md'
+  - Videos: 'doc/videos.md'
   - API:
     - 'fetch': 'doc/api/fetch.md'
     - 'search': 'doc/api/search.md'
