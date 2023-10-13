@@ -14,7 +14,7 @@ The current members are the following:
 
 * Laurence Benichou (CETAF/MHN Paris)
 
-* Melissa Harrison (EBI, Hinxton - tbc)
+* Melissa Harrison (EBI, Hinxton)
 
 * Nona Naderi (Université Paris Saclay, Paris)
 
