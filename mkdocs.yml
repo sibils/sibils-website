@@ -1,6 +1,8 @@
 site_name: SIBiLS
 site_description: Swiss Institute of Bioinformatics Literature Services
 site_url: https://sibils.text-analytics.ch/
+repo_url: https://github.com/sibils/
+repo_name: github.com/sibils/
 markdown_extensions:
   - abbr
   - attr_list
