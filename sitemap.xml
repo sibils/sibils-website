@@ -2,42 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://sibils.text-analytics.ch/</loc>
-         <lastmod>2023-10-13</lastmod>
+         <lastmod>2023-11-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://sibils.text-analytics.ch/doc/sab/</loc>
-         <lastmod>2023-10-13</lastmod>
+         <lastmod>2023-11-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://sibils.text-analytics.ch/doc/videos/</loc>
-         <lastmod>2023-10-13</lastmod>
+         <lastmod>2023-11-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://sibils.text-analytics.ch/doc/vocabularies/</loc>
-         <lastmod>2023-10-13</lastmod>
+         <lastmod>2023-11-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://sibils.text-analytics.ch/doc/api/fetch/</loc>
-         <lastmod>2023-10-13</lastmod>
+         <lastmod>2023-11-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://sibils.text-analytics.ch/doc/api/qa/</loc>
-         <lastmod>2023-10-13</lastmod>
+         <lastmod>2023-11-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://sibils.text-analytics.ch/doc/api/search/</loc>
-         <lastmod>2023-10-13</lastmod>
+         <lastmod>2023-11-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://sibils.text-analytics.ch/doc/api/sparql/</loc>
-         <lastmod>2023-10-13</lastmod>
+         <lastmod>2023-11-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
