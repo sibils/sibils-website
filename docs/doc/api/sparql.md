@@ -5,9 +5,8 @@
 [https://sibils.text-analytics.ch/sparql](https://sibils.text-analytics.ch/sparql)
 
 ## Ontologies
-
-* [HTML format](https://sibils.text-analytics.ch/doc/api/sparql/ontology/sibils-ontology.html)
-* [TTL format](https://sibils.text-analytics.ch/doc/api/sparql/ontology/sibils-ontology.ttl)
+* [HTML format](sparql/sibils-ontology.html)
+* [TTL format](sparql/sibils-ontology.ttl)
 
 ## Examples
 
