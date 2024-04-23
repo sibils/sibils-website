@@ -42,6 +42,9 @@ extra_css:
 #### nav section ####
 nav:
   - Quick Start: 'index.md'
+  - Collections:
+    - 'indexed collections': 'doc/collections/indexed.md'
+    - 'your collection in SIBiLS': 'doc/collections/how_to_be_indexed.md'
   - Vocabularies: 'doc/vocabularies.md'
   - Videos: 'doc/videos.md'
   - API:
