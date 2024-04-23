@@ -12,7 +12,7 @@ PubMed Central (PMC) is an open-access repository that hosts full-text articles 
 
 In SIBiLS, the PMC collection is enriched by publications dealing with biodiversity (such as Pensoft articles), thus creating Biodiversity PMC.
 
-## Supplemetary data
+## Supplementary data
 
 PMC Supplementary files, available in PubMed Central, encompass a variety of additional data such as images, videos, data tables, research appendices, and supplementary documents. These supplementary files are often used to provide more comprehensive context to a scientific article or to share raw data, detailed methods, or additional analyses, but are not included in the main manuscript.
 
