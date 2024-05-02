@@ -41,3 +41,22 @@ article ul.partners li a img {
 article ul.partners li a img.bigger {
 	height: 5rem;
 }
+
+.video-wrapper {
+	position: relative;
+	display: block;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	padding-bottom: 56.25%; /* 16/9 , see https://github.com/squidfunk/mkdocs-material/issues/492 */
+}
+
+.video-wrapper > iframe {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
