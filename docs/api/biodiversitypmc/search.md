@@ -1,4 +1,4 @@
-# SIBiLS customizable search API
+# Biodiversity PMC customizable search API
 
 ## Description
 
@@ -6,15 +6,17 @@ This API allows to perform a fully customizable search for valuable annotated ci
 
 ## API endpoint
 
-**URL**: [sibils.text-analytics.ch/api/search](https://sibils.text-analytics.ch/api/search)
+**URL**: [biodiversitypmc.sibils.org/api/search](https://biodiversitypmc.sibils.org/api/search)
 
 **Mandatory input**: q OR jq: a query q in free text, which is interpreted by query analyzer, OR a Lucene json_query jq
+
 **Mandatory input**: one collection (&col=), amongst "medline", "pmc", "plazi" and "suppdata"
+
 **Optional input**: the number of requested documents (&n=, default 10, max 1000)
 
 **Example**: simple search for MEDLINE (&col=) documents containing (&q=) Rhinolophus and Pangolin.
 
-[sibils.text-analytics.ch/api/search?q=Rhinolophus%20and%20Pangolin&col=medline](https://sibils.text-analytics.ch/api/search?q=Rhinolophus%20and%20Pangolin&col=medline)
+[biodiversitypmc.sibils.org/api/search?q=Rhinolophus%20and%20Pangolin&col=medline](https://biodiversitypmc.sibils.org/api/search?q=Rhinolophus%20and%20Pangolin&col=medline)
 
 **Example**: customizable search (&jq) with a Lucene style json query
 
@@ -26,7 +28,7 @@ This API allows to perform a fully customizable search for valuable annotated ci
 
 ## Code sample
 
-A python script for demonstrating POST calls to the API, with multiple examples of Lucene style queries, is available at candy.hesge.ch/SIBiLS/MEDLINE/MEDLINE_search_POST_examples.py
+A python script for demonstrating POST calls to the API, with multiple examples of Lucene style queries:
 
 ```python
 import requests # not installed in default Python
@@ -119,7 +121,7 @@ my_query = {
 
 
 # call
-url_API = "https://sibils.text-analytics.ch/api/search"
+url_API = "https://biodiversitypmc.sibils.org/api/search"
 my_json_query = json.dumps(my_query) # json to string
 my_params = {"jq": my_json_query;col="pmc"} # parameters dictionary
 r = requests.post(url = url_API, data = my_params)

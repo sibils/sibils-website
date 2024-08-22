@@ -9,6 +9,17 @@ p a.md-button--primary {
 	margin: 1rem 3rem;
 }
 
+.sibils-service {
+	/* make the button always the width
+	67% so on mobile the button remains inside the screen width 
+	*/
+	width: min(12rem, 67%);
+}
+
+.sibils-service:hover {
+	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
 article ul.partners {
 	list-style: none !important;
 	display: flex !important;

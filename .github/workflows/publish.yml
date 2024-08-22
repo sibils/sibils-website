@@ -11,15 +11,15 @@ jobs:
     steps:
       - name: git clone
         # see https://github.com/actions/checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Set up Python
         # see https://github.com/actions/setup-python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         # see https://squidfunk.github.io/mkdocs-material/setup/setting-up-social-cards/#caching
         with:
           key: ${{ github.ref }}
@@ -35,10 +35,10 @@ jobs:
       - name: Build and deploy the branch gh-pages using mkdocs.publish.yml
         # https://www.mkdocs.org/user-guide/deploying-your-docs/
         run: mkdocs gh-deploy -f mkdocs.publish.yml --force
-      - name: Deploy on sibils.text-analytics.ch
+      - name: Deploy on sibils.org
         # CURL options:
         # -f : GitHub workflow fail if the HTTP status code is not 200
-        # see API on https://candy.hesge.ch/ghupdate/
+        # see https://infra.text-analytics.ch/devdoc/tools/gh_update/
         # ${{ github.repository }} is replaced by the repository name, for example bitem-heg-geneve/bicikl-fair-data-place
         run: |
           curl -f -X 'POST' "https://infra.text-analytics.ch/api/webstatic/deploy/github.com/${{ github.repository }}/gh-pages" \
