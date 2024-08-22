@@ -2,11 +2,11 @@
 
 ## Endpoint
 
-[https://sibils.text-analytics.ch/sparql](https://sibils.text-analytics.ch/sparql)
+[https://sparql.sibils.org](https://sparql.sibils.org/)
 
 ## Ontologies
-* [HTML format](sparql/sibils-ontology.html)
-* [TTL format](sparql/sibils-ontology.ttl)
+* [HTML format](sibils-ontology.html)
+* [TTL format](sibils-ontology.ttl)
 
 ## Examples
 

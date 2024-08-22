@@ -1,8 +1,6 @@
 site_name: SIBiLS
 site_description: Swiss Institute of Bioinformatics Literature Services
-site_url: https://sibils.text-analytics.ch/
-repo_url: https://github.com/sibils/
-repo_name: github.com/sibils/
+site_url: https://sibils.org/
 markdown_extensions:
   - abbr
   - attr_list
@@ -16,7 +14,7 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.superfences:
       custom_fences:
@@ -39,18 +37,30 @@ theme:
 extra_css:
   - assets/extra.css
 
+plugins:
+   - swagger-ui-tag
+
 #### nav section ####
 nav:
-  - Quick Start: 'index.md'
-  - Collections:
-    - 'SIBiLS collections': 'doc/collections/sibils_collections.md'
-    - 'upload publications in SIBiLS': 'doc/collections/how_to_upload.md'
-  - Vocabularies: 'doc/vocabularies.md'
-  - Videos: 'doc/videos.md'
-  - API:
-    - 'fetch': 'doc/api/fetch.md'
-    - 'search': 'doc/api/search.md'
-    - 'qa': 'doc/api/qa.md'
-    - 'SPARQL': 'doc/api/sparql.md'
-  - 'SAB': 'doc/sab.md'
-  - 'BiodiversityPMC': search/
+  - 'Introduction': 'index.md'
+  - 'Biodiversity PMC': 'biodiversitypmc/index.md'
+  - 'BiotXplorer': 'biotxplorer/index.md'
+  - 'Variomes': 'variomes/index.md'
+  - 'Celltriage': 'celltriage/index.md'
+  - 'SPARQL': 'sparql/index.md'
+  - 'Collections':
+    - 'SIBiLS collections': 'collections/sibils_collections.md'
+    - 'upload publications in SIBiLS': 'collections/how_to_upload.md'
+  - 'Vocabularies': 'vocabularies.md'
+  - 'API':
+    - 'API': 'api/index.md'
+    - 'Biodiversity PMC':
+      - 'Biodiversity PMC': 'api/biodiversitypmc/index.md'
+      - 'Fetch': 'api/biodiversitypmc/fetch.md'
+      - 'Search': 'api/biodiversitypmc/search.md'
+      - 'QA': 'api/biodiversitypmc/qa.md'
+    - 'Celltriage': 'api/celltriage/index.md'
+    - 'Variomes': 'api/variomes/index.md'
+    - 'SPARQL': 'api/sparql/index.md'
+  - 'SAB': 'sab.md'
+
