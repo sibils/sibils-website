@@ -6,17 +6,17 @@
 
 ## Parameters
 
-* **ref**: Gene name or chromosome number or name (e.g. JAK2, BRAF, 9, X). Optional if an identifier is given in the variant parameter.
+* **ref**: Gene name or chromosome number or name (e.g. `JAK2`, `BRAF`, `9`, `X`). Optional if an identifier is given in the variant parameter.
 
-* **variant**: Variant description, COSMIC id, or dbSNP id (e.g. V617F, Val600Glu, rs113488022, COSM476). 
+* **variant**: Variant description, COSMIC id, or dbSNP id (e.g. `V617F`, `Val600Glu`, `rs113488022`, `COSM476`). 
 
-* **level**: Level of the provided variant description (protein, transcript, genome, dbsnp or cosmic).
+* **level**: Level of the provided variant description (`protein`, `transcript`, `genome`, `dbsnp` or `cosmic`).
 
 ## Optional parameters
 
-* **iso**: Validate on and generate synonyms for isoforms: false (default) or true.
-* **map**: Output syntactic variations even if the variant could not be mapped on genome: false (default) or true.
-* **format**: Output format: xml (default) or beacon (json).
+* **iso**: Validate on and generate synonyms for isoforms: `false` (default) or `true`.
+* **map**: Output syntactic variations even if the variant could not be mapped on genome: `false` (default) or `true`.
+* **format**: Output format: `xml` (default) or `beacon` (json).
 
 ## Examples
 
