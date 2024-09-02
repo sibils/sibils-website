@@ -106,6 +106,8 @@ hide:
 
   [Variomes](https://variomes.sibils.org/){ .md-button .md-button--primary .sibils-service }
 
+  [SynVar](https://synvar.sibils.org/){ .md-button .md-button--primary .sibils-service }
+
   [Celltriage](https://celltriage.sibils.org/){ .md-button .md-button--primary .sibils-service }
 
   [SPARQL endpoint](https://sparql.sibils.org/){ .md-button .md-button--primary .sibils-service }
