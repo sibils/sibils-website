@@ -46,6 +46,7 @@ nav:
   - 'Biodiversity PMC': 'biodiversitypmc/index.md'
   - 'BiotXplorer': 'biotxplorer/index.md'
   - 'Variomes': 'variomes/index.md'
+  - 'SynVar': 'synvar/index.md'
   - 'Celltriage': 'celltriage/index.md'
   - 'SPARQL': 'sparql/index.md'
   - 'Collections':
@@ -61,6 +62,7 @@ nav:
       - 'QA': 'api/biodiversitypmc/qa.md'
     - 'Celltriage': 'api/celltriage/index.md'
     - 'Variomes': 'api/variomes/index.md'
+    - 'SynVar': 'api/synvar/index.md'
     - 'SPARQL': 'api/sparql/index.md'
   - 'SAB': 'sab.md'
 
