@@ -9,6 +9,7 @@ markdown_extensions:
   - tables
   - footnotes
   - def_list
+  - footnotes
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tabbed:
@@ -38,7 +39,9 @@ extra_css:
   - assets/extra.css
 
 plugins:
-   - swagger-ui-tag
+  - swagger-ui-tag
+  - bibtex:
+      bib_file: "refs.bib"
 
 #### nav section ####
 nav:

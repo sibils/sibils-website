@@ -40,10 +40,11 @@ it allows to ask questions in natural languages, and to obtain answers extracted
 
 ## Reference
 
-SIBiLS are detailed in the 2020 web server issue of Nucleic Acids Research: [SIB Literature Services: RESTful customizable search engines in biomedical literature, enriched with automatically mapped biomedical concepts](https://academic.oup.com/nar/article/48/W1/W12/5831752). Here is the graphical abstract designed for the publication :
-
+SIBiLS are detailed in the 2020 web server issue of Nucleic Acids Research: *SIB Literature Services: RESTful customizable search engines in biomedical literature, enriched with automatically mapped biomedical concepts* [@10_1093_nar_gkaa328]. Here is the graphical abstract designed for the publication :
 
 <figure markdown>
   ![graphical abstract](../assets/graphical_abstract.png){ loading=lazy style="width: calc(min(100%, 35rem)); margin: auto;" }
   <figcaption></figcaption>
 </figure>
+
+See also *From sibils to biodiversity pmc: foundations for the one health library.* [@pasche2023sibils]
