@@ -12,4 +12,4 @@ hide:
 
 ## API
 
-See the [dedicated page](../api/celltriage/index.md)
+See the [dedicated page](https://celltriage.sibils.org/docs)
