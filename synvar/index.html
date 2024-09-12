@@ -1,0 +1,1336 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Swiss Institute of Bioinformatics Literature Services">
+      
+      
+      
+        <link rel="canonical" href="https://sibils.org/synvar/">
+      
+      
+        <link rel="prev" href="../variomes/">
+      
+      
+        <link rel="next" href="../celltriage/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>SynVar - SIBiLS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.35f28582.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="SynVar - SIBiLS" >
+      
+        <meta  property="og:description"  content="Swiss Institute of Bioinformatics Literature Services" >
+      
+        <meta  property="og:image"  content="https://sibils.org/assets/images/social/synvar/index.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://sibils.org/synvar/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="SynVar - SIBiLS" >
+      
+        <meta  name="twitter:description"  content="Swiss Institute of Bioinformatics Literature Services" >
+      
+        <meta  name="twitter:image"  content="https://sibils.org/assets/images/social/synvar/index.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="sibils" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#synvar" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="SIBiLS" class="md-header__button md-logo" aria-label="SIBiLS" data-md-component="logo">
+      
+  <img src="../assets/sib.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SIBiLS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SynVar
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Introduction
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../biodiversitypmc/" class="md-tabs__link">
+        
+  
+    
+  
+  Biodiversity PMC
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../biotxplorer/" class="md-tabs__link">
+        
+  
+    
+  
+  BiotXplorer
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../variomes/" class="md-tabs__link">
+        
+  
+    
+  
+  Variomes
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  SynVar
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../celltriage/" class="md-tabs__link">
+        
+  
+    
+  
+  Celltriage
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../sparql/" class="md-tabs__link">
+        
+  
+    
+  
+  SPARQL
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../collections/sibils_collections/" class="md-tabs__link">
+          
+  
+    
+  
+  Collections
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../vocabularies/" class="md-tabs__link">
+        
+  
+    
+  
+  Vocabularies
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../api/" class="md-tabs__link">
+          
+  
+    
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../sab/" class="md-tabs__link">
+        
+  
+    
+  
+  SAB
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="SIBiLS" class="md-nav__button md-logo" aria-label="SIBiLS" data-md-component="logo">
+      
+  <img src="../assets/sib.png" alt="logo">
+
+    </a>
+    SIBiLS
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../biodiversitypmc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Biodiversity PMC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../biotxplorer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BiotXplorer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../variomes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variomes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    SynVar
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    SynVar
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use-cases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#search-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Search interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Search interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fields
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../celltriage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Celltriage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sparql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SPARQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Collections
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Collections
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collections/sibils_collections/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SIBiLS collections
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collections/how_to_upload/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    upload publications in SIBiLS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vocabularies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vocabularies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    API
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_10" id="__nav_10_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../api/biodiversitypmc/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Biodiversity PMC
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_10_2" id="__nav_10_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_10_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10_2">
+            <span class="md-nav__icon md-icon"></span>
+            Biodiversity PMC
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/biodiversitypmc/fetch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fetch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/biodiversitypmc/search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Search
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/biodiversitypmc/qa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/celltriage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Celltriage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/variomes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variomes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/synvar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SynVar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/sparql/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SPARQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sab/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SAB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use-cases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#search-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Search interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Search interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fields
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      API
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="synvar">SynVar</h1>
+<p style="text-align: center">
+  <a class="md-button md-button--primary sibils-service" href="https://synvar.sibils.org/">SynVar</a>
+</p>
+<h2 id="background">Background</h2>
+<p>Genetic variants are drawing increasing interest regarding their role in pathologies, for designing new drugs or refining treatment efficacy through stratification. However, variant interpretation depends on time-consuming curation tasks. To support variant interpretation efforts and decisions based on the latest evidences, we propose <a href="../variomes/">Variomes</a> [@pasche2021variomes], a service performing variant-specific triage of publications.</p>
+<p>To increase the comprehensiveness of Variomes, we developed SynVar. This tool enables the generation of synonyms and normalization of variants. This task faces different challenges: </p>
+<ul>
+<li>
+<p>Variants can be represented at different levels - genomic, transcript or protein - with a combinatorial (many-to-many) relationship between them.</p>
+</li>
+<li>
+<p>Variant descriptions depend on a reference sequence on which the variation is described, to avoid positional ambiguity.</p>
+</li>
+<li>
+<p>The majority of variants mentioned in the literature do not follow a standard nomenclature.</p>
+</li>
+</ul>
+<p>While many databases of polymorphisms and somatic variants exist, such as ClinVar, COSMIC or dbSNP, using them as terminologies has several drawbacks: </p>
+<ul>
+<li>
+<p>Depending on the database, variants are mapped on different levels, hindering a linear relationship between them, and some are position- but not change-specific, reducing specificity.</p>
+</li>
+<li>
+<p>Dependency to databases prevents retrieval of newly described variants in literature.</p>
+</li>
+<li>
+<p>It doesn't provide non-standard expressions as found in the literature.</p>
+</li>
+</ul>
+<h2 id="description">Description</h2>
+<p>To enable a smooth and effective retrieval of variants in the literature, we developed a synonym generation tool that enables to generate for a given SNP – including variants not described in existing databases – its corresponding description at the genome, transcript and protein level, in the HGVS format as well as in many non standard – yet frequently used – descriptions found in the literature. It is adapted for variant expansion and normalization from any description level. </p>
+<h2 id="workflow">Workflow</h2>
+<h3 id="use-cases">Use-cases</h3>
+<ul>
+<li>
+<p><strong>Protein variant</strong>: the change is   validated on the reference sequence of the canonical isoform, by default, as retrieved by the <a href="https://api.nextprot.org/">NextProt API tool</a> [@zahn2020nextprot]. The valid variant is then backtranslated into the possible transcript variants, using the back-translator tool from <a href="https://mutalyzer.nl/">Mutalyzer</a> [@den2016sequence]. Finally the transcript variant is mapped onto its genomic position (GRCh37 and GRCh38 builds) using <a href="https://rest.variantvalidator.org/">VariantValidator</a> [@freeman2018variantvalidator].</p>
+</li>
+<li>
+<p><strong>Transcript variant</strong>: the variant is validated and mapped onto genome position using VariantValidator. It is translated into protein variant using Mutalyzer.</p>
+</li>
+<li>
+<p><strong>Genomic variant</strong>: the variant is validated and converted to the transcript variants using VariantValidator, if not intergenic. Transcript variants are translated into protein variants using Mutalyzer. If intergenic, only genomic variant synonyms are generated.</p>
+</li>
+<li>
+<p><strong>dbSNP id</strong>: The different genomic variants associated to the dbSNP [@smigielski2000dbsnp] id are retrieved through the NCBI eutils services. The conversion and translation procedure from genomic variant is similar to the one described above.</p>
+</li>
+<li>
+<p><strong>COSMIC id</strong>: The transcript variant corresponding to the COSMIC id is retrieved through the downloadable COSMIC data [@tate2019cosmic]. The genomic mapping and translation of transcript variant is similar to the one described above.</p>
+</li>
+</ul>
+<h3 id="output">Output</h3>
+<p>Results are returned as a list of genomic variants (unique position and change), along with their corresponding transcript and protein variants, grouped by genes and isoforms. The output is in XML format. The main elements are the following:</p>
+<ul>
+<li><strong>synonym</strong>: Synonyms of gene and protein names.</li>
+<li><strong>hgvs</strong>: Variant description in the standard HGVS format. The main HGVS description can be used as a unique identifier. Other HGVS are given for each level of description using the NCBI reference sequences.</li>
+<li><strong>syntactic-variation</strong>: Variant expressions as encountered in the literature.</li>
+</ul>
+<h2 id="search-interface">Search interface</h2>
+<h3 id="fields">Fields</h3>
+<ul>
+<li>
+<p><strong>Gene/Chromosome</strong>: Gene name or chromosome number/name (e.g. JAK2, BRAF, 9, X, MT). The field can be empty if a dbSNP or COSMIC id is searched.</p>
+</li>
+<li>
+<p><strong>Variant</strong>: Variant in the following format: V600E (for amino acid sequence) or 1799T&gt;A (for DNA sequence) or a dbSNP id (e.g. rs113488022) or COSMIC id (e.g. COSM476).</p>
+</li>
+<li>
+<p><strong>Level</strong>: Level of the provided variant description (<em>protein, transcript, genome, dbsnp or cosmic</em>).</p>
+</li>
+</ul>
+<h2 id="api">API</h2>
+<p>See <a href="../api/synvar/">the dedicated page</a></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+    <div class="md-copyright__highlight">
+        Tagged entities are licensed under a <a href="http://creativecommons.org/licenses/by/3.0/ch/">Creative Commons Attribution 3.0 Switzerland License</a>.
+    </div>
+    <div>
+        Questions specifically relating to these services may be sent to <a href="mailto:julien.gobeill@hesge.ch">julien.gobeill@hesge.ch</a>.
+    </div>
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.indexes", "content.code.copy"], "search": "../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+    
+  </body>
+</html>
