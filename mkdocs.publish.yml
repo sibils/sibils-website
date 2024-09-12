@@ -6,3 +6,6 @@ plugins:
       cards_color:
         fill: "#C40300"
         text: "#FFFFFF"
+  - swagger-ui-tag
+  - bibtex:
+      bib_file: "refs.bib"
