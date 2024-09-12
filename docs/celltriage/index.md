@@ -7,7 +7,7 @@ hide:
 # Celltriage
 
 <p style="text-align: center" markdown>
-  [Celltriage](https://celltriages.sibils.org/){ .md-button .md-button--primary .sibils-service }
+  [Celltriage](https://celltriage.sibils.org/){ .md-button .md-button--primary .sibils-service }
 </p>
 
 ## API
