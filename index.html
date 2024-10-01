@@ -9,9 +9,9 @@
 <link href="https://sibils.org/" rel="canonical"/>
 <link href="biodiversitypmc/" rel="next"/>
 <link href="assets/images/favicon.png" rel="icon"/>
-<meta content="mkdocs-1.6.1, mkdocs-material-9.5.34" name="generator"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.5.39" name="generator"/>
 <title>SIBiLS</title>
-<link href="assets/stylesheets/main.35f28582.min.css" rel="stylesheet"/>
+<link href="assets/stylesheets/main.8c3ca2c6.min.css" rel="stylesheet"/>
 <link href="assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
 <link href="assets/extra.css" rel="stylesheet"/>
 <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -221,6 +221,41 @@
     </span>
 </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data">
+<span class="md-ellipsis">
+      Data
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fetch-api">
+<span class="md-ellipsis">
+      Fetch API
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#customizable-search-api">
+<span class="md-ellipsis">
+      Customizable search API
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#question-answering-api">
+<span class="md-ellipsis">
+      Question Answering API
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reference">
+<span class="md-ellipsis">
+      Reference
+    </span>
+</a>
+</li>
 </ul>
 </nav>
 </li>
@@ -423,6 +458,41 @@
     </span>
 </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data">
+<span class="md-ellipsis">
+      Data
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fetch-api">
+<span class="md-ellipsis">
+      Fetch API
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#customizable-search-api">
+<span class="md-ellipsis">
+      Customizable search API
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#question-answering-api">
+<span class="md-ellipsis">
+      Question Answering API
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reference">
+<span class="md-ellipsis">
+      Reference
+    </span>
+</a>
+</li>
 </ul>
 </nav>
 </div>
@@ -522,7 +592,12 @@
     margin: 1.5rem auto 2.5rem auto;
   }
 </style>
-<h1><img alt="SIBiLS" src="assets/SIBiLS_logo_red.png" style="magin-bottom: 3rem"/></h1>
+<h1>Welcome to SIBiLS !</h1>
+<figure style="margin-bottom: 3em; margin-top: 2em">
+<video controls="controls" height="454" src="https://candy.hesge.ch/Speech.mp4" width="800">
+</video>
+<figcaption></figcaption>
+</figure>
 <p style="text-align: center">
 <a class="md-button md-button--primary sibils-service" href="https://biodiversitypmc.sibils.org/">Biodiversity PMC</a>
 <a class="md-button md-button--primary sibils-service" href="https://biotxplorer.sibils.org/">BiotXplorer</a>
@@ -533,6 +608,31 @@
 </p>
 <h2 id="introduction">Introduction</h2>
 <p>This page provides a description of SIBiLS (Swiss Institute of Bioinformatics Literature Services). SIBiLS provide <strong>personalized Information Retrieval</strong> in the biological literature. Indeed, SIBiLS allow <strong>fully customizable search</strong> in <strong>semantically enriched contents</strong>, based on keywords and/or mapped biomedical entities from a growing set of standardized and legacy vocabularies. The services have been used and favourably evaluated to assist the curation of genes and gene products, by delivering <strong>customized literature triage</strong> engines to different curation teams. SIBiLS are freely accessible via <strong>REST APIs</strong> and are <strong>ready to empower any curation workflow</strong>, built on modern technologies scalable with big data: MongoDB and Elasticsearch.</p>
+<p>The services are used by different SIB teams, some are mostly geared towards serving internal curation-support needs, while others are publicly available for a wider audience of life scientists.</p>
+<h2 id="data">Data</h2>
+<p>SIBiLS today cover 4 collections: MEDLINE, PubMedCentral (PMC), Plazi treatments, and PMC supplementary files. Collections are <strong>daily updated</strong>. Contents are parsed, then enriched by <strong>billions of mapped biomedical entities</strong> from reference vocabularies (described <a href="../vocabularies.md">here</a>). Output are json, in BioC (for fetch) or native Elasticsearch (for search) formats. </p>
+<h2 id="fetch-api">Fetch API</h2>
+<p>It allows to retrieve annotated contents from a given collection. The input is a set of document ids (up to 1,000 per request). The output is a set of parsed and annotated contents, in JSON and/or BioC formats. For MEDLINE citations, delivered and annotated fields include for example abstracts, or MeSH terms; for PMC full texts, paragraphs provided with their hierarchical level in the document structure, or figure captions; for supplementary data, text extracted from Excel files or ocerized from images. Annotations are delivered with many features including the type of the mapped entity (drug, gene, disease...), the vocabulary used, the vocabulary unique identifier and preferred term, or the mapping characters offsets.</p>
+<ul>
+<li><a href="../api/biodiversitypmc/fetch.md">how to fetch</a></li>
+</ul>
+<h2 id="customizable-search-api">Customizable search API</h2>
+<p>It allows to perform a fully customizable search for valuable documents in a given collection. The power of this service is based on the efficiency of Elasticsearch engines, and on the rich Lucene query language, which allows to investigate a large panel of searching strategies. For example: basic search with keywords or entity identifiers (“ZBED1” or “NP_NX_O96006”), searches in specified fields (“figures_captions: ZBED1” or “tables: mapped treatments”), boosting fields or query parts, Boolean, exploiting identified concepts or identified concept types... The input is thus a Lucene json query. The output is the Elasticsearch ranked result set in its native json format; for each document (up to 10,000 per request), a relevance score and the indexed content.</p>
+<ul>
+<li><a href="../api/biodiversitypmc/search.md">how to search</a></li>
+</ul>
+<h2 id="question-answering-api">Question Answering API</h2>
+<p>it allows to ask questions in natural languages, and to obtain answers extracted from documents from a given collection. The power of this service is based on previous Elasticserch indexes, and BERT language model. For example: asking for "what diseases are transmitted by ticks ?" in Plazi treatments. The input is a free text question. The output is a set of answers, ranked by scores, along with documents' snippet.</p>
+<ul>
+<li><a href="../api/biodiversitypmc/qa.md">how to question</a></li>
+</ul>
+<h2 id="reference">Reference</h2>
+<p>SIBiLS are detailed in the 2020 web server issue of Nucleic Acids Research: <em>SIB Literature Services: RESTful customizable search engines in biomedical literature, enriched with automatically mapped biomedical concepts</em> <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>. Here is the graphical abstract designed for the publication :</p>
+<figure>
+<p><img alt="graphical abstract" loading="lazy" src="../assets/graphical_abstract.png" style="width: calc(min(100%, 35rem)); margin: auto;">
+</img></p>
+<figcaption></figcaption>
+</figure>
 <ul class="partners">
 <li itemscope="" itemtype="https://schema.org/Organization">
 <a href="https://sib.swiss/" itemprop="url" target="_blank">
@@ -565,6 +665,14 @@
 </a>
 </li>
 </ul>
+<div class="footnote">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>Julien Gobeill, Déborah Caucheteur, Pierre-André Michel, Luc Mottin, Emilie Pasche, and Patrick Ruch. SIB Literature Services: RESTful customizable search engines in biomedical literature, enriched with automatically mapped biomedical concepts. <em>Nucleic Acids Research</em>, 48(W1):W12–W16, 05 2020. URL: <a href="https://academic.oup.com/nar/article/48/W1/W12/5831752">https://academic.oup.com/nar/article/48/W1/W12/5831752</a>, <a href="https://doi.org/10.1093/nar/gkaa328">doi:10.1093/nar/gkaa328</a>. <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
@@ -588,8 +696,8 @@
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.indexes", "content.code.copy"], "search": "assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
-<script src="assets/javascripts/bundle.56dfad97.min.js"></script>
+<script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.indexes", "content.code.copy"], "search": "assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="assets/javascripts/bundle.525ec568.min.js"></script>
 <script>document$.subscribe(() => {
             window.update_swagger_ui_iframe_height = function (id) {
                 var iFrameID = document.getElementById(id);
