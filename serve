@@ -7,4 +7,4 @@ if [ ! -d "./venv" ]; then
 else
     . ./venv/bin/activate
 fi
-mkdocs serve
+mkdocs serve $@

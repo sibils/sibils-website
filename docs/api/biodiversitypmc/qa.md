@@ -1,4 +1,4 @@
-# SIBiLS question answering API
+# Biodiversity PMC question answering API
 
 ## Description
 
@@ -6,14 +6,16 @@ This API allows sk questions in natural languages, and to obtain answers extract
 
 ## API endpoint
 
-**URL**: [sibils.text-analytics.ch/api/QA](https://sibils.text-analytics.ch/api/qa)
+**URL**: [biodiversitypmc.sibils.org/api/QA](https://biodiversitypmc.sibils.org/api/QA)
 
 **Mandatory input**: one collection (&col=), amongst "medline" and "plazi"
+
 **Mandatory input**: a question (&q=) in natural language
+
 **Optional input**: the number of documents (&n=, default 5) to work with. Each documents asks ~5 seconds of processing.
 
 **Example**: ask what diseases are transmitted by ticks ?
-[https://sibils.text-analytics.ch/api/QA?q=What%20diseases%20are%20transmitted%20by%20ticks%20?&col=medline](https://sibils.text-analytics.ch/api/QA?q=What%20diseases%20are%20transmitted%20by%20ticks%20?&col=medline)
+[https://biodiversitypmc.sibils.org/api/QA?q=What%20diseases%20are%20transmitted%20by%20ticks%20?&col=medline](https://biodiversitypmc.sibils.org/api/QA?q=What%20diseases%20are%20transmitted%20by%20ticks%20?&col=medline)
 
 
 ## Output

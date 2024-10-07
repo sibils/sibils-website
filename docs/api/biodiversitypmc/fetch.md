@@ -1,4 +1,4 @@
-# SIBiLS documents and annotations fetch API
+# Biodiversity PMC documents and annotations fetch API
 
 ## Description
 
@@ -6,14 +6,14 @@ This API allows to retrieve annotated contents from a given collection. The inpu
 
 ## API endpoint
 
-**URL**: [sibils.text-analytics.ch/api/fetch](https://sibils.text-analytics.ch/api/fetch)
+**URL**: [biodiversitypmc.sibils.org/api/fetch](https://biodiversitypmc.sibils.org/api/fetch)
 
 **Mandatory input**: one collection (&col=), amongst "medline", "pmc", "plazi" and "suppdata"
 **Mandatory input**: the list of requested document ids (&ids=). Docids are separated by commas.
 **Optional input**: the output format (&format=) amongst "json" (default) or "BioC" (to come)
 
 **Example**: fetch two PMIDs from MEDLINE
-[https://sibils.text-analytics.ch/api/fetch?ids=14691011,25190367&col=medline](https://sibils.text-analytics.ch/api/fetch?ids=14691011,25190367&col=medline)
+[https://biodiversitypmc.sibils.org/api/fetch?ids=14691011,25190367&col=medline](https://biodiversitypmc.sibils.org/api/fetch?ids=14691011,25190367&col=medline)
 
 ## Code sample
 
@@ -28,7 +28,7 @@ pmids = "14691011,25190367"
 collection = "medline"
 
 # call with POST
-url_API = "https://sibils.text-analytics.ch/api/fetch"
+url_API = "https://biodiversitypmc.sibils.org/api/fetch"
 my_params = {"ids": pmids ; "col": collections} # parameters dictionary
 r = requests.post(url = url_API, data = my_params)
 
