@@ -37,6 +37,10 @@ theme:
     - content.code.copy       # ajouter un bouton "copier" à droite dans les blocs de code
 extra_css:
   - assets/extra.css
+extra:
+  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-analytics/#custom-site-analytics
+  analytics:
+    provider: custom
 
 plugins:
   - swagger-ui-tag
