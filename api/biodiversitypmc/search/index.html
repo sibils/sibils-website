@@ -1,0 +1,684 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Swiss Institute of Bioinformatics Literature Services" name="description"/>
+<link href="https://sibils.org/api/biodiversitypmc/search/" rel="canonical"/>
+<link href="../fetch/" rel="prev"/>
+<link href="../qa/" rel="next"/>
+<link href="../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.5.45" name="generator"/>
+<title>Search - SIBiLS</title>
+<link href="../../../assets/stylesheets/main.0253249f.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link href="../../../assets/extra.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<meta content="website" property="og:type"/>
+<meta content="Search - SIBiLS" property="og:title"/>
+<meta content="Swiss Institute of Bioinformatics Literature Services" property="og:description"/>
+<meta content="https://sibils.org/assets/images/social/api/biodiversitypmc/search.png" property="og:image"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="https://sibils.org/api/biodiversitypmc/search/" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Search - SIBiLS" name="twitter:title"/>
+<meta content="Swiss Institute of Bioinformatics Literature Services" name="twitter:description"/>
+<meta content="https://sibils.org/assets/images/social/api/biodiversitypmc/search.png" name="twitter:image"/>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="sibils" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#biodiversity-pmc-customizable-search-api">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="SIBiLS" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="SIBiLS">
+<img alt="logo" src="../../../assets/sib.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            SIBiLS
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Search
+            
+          </span>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+    
+  
+  Introduction
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../biodiversitypmc/">
+        
+  
+    
+  
+  Biodiversity PMC
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../biotxplorer/">
+        
+  
+    
+  
+  BiotXplorer
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../variomes/">
+        
+  
+    
+  
+  Variomes
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../synvar/">
+        
+  
+    
+  
+  SynVar
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../celltriage/">
+        
+  
+    
+  
+  Celltriage
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../sparql/">
+        
+  
+    
+  
+  SPARQL
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../collections/sibils_collections/">
+          
+  
+    
+  
+  Collections
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../vocabularies/">
+        
+  
+    
+  
+  Vocabularies
+
+      </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../../">
+          
+  
+    
+  
+  API
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../sab/">
+        
+  
+    
+  
+  SAB
+
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="SIBiLS" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="SIBiLS">
+<img alt="logo" src="../../../assets/sib.png"/>
+</a>
+    SIBiLS
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Introduction
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../biodiversitypmc/">
+<span class="md-ellipsis">
+    Biodiversity PMC
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../biotxplorer/">
+<span class="md-ellipsis">
+    BiotXplorer
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../variomes/">
+<span class="md-ellipsis">
+    Variomes
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../synvar/">
+<span class="md-ellipsis">
+    SynVar
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../celltriage/">
+<span class="md-ellipsis">
+    Celltriage
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../sparql/">
+<span class="md-ellipsis">
+    SPARQL
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+<span class="md-ellipsis">
+    Collections
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_8_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+            Collections
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../collections/sibils_collections/">
+<span class="md-ellipsis">
+    SIBiLS collections
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../collections/how_to_upload/">
+<span class="md-ellipsis">
+    upload publications in SIBiLS
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../vocabularies/">
+<span class="md-ellipsis">
+    Vocabularies
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_10" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../../">
+<span class="md-ellipsis">
+    API
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_10_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_10">
+<span class="md-nav__icon md-icon"></span>
+            API
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_10_2" type="checkbox"/>
+<div class="md-nav__link md-nav__container">
+<a class="md-nav__link" href="../">
+<span class="md-ellipsis">
+    Biodiversity PMC
+  </span>
+</a>
+<label class="md-nav__link" for="__nav_10_2" id="__nav_10_2_label" tabindex="0">
+<span class="md-nav__icon md-icon"></span>
+</label>
+</div>
+<nav aria-expanded="true" aria-labelledby="__nav_10_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_10_2">
+<span class="md-nav__icon md-icon"></span>
+            Biodiversity PMC
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../fetch/">
+<span class="md-ellipsis">
+    Fetch
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Search
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Search
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#description">
+<span class="md-ellipsis">
+      Description
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-endpoint">
+<span class="md-ellipsis">
+      API endpoint
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#code-sample">
+<span class="md-ellipsis">
+      Code sample
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#output">
+<span class="md-ellipsis">
+      Output
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../qa/">
+<span class="md-ellipsis">
+    QA
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../celltriage/">
+<span class="md-ellipsis">
+    Celltriage
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../variomes/">
+<span class="md-ellipsis">
+    Variomes
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../synvar/">
+<span class="md-ellipsis">
+    SynVar
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../sparql/">
+<span class="md-ellipsis">
+    SPARQL
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../sab/">
+<span class="md-ellipsis">
+    SAB
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#description">
+<span class="md-ellipsis">
+      Description
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-endpoint">
+<span class="md-ellipsis">
+      API endpoint
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#code-sample">
+<span class="md-ellipsis">
+      Code sample
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#output">
+<span class="md-ellipsis">
+      Output
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="biodiversity-pmc-customizable-search-api">Biodiversity PMC customizable search API</h1>
+<h2 id="description">Description</h2>
+<p>This API allows to perform a fully customizable search for valuable annotated citations in a given collection. The power of SIBiLS is based on the efficiency of Elasticsearch engines, and on the rich Lucene query language, which allows to investigate a large panel of searching strategies. For example: basic search with keywords or entity identifiers (“ZBED1” or “NP_NX_O96006”), searches in specified fields (“title: ZBED1” or “annotations_str: genes”), boosting fields or query parts, Boolean, exploiting identified concepts or identified concept types...) The input is thus a Lucene json query. The output is the Elasticsearch ranked result set, ranked by relevance, in its native json format; for each retrieved citation (up to 10,000 per request), a relevance score and the indexed content are included.</p>
+<h2 id="api-endpoint">API endpoint</h2>
+<p><strong>URL</strong>: <a href="https://biodiversitypmc.sibils.org/api/search">biodiversitypmc.sibils.org/api/search</a></p>
+<p><strong>Mandatory input</strong>: q OR jq: a query q in free text, which is interpreted by query analyzer, OR a Lucene json_query jq</p>
+<p><strong>Mandatory input</strong>: one collection (&amp;col=), amongst "medline", "pmc", "plazi" and "suppdata"</p>
+<p><strong>Optional input</strong>: the number of requested documents (&amp;n=, default 10, max 1000)</p>
+<p><strong>Example</strong>: simple search for MEDLINE (&amp;col=) documents containing (&amp;q=) Rhinolophus and Pangolin.</p>
+<p><a href="https://biodiversitypmc.sibils.org/api/search?q=Rhinolophus%20and%20Pangolin&amp;col=medline">biodiversitypmc.sibils.org/api/search?q=Rhinolophus%20and%20Pangolin&amp;col=medline</a></p>
+<p><strong>Example</strong>: customizable search (&amp;jq) with a Lucene style json query</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"bool"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"must"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"match"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"title"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Digitoxin metabolism"</span><span class="w"> </span><span class="p">}},</span><span class="nt">"should"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"match"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"annotations_str"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"GO"</span><span class="w"> </span><span class="p">}},</span><span class="nt">"boost"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}}}</span>
+</code></pre></div>
+<p><strong>Query language</strong>: JSON queries for Elasticsearch are described in <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html">elastic.co</a></p>
+<h2 id="code-sample">Code sample</h2>
+<p>A python script for demonstrating POST calls to the API, with multiple examples of Lucene style queries:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span> <span class="c1"># not installed in default Python</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1"># queries must be formatted in Lucene ElasticSearch style</span>
+<span class="c1"># https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html</span>
+
+<span class="c1"># here are different query types :</span>
+
+<span class="c1"># MULTI_MATCH queries</span>
+<span class="c1"># use it for searching in specific fields, with a general OR or AND</span>
+
+<span class="n">search_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"title"</span><span class="p">,</span><span class="s2">"abstract"</span><span class="p">,</span><span class="s2">"keywords"</span><span class="p">,</span><span class="s2">"mesh_terms"</span><span class="p">]</span>
+<span class="c1"># you can use "title^3" for boosting by 3 scores in title</span>
+<span class="n">keywords</span> <span class="o">=</span> <span class="s2">"BRCA2 cancer"</span>
+<span class="n">my_operator</span> <span class="o">=</span> <span class="s2">"and"</span> <span class="c1"># default is "or"</span>
+<span class="n">my_type</span> <span class="o">=</span> <span class="s2">"phrase"</span> <span class="c1"># use it for phrase matching (exact expression)</span>
+
+<span class="n">my_query</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"size"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="c1"># maximum amount of hits returned</span>
+    <span class="s2">"from"</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1"># offset from the first result you want to fetch</span>
+    <span class="s2">"query"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"multi_match"</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"query"</span> <span class="p">:</span> <span class="n">keywords</span><span class="p">,</span>
+            <span class="s2">"fields"</span> <span class="p">:</span> <span class="n">search_fields</span>
+            <span class="c1">#,"operator" : my_operator</span>
+            <span class="c1">#,"type" = "phrase"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+
+<span class="c1"># BOOLEAN queries</span>
+<span class="c1"># The AND/OR/NOT operators can be used to fine tune the search queries.</span>
+<span class="c1"># This is implemented in the search API as a bool query.</span>
+<span class="c1"># The bool query accepts a must parameter (equivalent to AND),</span>
+<span class="c1"># a must_not parameter (equivalent to NOT),</span>
+<span class="c1"># and a should parameter (equivalent to OR).</span>
+<span class="c1"># https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html</span>
+
+<span class="sd">"""</span>
+<span class="sd"># ex: ("EML4" OR "ALK" in title) AND ("Lung Cancer" in journal)</span>
+<span class="sd">my_query = {</span>
+<span class="sd">    "query": {</span>
+<span class="sd">        "bool" : {</span>
+<span class="sd">            "must" :[ # AND</span>
+<span class="sd">                {</span>
+<span class="sd">                    "bool" : {</span>
+<span class="sd">                        "should" :[ # OR</span>
+<span class="sd">                            {</span>
+<span class="sd">                                "match" : {"title": "EML4"},</span>
+<span class="sd">                                "match" : {"title": "ALK"}</span>
+<span class="sd">                                }</span>
+<span class="sd">                            ]</span>
+<span class="sd">                        }</span>
+<span class="sd">                    },</span>
+<span class="sd">                {</span>
+<span class="sd">                    "match" : {"journal": "Lung Cancer"}</span>
+<span class="sd">                    }</span>
+<span class="sd">                ]</span>
+<span class="sd">            }</span>
+<span class="sd">        }</span>
+<span class="sd">    }</span>
+<span class="sd">"""</span>
+
+<span class="c1"># EXPLOITING ANNOTATIONS</span>
+<span class="c1"># the annotations_str field can be exploited in order to search for</span>
+<span class="c1"># concept types (drugs, genes, diseases), or concepts ids (gene</span>
+<span class="c1"># P51587).</span>
+
+<span class="sd">"""</span>
+<span class="sd"># ex: records with identified BRCA2 (NX_P51587) and identified drugs</span>
+<span class="sd">my_ids = "NP_NX_P51587"</span>
+<span class="sd">my_types = "drugs"</span>
+<span class="sd">my_operator = "and"</span>
+
+<span class="sd">my_query = {</span>
+<span class="sd">    "query": {</span>
+<span class="sd">        "multi_match" : {</span>
+<span class="sd">            "query" : my_ids + " " + my_types,</span>
+<span class="sd">            "fields" : "annotations_str"</span>
+<span class="sd">            ,"operator" : my_operator</span>
+<span class="sd">            }</span>
+<span class="sd">        }</span>
+<span class="sd">    }</span>
+<span class="sd">"""</span>
+
+
+<span class="c1"># call</span>
+<span class="n">url_API</span> <span class="o">=</span> <span class="s2">"https://biodiversitypmc.sibils.org/api/search"</span>
+<span class="n">my_json_query</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">my_query</span><span class="p">)</span> <span class="c1"># json to string</span>
+<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"jq"</span><span class="p">:</span> <span class="n">my_json_query</span><span class="p">;</span><span class="n">col</span><span class="o">=</span><span class="s2">"pmc"</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="n">url_API</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">my_params</span><span class="p">)</span>
+
+<span class="c1"># get response and print in output file</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"SIBiLS_search.json"</span><span class="p">,</span><span class="s2">"w"</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+   <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="output">Output</h2>
+<p>Output is a native Elasticsearch response (json formatted), and includes retrieval scores for each document.</p>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+        Tagged entities are licensed under a <a href="http://creativecommons.org/licenses/by/3.0/ch/">Creative Commons Attribution 3.0 Switzerland License</a>.
+    </div>
+<div>
+        Questions specifically relating to these services may be sent to <a href="mailto:julien.gobeill@hesge.ch">julien.gobeill@hesge.ch</a>.
+    </div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+<script>document$.subscribe(() => {
+            window.update_swagger_ui_iframe_height = function (id) {
+                var iFrameID = document.getElementById(id);
+                if (iFrameID) {
+                    full_height = (iFrameID.contentWindow.document.body.scrollHeight + 80) + "px";
+                    iFrameID.height = full_height;
+                    iFrameID.style.height = full_height;
+                }
+            }
+        
+            let iframe_id_list = []
+            var iframes = document.getElementsByClassName("swagger-ui-iframe");
+            for (var i = 0; i < iframes.length; i++) { 
+                iframe_id_list.push(iframes[i].getAttribute("id"))
+            }
+        
+            let ticking = true;
+            
+            document.addEventListener('scroll', function(e) {
+                if (!ticking) {
+                    window.requestAnimationFrame(()=> {
+                        let half_vh = window.innerHeight/2;
+                        for(var i = 0; i < iframe_id_list.length; i++) {
+                            let element = document.getElementById(iframe_id_list[i])
+                            if(element==null){
+                                return
+                            }
+                            let diff = element.getBoundingClientRect().top
+                            if(element.contentWindow.update_top_val){
+                                element.contentWindow.update_top_val(half_vh - diff)
+                            }
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        
+            const dark_scheme_name = "slate"
+            
+            window.scheme = document.body.getAttribute("data-md-color-scheme")
+            const options = {
+                attributeFilter: ['data-md-color-scheme'],
+            };
+            function color_scheme_callback(mutations) {
+                for (let mutation of mutations) {
+                    if (mutation.attributeName === "data-md-color-scheme") {
+                        scheme = document.body.getAttribute("data-md-color-scheme")
+                        var iframe_list = document.getElementsByClassName("swagger-ui-iframe")
+                        for(var i = 0; i < iframe_list.length; i++) {
+                            var ele = iframe_list.item(i);
+                            if (ele) {
+                                if (scheme === dark_scheme_name) {
+                                    ele.contentWindow.enable_dark_mode();
+                                } else {
+                                    ele.contentWindow.disable_dark_mode();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            observer = new MutationObserver(color_scheme_callback);
+            observer.observe(document.body, options);
+            })</script></body>
+</html>

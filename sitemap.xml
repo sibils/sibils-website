@@ -1,43 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://sibils.text-analytics.ch/</loc>
-         <lastmod>2024-09-12</lastmod>
+         <loc>https://sibils.org/</loc>
+         <lastmod>2024-11-20</lastmod>
     </url>
     <url>
-         <loc>https://sibils.text-analytics.ch/doc/sab/</loc>
-         <lastmod>2024-09-12</lastmod>
+         <loc>https://sibils.org/sab/</loc>
+         <lastmod>2024-11-20</lastmod>
     </url>
     <url>
-         <loc>https://sibils.text-analytics.ch/doc/videos/</loc>
-         <lastmod>2024-09-12</lastmod>
+         <loc>https://sibils.org/vocabularies/</loc>
+         <lastmod>2024-11-20</lastmod>
     </url>
     <url>
-         <loc>https://sibils.text-analytics.ch/doc/vocabularies/</loc>
-         <lastmod>2024-09-12</lastmod>
+         <loc>https://sibils.org/api/</loc>
+         <lastmod>2024-11-20</lastmod>
     </url>
     <url>
-         <loc>https://sibils.text-analytics.ch/doc/api/fetch/</loc>
-         <lastmod>2024-09-12</lastmod>
+         <loc>https://sibils.org/api/biodiversitypmc/</loc>
+         <lastmod>2024-11-20</lastmod>
     </url>
     <url>
-         <loc>https://sibils.text-analytics.ch/doc/api/qa/</loc>
-         <lastmod>2024-09-12</lastmod>
+         <loc>https://sibils.org/api/biodiversitypmc/fetch/</loc>
+         <lastmod>2024-11-20</lastmod>
     </url>
     <url>
-         <loc>https://sibils.text-analytics.ch/doc/api/search/</loc>
-         <lastmod>2024-09-12</lastmod>
+         <loc>https://sibils.org/api/biodiversitypmc/qa/</loc>
+         <lastmod>2024-11-20</lastmod>
     </url>
     <url>
-         <loc>https://sibils.text-analytics.ch/doc/api/sparql/</loc>
-         <lastmod>2024-09-12</lastmod>
+         <loc>https://sibils.org/api/biodiversitypmc/search/</loc>
+         <lastmod>2024-11-20</lastmod>
     </url>
     <url>
-         <loc>https://sibils.text-analytics.ch/doc/collections/how_to_upload/</loc>
-         <lastmod>2024-09-12</lastmod>
+         <loc>https://sibils.org/api/celltriage/</loc>
+         <lastmod>2024-11-20</lastmod>
     </url>
     <url>
-         <loc>https://sibils.text-analytics.ch/doc/collections/sibils_collections/</loc>
-         <lastmod>2024-09-12</lastmod>
+         <loc>https://sibils.org/api/sparql/</loc>
+         <lastmod>2024-11-20</lastmod>
+    </url>
+    <url>
+         <loc>https://sibils.org/api/synvar/</loc>
+         <lastmod>2024-11-20</lastmod>
+    </url>
+    <url>
+         <loc>https://sibils.org/api/variomes/</loc>
+         <lastmod>2024-11-20</lastmod>
+    </url>
+    <url>
+         <loc>https://sibils.org/biodiversitypmc/</loc>
+         <lastmod>2024-11-20</lastmod>
+    </url>
+    <url>
+         <loc>https://sibils.org/biotxplorer/</loc>
+         <lastmod>2024-11-20</lastmod>
+    </url>
+    <url>
+         <loc>https://sibils.org/celltriage/</loc>
+         <lastmod>2024-11-20</lastmod>
+    </url>
+    <url>
+         <loc>https://sibils.org/collections/how_to_upload/</loc>
+         <lastmod>2024-11-20</lastmod>
+    </url>
+    <url>
+         <loc>https://sibils.org/collections/sibils_collections/</loc>
+         <lastmod>2024-11-20</lastmod>
+    </url>
+    <url>
+         <loc>https://sibils.org/sparql/</loc>
+         <lastmod>2024-11-20</lastmod>
+    </url>
+    <url>
+         <loc>https://sibils.org/synvar/</loc>
+         <lastmod>2024-11-20</lastmod>
+    </url>
+    <url>
+         <loc>https://sibils.org/variomes/</loc>
+         <lastmod>2024-11-20</lastmod>
     </url>
 </urlset>
