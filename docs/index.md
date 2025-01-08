@@ -59,7 +59,7 @@ hide:
       "providesService": {
         "@type": "Service",
         "name": "Variomes"
-      },
+      }
     },
     {
       "@type": "ServiceChannel",
@@ -67,7 +67,7 @@ hide:
       "providesService": {
         "@type": "Service",
         "name": "Celltriage"
-      },
+      }
     },
     {
       "@type": "ServiceChannel",
@@ -75,7 +75,7 @@ hide:
       "providesService": {
         "@type": "Service",
         "name": "SIBiLS SPARQL endpoint"
-      },
+      }
     }
   ]
 }
