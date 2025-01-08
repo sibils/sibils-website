@@ -17,7 +17,7 @@ hide:
   "url": "https://sibils.org",
   "description": "Swiss Institute of Bioinformatics Literature Services",
   "sameAs": [
-    "https://sibils.text-analytics.ch/",
+    "https://sibils.text-analytics.ch/"
   ],
   "logo": {
     "@type": "ImageObject",
@@ -42,7 +42,7 @@ hide:
       "serviceUrl": "https://biodiversitypmc.sibils.org/",
       "providesService": {
         "@type": "Service",
-        "name": "Biodiversity PMC",
+        "name": "Biodiversity PMC"
       }
     },
     {
@@ -50,7 +50,7 @@ hide:
       "serviceUrl": "https://biotxplorer.sibils.org/",
       "providesService": {
         "@type": "Service",
-        "name": "BiotXplorer",
+        "name": "BiotXplorer"
       }
     },
     {
@@ -58,7 +58,7 @@ hide:
       "serviceUrl": "https://variomes.sibils.org/",
       "providesService": {
         "@type": "Service",
-        "name": "Variomes",
+        "name": "Variomes"
       },
     },
     {
@@ -66,7 +66,7 @@ hide:
       "serviceUrl": "https://celltriage.sibils.org/",
       "providesService": {
         "@type": "Service",
-        "name": "Celltriage",
+        "name": "Celltriage"
       },
     },
     {
@@ -74,7 +74,7 @@ hide:
       "serviceUrl": "https://sparql.sibils.org/",
       "providesService": {
         "@type": "Service",
-        "name": "SIBiLS SPARQL endpoint",
+        "name": "SIBiLS SPARQL endpoint"
       },
     }
   ]
@@ -133,19 +133,19 @@ SIBiLS today cover 4 collections: MEDLINE, PubMedCentral (PMC), Plazi treatments
 
 It allows to retrieve annotated contents from a given collection. The input is a set of document ids (up to 1,000 per request). The output is a set of parsed and annotated contents, in JSON and/or BioC formats. For MEDLINE citations, delivered and annotated fields include for example abstracts, or MeSH terms; for PMC full texts, paragraphs provided with their hierarchical level in the document structure, or figure captions; for supplementary data, text extracted from Excel files or ocerized from images. Annotations are delivered with many features including the type of the mapped entity (drug, gene, disease...), the vocabulary used, the vocabulary unique identifier and preferred term, or the mapping characters offsets.
 
-* [how to fetch](../api/biodiversitypmc/fetch.md)
+* [how to fetch](api/biodiversitypmc/fetch.md)
 
 ## Customizable search API
 
 It allows to perform a fully customizable search for valuable documents in a given collection. The power of this service is based on the efficiency of Elasticsearch engines, and on the rich Lucene query language, which allows to investigate a large panel of searching strategies. For example: basic search with keywords or entity identifiers (“ZBED1” or “NP_NX_O96006”), searches in specified fields (“figures_captions: ZBED1” or “tables: mapped treatments”), boosting fields or query parts, Boolean, exploiting identified concepts or identified concept types... The input is thus a Lucene json query. The output is the Elasticsearch ranked result set in its native json format; for each document (up to 10,000 per request), a relevance score and the indexed content.
 
-* [how to search](../api/biodiversitypmc/search.md)
+* [how to search](api/biodiversitypmc/search.md)
 
 ## Question Answering API
 
 it allows to ask questions in natural languages, and to obtain answers extracted from documents from a given collection. The power of this service is based on previous Elasticserch indexes, and BERT language model. For example: asking for "what diseases are transmitted by ticks ?" in Plazi treatments. The input is a free text question. The output is a set of answers, ranked by scores, along with documents' snippet.
 
-* [how to question](../api/biodiversitypmc/qa.md)
+* [how to question](api/biodiversitypmc/qa.md)
 
 ## Reference
 
