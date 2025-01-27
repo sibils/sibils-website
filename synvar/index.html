@@ -10,9 +10,9 @@
 <link href="../variomes/" rel="prev"/>
 <link href="../celltriage/" rel="next"/>
 <link href="../assets/images/favicon.png" rel="icon"/>
-<meta content="mkdocs-1.6.1, mkdocs-material-9.5.49" name="generator"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.5.50" name="generator"/>
 <title>SynVar - SIBiLS</title>
-<link href="../assets/stylesheets/main.6f8fc17f.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/main.a40c8224.min.css" rel="stylesheet"/>
 <link href="../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
 <link href="../assets/extra.css" rel="stylesheet"/>
 <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -565,7 +565,7 @@
 <a class="md-button md-button--primary sibils-service" href="https://synvar.sibils.org/">SynVar</a>
 </p>
 <h2 id="background">Background</h2>
-<p>Genetic variants are drawing increasing interest regarding their role in pathologies, for designing new drugs or refining treatment efficacy through stratification. However, variant interpretation depends on time-consuming curation tasks. To support variant interpretation efforts and decisions based on the latest evidences, we propose <a href="../variomes/">Variomes</a> <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>, a service performing variant-specific triage of publications.</p>
+<p>Genetic variants are drawing increasing interest regarding their role in pathologies, for designing new drugs or refining treatment efficacy through stratification. However, variant interpretation depends on time-consuming curation tasks. To support variant interpretation efforts and decisions based on the latest evidences, we propose <a href="../variomes/">Variomes</a> <sup id="fnref:pasche2021variomes"><a class="footnote-ref" href="#fn:pasche2021variomes">1</a></sup>, a service performing variant-specific triage of publications.</p>
 <p>To increase the comprehensiveness of Variomes, we developed SynVar. This tool enables the generation of synonyms and normalization of variants. This task faces different challenges: </p>
 <ul>
 <li>
@@ -596,7 +596,7 @@
 <h3 id="use-cases">Use-cases</h3>
 <ul>
 <li>
-<p><strong>Protein variant</strong>: the change is   validated on the reference sequence of the canonical isoform, by default, as retrieved by the <a href="https://api.nextprot.org/">NextProt API tool</a> <sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>. The valid variant is then backtranslated into the possible transcript variants, using the back-translator tool from <a href="https://mutalyzer.nl/">Mutalyzer</a> <sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>. Finally the transcript variant is mapped onto its genomic position (GRCh37 and GRCh38 builds) using <a href="https://rest.variantvalidator.org/">VariantValidator</a> <sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>.</p>
+<p><strong>Protein variant</strong>: the change is   validated on the reference sequence of the canonical isoform, by default, as retrieved by the <a href="https://api.nextprot.org/">NextProt API tool</a> <sup id="fnref:zahn2020nextprot"><a class="footnote-ref" href="#fn:zahn2020nextprot">2</a></sup>. The valid variant is then backtranslated into the possible transcript variants, using the back-translator tool from <a href="https://mutalyzer.nl/">Mutalyzer</a> <sup id="fnref:den2016sequence"><a class="footnote-ref" href="#fn:den2016sequence">3</a></sup>. Finally the transcript variant is mapped onto its genomic position (GRCh37 and GRCh38 builds) using <a href="https://rest.variantvalidator.org/">VariantValidator</a> <sup id="fnref:freeman2018variantvalidator"><a class="footnote-ref" href="#fn:freeman2018variantvalidator">4</a></sup>.</p>
 </li>
 <li>
 <p><strong>Transcript variant</strong>: the variant is validated and mapped onto genome position using VariantValidator. It is translated into protein variant using Mutalyzer.</p>
@@ -605,10 +605,10 @@
 <p><strong>Genomic variant</strong>: the variant is validated and converted to the transcript variants using VariantValidator, if not intergenic. Transcript variants are translated into protein variants using Mutalyzer. If intergenic, only genomic variant synonyms are generated.</p>
 </li>
 <li>
-<p><strong>dbSNP id</strong>: The different genomic variants associated to the dbSNP <sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup> id are retrieved through the NCBI eutils services. The conversion and translation procedure from genomic variant is similar to the one described above.</p>
+<p><strong>dbSNP id</strong>: The different genomic variants associated to the dbSNP <sup id="fnref:smigielski2000dbsnp"><a class="footnote-ref" href="#fn:smigielski2000dbsnp">5</a></sup> id are retrieved through the NCBI eutils services. The conversion and translation procedure from genomic variant is similar to the one described above.</p>
 </li>
 <li>
-<p><strong>COSMIC id</strong>: The transcript variant corresponding to the COSMIC id is retrieved through the downloadable COSMIC data <sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup>. The genomic mapping and translation of transcript variant is similar to the one described above.</p>
+<p><strong>COSMIC id</strong>: The transcript variant corresponding to the COSMIC id is retrieved through the downloadable COSMIC data <sup id="fnref:tate2019cosmic"><a class="footnote-ref" href="#fn:tate2019cosmic">6</a></sup>. The genomic mapping and translation of transcript variant is similar to the one described above.</p>
 </li>
 </ul>
 <h3 id="output">Output</h3>
@@ -636,23 +636,23 @@
 <div class="footnote">
 <hr/>
 <ol>
-<li id="fn:1">
-<p>Emilie Pasche, Anaïs Mottaz, Déborah Caucheteur, Julien Gobeill, Pierre-André Michel, and Patrick Ruch. Variomes: a high recall search engine to support the curation of genomic variants. <em>bioRxiv: the preprint server for biology</em>, 2021. <a href="https://doi.org/10.1101/2021.05.29.446224">doi:10.1101/2021.05.29.446224</a>. <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+<li id="fn:pasche2021variomes">
+<p>Emilie Pasche, Anaïs Mottaz, Déborah Caucheteur, Julien Gobeill, Pierre-André Michel, and Patrick Ruch. Variomes: a high recall search engine to support the curation of genomic variants. <em>bioRxiv: the preprint server for biology</em>, 2021. <a href="https://doi.org/10.1101/2021.05.29.446224">doi:10.1101/2021.05.29.446224</a>. <a class="footnote-backref" href="#fnref:pasche2021variomes" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
-<li id="fn:2">
-<p>Monique Zahn-Zabal, Pierre-André Michel, Alain Gateau, Frédéric Nikitin, Mathieu Schaeffer, Estelle Audot, Pascale Gaudet, Paula D Duek, Daniel Teixeira, Valentine Rech de Laval, and others. The nextprot knowledgebase in 2020: data, tools and usability improvements. <em>Nucleic Acids Research</em>, 48(D1):D328–D334, 2020. <a href="https://doi.org/10.1093/nar/gkz995">doi:10.1093/nar/gkz995</a>. <a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a></p>
+<li id="fn:zahn2020nextprot">
+<p>Monique Zahn-Zabal, Pierre-André Michel, Alain Gateau, Frédéric Nikitin, Mathieu Schaeffer, Estelle Audot, Pascale Gaudet, Paula D Duek, Daniel Teixeira, Valentine Rech de Laval, and others. The nextprot knowledgebase in 2020: data, tools and usability improvements. <em>Nucleic Acids Research</em>, 48(D1):D328–D334, 2020. <a href="https://doi.org/10.1093/nar/gkz995">doi:10.1093/nar/gkz995</a>. <a class="footnote-backref" href="#fnref:zahn2020nextprot" title="Jump back to footnote 2 in the text">↩</a></p>
 </li>
-<li id="fn:3">
-<p>Johan T den Dunnen. Sequence variant descriptions: hgvs nomenclature and mutalyzer. <em>Current Protocols in Human Genetics</em>, 90(1):7–13, 2016. <a href="https://doi.org/10.1002/cphg.2">doi:10.1002/cphg.2</a>. <a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">↩</a></p>
+<li id="fn:den2016sequence">
+<p>Johan T den Dunnen. Sequence variant descriptions: hgvs nomenclature and mutalyzer. <em>Current Protocols in Human Genetics</em>, 90(1):7–13, 2016. <a href="https://doi.org/10.1002/cphg.2">doi:10.1002/cphg.2</a>. <a class="footnote-backref" href="#fnref:den2016sequence" title="Jump back to footnote 3 in the text">↩</a></p>
 </li>
-<li id="fn:4">
-<p>Peter J Freeman, Reece K Hart, Liam J Gretton, Anthony J Brookes, and Raymond Dalgleish. Variantvalidator: accurate validation, mapping, and formatting of sequence variation descriptions. <em>Human mutation</em>, 39(1):61–68, 2018. <a href="https://doi.org/10.1002/humu.23348">doi:10.1002/humu.23348</a>. <a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">↩</a></p>
+<li id="fn:freeman2018variantvalidator">
+<p>Peter J Freeman, Reece K Hart, Liam J Gretton, Anthony J Brookes, and Raymond Dalgleish. Variantvalidator: accurate validation, mapping, and formatting of sequence variation descriptions. <em>Human mutation</em>, 39(1):61–68, 2018. <a href="https://doi.org/10.1002/humu.23348">doi:10.1002/humu.23348</a>. <a class="footnote-backref" href="#fnref:freeman2018variantvalidator" title="Jump back to footnote 4 in the text">↩</a></p>
 </li>
-<li id="fn:5">
-<p>Elizabeth M Smigielski, Karl Sirotkin, Minghong Ward, and Stephen T Sherry. Dbsnp: a database of single nucleotide polymorphisms. <em>Nucleic acids research</em>, 28(1):352–355, 2000. <a href="https://doi.org/https://doi.org/10.1093/nar/28.1.352">doi:https://doi.org/10.1093/nar/28.1.352</a>. <a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">↩</a></p>
+<li id="fn:smigielski2000dbsnp">
+<p>Elizabeth M Smigielski, Karl Sirotkin, Minghong Ward, and Stephen T Sherry. Dbsnp: a database of single nucleotide polymorphisms. <em>Nucleic acids research</em>, 28(1):352–355, 2000. <a href="https://doi.org/https://doi.org/10.1093/nar/28.1.352">doi:https://doi.org/10.1093/nar/28.1.352</a>. <a class="footnote-backref" href="#fnref:smigielski2000dbsnp" title="Jump back to footnote 5 in the text">↩</a></p>
 </li>
-<li id="fn:6">
-<p>John G Tate, Sally Bamford, Harry C Jubb, Zbyslaw Sondka, David M Beare, Nidhi Bindal, Harry Boutselakis, Charlotte G Cole, Celestino Creatore, Elisabeth Dawson, and others. Cosmic: the catalogue of somatic mutations in cancer. <em>Nucleic acids research</em>, 47(D1):D941–D947, 2019. <a href="https://doi.org/10.1093/nar/gky1015">doi:10.1093/nar/gky1015</a>. <a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">↩</a></p>
+<li id="fn:tate2019cosmic">
+<p>John G Tate, Sally Bamford, Harry C Jubb, Zbyslaw Sondka, David M Beare, Nidhi Bindal, Harry Boutselakis, Charlotte G Cole, Celestino Creatore, Elisabeth Dawson, and others. Cosmic: the catalogue of somatic mutations in cancer. <em>Nucleic acids research</em>, 47(D1):D941–D947, 2019. <a href="https://doi.org/10.1093/nar/gky1015">doi:10.1093/nar/gky1015</a>. <a class="footnote-backref" href="#fnref:tate2019cosmic" title="Jump back to footnote 6 in the text">↩</a></p>
 </li>
 </ol>
 </div>
@@ -679,8 +679,8 @@
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.indexes", "content.code.copy"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
-<script src="../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+<script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.indexes", "content.code.copy"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../assets/javascripts/bundle.60a45f97.min.js"></script>
 <script>document$.subscribe(() => {
             window.update_swagger_ui_iframe_height = function (id) {
                 var iFrameID = document.getElementById(id);
