@@ -1,0 +1,4303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SIBiLS ontology</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAC40lEQVRYhe2UT0hUQRzHp6Iss1B3VZKIDbbdfW9mnoi4f3zzjkJQeOgS0SEIb1EWBGGlLLu460zQPQM1unUIIjA6rfpm6ZAhHjoIRVQUFUlEbG+euTsdXG1d3VL3bVD4g+9h+L35fT/8fvN7ADgY9aHY5fpIvK82HO9ysu66wxWOzbkjcekKx0a2ALYA/n2AGi3a6ArFezcidziecQygNhhrcUficjP6PwBqtGijKxy/thnVBePHywYoDsFhl53GV8SEcsTx4usCMLUewTVpc23BNvEzm6Neyf1+KcG2vwqwUjgrOJq2JmHftwmkVBRGTvncFodnbI7vChO/FRznCmHsNM7aHM9Yk7Df5iqsLMw9sMNOK2g+jS4IEz0UJv4iuJZb2RltWnB4UZqH6ioGAgAAGe5vtiZhtzDx7OoRadLmeM7m6IRjhnLMW2Vx1bA5GhAmnhIcz6/xNj4Ujsky8UspwfayjDPjsF2Y6L7N8Vzx/BfP+KPg6LbgSqd8DnfJW2CnbaLhfH5ephpqygJYvQU4Z3P82TLRsDDhUTnmrSq+Y3N0Mg+Xldy/zwEAnLMWZ3pHpNExmfLs/t0dOdVcbT0JeKxUwFP2VljjqiE47Jp53LTXNxhsUZjerTByXWX6VZWRs/4bIQ2ACv+UAomgDzLCISNZxAxZKMhIDjLy1JfsaK+I+eGBUBNk5E2x8RogX/PdcDZUqieWTSh5D6nOVKqfhoycUmlHFFIyu5RXqf7AcQDISCpv/tqbMBqK883RtmpISRoxQyJKPgGn3wNk5NEigDFa6hslqV/Kj+FdBQD0bshIDlKSLlVcoWQo36UhR80BAMB73lulMn0EMpJTqD6qJiOt3mho/8GbkT2BZNgDB/V+RI0fkOrT3kRIVQbaDizJm2hdNbINBxwk5xAj3yEjuV9rZ1iIkgxixkLBA83mz8uCjLwoGwAx0vOnFSy5mtR4VTaAQvVORMnwZgSpzkrV/QmdE2tKe46+MQAAAABJRU5ErkJggg==">
+    <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABhklEQVQ4jbWPzStEURjG3yQLirlGKUnKFO45Z+SjmXvnnmthQcpCoVhYmD/AwmJiI3OvZuZc2U3UlKU0/gAslMw9JgvhHxAr2fko7r0jHSsl+TgbTz2Lt5731/MASEiJW9ONml2QyX6rsGalmnT74v8BDf12hxJfpV8d1uwNKUBYszabdFv84L8B9X0rESVmmUup2fme0cVhJWaZHw4NWL1Sew
+EAfDe6H3Dy6Ll456WEJsRZS630MwCAOI20ei5OBpxse5zcBZw8eS4uPpfIuDiCainIg9umBCU0GZzgLZ9Hn31OgoATL+CkLDGB5H1OKj4nFd/FBxUXJ0UZNb4edw/6nLyJXaj5FeCVyPLNIVmYK8TG1IwWb16L1gEACAFV90ftoT8bdOX0EeyY99gxBXZMgRz6qGb1KantAACI0UvE6F5XJqEjpsdURouI0Vt5gGOUkUNnPu7ObGIIMfNaGqDmjDRi9FZldF1lRgYzeqUyeoiY4ag5Iy3RgOYRM8+/M2bG8efsO4hGrpmJseyMAAAAAElFTkSuQmCC">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    
+    <style>
+        #pylode {
+            position: fixed;
+            top: 130px;
+            left: -60px;
+            font-size: small;
+            transform: rotate(-90deg);
+            color: grey;
+        }
+        #pylode a {
+            font-size: 2em;
+            font-weight: bold;
+            text-decoration: none;
+            color: #005A9C;
+        }
+        #pylode a:hover {
+            color: #333;
+        }
+
+        .cardinality {
+            font-style: italic;
+            color: #aa00aa;
+        }
+
+        dt {
+            font-weight: bold;
+            padding: 5px 0 5px 0;
+        }
+
+        ul.hlist {
+            list-style-type: none;
+            border: 1px solid navy;
+            padding:5px;
+            background-color: #F4FFFF;
+        }
+
+        ul.hierarchy {
+            border: 1px solid navy;
+            padding: 5px 25px 5px 25px;
+            background-color: #F4FFFF;
+        }
+
+
+        ul.hlist li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        .entity {
+            border: 1px solid navy;
+            margin:5px 0 5px 0;
+            padding: 5px;
+        }
+
+        .entity th {
+            width: 150px;
+            vertical-align: top;
+        }
+
+        .entity th,
+        .entity td {
+            padding-bottom: 20px;
+        }
+
+        .entity table th {
+            text-align: left;
+        }
+
+        section#overview img {
+            max-width: 1000px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            text-align: left
+        }
+        h1, h2, h3 {
+            color: #005A9C; background: white
+        }
+        h1 {
+            font: 170% sans-serif;
+            line-height: 110%;
+        }
+        h2 {
+            font: 140% sans-serif;
+            margin-top:40px;
+        }
+        h3 {
+            font: 120% sans-serif;
+            margin-top: 3px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid navy;
+        }
+        h4 { font: bold 100% sans-serif }
+        h5 { font: italic 100% sans-serif }
+        h6 { font: small-caps 100% sans-serif }
+
+
+        body {
+            padding: 2em 70px 2em 70px;
+            margin: 0;
+            font-family: sans-serif;
+            color: black;
+            background: white;
+            background-position: top left;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            text-align: justify;
+        }
+
+        section {
+            max-width: 1500px;
+        }
+
+        .figure {
+            margin-bottom: 20px;
+        }
+
+        :link { color: #00C; background: transparent }
+        :visited { color: #609; background: transparent }
+        a:active { color: #C00; background: transparent }
+
+        .sup-c,
+        .sup-op,
+        .sup-fp,
+        .sup-dp,
+        .sup-ap,
+        .sup-p,
+        .sup-ni,
+        .sup-con,
+        .sup-col {
+            cursor:help;
+            margin-left: 3px;
+        }
+
+        .sup-c {
+            color:orange;
+        }
+
+        .sup-op {
+            color:navy;
+        }
+
+        .sup-fp {
+            color:lightskyblue;
+        }
+
+        .sup-dp {
+            color:green;
+        }
+
+        .sup-ap {
+            color:darkred;
+        }
+
+        .sup-p {
+            color:black;
+        }
+
+        .sup-ni {
+            color:brown;
+        }
+
+        .sup-con {
+            color:orange;
+        }
+
+        .sup-col {
+            color:darkred;
+        }
+
+        code {
+            font-size: large;
+            color: darkred;
+        }
+
+        /* less prominent links for properties */
+        .proplink {
+            color: #336;
+            text-decoration: none;
+        }
+    </style>
+    
+    <script type="application/ld+json">
+      [
+  {
+    "@id": "http://sibils.org/rdf",
+    "@type": [
+      "https://schema.org/DefinedTermSet"
+    ],
+    "https://schema.org/description": [
+      {
+        "@value": "<p>The SIBiLS ontology is used to represent annotated scientific publications</p>"
+      }
+    ],
+    "https://schema.org/license": [
+      {
+        "@id": "http://creativecommons.org/licenses/by/4.0"
+      }
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "SIBiLS ontology"
+      }
+    ]
+  }
+]
+    </script>
+</head>
+<body>
+  <div id="pylode">made by <a href="http://github.com/rdflib/pyLODE">
+    <span style="color:#329545;">p</span><span style="color:#f9cb33;">y</span>LODE</a>
+    <span style="font-size:smaller;">2.13.2</span>
+  </div>
+  <h1>SIBiLS ontology</h1>
+<section id="metadata">
+    <h2 style="display:none;">Metadata</h2>
+    <dl>
+        <dt>URI</dt>
+        <dd><code>http://sibils.org/rdf</code></dd>
+        <dt><a class="proplink" href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/created">Created</a></dt>
+        <dd>2022-11-01</dd>
+        <dt><a class="proplink" href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/#http://purl.org/dc/terms/modified">Modified</a></dt>
+        <dd>2023-07-11</dd>
+        <dt>Version Information</dt>
+        <dd>Current release</dd>
+        <dt>Imports</dt>
+        <dd>
+            <a href="http://purl.org/spar/deo/">deo:</a><br/>
+            <a href="http://purl.org/spar/doco/">doco:</a><br/>
+            <a href="http://purl.org/spar/fabio/">fabio:</a><br/>
+            <a href="http://www.essepuntato.it/2008/12/pattern#">po:</a><br/>
+            <a href="http://www.w3.org/2004/02/skos/core#">skos:</a><br/>
+        </dd>
+        <dt>License</dt>
+        <dd><a href="http://creativecommons.org/licenses/by/4.0">http://creativecommons.org/licenses/by/4.0</a></dd>
+        <dt>Ontology RDF</dt>
+        <dd><a href="sibils-ontology.ttl">RDF (turtle)</a></dd>
+    </dl>
+    <h2>Description</h2>
+    <div id="description">
+        <p>The SIBiLS ontology is used to represent annotated scientific publications</p>
+    </div>
+</section>
+<section id="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#objectproperties">Object Properties</a></li>
+        <li><a href="#datatypeproperties">Datatype Properties</a></li>
+        <li><a href="#namedindividuals">Named Individuals</a></li>
+        <li><a href="#namespaces">Namespaces</a></li>
+        <li><a href="#legend">Legend</a></li>
+    </ol>
+</section>
+<section id="overview">
+    <h2>Overview</h2>
+    <div class="figure">
+        <div style="width:500px; height:50px; background-color: lightgrey; border:solid 2px grey; padding:10px;margin-bottom:5px; text-align:center;">Pictures say 1,000 words</div>
+        <div class="caption"><strong>Figure 1:</strong> Ontology overview</div>
+    </div>
+</section>
+  <section id="classes">
+    <h2>Classes <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+    <ul class="hlist">
+      <li><a href="#Abstract">Abstract</a></li>
+      <li><a href="#Annotation">Annotation</a></li>
+      <li><a href="#Annotationtarget">Annotation target</a></li>
+      <li><a href="#Appendix">Appendix</a></li>
+      <li><a href="#Backmatter">Back matter</a></li>
+      <li><a href="#Block">Block</a></li>
+      <li><a href="#Blockquotation">Block quotation</a></li>
+      <li><a href="#Bodymatter">Body matter</a></li>
+      <li><a href="#Briefreport">Brief report</a></li>
+      <li><a href="#Caption">Caption</a></li>
+      <li><a href="#Captionedbox">Captioned box</a></li>
+      <li><a href="#Casereport">Case report</a></li>
+      <li><a href="#Discourseelement">Discourse element</a></li>
+      <li><a href="#Editorial">Editorial</a></li>
+      <li><a href="#Figurebox">Figure box</a></li>
+      <li><a href="#Floatmatter">Float matter</a></li>
+      <li><a href="#Frontmatter">Front matter</a></li>
+      <li><a href="#Glossary">Glossary</a></li>
+      <li><a href="#Journalarticle">Journal article</a></li>
+      <li><a href="#Label">Label</a></li>
+      <li><a href="#Letter">Letter</a></li>
+      <li><a href="#Listitemblock">List item block</a></li>
+      <li><a href="#Listofreferences">List of references</a></li>
+      <li><a href="#Manifestation">Manifestation</a></li>
+      <li><a href="#Mediablock">Media block</a></li>
+      <li><a href="#Meetingreport">Meeting report</a></li>
+      <li><a href="#Objectidblock">Object id block</a></li>
+      <li><a href="#Paragraph">Paragraph</a></li>
+      <li><a href="#Publication">Publication</a></li>
+      <li><a href="#Reviewarticle">Review article</a></li>
+      <li><a href="#Section">Section</a></li>
+      <li><a href="#Sectionlabel">Section label</a></li>
+      <li><a href="#Sentence">Sentence</a></li>
+      <li><a href="#SIBiLSTerminology">SIBiLS Terminology</a></li>
+      <li><a href="#Speechblock">Speech block</a></li>
+      <li><a href="#Statementblock">Statement block</a></li>
+      <li><a href="#Table">Table</a></li>
+      <li><a href="#Tablebox">Table box</a></li>
+      <li><a href="#Tablecellvalues">Table cell values</a></li>
+      <li><a href="#Tablecolumnname">Table column name</a></li>
+      <li><a href="#Textbox">Text box</a></li>
+      <li><a href="#Textpositionselector">Text position selector</a></li>
+      <li><a href="#Title">Title</a></li>
+      <li><a href="#Versegroupblock">Verse group block</a></li>
+      <li><a href="#Sequenceofwords">Sequence of words</a></li>
+    </ul>
+    <div class="entity class" id="Abstract">
+        <h3>
+          Abstract<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Abstract" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Abstract</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A brief summary of a book, a research article, thesis, review, conference proceeding or any in-depth analysis of a particular subject or discipline, the purpose of which is to help the reader quickly ascertain the publication's purpose.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/doco/Abstract">doco:Abstract</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Annotation">
+        <h3>
+          Annotation<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Annotation" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Annotation</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A concept identified at a specific position in a discourse element of a publication by a named entity extraction process.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://www.w3.org/ns/oa#Annotation">oa:Annotation</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="#hasbody">has body</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#hastarget">has target</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="#hasannotation">has annotation</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Annotationtarget">
+        <h3>
+          Annotation target<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Annotationtarget" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#AnnotationTarget</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Location of the annotation in a discourse element.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="#hasselector">has selector</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#hassource">has source</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="#hastarget">has target</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Appendix">
+        <h3>
+          Appendix<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Appendix" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Appendix</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A supplemental addition to the main work. It may contain data, more detailed information about methods and materials, or provide additional detail concerning the information found in the main work.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/doco/Appendix">doco:Appendix</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Backmatter">
+        <h3>
+          Back matter<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Backmatter" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#BackMatter</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>The final principle part of a document, in which is usually found the bibliography, index, appendixes, etc.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/doco/BackMatter">doco:BackMatter</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Block">
+        <h3>
+          Block<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Block" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Block</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://www.essepuntato.it/2008/12/pattern#Block">po:Block</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>Sub-classes</th>
+                <td>
+                    <a href="#Objectidblock">Object id block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Blockquotation">Block quotation</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Statementblock">Statement block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Figurebox">Figure box</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Table">Table</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Versegroupblock">Verse group block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Listitemblock">List item block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Tablebox">Table box</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Speechblock">Speech block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Paragraph">Paragraph</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Glossary">Glossary</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Listofreferences">List of references</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Mediablock">Media block</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Blockquotation">
+        <h3>
+          Block quotation<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Blockquotation" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#BlockQuotation</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A block quotation (also known as a long quotation or extract) is a quotation in a written document which is set off from the main text as a container for distinct paragraphs, which is typically distinguished visually using indentation, a different font, or smaller size. Block quotations are used for longer passages than run-in quotations (which are set off with quotation marks).</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Block">Block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="http://purl.org/spar/doco/BlockQuotation">doco:BlockQuotation</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Bodymatter">
+        <h3>
+          Body matter<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Bodymatter" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#BodyMatter</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>The central principle part of a document, that contains the real content. It may be subdivided hierarchically by the use of chapters and sections.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/doco/BodyMatter">doco:BodyMatter</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Briefreport">
+        <h3>
+          Brief report<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Briefreport" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#BriefReport</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A brief report document. This term may also be used synonymously with Rapid Communication to mean 'A short rapidly published research article or conference paper, typically reporting significant research results that have been recently discovered, or a brief news item reporting such discoveries.'</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/fabio/BriefReport">fabio:BriefReport</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Caption">
+        <h3>
+          Caption<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Caption" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Caption</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Caption of a text box.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/deo/Caption">deo:Caption</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Captionedbox">
+        <h3>
+          Captioned box<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Captionedbox" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#CaptionedBox</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A rectangle space within a page that contains an object and its related caption.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/doco/CaptionedBox">doco:CaptionedBox</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Casereport">
+        <h3>
+          Case report<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Casereport" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#CaseReport</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A report about a particular case or situation.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/fabio/CaseReport">fabio:CaseReport</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Discourseelement">
+        <h3>
+          Discourse element<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Discourseelement" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#DiscourseElement</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>An element of a document that carries out a rhetorical function.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/deo/DiscourseElement">deo:DiscourseElement</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>Sub-classes</th>
+                <td>
+                    <a href="#Frontmatter">Front matter</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Floatmatter">Float matter</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Sentence">Sentence</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Sequenceofwords">Sequence of words</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Tablecellvalues">Table cell values</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Textbox">Text box</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Tablebox">Table box</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Mediablock">Media block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Speechblock">Speech block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Paragraph">Paragraph</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Glossary">Glossary</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Section">Section</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Statementblock">Statement block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Figurebox">Figure box</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Listofreferences">List of references</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Sectionlabel">Section label</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Title">Title</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Captionedbox">Captioned box</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Label">Label</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Objectidblock">Object id block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Caption">Caption</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Appendix">Appendix</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Versegroupblock">Verse group block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Blockquotation">Block quotation</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Backmatter">Back matter</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Abstract">Abstract</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Listitemblock">List item block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Bodymatter">Body matter</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Tablecolumnname">Table column name</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Table">Table</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="#contains">contains</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#chars">chars</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#hasPart">creator</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="#contains">contains</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#hassource">has source</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#hasPart">creator</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Editorial">
+        <h3>
+          Editorial<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Editorial" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Editorial</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>The realization of an opinion written by an editor.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="http://purl.org/spar/fabio/Editorial">fabio:Editorial</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Figurebox">
+        <h3>
+          Figure box<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Figurebox" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#FigureBox</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A space within a document that contains a figure and its caption.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Block">Block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="http://purl.org/spar/doco/FigureBox">doco:FigureBox</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Floatmatter">
+        <h3>
+          Float matter<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Floatmatter" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#FloatMatter</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Floating part of a document related to some aspect of the body section. Usually in a box with its own body with some title and / or caption.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Frontmatter">
+        <h3>
+          Front matter<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Frontmatter" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#FrontMatter</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>The initial principle part of a document, usually containing self-referential metadata. In a book, this typically includes its title, authors, publisher, publication date, ISBN and copyright declaration, together with the preface, foreword, table of content, etc. In a journal article, the front matter is normally restricted to the title, authors and the authors' affiliation details, although the latter may alternatively be included in a footnote or the back matter. In books, the front matter pages may be numbered in lowercase Roman numerals.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="http://purl.org/spar/doco/FrontMatter">doco:FrontMatter</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Glossary">
+        <h3>
+          Glossary<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Glossary" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Glossary</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A set of definitions of words or phrases of importance to the work, normally alphabetized. In longer works of fiction, the entries may contains places and characters.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/doco/Glossary">doco:Glossary</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Block">Block</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Journalarticle">
+        <h3>
+          Journal article<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Journalarticle" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#JournalArticle</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>An article, typically the realization of a research paper reporting original research findings, published in a journal issue.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="http://purl.org/spar/fabio/">fabio:</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Label">
+        <h3>
+          Label<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Label" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Label</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A block containing text, that may include a number (e.g., "Chapter Three", "3.2", "Figure 1", "Table"), used to identify an item within the document, for example a chapter, a figure, a section or a table.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/doco/Label">doco:Label</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Letter">
+        <h3>
+          Letter<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Letter" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Letter</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A written or printed communication of a personal or professional nature between individuals and/or representatives of corporate bodies, usually transmitted by the postal service or published in a periodical. In the latter case, the letter is typically addressed to the editor and comments on or discussed an item previously published by that periodical, or of interest to its readership.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="http://purl.org/spar/fabio/JournalArticle">fabio:JournalArticle</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Listitemblock">
+        <h3>
+          List item block<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Listitemblock" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#ListItemBlock</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A list item part of a document. Usually appears multiple time in a sequence. May be prefixed with a bullet or a number.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Block">Block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Listofreferences">
+        <h3>
+          List of references<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Listofreferences" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#ListOfReferences</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A list of items each representing a reference to a specific part of the same document, or to another publication.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/doco/ListOfReferences">doco:ListOfReferences</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Block">Block</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Manifestation">
+        <h3>
+          Manifestation<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Manifestation" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Manifestation</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A subclass of fabio manifestation. Specifically applies to electronic (digital) as well as to physical manifestations of expressions.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/fabio/Manifestation">fabio:Manifestation</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="#embodiment">embodiment</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Mediablock">
+        <h3>
+          Media block<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Mediablock" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#MediaBlock</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A reference or link to some media (audio, video) part of a document.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Block">Block</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Meetingreport">
+        <h3>
+          Meeting report<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Meetingreport" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#MeetingReport</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A report of a meeting of some kind.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/fabio/MeetingReport">fabio:MeetingReport</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Objectidblock">
+        <h3>
+          Object id block<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Objectidblock" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#ObjectIdBlock</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>An identifier appearing as a distinct part of a document.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Block">Block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Paragraph">
+        <h3>
+          Paragraph<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Paragraph" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Paragraph</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A self-contained unit of discourse that deals with a particular point or idea. Paragraphs contains one or more sentences. The start of a paragraph is indicated by beginning on a new line, which may be indented or separated by a small vertical space by the preceding paragraph.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/doco/Paragraph">doco:Paragraph</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Block">Block</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Publication">
+        <h3>
+          Publication<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Publication" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Publication</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A subclass of fabio expression, restricted to publications in SIBiLS.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/fabio/Expression">fabio:Expression</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>Sub-classes</th>
+                <td>
+                    <a href="#Letter">Letter</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Journalarticle">Journal article</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Editorial">Editorial</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Reviewarticle">Review article</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Briefreport">Brief report</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Meetingreport">Meeting report</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Casereport">Case report</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="#issueidentifierpage">issue identifier page</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#title">title</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#keyword">keyword</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#haspublicationyear">has publication year</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#endingpage">ending page</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#abstract">abstract</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#hasNLMjournaltitleabbreviation">has NLM journal title abbreviation</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#creator">creator</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#pagerange">page range</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#doi">doi</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#startingpage">starting page</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#hasPubMedid">has PubMed id</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#volume">volume</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#publicationdate">publication date</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#embodiment">embodiment</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#hasannotation">has annotation</a><sup class="sup-op" title="object property">op</sup><br/>
+                    <a href="#hasPubMedCentralid">has PubMed Central id</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Reviewarticle">
+        <h3>
+          Review article<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Reviewarticle" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#ReviewArticle</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>An article that contains a review.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/fabio/ReviewArticle">fabio:ReviewArticle</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Section">
+        <h3>
+          Section<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Section" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Section</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A logical division of the text, usually numbered and/or titled, which may contain subsections.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/doco/Section">doco:Section</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Sectionlabel">
+        <h3>
+          Section label<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Sectionlabel" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#SectionLabel</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A block containing a label for the section, that may include the section number.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/doco/SectionLabel">doco:SectionLabel</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Sentence">
+        <h3>
+          Sentence<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Sentence" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Sentence</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>An expression in natural language forming a single grammatical unit. A sentence minimally consists of a subject and an intransitive verb, or a subject, a transitive verb and an object, and may include additional dependent clauses. In written text, a sentence is always terminated by a full stop. A sentence can include words grouped meaningfully to express a statement, a question, an exclamation, a request or a command.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Sequenceofwords">Sequence of words</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="http://purl.org/spar/doco/Sentence">doco:Sentence</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="SIBiLSTerminology">
+        <h3>
+          SIBiLS Terminology<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#SIBiLSTerminology" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#SibilsTerminology</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>SIBiLS Terminology scheme containing the concepts used for annotating the publications.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://www.w3.org/2004/02/skos/core#ConceptScheme">skos:ConceptScheme</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>Members</th>
+                <td>
+                    <a href="http://sibils.org/rdf#cellosaurus">http://sibils.org/rdf#cellosaurus</a><br/>
+                    <a href="http://sibils.org/rdf#covocdiseaseandsyndrom">http://sibils.org/rdf#covocdiseaseandsyndrom</a><br/>
+                    <a href="http://sibils.org/rdf#covocbiomed">http://sibils.org/rdf#covocbiomed</a><br/>
+                    <a href="http://sibils.org/rdf#nextprot">http://sibils.org/rdf#nextprot</a><br/>
+                    <a href="http://sibils.org/rdf#drugbank">http://sibils.org/rdf#drugbank</a><br/>
+                    <a href="http://sibils.org/rdf#covocgeographicloc">http://sibils.org/rdf#covocgeographicloc</a><br/>
+                    <a href="http://sibils.org/rdf#ictv">http://sibils.org/rdf#ictv</a><br/>
+                    <a href="http://sibils.org/rdf#covoccelllines">http://sibils.org/rdf#covoccelllines</a><br/>
+                    <a href="http://sibils.org/rdf#icdo3">http://sibils.org/rdf#icdo3</a><br/>
+                    <a href="http://sibils.org/rdf#disprot_type3">http://sibils.org/rdf#disprot_type3</a><br/>
+                    <a href="http://sibils.org/rdf#covocproteinsgenomes">http://sibils.org/rdf#covocproteinsgenomes</a><br/>
+                    <a href="http://sibils.org/rdf#robi">http://sibils.org/rdf#robi</a><br/>
+                    <a href="http://sibils.org/rdf#covocchemicals">http://sibils.org/rdf#covocchemicals</a><br/>
+                    <a href="http://sibils.org/rdf#go_mf">http://sibils.org/rdf#go_mf</a><br/>
+                    <a href="http://sibils.org/rdf#envo">http://sibils.org/rdf#envo</a><br/>
+                    <a href="http://sibils.org/rdf#disprot_type2">http://sibils.org/rdf#disprot_type2</a><br/>
+                    <a href="http://sibils.org/rdf#ncbitaxon_clinic">http://sibils.org/rdf#ncbitaxon_clinic</a><br/>
+                    <a href="http://sibils.org/rdf#atc">http://sibils.org/rdf#atc</a><br/>
+                    <a href="http://sibils.org/rdf#covocconceptualentities">http://sibils.org/rdf#covocconceptualentities</a><br/>
+                    <a href="http://sibils.org/rdf#go_cc">http://sibils.org/rdf#go_cc</a><br/>
+                    <a href="http://sibils.org/rdf#detectionmethods">http://sibils.org/rdf#detectionmethods</a><br/>
+                    <a href="http://sibils.org/rdf#go_bp">http://sibils.org/rdf#go_bp</a><br/>
+                    <a href="http://sibils.org/rdf#mdd">http://sibils.org/rdf#mdd</a><br/>
+                    <a href="http://sibils.org/rdf#covocorganism">http://sibils.org/rdf#covocorganism</a><br/>
+                    <a href="http://sibils.org/rdf#eco">http://sibils.org/rdf#eco</a><br/>
+                    <a href="http://sibils.org/rdf#ppiptm">http://sibils.org/rdf#ppiptm</a><br/>
+                    <a href="http://sibils.org/rdf#disprot_type1">http://sibils.org/rdf#disprot_type1</a><br/>
+                    <a href="http://sibils.org/rdf#ncbitaxon_full">http://sibils.org/rdf#ncbitaxon_full</a><br/>
+                    <a href="http://sibils.org/rdf#disprot_type4">http://sibils.org/rdf#disprot_type4</a><br/>
+                    <a href="http://sibils.org/rdf#chebi">http://sibils.org/rdf#chebi</a><br/>
+                    <a href="http://sibils.org/rdf#mesh">http://sibils.org/rdf#mesh</a><br/>
+                    <a href="http://sibils.org/rdf#uniprot_small">http://sibils.org/rdf#uniprot_small</a><br/>
+                    <a href="http://sibils.org/rdf#covocclinicaltrials">http://sibils.org/rdf#covocclinicaltrials</a><br/>
+                    <a href="http://sibils.org/rdf#ncit">http://sibils.org/rdf#ncit</a><br/>
+                    <a href="http://sibils.org/rdf#ott">http://sibils.org/rdf#ott</a><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Speechblock">
+        <h3>
+          Speech block<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Speechblock" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#SpeechBlock</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A dialog or part of dialog appearing as a distinct part of a document.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Block">Block</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Statementblock">
+        <h3>
+          Statement block<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Statementblock" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#StatementBlock</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A statement appearing as a distinct part of a document.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Block">Block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Table">
+        <h3>
+          Table<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Table" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Table</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A set of data arranged in cells within rows and columns.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Block">Block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="http://purl.org/spar/doco/Table">doco:Table</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Tablebox">
+        <h3>
+          Table box<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Tablebox" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#TableBox</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A space within a document that contains a table and its caption.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Block">Block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="http://purl.org/spar/doco/TableBox">doco:TableBox</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Tablecellvalues">
+        <h3>
+          Table cell values<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Tablecellvalues" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#TableCellValues</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A concatenation of the values found in the cells of a table separated with a space.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Sequenceofwords">Sequence of words</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Tablecolumnname">
+        <h3>
+          Table column name<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Tablecolumnname" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#TableColumnName</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>The name given to of a column in a table.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Sequenceofwords">Sequence of words</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Textbox">
+        <h3>
+          Text box<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Textbox" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#TextBox</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A space within a document that contains textual content relating to, quoting from or expanding upon the main text. Usually a textbox is delimited by a border or use of a background colour distinct from that of the main text.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="http://purl.org/spar/doco/TextBox">doco:TextBox</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Textpositionselector">
+        <h3>
+          Text position selector<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Textpositionselector" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#TextPositionSelector</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A range ot text in a discourse element defined by a start and end position.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://sibils.org/rdf#oa:TextPositionSelector">http://sibils.org/rdf#oa:TextPositionSelector</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="#end">end</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#start">start</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                    <a href="#exact">end</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In range of</th>
+                <td>
+                    <a href="#hasselector">has selector</a><sup class="sup-op" title="object property">op</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Title">
+        <h3>
+          Title<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Title" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#Title</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A word, phrase or sentence that precedes and indicates the subject of a document or a document component - e.g., a book, a report, a news article, a chapter, a section or a table.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="http://purl.org/spar/doco/Title">doco:Title</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Versegroupblock">
+        <h3>
+          Verse group block<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Versegroupblock" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#VerseGroupBlock</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A block containing one or several verses appearing as a distinct part of a document.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Block">Block</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity class" id="Sequenceofwords">
+        <h3>
+          Sequence of words<sup title="class" class="sup-c">c</sup>
+          <span style="float:right; margin-right:10px; font-size:smaller;"><a href="#Sequenceofwords" title="fragment link to here">#</a> <a href="#classes" title="Classes Index">Classes</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#WordSequence</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>A super class for sentences, table column names and table cell values</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-classes</th>
+                <td>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>Sub-classes</th>
+                <td>
+                    <a href="#Tablecolumnname">Table column name</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Sentence">Sentence</a><sup class="sup-c" title="class">c</sup><br/>
+                    <a href="#Tablecellvalues">Table cell values</a><sup class="sup-c" title="class">c</sup><br/>
+                </td>
+            </tr>
+            <tr>
+                <th>In domain of</th>
+                <td>
+                    <a href="#ordinal">ordinal</a><sup class="sup-dp" title="datatype property">dp</sup><br/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+<section id="objectproperties">
+    <h2>Object Properties <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+    <ul class="hlist">
+        <li><a href="#chars">chars</a></li>
+        <li><a href="#contains">contains</a></li>
+        <li><a href="#creator">creator</a></li>
+        <li><a href="#embodiment">embodiment</a></li>
+        <li><a href="#hasannotation">has annotation</a></li>
+        <li><a href="#hasbody">has body</a></li>
+        <li><a href="#hasPart">creator</a></li>
+        <li><a href="#hasselector">has selector</a></li>
+        <li><a href="#hassource">has source</a></li>
+        <li><a href="#hastarget">has target</a></li>
+    </ul>
+    <div class="entity property" id="chars">
+        <h3>chars<sup title="object property" class="sup-op">op</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#chars" title="fragment link to here">#</a>&nbsp;<a href="#objectproperties" title="Object Properties Index">OPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#chars</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>The character sequence of a discourse element.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://www.w3.org/2011/content#chars">cnt:chars</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="contains">
+        <h3>contains<sup title="object property" class="sup-op">op</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#contains" title="fragment link to here">#</a>&nbsp;<a href="#objectproperties" title="Object Properties Index">OPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#contains</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Relationships between a discourse element containing another one.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://www.essepuntato.it/2008/12/pattern#contains">po:contains</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://sibils.org/rdf#DiscourseElement">http://sibils.org/rdf#DiscourseElement</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="creator">
+        <h3>creator<sup title="object property" class="sup-op">op</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#creator" title="fragment link to here">#</a>&nbsp;<a href="#objectproperties" title="Object Properties Index">OPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#creator</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to a person involved in its creation.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://purl.org/dc/terms/creator">dcterms:creator</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://xmlns.com/foaf/0.1/Person">foaf:Person</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="embodiment">
+        <h3>embodiment<sup title="object property" class="sup-op">op</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#embodiment" title="fragment link to here">#</a>&nbsp;<a href="#objectproperties" title="Object Properties Index">OPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#embodiment</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to its manifestation.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://purl.org/vocab/frbr/core#embodiment">frbr:embodiment</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://sibils.org/rdf#Manifestation">http://sibils.org/rdf#Manifestation</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hasannotation">
+        <h3>has annotation<sup title="object property" class="sup-op">op</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#hasannotation" title="fragment link to here">#</a>&nbsp;<a href="#objectproperties" title="Object Properties Index">OPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#hasAnnotation</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to an annotation generated by named entity extraction.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://sibils.org/rdf#Annotation">http://sibils.org/rdf#Annotation</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hasbody">
+        <h3>has body<sup title="object property" class="sup-op">op</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#hasbody" title="fragment link to here">#</a>&nbsp;<a href="#objectproperties" title="Object Properties Index">OPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#hasBody</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Annotation body. The property object is a concept.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://www.w3.org/ns/oa#hasBody">oa:hasBody</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Annotation">Annotation</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2004/02/skos/core#Concept">skos:Concept</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hasPart">
+        <h3>creator<sup title="object property" class="sup-op">op</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#hasPart" title="fragment link to here">#</a>&nbsp;<a href="#objectproperties" title="Object Properties Index">OPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#hasPart</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a resource that is included either physically or logically in the described resource.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://purl.org/dc/terms/hasPart">dcterms:hasPart</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Discourseelement">Discourse element</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://sibils.org/rdf#DiscourseElement">http://sibils.org/rdf#DiscourseElement</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hasselector">
+        <h3>has selector<sup title="object property" class="sup-op">op</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#hasselector" title="fragment link to here">#</a>&nbsp;<a href="#objectproperties" title="Object Properties Index">OPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#hasSelector</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Annotation selector. The property object is a selector defining a range of text in a discourse element.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://www.w3.org/ns/oa#hasSelector">oa:hasSelector</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Annotationtarget">Annotation target</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://sibils.org/rdf#TextPositionSelector">http://sibils.org/rdf#TextPositionSelector</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hassource">
+        <h3>has source<sup title="object property" class="sup-op">op</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#hassource" title="fragment link to here">#</a>&nbsp;<a href="#objectproperties" title="Object Properties Index">OPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#hasSource</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Source of the annotation. The property object is a discourse element.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://www.w3.org/ns/oa#hasSource">oa:hasSource</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Annotationtarget">Annotation target</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://sibils.org/rdf#DiscourseElement">http://sibils.org/rdf#DiscourseElement</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hastarget">
+        <h3>has target<sup title="object property" class="sup-op">op</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#hastarget" title="fragment link to here">#</a>&nbsp;<a href="#objectproperties" title="Object Properties Index">OPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#hasTarget</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Annotation target. The property object defines the positional coordinates of the annotation concept in a discourse element.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://www.w3.org/ns/oa#hasTarget">oa:hasTarget</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Annotation">Annotation</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://sibils.org/rdf#AnnotationTarget">http://sibils.org/rdf#AnnotationTarget</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+<section id="datatypeproperties">
+    <h2>Datatype Properties <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+    <ul class="hlist">
+        <li><a href="#abstract">abstract</a></li>
+        <li><a href="#affiliation">affiliation</a></li>
+        <li><a href="#doi">doi</a></li>
+        <li><a href="#end">end</a></li>
+        <li><a href="#endingpage">ending page</a></li>
+        <li><a href="#exact">end</a></li>
+        <li><a href="#hasNLMjournaltitleabbreviation">has NLM journal title abbreviation</a></li>
+        <li><a href="#hasPubMedCentralid">has PubMed Central id</a></li>
+        <li><a href="#hasPubMedid">has PubMed id</a></li>
+        <li><a href="#haspublicationyear">has publication year</a></li>
+        <li><a href="#issueidentifierpage">issue identifier page</a></li>
+        <li><a href="#keyword">keyword</a></li>
+        <li><a href="#ordinal">ordinal</a></li>
+        <li><a href="#pagerange">page range</a></li>
+        <li><a href="#publicationdate">publication date</a></li>
+        <li><a href="#start">start</a></li>
+        <li><a href="#startingpage">starting page</a></li>
+        <li><a href="#title">title</a></li>
+        <li><a href="#volume">volume</a></li>
+    </ul>
+    <div class="entity property" id="abstract">
+        <h3>abstract<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#abstract" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#abstract</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to  its abstract as a string.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://purl.org/dc/terms/abstract">dcterms:abstract</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="affiliation">
+        <h3>affiliation<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#affiliation" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#affiliation</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a person, usually an author, to an organization they are affiliated to.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="http://xmlns.com/foaf/0.1/Person">foaf:Person</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="doi">
+        <h3>doi<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#doi" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#doi</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to its Digital Object Identifier.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://prismstandard.org/namespaces/basic/2.0/doi">prism:doi</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="end">
+        <h3>end<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#end" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#end</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Position of the last character of a range of text in a discourse element.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://www.w3.org/ns/oa#end">oa:end</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Textpositionselector">Text position selector</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#integer">xsd:integer</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="endingpage">
+        <h3>ending page<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#endingpage" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#endingPage</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to the last page of the journal containing it.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://prismstandard.org/namespaces/basic/2.0/endingPage">prism:endingPage</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="exact">
+        <h3>end<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#exact" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#exact</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Text representing the annotated concept as found in the discourse element.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://www.w3.org/ns/oa#exact">oa:exact</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Textpositionselector">Text position selector</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hasNLMjournaltitleabbreviation">
+        <h3>has NLM journal title abbreviation<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#hasNLMjournaltitleabbreviation" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#hasNLMJournalTitleAbbreviation</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to an internal identifier for the abbreviation of the title of journals available from the National Library of Medicine repositoryn.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://purl.org/spar/fabio/hasNLMJournalTitleAbbreviation">fabio:hasNLMJournalTitleAbbreviation</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hasPubMedCentralid">
+        <h3>has PubMed Central id<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#hasPubMedCentralid" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#hasPubMedCentralId</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to an identifier for bibliographic entities hosted by the PubMed Central repository.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://purl.org/spar/fabio/hasPubMedCentralId">fabio:hasPubMedCentralId</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="hasPubMedid">
+        <h3>has PubMed id<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#hasPubMedid" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#hasPubMedId</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to an identifier for bibliographic records held by the PubMed repository.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://purl.org/spar/fabio/hasPubMedId">fabio:hasPubMedId</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="haspublicationyear">
+        <h3>has publication year<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#haspublicationyear" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#hasPublicationYear</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to the year in which it was published.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://purl.org/spar/fabio/hasPublicationYear">fabio:hasPublicationYear</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#integer">xsd:integer</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="issueidentifierpage">
+        <h3>issue identifier page<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#issueidentifierpage" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#issueIdentifier</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to an identifier used to identify a specific issue of a magazine, a journal or other resource.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://prismstandard.org/namespaces/basic/2.0/issueIdentifier">prism:issueIdentifier</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="keyword">
+        <h3>keyword<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#keyword" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#keyword</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication with a keyword that is likely to be used in search queries.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://prismstandard.org/namespaces/basic/2.0/endingkeywordPage">prism:endingkeywordPage</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="ordinal">
+        <h3>ordinal<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#ordinal" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#ordinal</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Relative order of appearance of a sentence in the publication. A sentence right after another one usually have an ordinal incremented by 1 but the orginal value can sometimes be arbitrary, for instance between body contents and some floating content.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Sequenceofwords">Sequence of words</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#integer">xsd:integer</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="pagerange">
+        <h3>page range<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#pagerange" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#pageRange</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to the pages of a journal where it appears.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://prismstandard.org/namespaces/basic/2.0/pageRange">prism:pageRange</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="publicationdate">
+        <h3>publication date<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#publicationdate" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#publicationDate</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to its publication date.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://prismstandard.org/namespaces/basic/2.0/publicationDate">prism:publicationDate</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#date">xsd:date</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="start">
+        <h3>start<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#start" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#start</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Position of the first character of a range of text in a discourse element.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://www.w3.org/ns/oa#start">oa:start</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Textpositionselector">Text position selector</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#integer">xsd:integer</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="startingpage">
+        <h3>starting page<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#startingpage" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#startingPage</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to the first page of the journal containing it</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://prismstandard.org/namespaces/basic/2.0/startingPage">prism:startingPage</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="title">
+        <h3>title<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#title" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#title</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to its title.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://purl.org/dc/terms/title">dcterms:title</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="entity property" id="volume">
+        <h3>volume<sup title="datatype property" class="sup-dp">dp</sup><span style="float:right; margin-right:10px; font-size:smaller;">
+            <a href="#volume" title="fragment link to here">#</a>&nbsp;<a href="#datatypeproperties" title="Datatype Properties Index">DPs</a></span>
+        </h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td><code>http://sibils.org/rdf#volume</code></td>
+            </tr>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p>Links a publication to an identifier for a particular volume of a resource, such as a journal or a multi-volume book.</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Super-properties</th>
+                <td>
+                    <a href="http://prismstandard.org/namespaces/basic/2.0/volume">prism:volume</a>
+                </td>
+            </tr>
+            <tr>
+                <th>Domain(s)</th>
+                <td>
+                    <a href="#Publication">Publication</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+            <tr>
+                <th>Range(s)</th>
+                <td>
+                    <a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a><sup class="sup-c" title="class">c</sup>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+  
+    <section id="namedindividuals">
+        <h2>Named Individuals <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+        <ul class="hlist">
+            <li><a href="#ATC">ATC</a></li>
+            <li><a href="#COVocBiomedical">COVoc Biomedical</a></li>
+            <li><a href="#COVocCelllines">COVoc Cell lines</a></li>
+            <li><a href="#COVocChemicals">COVoc Chemicals</a></li>
+            <li><a href="#COVocClinicalTrials">COVoc Clinical Trials</a></li>
+            <li><a href="#COVocConceptualEntities">COVoc Conceptual Entities</a></li>
+            <li><a href="#COVocDiseaseandSyndrome">COVoc Disease and Syndrome</a></li>
+            <li><a href="#COVocGeographicLocation">COVoc Geographic Location</a></li>
+            <li><a href="#COVocOrganism">COVoc Organism</a></li>
+            <li><a href="#COVocProteinandGenome">COVoc Protein and Genome</a></li>
+            <li><a href="#Cellosaurus">Cellosaurus</a></li>
+            <li><a href="#CheBI(ChemicalEntitiesofBiologicalInterest)">CheBI (Chemical Entities of Biological Interest)</a></li>
+            <li><a href="#Detectionmethods">Detection methods</a></li>
+            <li><a href="#Disprot">Disprot</a></li>
+            <li><a href="#disprot_type2">Disprot</a></li>
+            <li><a href="#disprot_type3">Disprot</a></li>
+            <li><a href="#disprot_type4">Disprot</a></li>
+            <li><a href="#Drugbank">Drugbank</a></li>
+            <li><a href="#ECO(EvidenceandConclusionOntology)">ECO (Evidence and Conclusion Ontology)</a></li>
+            <li><a href="#ENVO(EnvironmentOntology)">ENVO (Environment Ontology)</a></li>
+            <li><a href="#GO(GeneOntology)">GO (Gene Ontology)</a></li>
+            <li><a href="#go_cc">GO (Gene Ontology)</a></li>
+            <li><a href="#go_mf">GO (Gene Ontology)</a></li>
+            <li><a href="#ICD-O-3">ICD-O-3</a></li>
+            <li><a href="#ICTV(InternationalCommitteeonTaxonomyofViruses)">ICTV (International Committee on Taxonomy of Viruses)</a></li>
+            <li><a href="#MDD(MammalDiversityDatabase)">MDD (Mammal Diversity Database)</a></li>
+            <li><a href="#MeSH">MeSH</a></li>
+            <li><a href="#NCBITaxonomyClinic">NCBI Taxonomy Clinic</a></li>
+            <li><a href="#NCBITaxonomyFull">NCBI Taxonomy Full</a></li>
+            <li><a href="#NCIThesaurus">NCI Thesaurus</a></li>
+            <li><a href="#OTT(OpenTreeofLife)">OTT (Open Tree of Life)</a></li>
+            <li><a href="#PPI-PTM">PPI-PTM</a></li>
+            <li><a href="#ROBI(RelationOntology-BioticInteractions)">ROBI (Relation Ontology - Biotic Interactions)</a></li>
+            <li><a href="#UniProtKB/SwissProt">UniProtKB/SwissProt</a></li>
+            <li><a href="#neXtProt">neXtProt</a></li>
+        </ul>
+            <div class="entity named_individual" id="ATC">
+        <h3>ATC<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#atc
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    This ontology is a representation of the ATC classification used for the classification of drugs and provided by WHO (World Health Organization). Based on the ATC code of the main ingredient of a product, this medical product can be classify in the ATC system.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="Cellosaurus">
+        <h3>Cellosaurus<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#cellosaurus
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    xxx
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="CheBI(ChemicalEntitiesofBiologicalInterest)">
+        <h3>CheBI (Chemical Entities of Biological Interest)<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#chebi
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    Chemical Entities of Biological Interest (ChEBI) is a freely available dictionary of molecular entities focused on ‘small’ chemical compounds. The term ‘molecular entity’ refers to any constitutionally or isotopically distinct atom, molecule, ion, ion pair, radical, radical ion, complex, conformer, etc., identifiable as a separately distinguishable entity. The molecular entities in question are either products of nature or synthetic products used to intervene in the processes of living organisms. ChEBI incorporates an ontological classification, whereby the relationships between molecular entities or classes of entities and their parents and/or children are specified.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="COVocBiomedical">
+        <h3>COVoc Biomedical<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#covocbiomed
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The COVID-19 Vocabulary (COVoc) is an ontology containing terms related to the research of the COVID-19 pandemic. This includes host organisms, pathogenicity, gene and gene products, barrier gestures, treatments and more.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="COVocCelllines">
+        <h3>COVoc Cell lines<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#covoccelllines
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The COVID-19 Vocabulary (COVoc) is an ontology containing terms related to the research of the COVID-19 pandemic. This includes host organisms, pathogenicity, gene and gene products, barrier gestures, treatments and more.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="COVocChemicals">
+        <h3>COVoc Chemicals<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#covocchemicals
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The COVID-19 Vocabulary (COVoc) is an ontology containing terms related to the research of the COVID-19 pandemic. This includes host organisms, pathogenicity, gene and gene products, barrier gestures, treatments and more.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="COVocClinicalTrials">
+        <h3>COVoc Clinical Trials<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#covocclinicaltrials
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The COVID-19 Vocabulary (COVoc) is an ontology containing terms related to the research of the COVID-19 pandemic. This includes host organisms, pathogenicity, gene and gene products, barrier gestures, treatments and more.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="COVocConceptualEntities">
+        <h3>COVoc Conceptual Entities<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#covocconceptualentities
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The COVID-19 Vocabulary (COVoc) is an ontology containing terms related to the research of the COVID-19 pandemic. This includes host organisms, pathogenicity, gene and gene products, barrier gestures, treatments and more.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="COVocDiseaseandSyndrome">
+        <h3>COVoc Disease and Syndrome<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#covocdiseaseandsyndrom
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The COVID-19 Vocabulary (COVoc) is an ontology containing terms related to the research of the COVID-19 pandemic. This includes host organisms, pathogenicity, gene and gene products, barrier gestures, treatments and more.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="COVocGeographicLocation">
+        <h3>COVoc Geographic Location<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#covocgeographicloc
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The COVID-19 Vocabulary (COVoc) is an ontology containing terms related to the research of the COVID-19 pandemic. This includes host organisms, pathogenicity, gene and gene products, barrier gestures, treatments and more.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="COVocOrganism">
+        <h3>COVoc Organism<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#covocorganism
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The COVID-19 Vocabulary (COVoc) is an ontology containing terms related to the research of the COVID-19 pandemic. This includes host organisms, pathogenicity, gene and gene products, barrier gestures, treatments and more.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="COVocProteinandGenome">
+        <h3>COVoc Protein and Genome<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#covocproteinsgenomes
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The COVID-19 Vocabulary (COVoc) is an ontology containing terms related to the research of the COVID-19 pandemic. This includes host organisms, pathogenicity, gene and gene products, barrier gestures, treatments and more.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="Detectionmethods">
+        <h3>Detection methods<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#detectionmethods
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    List of methods used to detect or study viruses in a corpus of scientific texts.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="Disprot">
+        <h3>Disprot<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#disprot_type1
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    xxx
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="disprot_type2">
+        <h3>Disprot<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#disprot_type2
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    xxx
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="disprot_type3">
+        <h3>Disprot<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#disprot_type3
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    xxx
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="disprot_type4">
+        <h3>Disprot<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#disprot_type4
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    xxx
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="Drugbank">
+        <h3>Drugbank<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#drugbank
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The Drugbank database is a freely accessible resource which includes more than 13,000 records (version 5.1.4, released 2019-07-20). It contains information on drugs and drug targets, synonyms and product names.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="ECO(EvidenceandConclusionOntology)">
+        <h3>ECO (Evidence and Conclusion Ontology)<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#eco
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The Evidence & Conclusion Ontology (ECO) describes types of scientific evidence within the biological research domain that arise from laboratory experiments, computational methods, literature curation, or other means.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="ENVO(EnvironmentOntology)">
+        <h3>ENVO (Environment Ontology)<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#envo
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    ENVO is an expressive, community ontology which helps humans, machines, and semantic web applications understand environmental entities of all kinds, from microscopic to intergalactic scales.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="GO(GeneOntology)">
+        <h3>GO (Gene Ontology)<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#go_bp
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The Gene Ontology (GO) knowledgebase is the world's largest source of information on the functions of genes. This knowledge is both human-readable and machine-readable, and is a foundation for computational analysis of large-scale molecular biology and genetics experiments in biomedical research. Specific type: Biological process.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="go_cc">
+        <h3>GO (Gene Ontology)<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#go_cc
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The Gene Ontology (GO) knowledgebase is the world's largest source of information on the functions of genes. This knowledge is both human-readable and machine-readable, and is a foundation for computational analysis of large-scale molecular biology and genetics experiments in biomedical research. Specific type: Cellular component.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="go_mf">
+        <h3>GO (Gene Ontology)<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#go_mf
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The Gene Ontology (GO) knowledgebase is the world's largest source of information on the functions of genes. This knowledge is both human-readable and machine-readable, and is a foundation for computational analysis of large-scale molecular biology and genetics experiments in biomedical research. Specific type: Molecular function.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="ICD-O-3">
+        <h3>ICD-O-3<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#icdo3
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The International Classification of Diseases Oncology (ICD-O) is a biomedical ontology for logical representation of the terms and relations related to the International Classification of Diseases (ICD).
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="ICTV(InternationalCommitteeonTaxonomyofViruses)">
+        <h3>ICTV (International Committee on Taxonomy of Viruses)<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#ictv
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The task of the International Committee on Taxonomy of Viruses (ICTV) is to develop a single, universal taxonomic scheme for all the viruses infecting animals (vertebrates, invertebrates and protozoa), plants (higher plants and algae), fungi, bacteria and archaea.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="MDD(MammalDiversityDatabase)">
+        <h3>MDD (Mammal Diversity Database)<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#mdd
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    Mammal species list with synonyms. An initial taxonomy of accepted names + synonyms based on v1.7 of the Mammal Diversity Database (MDD)
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="MeSH">
+        <h3>MeSH<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#mesh
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The Medical Subject Headings (MeSH), provided by the U.S. National Library of Medicine (NLM), is a controlled vocabulary thesaurus used for indexing articles for PubMed. In comparison with specialzed ontologies like the NCIt, MeSH is less granular and easily identified by Natural Language Processing thanks to synonyms.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="NCBITaxonomyClinic">
+        <h3>NCBI Taxonomy Clinic<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#ncbitaxon_clinic
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    This terminology was created by the team and includes many species of clinical interest and related code from NCBI taxonomy collection.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="NCBITaxonomyFull">
+        <h3>NCBI Taxonomy Full<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#ncbitaxon_full
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The NCBI Taxonomy Database is a curated classification and nomenclature for all of the organisms in the public sequence databases.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="NCIThesaurus">
+        <h3>NCI Thesaurus<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#ncit
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The NCI Thesaurus (NCIt) is used for disease mapping. It covers clinical care, translational and basic research, public information and administrative activities. Provided by the National Cancer Institute, this terminology is a standard for biomedical coding and reference, used both by public and private scientific partners worldwide. This NCI's reference terminology contains the NCI_CUI, the semantic type, a prefered term, some NCI and MeSH synonyms.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="neXtProt">
+        <h3>neXtProt<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#nextprot
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    Developed by the SIB (Swiss Institute of Bioinformatics) in 2008, the neXtProt human protein knowledgebase is a comprehensive human-centric discovery platform. More than 20,000 proteins were manually annotated and still updated. The provides to researchers a high-quality synonym for both protein and gene names.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="OTT(OpenTreeofLife)">
+        <h3>OTT (Open Tree of Life)<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#ott
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    Open Tree of Life aims to construct a comprehensive, dynamic and digitally-available tree of life by synthesizing published phylogenetic trees along with taxonomic data. https://doi.org/10.5281/zenodo.3937750
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="PPI-PTM">
+        <h3>PPI-PTM<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#ppiptm
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    xxx
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="ROBI(RelationOntology-BioticInteractions)">
+        <h3>ROBI (Relation Ontology - Biotic Interactions)<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#robi
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    RO is a collection of relations intended primarily for standardization across ontologies in the OBO Foundry and wider OBO library. It incorporates ROCore upper-level relations such as part of as well as biology-specific relationship types such as develops from. We extracted a subset of terms of interest for biotic interactions.
+                </td>
+            </tr>
+        </table>
+    </div>
+            <div class="entity named_individual" id="UniProtKB/SwissProt">
+        <h3>UniProtKB/SwissProt<sup title="named individual" class="sup-ni">ni</sup></h3>
+        <table>
+            <tr>
+                <th>URI</th>
+                <td>
+                  <code>
+                      http://sibils.org/rdf#uniprot_small
+                  
+                  </code>
+                </td>
+            </tr>
+            <dt>Class(es)</dt>
+            <dd>
+                <a href="http://sibils.org/rdf#SibilsTerminology">http://sibils.org/rdf#SibilsTerminology</a><br/>
+            </dd>
+            <tr>
+                <th>Is Defined By</th>
+                <td>
+                    http://sibils.org/rdf#
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    The UniProt Knowledgebase (UniProtKB) is the central hub for the collection of functional information on proteins, with accurate, consistent and rich annotation. We used a large fraction of the reviewed subset UinProtKB/Swiss-Prot which includes records with information extracted from literature and curator-evaluated computational analysis.
+                </td>
+            </tr>
+        </table>
+    </div>
+    </section>
+
+  <section id="namespaces">
+    <h2>Namespaces <span style="float:right; font-size:smaller;"><a href="">&uparrow;</a></span></h2>
+    <dl>
+        <dt>default (:)</dt>
+        <dd><code>http://sibils.org/rdf</code></dd>
+        <dt>brick</dt>
+        <dd><code>https://brickschema.org/schema/Brick#</code></dd>
+        <dt>cnt</dt>
+        <dd><code>http://www.w3.org/2011/content#</code></dd>
+        <dt>csvw</dt>
+        <dd><code>http://www.w3.org/ns/csvw#</code></dd>
+        <dt>dc</dt>
+        <dd><code>http://purl.org/dc/elements/1.1/</code></dd>
+        <dt>dcam</dt>
+        <dd><code>http://purl.org/dc/dcam/</code></dd>
+        <dt>dcat</dt>
+        <dd><code>http://www.w3.org/ns/dcat#</code></dd>
+        <dt>dcmitype</dt>
+        <dd><code>http://purl.org/dc/dcmitype/</code></dd>
+        <dt>dcterms</dt>
+        <dd><code>http://purl.org/dc/terms/</code></dd>
+        <dt>deo</dt>
+        <dd><code>http://purl.org/spar/deo/</code></dd>
+        <dt>doap</dt>
+        <dd><code>http://usefulinc.com/ns/doap#</code></dd>
+        <dt>doco</dt>
+        <dd><code>http://purl.org/spar/doco/</code></dd>
+        <dt>fabio</dt>
+        <dd><code>http://purl.org/spar/fabio/</code></dd>
+        <dt>foaf</dt>
+        <dd><code>http://xmlns.com/foaf/0.1/</code></dd>
+        <dt>frbr</dt>
+        <dd><code>http://purl.org/vocab/frbr/core#</code></dd>
+        <dt>oa</dt>
+        <dd><code>http://www.w3.org/ns/oa#</code></dd>
+        <dt>odrl</dt>
+        <dd><code>http://www.w3.org/ns/odrl/2/</code></dd>
+        <dt>org</dt>
+        <dd><code>http://www.w3.org/ns/org#</code></dd>
+        <dt>owl</dt>
+        <dd><code>http://www.w3.org/2002/07/owl#</code></dd>
+        <dt>po</dt>
+        <dd><code>http://www.essepuntato.it/2008/12/pattern#</code></dd>
+        <dt>prism</dt>
+        <dd><code>http://prismstandard.org/namespaces/basic/2.0/</code></dd>
+        <dt>prof</dt>
+        <dd><code>http://www.w3.org/ns/dx/prof/</code></dd>
+        <dt>prov</dt>
+        <dd><code>http://www.w3.org/ns/prov#</code></dd>
+        <dt>qb</dt>
+        <dd><code>http://purl.org/linked-data/cube#</code></dd>
+        <dt>rdf</dt>
+        <dd><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></dd>
+        <dt>rdfs</dt>
+        <dd><code>http://www.w3.org/2000/01/rdf-schema#</code></dd>
+        <dt>sdo</dt>
+        <dd><code>https://schema.org/</code></dd>
+        <dt>sh</dt>
+        <dd><code>http://www.w3.org/ns/shacl#</code></dd>
+        <dt>skos</dt>
+        <dd><code>http://www.w3.org/2004/02/skos/core#</code></dd>
+        <dt>sosa</dt>
+        <dd><code>http://www.w3.org/ns/sosa/</code></dd>
+        <dt>ssn</dt>
+        <dd><code>http://www.w3.org/ns/ssn/</code></dd>
+        <dt>time</dt>
+        <dd><code>http://www.w3.org/2006/time#</code></dd>
+        <dt>vann</dt>
+        <dd><code>http://purl.org/vocab/vann/</code></dd>
+        <dt>void</dt>
+        <dd><code>http://rdfs.org/ns/void#</code></dd>
+        <dt>xsd</dt>
+        <dd><code>http://www.w3.org/2001/XMLSchema#</code></dd>
+    </dl>
+</section>
+  <section id="legend">
+      <h2>Legend</h2>
+      <table class="entity">
+          <tr><td><sup class="sup-c" title="Classes">c</sup></td><td>Classes</td></tr>
+          <tr><td><sup class="sup-op" title="Object Properties">op</sup></td><td>Object Properties</td></tr>
+          <tr><td><sup class="sup-fp" title="Functional Properties">fp</sup></td><td>Functional Properties</td></tr>
+          <tr><td><sup class="sup-dp" title="Data Properties">dp</sup></td><td>Data Properties</td></tr>
+          <tr><td><sup class="sup-ap" title="Annotation Properties">ap</sup></td><td>Annotation Properties</td></tr>
+          <tr><td><sup class="sup-p" title="Properties">p</sup></td><td>Properties</td></tr>
+          <tr><td><sup class="sup-ni" title="Named Individuals">ni</sup></td><td>Named Individuals</td></tr>
+      </table>
+  </section>
+</body>
+</html>
