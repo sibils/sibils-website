@@ -29,7 +29,7 @@ collection = "medline"
 
 # call with POST
 url_API = "https://biodiversitypmc.sibils.org/api/fetch"
-my_params = {"ids": pmids ; "col": collections} # parameters dictionary
+my_params = {"ids": pmids , "col": collection} # parameters dictionary
 r = requests.post(url = url_API, data = my_params)
 
 # get response and print in output
