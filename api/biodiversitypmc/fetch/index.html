@@ -539,7 +539,7 @@
 
 <span class="c1"># call with POST</span>
 <span class="n">url_API</span> <span class="o">=</span> <span class="s2">"https://biodiversitypmc.sibils.org/api/fetch"</span>
-<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"ids"</span><span class="p">:</span> <span class="n">pmids</span> <span class="p">;</span> <span class="s2">"col"</span><span class="p">:</span> <span class="n">collections</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
+<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"ids"</span><span class="p">:</span> <span class="n">pmids</span> <span class="p">,</span> <span class="s2">"col"</span><span class="p">:</span> <span class="n">collection</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="n">url_API</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">my_params</span><span class="p">)</span>
 
 <span class="c1"># get response and print in output</span>
