@@ -626,7 +626,7 @@
 <span class="c1"># call</span>
 <span class="n">url_API</span> <span class="o">=</span> <span class="s2">"https://biodiversitypmc.sibils.org/api/search"</span>
 <span class="n">my_json_query</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">my_query</span><span class="p">)</span> <span class="c1"># json to string</span>
-<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"jq"</span><span class="p">:</span> <span class="n">my_json_query</span><span class="p">;</span><span class="n">col</span><span class="o">=</span><span class="s2">"pmc"</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
+<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"jq"</span><span class="p">:</span> <span class="n">my_json_query</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">"pmc"</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="n">url_API</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">my_params</span><span class="p">)</span>
 
 <span class="c1"># get response and print in output file</span>
