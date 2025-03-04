@@ -123,7 +123,7 @@ my_query = {
 # call
 url_API = "https://biodiversitypmc.sibils.org/api/search"
 my_json_query = json.dumps(my_query) # json to string
-my_params = {"jq": my_json_query;col="pmc"} # parameters dictionary
+my_params = {"jq": my_json_query,col="pmc"} # parameters dictionary
 r = requests.post(url = url_API, data = my_params)
 
 # get response and print in output file
