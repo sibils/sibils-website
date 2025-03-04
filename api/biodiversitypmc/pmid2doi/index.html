@@ -6,12 +6,12 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Swiss Institute of Bioinformatics Literature Services" name="description"/>
-<link href="https://sibils.org/api/biodiversitypmc/search/" rel="canonical"/>
-<link href="../fetch/" rel="prev"/>
-<link href="../qa/" rel="next"/>
+<link href="https://sibils.org/api/biodiversitypmc/pmid2doi/" rel="canonical"/>
+<link href="../qa/" rel="prev"/>
+<link href="../../celltriage/" rel="next"/>
 <link href="../../../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.6.7" name="generator"/>
-<title>Search - SIBiLS</title>
+<title>PMID2DOI - SIBiLS</title>
 <link href="../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
 <link href="../../../assets/extra.css" rel="stylesheet"/>
@@ -32,24 +32,24 @@
 <!-- End Matomo Code -->
 <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
 <meta content="website" property="og:type"/>
-<meta content="Search - SIBiLS" property="og:title"/>
+<meta content="PMID2DOI - SIBiLS" property="og:title"/>
 <meta content="Swiss Institute of Bioinformatics Literature Services" property="og:description"/>
-<meta content="https://sibils.org/assets/images/social/api/biodiversitypmc/search.png" property="og:image"/>
+<meta content="https://sibils.org/assets/images/social/api/biodiversitypmc/pmid2doi.png" property="og:image"/>
 <meta content="image/png" property="og:image:type"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
-<meta content="https://sibils.org/api/biodiversitypmc/search/" property="og:url"/>
+<meta content="https://sibils.org/api/biodiversitypmc/pmid2doi/" property="og:url"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="Search - SIBiLS" name="twitter:title"/>
+<meta content="PMID2DOI - SIBiLS" name="twitter:title"/>
 <meta content="Swiss Institute of Bioinformatics Literature Services" name="twitter:description"/>
-<meta content="https://sibils.org/assets/images/social/api/biodiversitypmc/search.png" name="twitter:image"/>
+<meta content="https://sibils.org/assets/images/social/api/biodiversitypmc/pmid2doi.png" name="twitter:image"/>
 </head>
 <body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="sibils" dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#biodiversity-pmc-customizable-search-api">
+<a class="md-skip" href="#biodiversity-pmc-pmid-to-doi-api">
           Skip to content
         </a>
 </div>
@@ -73,7 +73,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Search
+              PMID2DOI
             
           </span>
 </div>
@@ -355,18 +355,34 @@
   </span>
 </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../search/">
+<span class="md-ellipsis">
+    Search
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../qa/">
+<span class="md-ellipsis">
+    QA
+    
+  </span>
+</a>
+</li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
 <span class="md-ellipsis">
-    Search
+    PMID2DOI
     
   </span>
 <span class="md-nav__icon md-icon"></span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./">
 <span class="md-ellipsis">
-    Search
+    PMID2DOI
     
   </span>
 </a>
@@ -406,22 +422,6 @@
 </li>
 </ul>
 </nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../qa/">
-<span class="md-ellipsis">
-    QA
-    
-  </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../pmid2doi/">
-<span class="md-ellipsis">
-    PMID2DOI
-    
-  </span>
-</a>
 </li>
 </ul>
 </nav>
@@ -518,124 +518,56 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="biodiversity-pmc-customizable-search-api">Biodiversity PMC customizable search API</h1>
+<h1 id="biodiversity-pmc-pmid-to-doi-api">Biodiversity PMC PMID to DOI API</h1>
 <h2 id="description">Description</h2>
-<p>This API allows to perform a fully customizable search for valuable annotated citations in a given collection. The power of SIBiLS is based on the efficiency of Elasticsearch engines, and on the rich Lucene query language, which allows to investigate a large panel of searching strategies. For example: basic search with keywords or entity identifiers (“ZBED1” or “NP_NX_O96006”), searches in specified fields (“title: ZBED1” or “annotations_str: genes”), boosting fields or query parts, Boolean, exploiting identified concepts or identified concept types...) The input is thus a Lucene json query. The output is the Elasticsearch ranked result set, ranked by relevance, in its native json format; for each retrieved citation (up to 10,000 per request), a relevance score and the indexed content are included.</p>
+<p>This API retrieves Digital Object Identifiers (DOIs) associated with PubMed IDs (PMIDs) from MEDLINE. You can submit a batch of up to 1,000 PMIDs in a single request. The API returns a JSON response, with an array containing objects, where each object represents a PMID-DOI mapping. The doi field may be null if no DOI is found in MEDLINE for the given PMID. The warnings section indicates PMIDs that were not found in MEDLINE.</p>
 <h2 id="api-endpoint">API endpoint</h2>
-<p><strong>URL</strong>: <a href="https://biodiversitypmc.sibils.org/api/search">biodiversitypmc.sibils.org/api/search</a></p>
-<p><strong>Mandatory input</strong>: q OR jq: a query q in free text, which is interpreted by query analyzer, OR a Lucene json_query jq</p>
-<p><strong>Mandatory input</strong>: one collection (&amp;col=), amongst "medline", "pmc", "plazi" and "suppdata"</p>
-<p><strong>Optional input</strong>: the number of requested documents (&amp;n=, default 10, max 1000)</p>
-<p><strong>Example</strong>: simple search for MEDLINE (&amp;col=) documents containing (&amp;q=) Rhinolophus and Pangolin.</p>
-<p><a href="https://biodiversitypmc.sibils.org/api/search?q=Rhinolophus%20and%20Pangolin&amp;col=medline">biodiversitypmc.sibils.org/api/search?q=Rhinolophus%20and%20Pangolin&amp;col=medline</a></p>
-<p><strong>Example</strong>: customizable search (&amp;jq) with a Lucene style json query</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"bool"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"must"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"match"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"title"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Digitoxin metabolism"</span><span class="w"> </span><span class="p">}},</span><span class="nt">"should"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"match"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"annotations_str"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"GO"</span><span class="w"> </span><span class="p">}},</span><span class="nt">"boost"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}}}</span>
-</code></pre></div>
-<p><strong>Query language</strong>: JSON queries for Elasticsearch are described in <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html">elastic.co</a></p>
+<p><strong>URL</strong>: <a href="https://biodiversitypmc.sibils.org/api/pmid2doi">biodiversitypmc.sibils.org/api/pmid2doi</a></p>
+<p><strong>Mandatory input</strong>: the list of PMIDs (&amp;pmids=). PMIDs are separated by commas.</p>
+<p><strong>Example</strong>: map PMIDs from MEDLINE
+<a href="https://biodiversitypmc.sibils.org/api/pmid2doi?pmids=38060177,14691011,456">https://biodiversitypmc.sibils.org/api/pmid2doi?pmids=38060177,14691011,456</a></p>
 <h2 id="code-sample">Code sample</h2>
-<p>A python script for demonstrating POST calls to the API, with multiple examples of Lucene style queries:</p>
+<p>python script for demonstrating POST calls to the API</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span> <span class="c1"># not installed in default Python</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 
-<span class="n">query</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1"># PMIDs to fetch (limited to 1000)</span>
+<span class="n">pmids</span> <span class="o">=</span> <span class="s2">"38060177,14691011,456"</span>
 
-<span class="c1"># queries must be formatted in Lucene ElasticSearch style</span>
-<span class="c1"># https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html</span>
-
-<span class="c1"># here are different query types :</span>
-
-<span class="c1"># MULTI_MATCH queries</span>
-<span class="c1"># use it for searching in specific fields, with a general OR or AND</span>
-
-<span class="n">search_fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"title"</span><span class="p">,</span><span class="s2">"abstract"</span><span class="p">,</span><span class="s2">"keywords"</span><span class="p">,</span><span class="s2">"mesh_terms"</span><span class="p">]</span>
-<span class="c1"># you can use "title^3" for boosting by 3 scores in title</span>
-<span class="n">keywords</span> <span class="o">=</span> <span class="s2">"BRCA2 cancer"</span>
-<span class="n">my_operator</span> <span class="o">=</span> <span class="s2">"and"</span> <span class="c1"># default is "or"</span>
-<span class="n">my_type</span> <span class="o">=</span> <span class="s2">"phrase"</span> <span class="c1"># use it for phrase matching (exact expression)</span>
-
-<span class="n">my_query</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"size"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="c1"># maximum amount of hits returned</span>
-    <span class="s2">"from"</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1"># offset from the first result you want to fetch</span>
-    <span class="s2">"query"</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">"multi_match"</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="s2">"query"</span> <span class="p">:</span> <span class="n">keywords</span><span class="p">,</span>
-            <span class="s2">"fields"</span> <span class="p">:</span> <span class="n">search_fields</span>
-            <span class="c1">#,"operator" : my_operator</span>
-            <span class="c1">#,"type" = "phrase"</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-
-<span class="c1"># BOOLEAN queries</span>
-<span class="c1"># The AND/OR/NOT operators can be used to fine tune the search queries.</span>
-<span class="c1"># This is implemented in the search API as a bool query.</span>
-<span class="c1"># The bool query accepts a must parameter (equivalent to AND),</span>
-<span class="c1"># a must_not parameter (equivalent to NOT),</span>
-<span class="c1"># and a should parameter (equivalent to OR).</span>
-<span class="c1"># https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-bool-query.html</span>
-
-<span class="sd">"""</span>
-<span class="sd"># ex: ("EML4" OR "ALK" in title) AND ("Lung Cancer" in journal)</span>
-<span class="sd">my_query = {</span>
-<span class="sd">    "query": {</span>
-<span class="sd">        "bool" : {</span>
-<span class="sd">            "must" :[ # AND</span>
-<span class="sd">                {</span>
-<span class="sd">                    "bool" : {</span>
-<span class="sd">                        "should" :[ # OR</span>
-<span class="sd">                            {</span>
-<span class="sd">                                "match" : {"title": "EML4"},</span>
-<span class="sd">                                "match" : {"title": "ALK"}</span>
-<span class="sd">                                }</span>
-<span class="sd">                            ]</span>
-<span class="sd">                        }</span>
-<span class="sd">                    },</span>
-<span class="sd">                {</span>
-<span class="sd">                    "match" : {"journal": "Lung Cancer"}</span>
-<span class="sd">                    }</span>
-<span class="sd">                ]</span>
-<span class="sd">            }</span>
-<span class="sd">        }</span>
-<span class="sd">    }</span>
-<span class="sd">"""</span>
-
-<span class="c1"># EXPLOITING ANNOTATIONS</span>
-<span class="c1"># the annotations_str field can be exploited in order to search for</span>
-<span class="c1"># concept types (drugs, genes, diseases), or concepts ids (gene</span>
-<span class="c1"># P51587).</span>
-
-<span class="sd">"""</span>
-<span class="sd"># ex: records with identified BRCA2 (NX_P51587) and identified drugs</span>
-<span class="sd">my_ids = "NP_NX_P51587"</span>
-<span class="sd">my_types = "drugs"</span>
-<span class="sd">my_operator = "and"</span>
-
-<span class="sd">my_query = {</span>
-<span class="sd">    "query": {</span>
-<span class="sd">        "multi_match" : {</span>
-<span class="sd">            "query" : my_ids + " " + my_types,</span>
-<span class="sd">            "fields" : "annotations_str"</span>
-<span class="sd">            ,"operator" : my_operator</span>
-<span class="sd">            }</span>
-<span class="sd">        }</span>
-<span class="sd">    }</span>
-<span class="sd">"""</span>
-
-
-<span class="c1"># call</span>
-<span class="n">url_API</span> <span class="o">=</span> <span class="s2">"https://biodiversitypmc.sibils.org/api/search"</span>
-<span class="n">my_json_query</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">my_query</span><span class="p">)</span> <span class="c1"># json to string</span>
-<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"jq"</span><span class="p">:</span> <span class="n">my_json_query</span><span class="p">;</span><span class="n">col</span><span class="o">=</span><span class="s2">"pmc"</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
+<span class="c1"># call with POST</span>
+<span class="n">url_API</span> <span class="o">=</span> <span class="s2">"https://biodiversitypmc.sibils.org/api/pmid2doi"</span>
+<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"pmids"</span><span class="p">:</span> <span class="n">pmids</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="n">url_API</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">my_params</span><span class="p">)</span>
 
-<span class="c1"># get response and print in output file</span>
+<span class="c1"># get response and print in output</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"SIBiLS_search.json"</span><span class="p">,</span><span class="s2">"w"</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"SIBiLS_pmid2doi_mapping.json"</span><span class="p">,</span><span class="s2">"w"</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="output">Output</h2>
-<p>Output is a native Elasticsearch response (json formatted), and includes retrieval scores for each document.</p>
+<p>Output is json formatted :</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"sibils_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v4.2.5.5"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"warning"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="err">Co</span><span class="kc">nta</span><span class="err">i</span><span class="kc">ns</span><span class="w"> </span><span class="err">PMIDs</span><span class="w"> </span><span class="kc">t</span><span class="err">ha</span><span class="kc">t</span><span class="w"> </span><span class="err">were</span><span class="w"> </span><span class="kc">n</span><span class="err">o</span><span class="kc">t</span><span class="w"> </span><span class="kc">f</span><span class="err">ou</span><span class="kc">n</span><span class="err">d</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">MEDLINE</span><span class="w"> </span><span class="err">(</span><span class="kc">te</span><span class="err">x</span><span class="kc">t</span><span class="err">)</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"medline"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"mapping"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"pmid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14691011"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"doi"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10.1210/en.2003-0985"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"pmid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"38060177"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"doi"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10.1007/978-1-0716-3577-3_2"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"pmid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"456"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"doi"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="p">[</span><span class="err">MAY</span><span class="w"> </span><span class="err">BE</span><span class="w"> </span><span class="err">NULL</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
