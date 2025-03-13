@@ -6,11 +6,11 @@ All collections are updated daily.
 
 Medline is a comprehensive database of biomedical literature, containing citations and abstracts from thousands of scientific journals worldwide. It covers a wide range of disciplines within the biomedical field, including medicine, genetics or biology.
 
-## Biodiverstity PMC
+## PMC+
 
 PubMed Central (PMC) is an open-access repository that hosts full-text articles from a diverse array of biomedical and life sciences journals. It provides free access to a vast collection of peer-reviewed research literature, including articles funded by various public and private organizations.
 
-In SIBiLS, the PMC collection is enriched by publications dealing with biodiversity (such as Pensoft articles), thus creating Biodiversity PMC.
+In SIBiLS, the PMC collection is enriched by publications dealing with biodiversity (such as Pensoft articles), thus creating PMC+.
 
 ## Supplementary data
 
@@ -21,3 +21,9 @@ In SIBiLS, the text contained in images, csv, spreasheets, Word files... has bee
 ## Plazi treatments
 
 Plazi treatments are structured descriptions of taxonomic treatments extracted from scholarly publications. These treatments provide detailed information about the classification, description, and identification of species, including synonyms, distribution, and ecological notes. Plazi treatments are crucial for biodiversity research, providing standardized and easily accessible information to taxonomists, ecologists, and conservationists worldwide.
+
+## BLR / Biodiversity Literature Repository (beta version)
+
+BLR is a Zenodo community from which we harvest and index the contents into SIBiLS. It gathers Open Access and restricted access contents, which however can be freely accessed by members of the community. Unlike PMC+, which stores JATS XML files, BLR mostly contains PDF, a less FAIR archiving format.
+
+MEDLINE, PMC+, the Supplemenary Data collection, and BLR are the pillars of Biodiversity PMC, the One Health Library.
