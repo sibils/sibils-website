@@ -10,9 +10,9 @@
 <link href="../fetch/" rel="prev"/>
 <link href="../qa/" rel="next"/>
 <link href="../../../assets/images/favicon.png" rel="icon"/>
-<meta content="mkdocs-1.6.1, mkdocs-material-9.6.7" name="generator"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.9" name="generator"/>
 <title>Search - SIBiLS</title>
-<link href="../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.4af4bdda.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
 <link href="../../../assets/extra.css" rel="stylesheet"/>
 <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
@@ -626,7 +626,7 @@
 <span class="c1"># call</span>
 <span class="n">url_API</span> <span class="o">=</span> <span class="s2">"https://biodiversitypmc.sibils.org/api/search"</span>
 <span class="n">my_json_query</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">my_query</span><span class="p">)</span> <span class="c1"># json to string</span>
-<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"jq"</span><span class="p">:</span> <span class="n">my_json_query</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">"pmc"</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
+<span class="n">my_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"jq"</span><span class="p">:</span> <span class="n">my_json_query</span><span class="p">,</span><span class="s2">"col"</span><span class="p">:</span><span class="s2">"pmc"</span><span class="p">}</span> <span class="c1"># parameters dictionary</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="n">url_API</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">my_params</span><span class="p">)</span>
 
 <span class="c1"># get response and print in output file</span>
