@@ -24,6 +24,6 @@ Plazi treatments are structured descriptions of taxonomic treatments extracted f
 
 ## BLR / Biodiversity Literature Repository (beta version)
 
-BLR is a Zenodo community from which we harvest and index the contents into SIBiLS. It gathers Open Access and restricted access contents, which however can be freely accessed by members of the community. Unlike PMC+, which stores JATS XML files, BLR mostly contains PDF, a less FAIR archiving format.
+BLR is a Zenodo community (https://zenodo.org/communities/biosyslit/), which is harvested and indexed into SIBiLS. It gathers Open Access and restricted access contents, which however can be freely accessed by members of the community. Unlike PMC+, which stores JATS XML files, BLR mostly contains PDF, a less "FAIR" archiving format, which is transformed into text files at indexing time.
 
 MEDLINE, PMC+, the Supplemenary Data collection, and BLR are the pillars of Biodiversity PMC, the One Health Library.
