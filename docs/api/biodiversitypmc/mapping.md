@@ -74,8 +74,11 @@ Output is json formatted :
 **Mandatory input**: the list of PMIDs (&pmids=). PMIDs are separated by commas.
 **Optional input**: the investigated collection (&col=). Must be medline (default) or pmc. If pmc, pmids are searched in PMC records instead of MEDLINE records.
 
-**Example**: map PMIDs from MEDLINE
+**Example with MEDLINE**: map PMIDs from MEDLINE
 [https://biodiversitypmc.sibils.org/api/pmid2pmcid?pmids=32379317,37002680](https://biodiversitypmc.sibils.org/api/pmid2pmcid?pmids=32379317,37002680)
+
+**Example with PMC**: map PMIDs from PMC
+[https://biodiversitypmc.sibils.org/api/pmid2pmcid?pmids=32379317,37002680&col=pmc](https://biodiversitypmc.sibils.org/api/pmid2pmcid?pmids=32379317,37002680&col=pmc)
 
 ## Code sample
 
