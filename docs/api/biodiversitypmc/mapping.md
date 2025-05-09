@@ -2,7 +2,7 @@
 
 ## Description
 
-These API retrieves Digital Object Identifiers (DOIs) or PubMed Central Identifiers (PMCIDs) associated with PubMed IDs (PMIDs) from MEDLINE. You can submit a batch of up to 1,000 PMIDs in a single request. The API returns a JSON response, with an array containing objects, where each object represents a PMID-DOI mapping. The doi field may be null if no DOI is found in MEDLINE for the given PMID. The warnings section indicates PMIDs that were not found in our local copy of MEDLINE.
+These API retrieve Digital Object Identifiers (DOIs) or PubMed Central Identifiers (PMCIDs) associated with PubMed IDs (PMIDs) from MEDLINE. You can submit a batch of up to 1,000 PMIDs in a single request. The API returns a JSON response, with an array containing objects, where each object represents a PMID-DOI (or PMCID) mapping. The doi (or pmcid) field may be null if no DOI (or pmcid) is found in MEDLINE for the given PMID. The warnings section indicates PMIDs that were not found in our local copy of MEDLINE.
 
 # PMIDs to DOIs
 
