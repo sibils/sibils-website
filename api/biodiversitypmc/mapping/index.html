@@ -6,12 +6,10 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Swiss Institute of Bioinformatics Literature Services" name="description"/>
-<link href="https://sibils.org/api/biodiversitypmc/pmid2doi/" rel="canonical"/>
-<link href="../qa/" rel="prev"/>
-<link href="../../celltriage/" rel="next"/>
+<link href="https://sibils.org/api/biodiversitypmc/mapping/" rel="canonical"/>
 <link href="../../../assets/images/favicon.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.6.12" name="generator"/>
-<title>PMID2DOI - SIBiLS</title>
+<title>Biodiversity Mapping PMIDs to DOIs or PMCIDs - SIBiLS</title>
 <link href="../../../assets/stylesheets/main.2afb09e1.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
 <link href="../../../assets/extra.css" rel="stylesheet"/>
@@ -32,24 +30,24 @@
 <!-- End Matomo Code -->
 <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
 <meta content="website" property="og:type"/>
-<meta content="PMID2DOI - SIBiLS" property="og:title"/>
+<meta content="Biodiversity Mapping PMIDs to DOIs or PMCIDs - SIBiLS" property="og:title"/>
 <meta content="Swiss Institute of Bioinformatics Literature Services" property="og:description"/>
-<meta content="https://sibils.org/assets/images/social/api/biodiversitypmc/pmid2doi.png" property="og:image"/>
+<meta content="https://sibils.org/assets/images/social/api/biodiversitypmc/mapping.png" property="og:image"/>
 <meta content="image/png" property="og:image:type"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
-<meta content="https://sibils.org/api/biodiversitypmc/pmid2doi/" property="og:url"/>
+<meta content="https://sibils.org/api/biodiversitypmc/mapping/" property="og:url"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="PMID2DOI - SIBiLS" name="twitter:title"/>
+<meta content="Biodiversity Mapping PMIDs to DOIs or PMCIDs - SIBiLS" name="twitter:title"/>
 <meta content="Swiss Institute of Bioinformatics Literature Services" name="twitter:description"/>
-<meta content="https://sibils.org/assets/images/social/api/biodiversitypmc/pmid2doi.png" name="twitter:image"/>
+<meta content="https://sibils.org/assets/images/social/api/biodiversitypmc/mapping.png" name="twitter:image"/>
 </head>
 <body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="sibils" dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#biodiversity-pmc-pmid-to-doi-api">
+<a class="md-skip" href="#biodiversity-mapping-pmids-to-dois-or-pmcids">
           Skip to content
         </a>
 </div>
@@ -73,7 +71,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              PMID2DOI
+              Biodiversity Mapping PMIDs to DOIs or PMCIDs
             
           </span>
 </div>
@@ -184,7 +182,7 @@
 
       </a>
 </li>
-<li class="md-tabs__item md-tabs__item--active">
+<li class="md-tabs__item">
 <a class="md-tabs__link" href="../../">
           
   
@@ -320,8 +318,8 @@
   </span>
 </a>
 </li>
-<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" id="__nav_10" type="checkbox"/>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_10" type="checkbox"/>
 <div class="md-nav__link md-nav__container">
 <a class="md-nav__link" href="../../">
 <span class="md-ellipsis">
@@ -329,18 +327,18 @@
     
   </span>
 </a>
-<label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+<label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
 <span class="md-nav__icon md-icon"></span>
 </label>
 </div>
-<nav aria-expanded="true" aria-labelledby="__nav_10_label" class="md-nav" data-md-level="1">
+<nav aria-expanded="false" aria-labelledby="__nav_10_label" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="__nav_10">
 <span class="md-nav__icon md-icon"></span>
             API
           </label>
 <ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" id="__nav_10_2" type="checkbox"/>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_10_2" type="checkbox"/>
 <div class="md-nav__link md-nav__container">
 <a class="md-nav__link" href="../">
 <span class="md-ellipsis">
@@ -352,7 +350,7 @@
 <span class="md-nav__icon md-icon"></span>
 </label>
 </div>
-<nav aria-expanded="true" aria-labelledby="__nav_10_2_label" class="md-nav" data-md-level="2">
+<nav aria-expanded="false" aria-labelledby="__nav_10_2_label" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_10_2">
 <span class="md-nav__icon md-icon"></span>
             Biodiversity PMC
@@ -382,57 +380,13 @@
   </span>
 </a>
 </li>
-<li class="md-nav__item md-nav__item--active">
-<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
-<span class="md-ellipsis">
-    PMID2DOI
-    
-  </span>
-<span class="md-nav__icon md-icon"></span>
-</label>
-<a class="md-nav__link md-nav__link--active" href="./">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../pmid2doi/">
 <span class="md-ellipsis">
     PMID2DOI
     
   </span>
 </a>
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#description">
-<span class="md-ellipsis">
-      Description
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#api-endpoint">
-<span class="md-ellipsis">
-      API endpoint
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#code-sample">
-<span class="md-ellipsis">
-      Code sample
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#output">
-<span class="md-ellipsis">
-      Output
-    </span>
-</a>
-</li>
-</ul>
-</nav>
 </li>
 </ul>
 </nav>
@@ -501,27 +455,6 @@
     </span>
 </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#api-endpoint">
-<span class="md-ellipsis">
-      API endpoint
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#code-sample">
-<span class="md-ellipsis">
-      Code sample
-    </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#output">
-<span class="md-ellipsis">
-      Output
-    </span>
-</a>
-</li>
 </ul>
 </nav>
 </div>
@@ -529,9 +462,10 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="biodiversity-pmc-pmid-to-doi-api">Biodiversity PMC PMID to DOI API</h1>
+<h1 id="biodiversity-mapping-pmids-to-dois-or-pmcids">Biodiversity Mapping PMIDs to DOIs or PMCIDs</h1>
 <h2 id="description">Description</h2>
-<p>This API retrieves Digital Object Identifiers (DOIs) associated with PubMed IDs (PMIDs) from MEDLINE. You can submit a batch of up to 1,000 PMIDs in a single request. The API returns a JSON response, with an array containing objects, where each object represents a PMID-DOI mapping. The doi field may be null if no DOI is found in MEDLINE for the given PMID. The warnings section indicates PMIDs that were not found in MEDLINE.</p>
+<p>These API retrieves Digital Object Identifiers (DOIs) or PubMed Central Identifiers (PMCIDs) associated with PubMed IDs (PMIDs) from MEDLINE. You can submit a batch of up to 1,000 PMIDs in a single request. The API returns a JSON response, with an array containing objects, where each object represents a PMID-DOI mapping. The doi field may be null if no DOI is found in MEDLINE for the given PMID. The warnings section indicates PMIDs that were not found in our local copy of MEDLINE.</p>
+<h1 id="pmids-to-dois">PMIDs to DOIs</h1>
 <h2 id="api-endpoint">API endpoint</h2>
 <p><strong>URL</strong>: <a href="https://biodiversitypmc.sibils.org/api/pmid2doi">biodiversitypmc.sibils.org/api/pmid2doi</a></p>
 <p><strong>Mandatory input</strong>: the list of PMIDs (&amp;pmids=). PMIDs are separated by commas.</p>
@@ -578,7 +512,61 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
+
+<span class="err">#</span><span class="w"> </span><span class="err">PMIDs</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">PMCIDs</span>
+
+<span class="err">##</span><span class="w"> </span><span class="err">API</span><span class="w"> </span><span class="err">e</span><span class="kc">n</span><span class="err">dpoi</span><span class="kc">nt</span>
+
+<span class="err">**URL**</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">biodiversi</span><span class="kc">t</span><span class="err">ypmc.sibils.org/api/pmid</span><span class="mi">2</span><span class="err">pmcid</span><span class="p">]</span><span class="err">(h</span><span class="kc">tt</span><span class="err">ps</span><span class="p">:</span><span class="c1">//biodiversitypmc.sibils.org/api/pmid2pmcid)</span>
+
+<span class="err">**Ma</span><span class="kc">n</span><span class="err">da</span><span class="kc">t</span><span class="err">ory</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="err">pu</span><span class="kc">t</span><span class="err">**</span><span class="p">:</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">lis</span><span class="kc">t</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="err">PMIDs</span><span class="w"> </span><span class="err">(&amp;pmids=).</span><span class="w"> </span><span class="err">PMIDs</span><span class="w"> </span><span class="err">are</span><span class="w"> </span><span class="err">separa</span><span class="kc">te</span><span class="err">d</span><span class="w"> </span><span class="err">by</span><span class="w"> </span><span class="err">commas.</span>
+<span class="err">**Op</span><span class="kc">t</span><span class="err">io</span><span class="kc">nal</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="err">pu</span><span class="kc">t</span><span class="err">**</span><span class="p">:</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="err">ves</span><span class="kc">t</span><span class="err">iga</span><span class="kc">te</span><span class="err">d</span><span class="w"> </span><span class="err">collec</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">(&amp;col=).</span><span class="w"> </span><span class="err">Mus</span><span class="kc">t</span><span class="w"> </span><span class="err">be</span><span class="w"> </span><span class="err">medli</span><span class="kc">ne</span><span class="w"> </span><span class="err">(de</span><span class="kc">fault</span><span class="err">)</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">pmc.</span><span class="w"> </span><span class="err">I</span><span class="kc">f</span><span class="w"> </span><span class="err">pmc</span><span class="p">,</span><span class="w"> </span><span class="err">pmids</span><span class="w"> </span><span class="err">are</span><span class="w"> </span><span class="err">searched</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">PMC</span><span class="w"> </span><span class="err">records</span><span class="w"> </span><span class="err">i</span><span class="kc">nstea</span><span class="err">d</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="err">MEDLINE</span><span class="w"> </span><span class="err">records.</span>
+
+<span class="err">**Example**</span><span class="p">:</span><span class="w"> </span><span class="err">map</span><span class="w"> </span><span class="err">PMIDs</span><span class="w"> </span><span class="kc">fr</span><span class="err">om</span><span class="w"> </span><span class="err">MEDLINE</span>
+<span class="p">[</span><span class="err">h</span><span class="kc">tt</span><span class="err">ps</span><span class="p">:</span><span class="c1">//biodiversitypmc.sibils.org/api/pmid2pmcid?pmids=32379317,37002680](https://biodiversitypmc.sibils.org/api/pmid2pmcid?pmids=32379317,37002680)</span>
+
+<span class="err">##</span><span class="w"> </span><span class="err">Code</span><span class="w"> </span><span class="err">sample</span>
+
+<span class="err">py</span><span class="kc">t</span><span class="err">ho</span><span class="kc">n</span><span class="w"> </span><span class="err">scrip</span><span class="kc">t</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="err">demo</span><span class="kc">nstrat</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">POST</span><span class="w"> </span><span class="err">calls</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">API</span>
+
+<span class="err">```py</span><span class="kc">t</span><span class="err">ho</span><span class="kc">n</span>
+<span class="err">impor</span><span class="kc">t</span><span class="w"> </span><span class="err">reques</span><span class="kc">ts</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="kc">n</span><span class="err">o</span><span class="kc">t</span><span class="w"> </span><span class="err">i</span><span class="kc">nstalle</span><span class="err">d</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">de</span><span class="kc">fault</span><span class="w"> </span><span class="err">Py</span><span class="kc">t</span><span class="err">ho</span><span class="kc">n</span>
+<span class="err">impor</span><span class="kc">t</span><span class="w"> </span><span class="err">jso</span><span class="kc">n</span>
+
+<span class="err">#</span><span class="w"> </span><span class="err">PMIDs</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="kc">fet</span><span class="err">ch</span><span class="w"> </span><span class="err">(limi</span><span class="kc">te</span><span class="err">d</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="mi">1000</span><span class="err">)</span>
+<span class="err">pmids</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">"32379317,37002680"</span>
+
+<span class="err">#</span><span class="w"> </span><span class="err">call</span><span class="w"> </span><span class="err">wi</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">POST</span>
+<span class="err">url_API</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="s2">"https://biodiversitypmc.sibils.org/api/pmid2pmcid"</span>
+<span class="err">my_params</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="p">{</span><span class="nt">"pmids"</span><span class="p">:</span><span class="w"> </span><span class="err">pmids</span><span class="p">}</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="err">parame</span><span class="kc">ters</span><span class="w"> </span><span class="err">dic</span><span class="kc">t</span><span class="err">io</span><span class="kc">nar</span><span class="err">y</span>
+<span class="err">r</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">reques</span><span class="kc">ts</span><span class="err">.pos</span><span class="kc">t</span><span class="err">(url</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">url_API</span><span class="p">,</span><span class="w"> </span><span class="err">da</span><span class="kc">ta</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">my_params)</span>
+
+<span class="err">#</span><span class="w"> </span><span class="err">ge</span><span class="kc">t</span><span class="w"> </span><span class="err">respo</span><span class="kc">nse</span><span class="w"> </span><span class="err">a</span><span class="kc">n</span><span class="err">d</span><span class="w"> </span><span class="err">pri</span><span class="kc">nt</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">ou</span><span class="kc">t</span><span class="err">pu</span><span class="kc">t</span>
+<span class="err">respo</span><span class="kc">nse</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">r.</span><span class="kc">te</span><span class="err">x</span><span class="kc">t</span>
+<span class="err">wi</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">ope</span><span class="kc">n</span><span class="err">(</span><span class="s2">"SIBiLS_pmid2pmcid_mapping.json"</span><span class="p">,</span><span class="s2">"w"</span><span class="p">,</span><span class="err">e</span><span class="kc">n</span><span class="err">codi</span><span class="kc">n</span><span class="err">g=</span><span class="s2">"utf-8"</span><span class="err">)</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="kc">f</span><span class="err">ile</span><span class="p">:</span>
+<span class="w">   </span><span class="kc">f</span><span class="err">ile.wri</span><span class="kc">te</span><span class="err">(r.</span><span class="kc">te</span><span class="err">x</span><span class="kc">t</span><span class="err">)</span>
 </code></pre></div>
+<h2 id="output_1">Output</h2>
+<p>Output is json formatted :</p>
+<p><div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"sibils_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v4.2.5.5"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"warning"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"medline"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"mapping"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"pmid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"32379317"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"pmcid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PMC7319474"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"pmid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37002680"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"pmcid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PMC10066029"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+```</p>
 </article>
 </div>
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
