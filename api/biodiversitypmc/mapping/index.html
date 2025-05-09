@@ -543,8 +543,10 @@
 <p><strong>URL</strong>: <a href="https://biodiversitypmc.sibils.org/api/pmid2pmcid">biodiversitypmc.sibils.org/api/pmid2pmcid</a></p>
 <p><strong>Mandatory input</strong>: the list of PMIDs (&amp;pmids=). PMIDs are separated by commas.
 <strong>Optional input</strong>: the investigated collection (&amp;col=). Must be medline (default) or pmc. If pmc, pmids are searched in PMC records instead of MEDLINE records.</p>
-<p><strong>Example</strong>: map PMIDs from MEDLINE
+<p><strong>Example with MEDLINE</strong>: map PMIDs from MEDLINE
 <a href="https://biodiversitypmc.sibils.org/api/pmid2pmcid?pmids=32379317,37002680">https://biodiversitypmc.sibils.org/api/pmid2pmcid?pmids=32379317,37002680</a></p>
+<p><strong>Example with PMC</strong>: map PMIDs from PMC
+<a href="https://biodiversitypmc.sibils.org/api/pmid2pmcid?pmids=32379317,37002680&amp;col=pmc">https://biodiversitypmc.sibils.org/api/pmid2pmcid?pmids=32379317,37002680&amp;col=pmc</a></p>
 <h2 id="code-sample_1">Code sample</h2>
 <p>python script for demonstrating POST calls to the API</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span> <span class="c1"># not installed in default Python</span>
