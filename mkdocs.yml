@@ -67,7 +67,7 @@ nav:
       - 'Fetch': 'api/biodiversitypmc/fetch.md'
       - 'Search': 'api/biodiversitypmc/search.md'
       - 'QA': 'api/biodiversitypmc/qa.md'
-      - 'PMID2DOI': 'api/biodiversitypmc/pmid2doi.md'
+      - 'Mapping ids': 'api/biodiversitypmc/mapping.md'
     - 'Celltriage': 'api/celltriage/index.md'
     - 'Variomes': 'api/variomes/index.md'
     - 'SynVar': 'api/synvar/index.md'
