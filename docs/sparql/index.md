@@ -11,7 +11,7 @@ hide:
 </p>
 
 <figure style="margin-bottom: 3em; margin-top: 2em">
-    <video width="800" height="454" src="https://candy.hesge.ch/sibils-sparql.mov" controls="controls">
+    <video width="800" height="454" src="https://candy.text-analytics.ch/sibils-sparql.mov" controls="controls">
     </video>
     <figcaption></figcaption>
 </figure>
