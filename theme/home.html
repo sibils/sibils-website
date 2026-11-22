@@ -1,0 +1,33 @@
+{#-
+  Home page (docs/index.md, front matter "template: home.html"). No sidebars:
+  intro band from the front matter (title, hero_lead, hero_actions) with the
+  collection counts (config.extra.sibils, hooks/sibils_data.py) beside it from
+  1024px, then the Markdown content.
+-#}
+{%- extends "main.html" %}
+{%- block body_class %}page-home{% endblock %}
+{%- block layout %}
+{%- import "partials/macros.html" as m with context %}
+{%- set meta = page.meta or {} %}
+<main class="home" id="__content" tabindex="-1">
+  <section class="intro" aria-labelledby="__intro-title">
+    <div class="intro__inner">
+      <h1 class="intro__title" id="__intro-title">{{ (meta.title or page.title or config.site_name) | e }}</h1>
+      {%- if meta.hero_lead %}
+      <p class="intro__lead">{{ meta.hero_lead | e }}</p>
+      {%- endif %}
+      {%- if meta.hero_actions %}
+      <p class="intro__actions">
+        {%- for action in meta.hero_actions if action.label and action.url %}
+        <a class="btn{% if action.primary %} btn-primary{% endif %}" href="{{ m.resolve_url(action.url) }}">{{ action.label | e }}</a>
+        {%- endfor %}
+      </p>
+      {%- endif %}
+      {%- include "partials/counts.html" %}
+    </div>
+  </section>
+  <article class="content home__content">
+{{ page.content }}
+  </article>
+</main>
+{%- endblock %}

@@ -1,0 +1,20 @@
+{#- "Section › Subsection › Page" above the H1. A page that is the landing
+    page of its section stands for that section, so the section is not
+    repeated. Top-level pages have no breadcrumb. -#}
+{%- import "partials/macros.html" as m with context %}
+{%- set crumbs = [] %}
+{%- for anc in page.ancestors | reverse %}
+  {%- if not (loop.last and m.is_landing(anc) and anc.children[0] == page) %}
+    {%- set _ = crumbs.append(anc) %}
+  {%- endif %}
+{%- endfor %}
+{%- if crumbs %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol>
+    {%- for anc in crumbs %}
+    <li><a href="{{ m.first_url(anc) }}">{{ anc.title | e }}</a></li>
+    {%- endfor %}
+    <li><a href="{{ page.url | url }}" aria-current="page">{{ page.title | e }}</a></li>
+  </ol>
+</nav>
+{%- endif %}

@@ -1,0 +1,19 @@
+{#- Static "page not found" page (mkdocs.yml: theme.static_templates). -#}
+{%- extends "main.html" %}
+{%- block body_class %}page-404{% endblock %}
+{%- block layout %}
+{%- import "partials/macros.html" as m with context %}
+<div class="layout">
+  <div class="layout__nav"></div>
+  <main class="layout__main" id="__content" tabindex="-1">
+    <article class="content">
+      <h1>Page not found</h1>
+      <p class="lead">There is no page at this address. It may have moved when the site was reorganised.</p>
+      <p>
+        <a class="btn btn-primary" href="{{ m.home_url() }}">Go to the home page</a>
+        <button class="btn js-only" type="button" data-search-open aria-haspopup="dialog" aria-controls="__search-dialog">Search the documentation</button>
+      </p>
+    </article>
+  </main>
+</div>
+{%- endblock %}

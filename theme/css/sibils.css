@@ -1,0 +1,2005 @@
+/*
+ * SIBiLS documentation theme. One stylesheet, no build step.
+ * Layout and colours follow the SIBiLS web applications (red band, white
+ * sub-bar, DM Sans). Syntax colours are in pygments.css (generated).
+ *
+ *  1. Fonts            7. Content (typography, code, tables, components)
+ *  2. Colour tokens    8. Home page
+ *  3. Base             9. Footer
+ *  4. Header band     10. Search and menu dialogs
+ *  5. Sub-bar         11. Print, reduced motion
+ *  6. Page layout
+ */
+
+/* 1. Fonts: DM Sans variable (OFL, fonts/OFL.txt), latin + latin-ext ---- */
+
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url("../fonts/dm-sans-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url("../fonts/dm-sans-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "DM Sans";
+  font-style: italic;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url("../fonts/dm-sans-latin-ext-wght-italic.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "DM Sans";
+  font-style: italic;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url("../fonts/dm-sans-latin-wght-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* 2. Colour tokens ------------------------------------------------------
+ * Text pairs are >= 4.5:1, UI borders and focus rings >= 3:1. The code
+ * colours are checked by tools/build_pygments_css.py; check the other pairs
+ * by hand when you change a token (see theme/README.md). Red is for the
+ * brand, links, primary buttons and the active state only.
+ * The dark set appears twice: [data-theme="dark"] (set by the inline script
+ * in <head>, toggle or system) and, for visitors without JavaScript, the
+ * system preference. Print always uses the light set. */
+
+:root {
+  color-scheme: light;
+  --header: #cc0000;
+  --red: #cc0000;
+  --red-strong: #af0c01;
+  --brand-text: #cc0000;
+  --link: #b00000;
+  --link-hover: #7f0000;
+  --ink: #1f2937;
+  --nav-ink: #374151;
+  --muted: #4b5563;
+  --line: #e5e7eb;
+  --line-strong: #d1d5db;
+  --control: #6b7280;
+  --surface: #f3f4f6;
+  --band: #e5e7eb;
+  --band-line: #d1d5db;
+  --approx-ink: #5b6370;  /* approximate counts: 4.9:1 on --band, lighter than --muted */
+  --bg: #ffffff;
+  --code-bg: #f6f8fa;
+  --code-tint: rgba(31, 41, 55, 0.07);   /* inline code: --ink at 7% */
+  --hll-bg: #fff8c5;
+  --hover-bg: #f3f4f6;
+  --focus: #cc0000;
+  --mark-bg: #fde68a;
+  --mark-ink: #1f2937;
+  --backdrop: rgba(17, 24, 39, 0.55);
+  --note: #2563eb;  --note-ink: #1d4ed8;  --note-bg: #eff6ff;
+  --tip: #16a34a;   --tip-ink: #166534;   --tip-bg: #f0fdf4;
+  --warn: #d97706;  --warn-ink: #92400e;  --warn-bg: #fffbeb;
+  --danger: #dc2626; --danger-ink: #b91c1c; --danger-bg: #fef2f2;
+  --example: #7c3aed; --example-ink: #6d28d9; --example-bg: #f5f3ff;
+
+  --font: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --radius: 6px;
+  --subbar-h: 53px;
+  --sticky-top: calc(var(--subbar-h) + 24px);
+}
+/* One page box for the home bands, the documentation pages and the footer. */
+:root { --page-max: 1280px; --gutter: 24px; --grid-gap: 24px; }
+@media (max-width: 639.98px) { :root { --gutter: 16px; } }
+/* Documentation grid: sidebar, gaps, "On this page" and the reading measure
+   of running text. The API section has a wider main column (--main-max) for
+   its code and tables, in a wider page box (--doc-max, 1528px). */
+:root { --nav-w: 240px; --toc-w: 200px; --col-gap: 40px; --measure: 40rem; }
+body.section-api {
+  --main-max: 960px;
+  --doc-max: calc(var(--nav-w) + var(--main-max) + var(--toc-w) + 2 * var(--col-gap) + 2 * var(--gutter));
+}
+/* Code blocks: 13px, line height 1.55. */
+:root { --fs-code: 0.8125rem; --lh-code: 1.55; }
+
+@media screen {
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --header: #a30000;
+    --red: #cc0000;
+    --red-strong: #af0c01;
+    --brand-text: #ff6b61;
+    --link: #ff8a80;
+    --link-hover: #ffc4bd;
+    --ink: #e5e7eb;
+    --nav-ink: #d1d5db;
+    --muted: #9ca3af;
+    --line: #374151;
+    --line-strong: #4b5563;
+    --control: #9ca3af;
+    --surface: #111827;
+    --band: #1f2937;
+    --band-line: #374151;
+    --approx-ink: #8f96a3;
+    --bg: #0b0f14;
+    --code-bg: #161b22;
+    --code-tint: rgba(229, 231, 235, 0.12);
+    --hll-bg: #2d2a1c;
+    --hover-bg: #1f2937;
+    --focus: #ff6b61;
+    --mark-bg: #854d0e;
+    --mark-ink: #fef3c7;
+    --backdrop: rgba(0, 0, 0, 0.7);
+    --note: #3b82f6;  --note-ink: #93c5fd;  --note-bg: #0f1a2e;
+    --tip: #22c55e;   --tip-ink: #86efac;   --tip-bg: #0c1f16;
+    --warn: #f59e0b;  --warn-ink: #fcd34d;  --warn-bg: #211a0b;
+    --danger: #ef4444; --danger-ink: #fca5a5; --danger-bg: #261214;
+    --example: #8b5cf6; --example-ink: #c4b5fd; --example-bg: #1a1530;
+  }
+}
+@media screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --header: #a30000;
+    --red: #cc0000;
+    --red-strong: #af0c01;
+    --brand-text: #ff6b61;
+    --link: #ff8a80;
+    --link-hover: #ffc4bd;
+    --ink: #e5e7eb;
+    --nav-ink: #d1d5db;
+    --muted: #9ca3af;
+    --line: #374151;
+    --line-strong: #4b5563;
+    --control: #9ca3af;
+    --surface: #111827;
+    --band: #1f2937;
+    --band-line: #374151;
+    --approx-ink: #8f96a3;
+    --bg: #0b0f14;
+    --code-bg: #161b22;
+    --code-tint: rgba(229, 231, 235, 0.12);
+    --hll-bg: #2d2a1c;
+    --hover-bg: #1f2937;
+    --focus: #ff6b61;
+    --mark-bg: #854d0e;
+    --mark-ink: #fef3c7;
+    --backdrop: rgba(0, 0, 0, 0.7);
+    --note: #3b82f6;  --note-ink: #93c5fd;  --note-bg: #0f1a2e;
+    --tip: #22c55e;   --tip-ink: #86efac;   --tip-bg: #0c1f16;
+    --warn: #f59e0b;  --warn-ink: #fcd34d;  --warn-bg: #211a0b;
+    --danger: #ef4444; --danger-ink: #fca5a5; --danger-bg: #261214;
+    --example: #8b5cf6; --example-ink: #c4b5fd; --example-bg: #1a1530;
+  }
+}
+
+/* 3. Base --------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Anchors, the skip link and focused elements land below the sticky sub-bar. */
+  scroll-padding-top: calc(var(--subbar-h) + 16px);
+}
+/* Without JavaScript, small screens have a static sub-bar. */
+@media (max-width: 1023.98px) {
+  html.no-js { scroll-padding-top: 0; }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.65;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, svg, video { max-width: 100%; }
+
+a { color: var(--link); }
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+[hidden] { display: none !important; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.no-js .js-only { display: none !important; }
+
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 8px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--link);
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: none; }
+
+.icon { display: block; flex: none; }
+
+/* 4. Header band ---------------------------------------------------------- */
+
+.site-header {
+  background-color: var(--header);
+  background-image: linear-gradient(to top left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+  color: #fff;
+}
+.site-header :focus-visible { outline-color: #fff; }
+
+/* Flex: the wordmark's link is as wide as the wordmark, not the band. */
+.site-header__inner {
+  display: flex;
+  padding: 16px;
+}
+
+.brand {
+  display: block;
+  flex: none;
+  border-radius: 2px;
+}
+.brand img {
+  display: block;
+  width: auto;
+  height: 72px;
+}
+
+/* 5. Sub-bar ---------------------------------------------------------------- */
+
+.subbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.subbar__inner {
+  display: flex;
+  align-items: center;
+  gap: 8px 24px;
+  min-height: calc(var(--subbar-h) - 1px);
+  padding: 8px 16px;
+}
+
+.subbar__title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--brand-text);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.subbar__suffix {
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.mainnav { margin-left: auto; }
+.mainnav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mainnav a {
+  display: block;
+  padding: 4px 0;
+  color: var(--nav-ink);
+  font-size: 1rem;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.mainnav a:hover { color: var(--brand-text); }
+.mainnav a.is-active {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.subbar__tools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tool-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--nav-ink);
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+}
+.tool-btn:hover {
+  background: var(--hover-bg);
+  color: var(--ink);
+}
+.icon-btn { width: 36px; padding: 0; }
+
+.search-btn {
+  min-width: 160px;
+  justify-content: flex-start;
+  border-color: var(--line-strong);
+  color: var(--muted);
+}
+.search-btn__label { margin-right: auto; }
+.search-btn__key, kbd {
+  padding: 0 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.theme-toggle .icon--sun { display: none; }
+[data-theme="dark"] .theme-toggle .icon--sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon--moon { display: none; }
+
+.menu-btn { display: none; }
+
+@media (max-width: 1023.98px) {
+  .js .mainnav { display: none; }
+  .js .menu-btn { display: inline-flex; }
+  .js .subbar__tools { margin-left: auto; }
+  .no-js .subbar { position: static; }
+  .no-js .subbar__inner { flex-wrap: wrap; }
+  .no-js .mainnav { margin-left: 0; width: 100%; }
+}
+
+/* 6. Page layout ------------------------------------------------------------ */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0 40px;
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 24px 16px 56px;
+}
+.layout__main {
+  min-width: 0;
+  max-width: 760px;
+}
+.layout__main:focus { outline: none; }
+.layout__nav, .layout__toc { display: none; min-width: 0; }
+
+@media (min-width: 640px) {
+  .layout { padding: 28px 24px 64px; }
+}
+@media (min-width: 1024px) {
+  .layout { grid-template-columns: 240px minmax(0, 1fr); padding-top: 32px; }
+  .layout__nav { display: block; }
+}
+/* The "On this page" track is reserved on every page, with or without a
+   TOC, so the main column keeps the same width and position everywhere. */
+@media (min-width: 1200px) {
+  .layout { grid-template-columns: 240px minmax(0, 1fr) 200px; }
+  .layout__toc { display: block; }
+}
+/* Wide pages (OpenAPI references, front matter "wide: true"): no "On this
+   page" track, and the main column takes the remaining width. Paragraphs keep
+   their reading width (see .content > p); tables, code and Swagger UI grow. */
+.layout.is-wide .layout__main { max-width: none; }
+@media (min-width: 1200px) {
+  .layout.is-wide { grid-template-columns: 240px minmax(0, 1fr); }
+}
+/* API section: one page box (--doc-max) for guides and OpenAPI references,
+   so the sidebar does not move between them; a main column up to 960px; the
+   "On this page" column from 1280px (the main column would be narrower than
+   the reading measure between 1200 and 1279px). The footer follows the box. */
+.section-api .layout, .section-api .layout.is-wide { max-width: var(--doc-max); }
+.section-api .layout__main, .section-api .layout.is-wide .layout__main { max-width: none; }
+@media (min-width: 1024px) {
+  .section-api .layout, .section-api .layout.is-wide { grid-template-columns: var(--nav-w) minmax(0, var(--main-max)); }
+}
+@media (min-width: 1200px) and (max-width: 1279.98px) {
+  .section-api .layout__toc { display: none; }
+}
+@media (min-width: 1280px) {
+  .section-api .layout, .section-api .layout.is-wide { grid-template-columns: var(--nav-w) minmax(0, 1fr) var(--toc-w); }
+  .section-api .layout__toc { display: block; }
+  .section-api .layout.is-wide .layout__main { grid-column: 2 / -1; }
+}
+.section-api .site-footer__inner { max-width: var(--doc-max); }
+/* Without JavaScript there is no menu button: show the section pages above
+   the content on small screens. */
+@media (max-width: 1023.98px) {
+  .no-js .layout__nav { display: block; margin-bottom: 24px; }
+  .no-js .snav { position: static; max-height: none; }
+}
+
+/* Section navigation (sidebar and drawer) */
+.snav {
+  position: sticky;
+  top: var(--sticky-top);
+  max-height: calc(100vh - var(--sticky-top) - 16px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 16px;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+.snav__title {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+.snav__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.snav__list--l1 { border-left: 1px solid var(--line); }
+.snav__item { margin: 0; }
+.snav__link, .snav__label {
+  display: block;
+  margin-left: -1px;
+  padding: 5px 8px 5px 14px;
+  border-left: 2px solid transparent;
+}
+.snav__link {
+  color: var(--nav-ink);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.snav__link:hover { color: var(--brand-text); }
+.snav__link.is-active {
+  border-left-color: var(--red);
+  color: var(--ink);
+  font-weight: 700;
+}
+.snav__label {
+  color: var(--muted);
+  font-weight: 600;
+}
+.snav__item--section { margin-top: 2px; }
+.snav__list--l2 .snav__link, .snav__list--l2 .snav__label { padding-left: 28px; }
+.snav__list--l3 .snav__link, .snav__list--l3 .snav__label { padding-left: 42px; }
+.snav__list--l4 .snav__link, .snav__list--l4 .snav__label { padding-left: 56px; }
+/* Headings of the current page, under its sidebar entry (and in the
+   drawer), where the "On this page" column is hidden: below 1200px, and
+   below 1280px in the API section (see the layout above). */
+/* A rule on their left, under the page title, sets them apart from the
+   pages of the section. */
+.snav__toc {
+  display: none;
+  margin: 0 0 6px 28px;
+  padding: 0;
+  border-left: 1px solid var(--line);
+  list-style: none;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.snav__list--l2 .snav__toc { margin-left: 42px; }
+.snav__list--l3 .snav__toc { margin-left: 56px; }
+.snav__toc a {
+  display: block;
+  padding: 3px 8px 3px 12px;
+  color: var(--muted);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 0.15s;
+}
+.snav__toc a:hover { color: var(--link); }
+.snav__toc a:focus-visible { outline-offset: -2px; border-radius: 4px; }
+@media (max-width: 1199.98px) { .snav__toc { display: block; } }
+@media (max-width: 1279.98px) { .section-api .snav__toc { display: block; } }
+/* A section label that is also a page (landing page) reads as a heading of
+   its children. */
+.snav__link--section { color: var(--ink); font-weight: 600; }
+/* The sidebar, the TOC and the drawer scroll, which clips anything drawn
+   outside them: draw their focus rings inside the link. */
+.snav__link:focus-visible, .toc a:focus-visible, .drawer__section-link:focus-visible {
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+
+/* Breadcrumb */
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 12px;
+  padding: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  list-style: none;
+}
+.breadcrumb li + li::before {
+  content: "\203A";
+  margin: 0 8px;
+  color: var(--muted);
+}
+.breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.breadcrumb a:hover {
+  color: var(--link);
+  text-decoration: underline;
+}
+.breadcrumb a[aria-current="page"] { color: var(--muted); }
+.breadcrumb a[aria-current="page"]:hover { text-decoration: none; }
+
+/* "On this page" */
+.toc {
+  position: sticky;
+  top: var(--sticky-top);
+  max-height: calc(100vh - var(--sticky-top) - 16px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.toc__title {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+.toc ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.toc__list { border-left: 1px solid var(--line); }
+.toc a {
+  display: block;
+  margin-left: -1px;
+  padding: 4px 8px 4px 12px;
+  border-left: 2px solid transparent;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.toc ul ul a { padding-left: 24px; }
+.toc a { overflow-wrap: anywhere; }
+.toc a:hover { color: var(--link); }
+.toc a.is-active {
+  border-left-color: var(--red);
+  color: var(--ink);
+  font-weight: 600;
+}
+/* Headings rendered with permalinks inside TOC titles: hide the pilcrow. */
+.toc .headerlink { display: none; }
+
+/* Previous / next */
+.pager {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 48px;
+}
+.pager__link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+.pager__link:hover { border-color: var(--control); }
+.pager__link--next {
+  grid-column: -2;
+  text-align: right;
+}
+.pager__dir {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+.pager__title {
+  color: var(--link);
+  font-weight: 600;
+}
+.pager__section {
+  color: var(--muted);
+  font-weight: 400;
+}
+@media (max-width: 559.98px) {
+  .pager { grid-template-columns: minmax(0, 1fr); }
+  .pager__link--next { grid-column: auto; }
+}
+
+/* 7. Content ---------------------------------------------------------------- */
+
+.content {
+  overflow-wrap: break-word;
+}
+.content > :first-child { margin-top: 0; }
+/* Running text keeps a measure of about 80 characters; boxes (code, tables,
+   facts, cards, notes, tabs) use the full column. */
+.content > :is(p, ul, ol, dl, blockquote, h1, h2, h3, h4, h5, h6) { max-width: var(--measure); }
+/* API section (wider column): notes and references without code or a table
+   keep the reading measure too. A facts box is as wide as its content, at
+   least the measure, so that an endpoint URL stays on one line; its values
+   keep about 75 characters per line. */
+.section-api .content > :is(.admonition, details, .footnote):not(:has(pre, table)) { max-width: var(--measure); }
+.section-api .content > .facts { width: fit-content; min-width: min(100%, var(--measure)); max-width: 100%; }
+.section-api .content .facts dd { max-width: 36rem; }
+
+.content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
+  color: var(--ink);
+  font-weight: 700;
+}
+.content h1 {
+  margin: 0 0 0.75em;
+  font-size: 2rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.content h2 {
+  margin: 2.2em 0 0.6em;
+  font-size: 1.4rem;
+  line-height: 1.3;
+}
+.content h3 {
+  margin: 1.8em 0 0.5em;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+.content h4 {
+  margin: 1.6em 0 0.4em;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.content h5, .content h6 {
+  margin: 1.4em 0 0.4em;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.content h1 + h2 { margin-top: 1.2em; }
+.content h2 + h3 { margin-top: 1em; }
+
+.content p, .content ul, .content ol, .content dl, .content blockquote,
+.content figure, .content pre, .content .highlight, .content .table-wrap {
+  margin: 0 0 1em;
+}
+.content ul, .content ol { padding-left: 1.5em; }
+.content li { margin: 0.3em 0; }
+.content li > p { margin: 0.4em 0; }
+.content li > ul, .content li > ol { margin: 0.3em 0; }
+.content strong, .content b { font-weight: 700; }
+
+.content a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color 0.15s;
+}
+.content a:hover {
+  color: var(--link-hover);
+  text-decoration-thickness: 2px;
+}
+
+.content hr {
+  height: 0;
+  margin: 2em 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+
+.content blockquote {
+  padding: 0 0 0 1em;
+  border-left: 3px solid var(--line-strong);
+  color: var(--muted);
+}
+
+.content img {
+  height: auto;
+  border-radius: 2px;
+}
+
+.content abbr[title] {
+  text-decoration: underline dotted;
+  text-underline-offset: 0.18em;
+  cursor: help;
+}
+
+.content mark, .search mark {
+  padding: 0 2px;
+  border-radius: 2px;
+  background: var(--mark-bg);
+  color: var(--mark-ink);
+}
+
+.content kbd { font-size: 0.8125em; }
+
+.content sup, .content sub { line-height: 0; }
+
+/* Lead paragraph: "text\n{ .lead }" */
+.content .lead, .intro__lead {
+  color: var(--muted);
+  font-size: 1.15rem;
+  line-height: 1.55;
+}
+
+/* Header permalinks (toc: permalink: true) */
+.content .headerlink {
+  margin-left: 0.35em;
+  padding: 0 0.15em;
+  color: var(--muted);
+  font-weight: 400;
+  text-decoration: none !important;
+  opacity: 0;
+  transition: color 0.15s;
+}
+.content :is(h1, h2, h3, h4, h5, h6):hover .headerlink,
+.content .headerlink:focus-visible { opacity: 1; }
+.content .headerlink:hover { color: var(--link); }
+
+/* Inline code: a light tint, no border (many chips in a row stay readable).
+   A chip that wraps keeps its padding and radius on both lines. theme.js
+   keeps chips of up to 24 characters on one line (.is-nowrap) and adds
+   line-break opportunities after "/", "?" and "&" in longer ones (never
+   right after "https://"). */
+.content code {
+  padding: 0.12em 0.3em;
+  border-radius: 4px;
+  background: var(--code-tint);
+  font-family: var(--mono);
+  font-size: 0.875em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.content a code { color: inherit; }
+.content code.is-nowrap { white-space: nowrap; }
+/* A paragraph that is only an example URL (theme.js: a.is-url) reads as
+   code, in the same face as the parameters. */
+.content a.is-url { font-family: var(--mono); font-size: 0.875em; overflow-wrap: anywhere; }
+/* Identifiers whose position already marks them as code have no chip:
+   endpoint headings, the first column of tables, the lead. */
+.content :is(h1, h2, h3, h4) code { padding: 0; background: none; font-size: 0.9em; }
+.content td:first-child > code { padding: 0; background: none; color: var(--ink); font-weight: 600; }
+.content .lead code { padding: 0; background: none; color: var(--ink); }
+/* Request line: "`GET` or `POST` `https://...`\n{ .endpoint }", one quiet
+   panel as wide as its text. */
+.content p.endpoint {
+  width: fit-content;
+  max-width: 100%;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.content p.endpoint code { padding: 0; background: none; font-size: inherit; color: var(--ink); }
+.content p.endpoint code:not(:last-child) { font-weight: 700; }
+
+/* Code blocks (pymdownx.highlight; optional title="file") */
+.content pre {
+  position: relative;
+  overflow-x: auto;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+  font-size: var(--fs-code);
+  line-height: var(--lh-code);
+  tab-size: 4;
+}
+.content pre code {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font-size: inherit;
+  overflow-wrap: normal;
+  white-space: pre;
+}
+.content .highlight {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+}
+.content .highlight pre {
+  margin: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+}
+.content .highlight .filename {
+  display: block;
+  padding: 6px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+}
+.content .highlight .hll { display: block; margin: 0 -16px; padding: 0 16px; background: var(--hll-bg); }
+.content .highlight .linenos,
+.content .highlight .linenodiv pre {
+  color: var(--muted);
+  user-select: none;
+}
+.content .highlighttable { width: 100%; border-collapse: collapse; }
+.content .highlighttable td { padding: 0; border: 0; }
+/* JSON and plain text wrap instead of scrolling. Each line is a span
+   (pymdownx.highlight line_spans); theme.js sets --ind to its number of
+   leading spaces, so a wrapped line continues 2 characters right of its key
+   (a hanging indent) and the structure stays visible. */
+.content .highlight:is(.language-json, .language-text) pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+.content .highlight.language-json code > span[id^="__span"] {
+  display: block;
+  padding-left: calc((var(--ind, 0) + 2) * 1ch);
+  text-indent: calc((var(--ind, 0) + 2) * -1ch);
+}
+/* Phones: shell commands wrap too, 4 characters deeper than their own
+   continuation lines, so a wrapped piece never looks like a new line of the
+   command. Python and SPARQL keep their lines and scroll. */
+@media (max-width: 639.98px) {
+  .content .highlight.language-bash pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .content .highlight.language-bash code > span[id^="__span"] {
+    display: block;
+    padding-left: calc((var(--ind, 0) + 4) * 1ch);
+    text-indent: calc((var(--ind, 0) + 4) * -1ch);
+  }
+}
+.content pre, .content .table-wrap { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+/* Long JSON outputs (more than 24 lines) show their first 18 lines, with a
+   "Show all N lines" button (theme.js). The code element is clamped, not the
+   pre, so the result does not depend on the copy-button band. */
+.content .highlight.is-clamped > pre > code {
+  display: block;
+  max-height: calc(18 * var(--lh-code) * 1em);
+  overflow: hidden;
+}
+.content .highlight > .expand-btn {
+  display: block;
+  width: 100%;
+  padding: 6px 16px;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: transparent;
+  color: var(--link);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+.content .highlight > .expand-btn:hover { background: var(--hover-bg); }
+.content .highlight > .expand-btn:focus-visible { outline-offset: -2px; }
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  padding: 2px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--nav-ink);
+  font: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  cursor: pointer;
+  opacity: 0;
+  transition: color 0.15s, border-color 0.15s;
+}
+.highlight:hover > .copy-btn,
+.copy-btn:focus-visible,
+.copy-btn.is-copied { opacity: 1; }
+.copy-btn:hover { border-color: var(--control); color: var(--ink); }
+.highlight > .filename ~ .copy-btn { top: 4px; }
+@media (hover: none) {
+  .copy-btn { opacity: 1; }
+  /* Touch screens show the button all the time: theme.js marks the blocks
+     whose first lines run under it (.has-copy-clash), which get a band above
+     the code (blocks with a title already have room in the title bar). A
+     one-line block that does not clash centres the button instead. */
+  .content .highlight.has-copy-clash:not(:has(> .filename)) > pre { padding-top: 40px; }
+  .content .highlight.is-oneline:not(.has-copy-clash) > .copy-btn { top: 50%; transform: translateY(-50%); }
+}
+
+/* Tables (theme JS wraps each table in div.table-wrap) */
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.content th, .content td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.content thead th {
+  background: var(--surface);
+  font-weight: 700;
+}
+.content tbody tr:last-child > * { border-bottom: 0; }
+.content th[align="right"], .content td[align="right"] { text-align: right; }
+.content th[align="center"], .content td[align="center"] { text-align: center; }
+.content .table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.content .table-wrap > table { margin: 0; }
+/* API section (wider column): a table is as wide as its content, at least
+   the reading measure; a cell of text keeps about 80 characters per line. */
+.section-api .content .table-wrap { width: fit-content; min-width: min(100%, var(--measure)); }
+.section-api .content td { max-width: 36rem; }
+/* Code in cells breaks only between words (the wrapper scrolls instead);
+   header cells never break. theme.js keeps cell values shorter than 48
+   characters (base URLs, field paths) on one line, and lets longer ones
+   break after / ? & _. */
+.content :is(th, td) code { overflow-wrap: normal; }
+.content th code { white-space: nowrap; }
+/* Secondary lines inside a cell (generated vocabulary table: concept_source, description) */
+.content td small { font-size: 0.875rem; line-height: 1.45; color: var(--muted); }
+/* Phones: tighter cells; a column of running text (marked .is-prose by
+   theme.js in tables of 3+ columns) keeps a readable width, and the short
+   columns scroll away instead. */
+@media (max-width: 639.98px) {
+  .content th, .content td { padding: 6px 8px; }
+  .content th.is-prose { min-width: 13rem; }
+}
+/* Phones: parameter and field tables (theme.js: table.is-params, first header
+   "Parameter" or "Field" and a "Description" column) become one block per
+   row: the name, then the short columns with their header as a label, then
+   the description on its own line. Desktop tables are unchanged. */
+@media (max-width: 639.98px) {
+  .content .table-wrap:has(> table.is-params) { overflow: visible; }
+  .content table.is-params thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .content table.is-params, .content table.is-params tbody { display: block; }
+  .content table.is-params tr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 12px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .content table.is-params tbody tr:last-child { border-bottom: 0; }
+  .content table.is-params td { display: block; padding: 0; border: 0; }
+  .content table.is-params td:first-child { font-weight: 600; }
+  .content table.is-params td:not(:first-child):not([data-label="Description"]) { font-size: 0.875rem; }
+  .content table.is-params td:not(:first-child):not([data-label="Description"]):not(:empty)::before {
+    content: attr(data-label) " ";
+    color: var(--muted);
+  }
+  .content table.is-params td:empty { display: none; }
+  .content table.is-params td[data-label="Description"] { flex-basis: 100%; }
+}
+/* Generated vocabulary tables (hooks/sibils_data.py: div.vocab-table, and a
+   span.vocab-version in each row's meta line): on phones the version moves
+   from its own column into the meta line, leaving the width to the text. */
+.content .vocab-version { display: none; }
+@media (max-width: 639.98px) {
+  .content .vocab-table tr > :last-child { display: none; }
+  .content .vocab-version { display: inline; }
+}
+.no-js .content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* Definition lists */
+.content dt { margin-top: 0.75em; font-weight: 700; }
+.content dd { margin: 0.25em 0 0 1.5em; }
+.content dd > p { margin: 0 0 0.5em; }
+.content dd > :last-child { margin-bottom: 0; }
+
+/* Facts box: <div class="facts" markdown> + a definition list */
+.content .facts {
+  margin: 1.25em 0 1.75em;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.content .facts > :last-child { margin-bottom: 0; }
+.content .facts dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 6px 24px;
+  margin: 0;
+}
+.content .facts dt {
+  grid-column: 1;
+  margin: 0;
+  color: var(--muted);
+  font-weight: 600;
+}
+.content .facts dd {
+  grid-column: 2;
+  margin: 0;
+}
+.content .facts dd > p { margin: 0; }
+@media (max-width: 539.98px) {
+  .content .facts dl { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .content .facts dt, .content .facts dd { grid-column: 1; }
+  .content .facts dt:not(:first-child) { margin-top: 10px; }
+}
+
+/* Cards: <div class="cards" markdown> + a list, one card per item */
+.content .cards > ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 248px), 1fr));
+  gap: 16px;
+  margin: 1.25em 0 1.5em;
+  padding: 0;
+  list-style: none;
+}
+.content .cards > ul > li {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+.content .cards > ul > li > :first-child { margin-top: 0; }
+.content .cards > ul > li > :last-child { margin-bottom: 0; }
+.content .cards > ul > li > p { margin: 0 0 0.6em; font-size: 0.9375rem; line-height: 1.55; }
+.content .cards > ul > li > p:last-child:not(:first-child) { margin-top: auto; padding-top: 0.25em; }
+.content .cards :is(h2, h3, h4) {
+  margin: 0 0 0.35em;
+  font-size: 1.1rem;
+  line-height: 1.35;
+}
+/* Link row (last paragraph): the first link is the main one, the others and
+   the separators are quieter. */
+.content .cards > ul > li > p:last-child:not(:first-child) { color: var(--muted); }
+.content .cards > ul > li > p:last-child:not(:first-child) a { text-decoration-color: color-mix(in srgb, currentColor 40%, transparent); }
+.content .cards > ul > li > p:last-child:not(:first-child) a:hover { text-decoration-color: currentColor; }
+.content .cards > ul > li > p:last-child:not(:first-child) a:first-child { font-weight: 600; }
+
+/* Buttons: [Text](url){ .btn .btn-primary } (old .md-button names work too) */
+.btn, .md-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 8px 8px 0;
+  padding: 8px 16px;
+  border: 1px solid var(--link);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--link);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+}
+.content a.btn, .content a.md-button { text-decoration: none; }
+.btn:hover, .md-button:hover,
+.content a.btn:hover, .content a.md-button:hover {
+  background: var(--hover-bg);
+  color: var(--link-hover);
+}
+.btn-primary, .md-button--primary,
+.content a.btn-primary, .content a.md-button--primary {
+  border-color: var(--red);
+  background: var(--red);
+  color: #fff;
+}
+.btn-primary:hover, .md-button--primary:hover,
+.content a.btn-primary:hover, .content a.md-button--primary:hover {
+  border-color: var(--red-strong);
+  background: var(--red-strong);
+  color: #fff;
+}
+.content p > .btn:last-child, .content p > .md-button:last-child { margin-right: 0; }
+
+/* Admonitions (!!! type "Title") and collapsible blocks (??? type "Title") */
+.content .admonition, .content details {
+  --adm: var(--note);
+  --adm-ink: var(--note-ink);
+  --adm-bg: var(--note-bg);
+  margin: 1.25em 0;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--adm);
+  border-radius: var(--radius);
+  background: var(--adm-bg);
+}
+.content .admonition > :last-child, .content details > :last-child { margin-bottom: 0; }
+.content .admonition-title, .content details > summary {
+  margin: 0 0 0.4em;
+  color: var(--adm-ink);
+  font-weight: 700;
+}
+.content :is(.admonition, details):is(.tip, .hint, .important, .success, .check, .done) {
+  --adm: var(--tip); --adm-ink: var(--tip-ink); --adm-bg: var(--tip-bg);
+}
+.content :is(.admonition, details):is(.warning, .caution, .attention, .question, .help, .faq) {
+  --adm: var(--warn); --adm-ink: var(--warn-ink); --adm-bg: var(--warn-bg);
+}
+.content :is(.admonition, details):is(.danger, .error, .failure, .fail, .missing, .bug) {
+  --adm: var(--danger); --adm-ink: var(--danger-ink); --adm-bg: var(--danger-bg);
+}
+.content :is(.admonition, details):is(.example) {
+  --adm: var(--example); --adm-ink: var(--example-ink); --adm-bg: var(--example-bg);
+}
+/* "cite" (citation blocks) and "quote": neutral box, red rule */
+.content :is(.admonition, details):is(.cite, .quote) {
+  --adm: var(--red); --adm-ink: var(--ink); --adm-bg: var(--surface);
+}
+/* References in a citation block: no bullets, a hanging indent (as .biblio). */
+.content .admonition.cite ul { padding-left: 0; list-style: none; }
+.content .admonition.cite li {
+  max-width: 40em;
+  margin: 0 0 0.6em;
+  padding-left: 1.5em;
+  text-indent: -1.5em;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.content details > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: -16px -20px;
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  list-style: none;
+}
+.content details > summary::-webkit-details-marker { display: none; }
+.content details > summary::after {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+.content details[open] > summary { margin-bottom: 0.4em; }
+.content details[open] > summary::after { transform: translateY(2px) rotate(225deg); }
+.content details:not([open]) { padding-bottom: 16px; }
+.content details > summary:focus-visible { outline-offset: -2px; }
+.content details:not(.admonition):not([class]) > summary,
+.content details[class=""] > summary { color: var(--ink); }
+
+/* Content tabs (pymdownx.tabbed, alternate style: radio inputs + labels) */
+.content .tabbed-set {
+  position: relative;
+  display: flex;
+  flex-flow: column wrap;
+  margin: 1.25em 0;
+}
+.content .tabbed-set > input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.content .tabbed-labels {
+  display: flex;
+  gap: 4px;
+  max-width: 100%; /* a wrapping flex line would otherwise grow to the labels' width */
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
+  scrollbar-width: thin;
+}
+.content .tabbed-labels > label {
+  flex: none;
+  margin-bottom: -1px;
+  padding: 8px 12px;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.content .tabbed-labels > label:hover { color: var(--ink); }
+/* Phones: labels wrap their text rather than scroll out of view. */
+@media (max-width: 639.98px) {
+  .content .tabbed-labels > label { flex: 0 1 auto; white-space: normal; }
+}
+.content .tabbed-content { width: 100%; }
+.content .tabbed-block { display: none; padding-top: 12px; }
+.content .tabbed-block > :last-child { margin-bottom: 0; }
+
+/* Generated for up to 12 tabs per set (pymdownx.tabbed, alternate style). */
+.tabbed-set > input:nth-child(1):checked ~ .tabbed-content > .tabbed-block:nth-child(1),
+.tabbed-set > input:nth-child(2):checked ~ .tabbed-content > .tabbed-block:nth-child(2),
+.tabbed-set > input:nth-child(3):checked ~ .tabbed-content > .tabbed-block:nth-child(3),
+.tabbed-set > input:nth-child(4):checked ~ .tabbed-content > .tabbed-block:nth-child(4),
+.tabbed-set > input:nth-child(5):checked ~ .tabbed-content > .tabbed-block:nth-child(5),
+.tabbed-set > input:nth-child(6):checked ~ .tabbed-content > .tabbed-block:nth-child(6),
+.tabbed-set > input:nth-child(7):checked ~ .tabbed-content > .tabbed-block:nth-child(7),
+.tabbed-set > input:nth-child(8):checked ~ .tabbed-content > .tabbed-block:nth-child(8),
+.tabbed-set > input:nth-child(9):checked ~ .tabbed-content > .tabbed-block:nth-child(9),
+.tabbed-set > input:nth-child(10):checked ~ .tabbed-content > .tabbed-block:nth-child(10),
+.tabbed-set > input:nth-child(11):checked ~ .tabbed-content > .tabbed-block:nth-child(11),
+.tabbed-set > input:nth-child(12):checked ~ .tabbed-content > .tabbed-block:nth-child(12) {
+  display: block;
+}
+.tabbed-set > input:nth-child(1):checked ~ .tabbed-labels > label:nth-child(1),
+.tabbed-set > input:nth-child(2):checked ~ .tabbed-labels > label:nth-child(2),
+.tabbed-set > input:nth-child(3):checked ~ .tabbed-labels > label:nth-child(3),
+.tabbed-set > input:nth-child(4):checked ~ .tabbed-labels > label:nth-child(4),
+.tabbed-set > input:nth-child(5):checked ~ .tabbed-labels > label:nth-child(5),
+.tabbed-set > input:nth-child(6):checked ~ .tabbed-labels > label:nth-child(6),
+.tabbed-set > input:nth-child(7):checked ~ .tabbed-labels > label:nth-child(7),
+.tabbed-set > input:nth-child(8):checked ~ .tabbed-labels > label:nth-child(8),
+.tabbed-set > input:nth-child(9):checked ~ .tabbed-labels > label:nth-child(9),
+.tabbed-set > input:nth-child(10):checked ~ .tabbed-labels > label:nth-child(10),
+.tabbed-set > input:nth-child(11):checked ~ .tabbed-labels > label:nth-child(11),
+.tabbed-set > input:nth-child(12):checked ~ .tabbed-labels > label:nth-child(12) {
+  color: var(--ink);
+  border-bottom-color: var(--red);
+}
+.tabbed-set > input:nth-child(1):focus-visible ~ .tabbed-labels > label:nth-child(1),
+.tabbed-set > input:nth-child(2):focus-visible ~ .tabbed-labels > label:nth-child(2),
+.tabbed-set > input:nth-child(3):focus-visible ~ .tabbed-labels > label:nth-child(3),
+.tabbed-set > input:nth-child(4):focus-visible ~ .tabbed-labels > label:nth-child(4),
+.tabbed-set > input:nth-child(5):focus-visible ~ .tabbed-labels > label:nth-child(5),
+.tabbed-set > input:nth-child(6):focus-visible ~ .tabbed-labels > label:nth-child(6),
+.tabbed-set > input:nth-child(7):focus-visible ~ .tabbed-labels > label:nth-child(7),
+.tabbed-set > input:nth-child(8):focus-visible ~ .tabbed-labels > label:nth-child(8),
+.tabbed-set > input:nth-child(9):focus-visible ~ .tabbed-labels > label:nth-child(9),
+.tabbed-set > input:nth-child(10):focus-visible ~ .tabbed-labels > label:nth-child(10),
+.tabbed-set > input:nth-child(11):focus-visible ~ .tabbed-labels > label:nth-child(11),
+.tabbed-set > input:nth-child(12):focus-visible ~ .tabbed-labels > label:nth-child(12) {
+  outline: 2px solid var(--focus);
+  outline-offset: -2px;
+  border-radius: 4px 4px 0 0;
+}
+
+/* Task lists (pymdownx.tasklist, custom_checkbox) */
+.content .task-list-item { position: relative; list-style: none; }
+.content .task-list-control { position: absolute; top: 0.3em; left: -1.5em; }
+.content .task-list-item > p > .task-list-control { top: 0.7em; }
+.content .task-list-control > input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.content .task-list-indicator {
+  display: block;
+  width: 1.05em;
+  height: 1.05em;
+  border: 1.5px solid var(--control);
+  border-radius: 3px;
+  background: var(--bg);
+}
+.content .task-list-control > input:checked + .task-list-indicator {
+  border-color: var(--ink);
+  background: var(--ink);
+}
+.content .task-list-control > input:checked + .task-list-indicator::after {
+  content: "";
+  display: block;
+  width: 0.32em;
+  height: 0.6em;
+  margin: 0.08em 0 0 0.3em;
+  border-right: 2px solid var(--bg);
+  border-bottom: 2px solid var(--bg);
+  transform: rotate(45deg);
+}
+
+/* Footnotes and bibliography (mkdocs-bibtex writes references as footnotes) */
+.content .footnote-ref, .content sup > a[href^="#fn"] {
+  padding: 0 2px;
+  font-size: inherit;
+  font-weight: 600;
+  text-decoration: none;
+}
+.content sup:has(> .footnote-ref) { font-size: 0.75rem; }
+.content .footnote {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+.content .footnote::before {
+  content: "References";
+  display: block;
+  margin-bottom: 0.6em;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+}
+.content .footnote > hr { display: none; }
+.content .footnote ol { margin: 0; padding-left: 1.5em; }
+.content .footnote li { margin: 0.5em 0; }
+.content .footnote li:target { color: var(--ink); }
+.content .footnote li > p { margin: 0; }
+.content .footnote-backref {
+  margin-left: 0.25em;
+  font-family: var(--mono);
+  text-decoration: none !important;
+}
+/* Reference lists written by hand (docs/publications.md: <div class="biblio">):
+   no bullets, a hanging indent and space between entries. */
+.content .biblio ul { list-style: none; padding-left: 0; }
+.content .biblio li { margin: 0 0 0.9em; padding-left: 1.5em; text-indent: -1.5em; }
+
+/* Figures and media */
+.content figure {
+  margin: 1.5em 0;
+  text-align: center;
+}
+.content figure img { display: block; margin: 0 auto; }
+.content figcaption {
+  max-width: 640px;
+  margin: 0.6em auto 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.content figcaption:empty { display: none; }
+/* Line art on white (<figure class="diagram">): inverted in dark mode, to
+   --ink lines on a panel just above --bg. */
+@media screen {
+  [data-theme="dark"] .content figure.diagram img { filter: invert(0.9) hue-rotate(180deg); }
+}
+@media screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .content figure.diagram img { filter: invert(0.9) hue-rotate(180deg); }
+}
+
+.content .video {
+  position: relative;
+  width: 100%;
+  margin: 1.5em 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #000;
+  aspect-ratio: 16 / 9;
+}
+.content .video > video, .content .video > iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Swagger UI (mkdocs-swagger-ui-tag): the embedded UI is always light.
+   Markdown wraps the tag in a paragraph: lift the paragraph reading width so
+   the reference uses the whole main column (wide on reference pages). */
+.content > p:has(> iframe.swagger-ui-iframe) { max-width: none; }
+.content iframe.swagger-ui-iframe {
+  display: block;
+  width: 100%;
+  margin: 1em 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: #fff;
+  color-scheme: light;
+}
+/* Dark mode: a 1px ring around the light frame (a border would take 2px from
+   the plugin's inline height and bring back an inner scrollbar). */
+@media screen {
+  :root[data-theme="dark"] .content iframe.swagger-ui-iframe { box-shadow: 0 0 0 1px var(--line-strong); }
+}
+@media screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .content iframe.swagger-ui-iframe { box-shadow: 0 0 0 1px var(--line-strong); }
+}
+
+/* Vertical rhythm of documentation pages (not the home page): a lead-in
+   sentence sits 8px above its code block, table or tabs, and the next text
+   starts 24px below the block, so each caption is closer to its own block
+   than to the one above. Sections: 48px above an h2, 40px above an h3. */
+.page-doc .content :is(.highlight, .table-wrap, .tabbed-set), .page-doc .content > :is(pre, table) { margin: 0 0 24px; }
+.page-doc .content > p:has(+ :is(.highlight, pre, .table-wrap, table, .tabbed-set)) { margin-bottom: 8px; }
+.page-doc .content :is(.tabbed-block, .admonition, details, li, dd) > :last-child { margin-bottom: 0; }
+.page-doc .content h2 { margin: 48px 0 12px; }
+.page-doc .content h1 + h2 { margin-top: 24px; }
+.page-doc .content h3 { margin: 40px 0 8px; }
+.page-doc .content h2 + h3 { margin-top: 16px; }
+.page-doc .content h4 { margin: 32px 0 8px; }
+.page-doc .content .lead { margin-bottom: 24px; }
+.page-doc .content :is(.admonition, details, .facts, figure, .video) { margin: 24px 0; }
+.page-doc .content .facts { padding: 16px; }
+.page-doc .content .facts dl { gap: 8px 24px; }
+.page-doc .content :is(.admonition, details) { padding: 16px 16px 16px 14px; }
+.page-doc .content details > summary { margin: -16px -16px -16px -14px; padding: 16px 16px 16px 14px; }
+.page-doc .content .admonition-title { margin-bottom: 8px; }
+@media (min-width: 640px) {
+  .page-doc .content :is(th, td):first-child { padding-left: 16px; }
+  .page-doc .content :is(th, td):last-child { padding-right: 16px; }
+}
+.page-doc .content .tabbed-block { padding-top: 8px; }
+
+/* 8. Home page ---------------------------------------------------------------- */
+
+.home { flex: 1 0 auto; }
+.home:focus { outline: none; }
+
+.intro {
+  border-top: 1px solid var(--band-line);
+  border-bottom: 1px solid var(--band-line);
+  background: var(--band);
+}
+.intro__inner, .home__content {
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding-right: var(--gutter);
+  padding-left: var(--gutter);
+}
+.intro__inner { padding-top: 40px; padding-bottom: 40px; }
+.intro__title {
+  margin: 0 0 12px;
+  font-size: 2.25rem;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.intro__lead {
+  max-width: 40rem;
+  margin: 0 0 24px;
+  color: var(--muted);
+  text-wrap: balance;
+}
+.intro__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin: 0;
+}
+.intro__actions .btn { margin: 0; }
+
+/* Collection counts (partials/counts.html), in the intro band: under the
+   buttons, then beside the intro text from 1024px. */
+.counts {
+  margin: 28px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--band-line);
+}
+/* From 640 to 1023px, one row of five equal columns. An item is never
+   narrower than its text (min-width: auto), so with a larger text size or
+   text spacing the row wraps instead of the numbers running into each other.
+   The round numbers are the wider ones: "0" is a wide digit in DM Sans. */
+.counts__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  margin: 0 0 8px;
+}
+.counts__item {
+  display: flex;
+  flex: 1 1 6.5rem;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+}
+.counts__item dt {
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.counts__item dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+/* Round lower bound written at build time, until the API answers (and for
+   good if it does not): grey, but still >= 4.5:1 on the band. */
+.counts__item dd.is-approx { color: var(--approx-ink); }
+.counts__more {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+.counts__more a { color: var(--link); white-space: nowrap; }
+
+.home__content {
+  padding-top: 40px;
+  padding-bottom: 64px;
+}
+.home__content > h1:first-child { display: none; }
+/* Same column as the documentation pages: running text at about 80
+   characters (rule in section 7), boxes, the figure and the references up to
+   760px; only the cards and the split rows use the full width. */
+.home__content > :is(.admonition, details, .highlight, .table-wrap, .tabbed-set, .facts, .video, figure, .footnote) {
+  max-width: 760px;
+}
+.home__content :is(p, li) { text-wrap: pretty; }
+
+/* Service cards: one column, two from 640px (BiodiversityPMC on its own
+   row), four from 1200px (BiodiversityPMC over two), so no row has a hole. */
+.home__content .cards > ul { grid-template-columns: minmax(0, 1fr); }
+.home__content .cards > ul > li:first-child > p:not(:last-child) { max-width: 36em; }
+
+/* Split rows (<div class="split" markdown>, one <div markdown> or <figure>
+   per column): stacked, then 5/12 + 7/12 from 1200px; .split--halves: 6 + 6. */
+.home__content .split > div > :is(p, ul, ol, h2, h3) { max-width: 40rem; }
+.home__content .split > figure,
+.home__content .split :is(.admonition, .video) { max-width: 760px; }
+.home__content .split--halves h2 + :is(.admonition, figure) { margin-top: 20px; }
+
+/* Figures: image and caption on the text edge. */
+.home__content figure { text-align: left; }
+.home__content figure > p { margin: 0; }
+.home__content figure img { width: 100%; margin: 0; }
+.home__content figure > .video { margin: 0; }
+.home__content figcaption { max-width: 36em; margin: 8px 0 0; }
+.home__content figcaption > p { margin: 0; }
+
+@media (min-width: 640px) {
+  .home__content .cards > ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--grid-gap); }
+  .home__content .cards > ul > li:first-child { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+  /* The last row takes any extra height of the counts, so the title, lead and
+     buttons keep their own spacing. */
+  .intro__inner:has(> .counts) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem);
+    grid-template-rows: auto auto 1fr;
+    column-gap: 48px;
+    align-items: start;
+  }
+  .intro__inner:has(> .counts) > :not(.counts) { grid-column: 1; }
+  .counts { grid-column: 2; grid-row: 1 / span 3; margin: 0; padding: 0; border: 0; }
+}
+/* Counts on phones and beside the intro text: one line per collection. */
+@media (max-width: 639.98px), (min-width: 1024px) {
+  .counts__list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .counts__item {
+    min-width: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 3px 0;
+    border-bottom: 1px solid var(--band-line);
+  }
+  /* The number fills the rest of the line, right-aligned: when js/counts.js
+     writes the exact number (DM Sans has no tabular figures, so its width
+     differs from the approximate one), the box does not move. */
+  .counts__item dd { flex: 1 0 auto; text-align: right; }
+}
+@media (min-width: 1200px) {
+  .home__content .cards > ul { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .home__content .cards > ul > li:first-child { grid-column: span 2; }
+  .home__content .split {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+    align-items: start;
+  }
+  .home__content .split > :first-child { grid-column: span 5; }
+  .home__content .split > :last-child { grid-column: span 7; }
+  .home__content .split--halves > :first-child,
+  .home__content .split--halves > :last-child { grid-column: span 6; }
+  .home__content .split:not(.split--halves) > * > :first-child { margin-top: 0; }
+  .home__content .split > * > :last-child { margin-bottom: 0; }
+  .home__content .split > figure { max-width: none; margin: 0; }
+  .home__content .split :is(.admonition, .video) { max-width: none; }
+}
+@media (max-width: 639.98px) {
+  .intro__inner { padding-top: 28px; padding-bottom: 28px; }
+  .intro__title { font-size: 1.75rem; }
+  .counts__item dd { font-size: 1.0625rem; }
+  .home__content { padding-top: 28px; }
+}
+@media (max-width: 559.98px) {
+  .intro__actions .btn { flex: 1 1 auto; }
+  .intro__actions .btn-primary { flex-basis: 100%; }
+}
+
+/* 9. Footer --------------------------------------------------------------------- */
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.site-footer__inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 28px 24px 32px;
+}
+.partners {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 32px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+.partners a {
+  /* min-height reserves the row before the lazy-loaded logos arrive (no layout shift) */
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+  padding: 6px 0;
+  border-radius: var(--radius);
+}
+/* The width and height attributes (extra.partners in mkdocs.yml) give the
+   ratio, so each logo's box is sized before the lazy-loaded file arrives (no
+   layout shift); object-fit keeps wide logos at their own ratio. */
+.partners img {
+  display: block;
+  width: auto;
+  height: 48px;
+  max-width: 150px;
+  object-fit: contain;
+}
+/* Dark: light tiles, inset so the logos keep a margin. */
+[data-theme="dark"] .partners a { padding-right: 10px; padding-left: 10px; background: #e5e7eb; }
+@media screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .partners a { padding-right: 10px; padding-left: 10px; background: #e5e7eb; }
+}
+.site-footer__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 0;
+  margin: 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+.site-footer__meta > span:not(:last-child)::after {
+  content: "\00B7";
+  margin: 0 10px;
+}
+.site-footer a { color: var(--link); }
+.site-footer a:hover { color: var(--link-hover); }
+
+/* Below 900px: three logos per row (3 + 2), centred. */
+@media (max-width: 899.98px) {
+  .partners { justify-content: center; column-gap: 0; }
+  .partners li { flex: 0 0 33.333%; display: flex; justify-content: center; min-width: 0; }
+  .partners a { max-width: 100%; }
+  .partners img { max-width: min(150px, 100%); }
+}
+/* The meta line wraps: no separator at the end of a line. */
+@media (max-width: 1023.98px) {
+  .site-footer__meta { column-gap: 24px; }
+  .site-footer__meta > span:not(:last-child)::after { content: none; }
+}
+@media (max-width: 639.98px) {
+  .site-footer__inner { padding: 24px 16px 28px; }
+  .partners { row-gap: 16px; }
+  .partners a { min-height: 52px; }
+  .partners img { height: 40px; max-width: min(132px, 100%); }
+  .site-footer__meta { flex-direction: column; }
+  .site-footer__meta > span:not(:last-child)::after { content: none; }
+}
+
+/* 10. Search and menu dialogs ------------------------------------------------ */
+
+dialog {
+  padding: 0;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+}
+dialog::backdrop { background: var(--backdrop); }
+
+.search[open] {
+  display: flex;
+  flex-direction: column;
+  width: min(680px, calc(100vw - 32px));
+  max-width: none;
+  max-height: min(640px, calc(100vh - 96px));
+  margin: 64px auto auto;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.search__bar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px 10px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+}
+.search__bar:focus-within { box-shadow: inset 0 -2px 0 var(--focus); }
+.search__input {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.0625rem;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.search__input::placeholder { color: var(--muted); opacity: 1; }
+.search__input::-webkit-search-cancel-button { display: none; }
+.search__close { flex: none; margin: -4px -4px -4px 0; color: var(--muted); }
+.search__status {
+  flex: none;
+  margin: 0;
+  padding: 10px 16px 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.search__status:empty { display: none; }
+.search__results {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0;
+  padding: 8px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  list-style: none;
+}
+.search__results:empty { display: none; }
+.search__results a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  color: var(--ink);
+  text-decoration: none;
+}
+.search__results a:hover, .search__results a:focus-visible { background: var(--hover-bg); }
+.search__results a:focus-visible { outline-offset: -2px; }
+.r-title {
+  display: block;
+  color: var(--link);
+  font-weight: 700;
+  line-height: 1.35;
+}
+.r-page {
+  display: block;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+.r-snippet {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.search__help {
+  flex: none;
+  margin: 0;
+  padding: 8px 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+@media (max-width: 639.98px) {
+  .search[open] {
+    width: 100vw;
+    max-height: 100dvh;
+    height: 100dvh;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+  .search__help { display: none; }
+}
+@media (hover: none) {
+  .search__help { display: none; }
+}
+
+.drawer[open] {
+  display: flex;
+  flex-direction: column;
+  width: min(340px, 88vw);
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0 0 0 auto;
+  border-width: 0 0 0 1px;
+  overflow-y: auto;
+}
+.drawer__head {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 8px 8px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+.drawer__title {
+  margin: 0;
+  font-weight: 700;
+}
+.drawer__nav { padding: 12px 12px 32px; }
+.drawer__sections {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.drawer__section-link {
+  display: block;
+  padding: 8px;
+  border-radius: var(--radius);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.drawer__section-link:hover { background: var(--hover-bg); }
+.drawer__section-link.is-active { color: var(--brand-text); }
+.snav--drawer {
+  position: static;
+  max-height: none;
+  margin: 4px 0 12px 8px;
+  padding: 0;
+  overflow: visible;
+}
+.snav--drawer .snav__link { padding-top: 7px; padding-bottom: 7px; }
+
+/* Small screens: header and sub-bar */
+@media (max-width: 1023.98px) {
+  .brand img { height: 56px; }
+}
+@media (max-width: 639.98px) {
+  .site-header__inner { padding: 12px 16px; }
+  .brand img { height: 44px; }
+  .subbar__inner { gap: 8px 12px; padding: 8px 12px 8px 16px; }
+  .search-btn { min-width: 0; width: 36px; padding: 0; justify-content: center; border-color: transparent; color: var(--nav-ink); }
+  .search-btn__label, .search-btn__key { display: none; }
+}
+@media (max-width: 419.98px) {
+  .subbar__suffix { display: none; }
+}
+@media (max-width: 639.98px) {
+  .content .lead, .intro__lead { font-size: 1.0625rem; }
+  .content h1 { font-size: 1.75rem; }
+}
+
+/* Touch screens: controls at least 44px high. The sub-bar keeps its height
+   (smaller vertical padding around taller buttons). */
+@media (pointer: coarse) {
+  .subbar__inner { padding-top: 4px; padding-bottom: 4px; }
+  .tool-btn { height: 44px; }
+  .icon-btn { width: 44px; }
+  .btn, .md-button { min-height: 44px; }
+  .snav--drawer .snav__link { padding-top: 12px; padding-bottom: 12px; }
+  .drawer__section-link { padding-top: 9px; padding-bottom: 9px; }
+  .snav__link { padding-top: 9px; padding-bottom: 9px; }
+  .toc a, .snav__toc a { padding-top: 8px; padding-bottom: 8px; }
+  /* Copy button: 44px target; the band above clashing code grows to match. */
+  .copy-btn { min-width: 44px; min-height: 44px; padding: 0 14px; top: 4px; right: 4px; }
+  .content .highlight.has-copy-clash:not(:has(> .filename)) > pre { padding-top: 52px; }
+  .highlight > .filename ~ .copy-btn { top: 0; min-height: 32px; }
+}
+@media (pointer: coarse) and (max-width: 639.98px) {
+  .search-btn { width: 44px; }
+}
+
+/* 11. Reduced motion, print ----------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .site-header, .subbar, .layout__nav, .layout__toc, .site-footer, .pager,
+  .breadcrumb, .skip-link, .copy-btn, dialog, .headerlink, .intro__actions {
+    display: none !important;
+  }
+  body { display: block; font-size: 11pt; background: #fff; color: #000; }
+  .layout { display: block; max-width: none; padding: 0; }
+  .layout__main { max-width: none; }
+  .intro, .counts { border: 0; background: none; }
+  .intro__inner, .home__content { max-width: none; padding: 0; }
+  .content a, .counts__more a { color: #000; }
+  /* Print the address of external links, unless the link text already is
+     the address (theme.js marks those .is-bare). */
+  .content a[href^="http"]:not(.btn):not(.md-button):not(.is-bare)::after {
+    content: " (" attr(href) ")";
+    color: #4b5563;
+    font-size: 0.85em;
+    overflow-wrap: anywhere;
+  }
+  .content pre, .content .highlight, .content table, .content figure, .content .admonition {
+    break-inside: avoid;
+  }
+  .content h2, .content h3 { break-after: avoid; }
+  .content pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .content .highlight.is-clamped > pre > code { max-height: none; }
+  .content .expand-btn { display: none; }
+  .content .tabbed-labels { display: none; }
+  .content .tabbed-block { display: block !important; }
+  .content .table-wrap { overflow: visible; }
+  /* A video prints as its address (data-src, set by theme.js). */
+  .content .video { aspect-ratio: auto; overflow: visible; border-radius: 0; background: none; }
+  .content .video > * { display: none !important; }
+  .content .video[data-src]::after {
+    content: "Video: " attr(data-src);
+    color: #4b5563;
+    font-size: 0.85em;
+    overflow-wrap: anywhere;
+  }
+  .content .video:not([data-src]) { display: none; }
+}

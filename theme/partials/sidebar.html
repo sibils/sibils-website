@@ -1,0 +1,7 @@
+{#- Left sidebar: the pages of the current top-level section. Expects
+    `section` (the active top-level nav section) from main.html. -#}
+{%- import "partials/macros.html" as m with context %}
+<nav class="snav" aria-labelledby="__snav-title">
+  <p class="snav__title" id="__snav-title">{{ section.title | e }}</p>
+  {{ m.nav_list(section.children) }}
+</nav>

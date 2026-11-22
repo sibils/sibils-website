@@ -1,21 +1,53 @@
 ---
-hide:
-  - navigation
-  - toc
+description: >-
+  BiotXplorer searches the literature for pairs of taxa that could have a biotic
+  relationship, with the passages that support each interaction.
 ---
 
 # BiotXplorer
 
-<p style="text-align: center" markdown>
-  [BiotXplorer](https://biotxplorer.sibils.org/){ .md-button .md-button--primary .sibils-service }
-</p>
+BiotXplorer, the biotic interactions browser, searches the literature for pairs of taxa that could have a biotic relationship, with the passages that support each interaction.
+{ .lead }
 
-<figure style="margin-bottom: 3em; margin-top: 2em">
-    <video width="800" height="454" src="https://candy.text-analytics.ch/biotxplorer.mp4" controls="controls">
-    </video>
-    <figcaption></figcaption>
-</figure>
+[Open BiotXplorer](https://biotxplorer.sibils.org/){ .btn .btn-primary }
+[API documentation](https://biotxplorer.sibils.org/api/){ .btn }
 
-## Introduction
+<div class="facts" markdown>
 
-The biotic interactions browser searches the literature to identify pairs of species that could have a biotic relationship. Each identified interaction is accompanied by one or several relevant passages extracted from the scientific literature. With this tool, users can discover new biotic interactions and understand how they are established.
+Web application
+:   [biotxplorer.sibils.org](https://biotxplorer.sibils.org/)
+
+API
+:   REST API at `https://biotxplorer.sibils.org/api`, interactive documentation at [biotxplorer.sibils.org/api/](https://biotxplorer.sibils.org/api/)
+
+Collections
+:   MEDLINE, PMC+, supplementary data, Plazi treatments, Zenodo
+
+Output
+:   Pairs of taxa with an interaction type from the Relation Ontology, each with its supporting passages and documents; export as JSON or CSV in the web application
+
+Reference
+:   Ruch et al., SPNHC-TDWG 2024 [@ruch2024biotxplorer]
+
+</div>
+
+## How it works
+
+A search takes up to three terms: a first taxon, a second taxon and an interaction (for example pangolins, cats and host). Pairs of taxa are extracted when they appear in the same sentence as a biotic-interaction term from the Relation Ontology; they are then aggregated over the documents, and queries are expanded through the taxonomic hierarchy [@ruch2024biotxplorer]. The web application shows, for each collection, how many interactions were extracted. Taxa are normalized with Open Tree of Life (OTT) and NCBI Taxonomy identifiers (see [Vocabularies](../vocabularies.md)).
+
+## Video
+
+A presentation of BiotXplorer (3 min 41 s, MP4, 60.5 MB).
+
+<div class="video"><video controls preload="none" poster="../assets/posters/biotxplorer.jpg" aria-label="BiotXplorer video"><source src="https://candy.text-analytics.ch/biotxplorer.mp4" type="video/mp4"><a href="https://candy.text-analytics.ch/biotxplorer.mp4">Download the BiotXplorer video</a> (MP4, 60.5 MB).</video></div>
+
+## API
+
+The BiotXplorer API has its own interactive documentation (Swagger UI) at [biotxplorer.sibils.org/api/](https://biotxplorer.sibils.org/api/).
+
+!!! cite "How to cite"
+    If you use BiotXplorer, please cite:
+
+    - Ruch P, Pasche E, Michel PA, Caucheteur D (2024). BiotXplorer: Navigating Evidence-Based Biotic Interactions. *Biodiversity Information Science and Standards* 8:e135453. Conference abstract, SPNHC-TDWG 2024. [doi:10.3897/biss.8.135453](https://doi.org/10.3897/biss.8.135453)
+
+    Please also cite the SIBiLS papers listed under [How to cite](../publications.md#how-to-cite) on the Publications page.

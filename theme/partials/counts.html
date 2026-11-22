@@ -1,0 +1,27 @@
+{#- Home page collection counts, from config.extra.sibils (set at build time by
+    hooks/sibils_data.py: live API or the committed snapshot in data/).
+    The page is built with a round lower bound of each count ("approx", in
+    grey, read as "at least 41,000,000" by screen readers); js/counts.js then
+    asks the API (sibils.count_url) for the current counts and writes the
+    exact numbers in place, if not below data-min (live_min, half the round
+    number). If the API does not answer, the approximate values stay. Renders nothing when the data is missing. -#}
+{%- import "partials/macros.html" as m with context %}
+{%- set sibils = (config.extra or {}).get('sibils') %}
+{%- set collections = sibils.get('collections') if sibils and sibils.get else none %}
+{%- set labels = {'medline': 'MEDLINE', 'pmc': 'PMC', 'suppdata': 'Supplementary data',
+                  'plazi': 'Plazi treatments', 'zenodo': 'Zenodo'} %}
+{%- set rows = (collections or []) | selectattr('id', 'in', labels) | selectattr('approx_display') | list %}
+{%- if rows %}
+<section class="counts" aria-labelledby="__counts-title"{% if sibils.get('count_url') %} data-count-url="{{ sibils.count_url | e }}"{% endif %}>
+  <h2 class="visually-hidden" id="__counts-title">Documents in SIBiLS</h2>
+  <dl class="counts__list">
+    {%- for c in rows %}
+    <div class="counts__item"><dt>{{ labels[c.id] }}</dt><dd class="is-approx" data-count="{{ c.id | e }}" data-min="{{ c.live_min | int }}"><span class="visually-hidden">at least </span>{{ c.approx_display }}</dd></div>
+    {%- endfor %}
+  </dl>
+  <p class="counts__more"><a href="{{ m.resolve_url('collections/sibils_collections.md') }}">About the collections</a></p>
+</section>
+  {%- if sibils.get('count_url') %}
+<script src="{{ 'js/counts.js' | url }}" defer></script>
+  {%- endif %}
+{%- endif %}

@@ -1,0 +1,41 @@
+{
+  "saved": "2026-11-22",
+  "sibils_version": "v5.1.5.10",
+  "success": true,
+  "error": "",
+  "count": {
+    "_id": "count_5.1.5.10",
+    "medline": {
+      "all": 41435461,
+      "partition": {}
+    },
+    "pmc": {
+      "all": 9331692,
+      "partition": {
+        "PMC OA Subset": 8241558,
+        "PMC Author Manuscripts": 1047030,
+        "PMC+ subset": 43104
+      }
+    },
+    "suppdata": {
+      "all": 34562768,
+      "partition": {
+        "manuscript figure": 23745336,
+        "supplementary data": 10817432
+      }
+    },
+    "plazi": {
+      "all": 1101077,
+      "partition": {}
+    },
+    "zenodo": {
+      "all": 433314,
+      "partition": {
+        "batlit": 26874,
+        "biosyslit": 433314,
+        "taxodros": 24580,
+        "bhl-blr": 381811
+      }
+    }
+  }
+}

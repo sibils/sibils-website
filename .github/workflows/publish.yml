@@ -19,22 +19,19 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: 3.x
-      - uses: actions/cache@v5
-        # see https://squidfunk.github.io/mkdocs-material/setup/setting-up-social-cards/#caching
-        with:
-          key: ${{ github.ref }}
-          path: .cache
-      - name: Install dependencies for the social plugin
-        # see https://squidfunk.github.io/mkdocs-material/setup/setting-up-social-cards/#dependencies
-        run: |
-          sudo apt-get install -y libcairo2-dev libfreetype6-dev libffi-dev libjpeg-dev libpng-dev libz-dev
-          pip install pillow cairosvg
+          # pip downloads, keyed on requirements.txt
+          cache: pip
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
-      - name: Build and deploy the branch gh-pages using mkdocs.publish.yml
+      - name: Build and deploy the branch gh-pages
         # https://www.mkdocs.org/user-guide/deploying-your-docs/
-        run: mkdocs gh-deploy -f mkdocs.publish.yml --force
+        # hooks/sibils_data.py reads the collection counts and the vocabularies
+        # from the SIBiLS API, or the snapshots in data/ if the API is down.
+        # Warnings (broken link or anchor, unknown citation key...) are shown
+        # in the log but do not stop the deployment; run `mkdocs build
+        # --strict` locally to catch them before pushing.
+        run: mkdocs gh-deploy --force
       - name: Deploy on sibils.org
         # CURL options:
         # -f : GitHub workflow fail if the HTTP status code is not 200

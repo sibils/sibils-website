@@ -1,76 +1,163 @@
 site_name: SIBiLS
-site_description: Swiss Institute of Bioinformatics Literature Services
+site_description: >-
+  SIB Literature Services: search, annotation and question answering over
+  biomedical and biodiversity literature, with free REST APIs.
 site_url: https://sibils.org/
-markdown_extensions:
-  - abbr
-  - attr_list
-  - md_in_html
-  - admonition
-  - tables
-  - footnotes
-  - def_list
-  - footnotes
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+copyright: SIB Swiss Institute of Bioinformatics
+
+# Standalone theme, see theme/README.md. No dependency on Material for MkDocs.
 theme:
-  name: material
-  palette:
-    scheme: sibils
-  logo: assets/sib.png
-  custom_dir: overrides
+  name: null
+  custom_dir: theme
   locale: en
-  include_sidebar: false
-  font: false
-  features:
-    - navigation.tabs
-    - navigation.indexes
-    - content.code.copy       # ajouter un bouton "copier" à droite dans les blocs de code
-extra_css:
-  - assets/extra.css
-extra:
-  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-analytics/#custom-site-analytics
-  analytics:
-    provider: custom
+  static_templates:
+    - 404.html
+    - sitemap.xml
+  # The theme has its own search UI (theme/js/search.js) on top of the index
+  # written by the "search" plugin; do not load the plugin's own scripts.
+  search_index_only: true
+
+# "mkdocs serve" (./serve) also rebuilds when these change, not only docs/.
+watch:
+  - theme
+  - hooks
+  - data
+  - refs.bib
+
+# Broken links to a heading (page.md#anchor) are warnings, so that the strict
+# build of the deployment (.github/workflows/publish.yml) stops on them.
+validation:
+  anchors: warn
+
+hooks:
+  # Fetches collection counts and the vocabulary list from the SIBiLS API at
+  # build time (falls back to data/*.json). See hooks/sibils_data.py.
+  - hooks/sibils_data.py
 
 plugins:
-  - swagger-ui-tag
+  - search
   - bibtex:
-      bib_file: "refs.bib"
+      bib_file: refs.bib
+      # [@key] citations only; avoids reading "@context" in JSON or code as a citation.
+      enable_inline_citations: false
+  - swagger-ui-tag
 
-#### nav section ####
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      permalink_title: Link to this section
+  - pymdownx.details
+  - pymdownx.highlight:
+      pygments_lang_class: true
+      # One span per line: the theme wraps long JSON lines with a hanging
+      # indent (theme/css/sibils.css, theme/js/theme.js).
+      line_spans: __span
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra:
+  # The SIBiLS apps, for the home page's structured data
+  # (theme/partials/jsonld.html): each one except the current site is a
+  # service channel of SIBiLS, at the address of the app.
+  apps:
+    - name: SIBiLS
+      url: https://sibils.org/
+      current: true
+    - name: BiodiversityPMC
+      url: https://biodiversitypmc.sibils.org/
+    - name: Question-Answering
+      url: https://qa.sibils.org/
+    - name: BiotXplorer
+      url: https://biotxplorer.sibils.org/
+    - name: Variomes
+      url: https://variomes.sibils.org/
+    - name: SynVar
+      url: https://synvar.sibils.org/
+    - name: Triage
+      url: https://triage.sibils.org/
+    - name: SPARQL
+      url: https://sparql.sibils.org/
+  # Footer logos (files in theme/img/partners/). width and height: the pixel
+  # size of the file, so the page reserves the space before the logo loads.
+  partners:
+    - name: SIB Swiss Institute of Bioinformatics
+      url: https://www.sib.swiss/
+      logo: sib.png
+      width: 270
+      height: 144
+    - name: HEG Genève (HES-SO)
+      url: https://www.hesge.ch/heg/
+      logo: heg.png
+      width: 320
+      height: 120
+    - name: HES-SO
+      url: https://www.hes-so.ch/
+      logo: hesso.png
+      width: 632
+      height: 144
+    - name: ELIXIR
+      url: https://elixir-europe.org/
+      logo: elixir.png
+      width: 210
+      height: 144
+    - name: swissuniversities
+      url: https://www.swissuniversities.ch/
+      logo: swissuniversities.png
+      width: 1024
+      height: 119
+  contact_email: julien.gobeill@hesge.ch
+  license:
+    name: CC BY 3.0 CH
+    url: https://creativecommons.org/licenses/by/3.0/ch/
+  analytics:
+    matomo_url: //matomo.text-analytics.ch/
+    matomo_site_id: 10
+
 nav:
-  - 'Introduction': 'index.md'
-  - 'Biodiversity PMC': 'biodiversitypmc/index.md'
-  - 'BiotXplorer': 'biotxplorer/index.md'
-  - 'Variomes': 'variomes/index.md'
-  - 'SynVar': 'synvar/index.md'
-  - 'Celltriage': 'celltriage/index.md'
-  - 'SPARQL': 'sparql/index.md'
-  - 'Collections':
-    - 'SIBiLS collections': 'collections/sibils_collections.md'
-    - 'upload publications in SIBiLS': 'collections/how_to_upload.md'
-  - 'Vocabularies': 'vocabularies.md'
-  - 'API':
-    - 'API': 'api/index.md'
-    - 'Biodiversity PMC':
-      - 'Biodiversity PMC': 'api/biodiversitypmc/index.md'
-      - 'Fetch': 'api/biodiversitypmc/fetch.md'
-      - 'Search': 'api/biodiversitypmc/search.md'
-      - 'QA': 'api/biodiversitypmc/qa.md'
-      - 'Mapping ids': 'api/biodiversitypmc/mapping.md'
-    - 'Celltriage': 'api/celltriage/index.md'
-    - 'Variomes': 'api/variomes/index.md'
-    - 'SynVar': 'api/synvar/index.md'
-    - 'SPARQL': 'api/sparql/index.md'
-  - 'SAB': 'sab.md'
-
+  - Overview: index.md
+  - Services:
+      - BiodiversityPMC: biodiversitypmc/index.md
+      - Question-Answering: qa/index.md
+      - BiotXplorer: biotxplorer/index.md
+      - Variomes: variomes/index.md
+      - SynVar: synvar/index.md
+      - Triage: celltriage/index.md
+      - SPARQL endpoint: sparql/index.md
+  - Data:
+      - Collections: collections/sibils_collections.md
+      - Vocabularies: vocabularies.md
+      - Add your publications: collections/how_to_upload.md
+  - API:
+      - Overview: api/index.md
+      - BiodiversityPMC:
+          - api/biodiversitypmc/index.md
+          - Fetch: api/biodiversitypmc/fetch.md
+          - Search: api/biodiversitypmc/search.md
+          - Query player: api/biodiversitypmc/query_player.md
+          - Identifier mapping: api/biodiversitypmc/mapping.md
+          - OpenAPI reference: api/biodiversitypmc/reference.md
+      - Question-Answering:
+          - api/biodiversitypmc/qa.md
+          - OpenAPI reference: api/biodiversitypmc/qa_reference.md
+      - Annotation and vocabularies:
+          - api/annotation/index.md
+          - OpenAPI reference: api/annotation/reference.md
+      - SynVar: api/synvar/index.md
+      - Variomes: api/variomes/index.md
+      - CellTriage: api/celltriage/index.md
+      - SPARQL: api/sparql/index.md
+  - Publications: publications.md
+  - About:
+      - About SIBiLS: about/index.md
+      - Scientific Advisory Board: sab.md

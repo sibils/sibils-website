@@ -1,31 +1,27 @@
 ---
-hide:
-  - navigation
-  - toc
+description: >-
+  The Scientific Advisory Board of the SIB Literature Services (SIBiLS) meets once a year
+  to review its progress and plans: current and former members, reports.
 ---
 
-# The Scientific Advisory Board
+# Scientific Advisory Board
 
-The SIB Literature Services Advisory Board meets annually and advises on all aspects of the Literature Databases and Services, putting the development of these resources in the context of the scientific community within Europe and beyond. More specifically for SIBiLS, they review progress on the development of the service over the past year, and the plans for development for the forthcoming year. Members of the SAB are usually appointed for 4 years. During 2021-2023, the organisation of the event was made possible thanks to fundings from the e-BioDiv project.
+The Scientific Advisory Board (SAB) of the SIB Literature Services meets once a year. It reviews the progress of SIBiLS over the past year and its plans for the next, and places the development of the services in the context of the scientific community in Europe and beyond. Members are usually appointed for four years. From 2021 to 2023, the organisation of the meetings was funded by the [e-BioDiv](https://ebiodiv.org/) project.
 
 ## Current members
 
-The current members are the following:
-
-* Laurence Benichou (CETAF/MHN Paris)
-
+* Donat Agosti (Plazi, Bern)
+* Laurence Bénichou (CETAF / MNHN Paris)
 * Melissa Harrison (EBI, Hinxton)
-
 * Nona Naderi (Université Paris Saclay, Paris)
-
 * Michelle Price (CJB, Genève)
-
 * Dietrich Rebholz-Schuhmann (ZB MED, Köln)
-
-* Robert Watherhouse (SIB, Lausanne)
-
+* Robert Waterhouse (SIB, Lausanne)
 
 ## Former members
-The following are former members of the SAB:
 
 * Jo McEntyre (EBI, resigned in 2023)
+
+## Reports
+
+The report of the session held online on 10 December 2024 summarises the board's recommendations [@sib2025sab].

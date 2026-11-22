@@ -1,0 +1,21 @@
+{#- Menu for screens below 1024px (opened by the sub-bar menu button): the
+    top-level sections, with the pages of the current one. -#}
+{%- import "partials/macros.html" as m with context %}
+<dialog class="drawer" id="__drawer" aria-labelledby="__drawer-title">
+  <div class="drawer__head">
+    <p class="drawer__title" id="__drawer-title">Menu</p>
+    <button class="tool-btn icon-btn" type="button" data-dialog-close aria-label="Close menu">{{ m.icon('close') }}</button>
+  </div>
+  <nav class="drawer__nav" aria-label="Main menu">
+    <ul class="drawer__sections">
+      {%- for item in nav if not (item.is_section and not item.children) %}
+      <li class="drawer__section{% if item.active %} is-open{% endif %}">
+        <a class="drawer__section-link{% if item.active %} is-active{% endif %}" href="{{ m.first_url(item) }}"{{ m.current_attr(item) }}>{{ item.title | e }}</a>
+        {%- if item.active and item.is_section and item.children %}
+        <div class="snav snav--drawer">{{ m.nav_list(item.children) }}</div>
+        {%- endif %}
+      </li>
+      {%- endfor %}
+    </ul>
+  </nav>
+</dialog>

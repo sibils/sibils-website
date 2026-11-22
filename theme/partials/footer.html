@@ -1,0 +1,31 @@
+{#- Partner logos (config.extra.partners, files in theme/img/partners/; width
+    and height are the file's pixel size, used to reserve the space), then
+    licence, contact, institution and source repository. -#}
+{%- set extra = config.extra or {} %}
+{%- set partners = extra.get('partners') or [] %}
+{%- set license = extra.get('license') %}
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    {%- if partners %}
+    <h2 class="visually-hidden">Partners</h2>
+    <ul class="partners">
+      {%- for p in partners %}
+      <li><a href="{{ p.url | e }}"><img src="{{ ('img/partners/' ~ p.logo) | url }}" alt="{{ p.name | e }}"
+        {%- if p.width and p.height %} width="{{ p.width | int }}" height="{{ p.height | int }}"{% endif %} loading="lazy" decoding="async"></a></li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+    <p class="site-footer__meta">
+      {%- if license %}
+      <span>Tagged entities are licensed under <a href="{{ license.url | e }}" rel="license">{{ license.name | e }}</a></span>
+      {%- endif %}
+      {%- if extra.get('contact_email') %}
+      <span>Contact: <a href="mailto:{{ extra.contact_email | e }}">{{ extra.contact_email | e }}</a></span>
+      {%- endif %}
+      {%- if config.copyright %}
+      <span>{{ config.copyright }}</span>
+      {%- endif %}
+      <span><a href="{{ (config.repo_url or 'https://github.com/sibils/sibils-website') | e }}">Source on GitHub</a></span>
+    </p>
+  </div>
+</footer>

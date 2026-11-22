@@ -1,10 +1,17 @@
 #!/bin/sh -e
+# Preview the site with live reload, at http://127.0.0.1:8000/ by default.
+# Arguments go to "mkdocs serve", for example: ./serve -a 127.0.0.1:8001
+# Creates ./venv on first use, and updates it when requirements.txt changes.
 
+cd "$(dirname "$0")"
 if [ ! -d "./venv" ]; then
-    python -m venv venv
-    . ./venv/bin/activate
-    pip install -r requirements.txt
-else
-    . ./venv/bin/activate
+    PYTHON=$(command -v python3 || command -v python)
+    "$PYTHON" -m venv venv
 fi
-mkdocs serve $@
+if [ ! -f ./venv/.requirements-installed ] || [ requirements.txt -nt ./venv/.requirements-installed ]; then
+    ./venv/bin/pip install -r requirements.txt
+    touch ./venv/.requirements-installed
+fi
+# --livereload is the default of "mkdocs serve", but with click 8.2 or later
+# MkDocs 1.6 turns it off unless it is given explicitly.
+exec ./venv/bin/mkdocs serve --livereload "$@"
