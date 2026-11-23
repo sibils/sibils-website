@@ -31,6 +31,8 @@ Some services, collections and vocabularies have their own publication, to cite 
 | [Supplementary data](collections/sibils_collections.md#supplementary-data) collection | <!-- sibils:cite-short gobeill2025supplementary --> |
 | [COVoc](vocabularies.md#covoc) vocabularies | <!-- sibils:cite-short caucheteur2023covoc --> |
 
+When you report results obtained with SIBiLS, also give the date of your queries: the collections are updated daily. The release of the software is given by the `sibils_version` field of the [/count](https://biodiversitypmc.sibils.org/api/count) endpoint.
+
 ??? note "BibTeX for the papers to cite"
 
     <!-- sibils:bibtex 10_1093_nar_gkaa328 caucheteur2026sibils pasche2023towards pasche2023sibils ruch2024biotxplorer pasche2022variomes mottaz2022synvar nugnes2026disprot gobeill2025supplementary caucheteur2023covoc -->
