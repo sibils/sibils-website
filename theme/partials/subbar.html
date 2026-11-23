@@ -37,3 +37,12 @@
     </div>
   </div>
 </div>
+{#- The bar's height (--bar-h, see js/theme.js), measured before the browser
+    scrolls to the anchor of the address, further down the page: a bar that
+    wraps (large default font size) does not cover the anchor. -#}
+<script>
+  (function () {
+    var bar = document.querySelector('.subbar');
+    if (bar) document.documentElement.style.setProperty('--bar-h', Math.ceil(bar.getBoundingClientRect().height) + 'px');
+  })();
+</script>

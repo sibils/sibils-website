@@ -109,6 +109,84 @@
     window.addEventListener('scroll', setStuck, { passive: true });
   }
 
+  /* Height of the sticky white bar: --bar-h --------------------------------- */
+
+  // Anchors, focused elements (scroll-padding-top), the sidebar and "On this
+  // page" (--sticky-top) stay below the sticky white bar. The CSS assumes its
+  // usual 53px (--subbar-h, also the value without JavaScript); the bar is
+  // taller when it wraps, with a larger default font size for instance (two
+  // rows, 116px, at 150% and 1024px). --bar-h is its measured height. An
+  // inline script right after the bar (partials/subbar.html) sets it first,
+  // before the browser scrolls to the anchor of the address (the target is
+  // further down the page). A ResizeObserver keeps it up to date;
+  // onBarResize lists what else depends on it.
+  var barHeight = 53;
+  var onBarResize = [];
+  if (bar) {
+    var measureBar = function () {
+      var h = Math.ceil(bar.getBoundingClientRect().height);
+      if (!h || h === barHeight && doc.style.getPropertyValue('--bar-h')) return;
+      barHeight = h;
+      doc.style.setProperty('--bar-h', h + 'px');
+      onBarResize.forEach(function (callback) { callback(); });
+    };
+    measureBar();
+    if ('ResizeObserver' in window) new ResizeObserver(measureBar).observe(bar);
+  }
+
+  // A page opened at an anchor: the page above it still changes after the
+  // browser has scrolled to it (web font, this script), and Firefox does not
+  // always follow it: it can end up under the bar, or above the screen near
+  // the end of a page. Scroll to it once more when the page has loaded, if
+  // it is not where it should be. Not if the page has been scrolled in the
+  // meantime: a wheel, touch, key or mouse press, or any scroll that takes
+  // the anchor further from its place on screen while it stays at the same
+  // place in the page (a screen reader, find in page); a change of the page
+  // above it moves it in the page too, and the page end can push it down.
+  // Not on Back or Reload either, where the browser restores the earlier
+  // position.
+  var anchor = null;
+  try {
+    anchor = window.location.hash &&
+      document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+  } catch (e) { /* malformed %-escape in the address */ }
+  var navEntry = window.performance && performance.getEntriesByType &&
+    performance.getEntriesByType('navigation')[0];
+  if (anchor && (!navEntry || navEntry.type === 'navigate') && document.readyState !== 'complete') {
+    var scrolledAway = false;
+    var place = function () { return parseFloat(getComputedStyle(doc).scrollPaddingTop) || 0; };
+    var atEnd = function () { return window.scrollY >= doc.scrollHeight - window.innerHeight - 1; };
+    var seen = null;
+    var noteAnchor = function () {
+      var top = anchor.getBoundingClientRect().top;
+      seen = { top: top, inPage: top + window.scrollY };
+    };
+    var onAnchorScroll = function () {
+      var top = anchor.getBoundingClientRect().top;
+      var samePlaceInPage = Math.abs(top + window.scrollY - seen.inPage) < 1;
+      var further = Math.abs(top - place()) > Math.abs(seen.top - place()) + 1;
+      var pushedByPageEnd = top > seen.top && atEnd();
+      if (samePlaceInPage && further && !pushedByPageEnd) scrolledAway = true;
+      noteAnchor();
+    };
+    var onInput = function () { scrolledAway = true; };
+    noteAnchor();
+    window.addEventListener('scroll', onAnchorScroll, { passive: true });
+    var pageResize = 'ResizeObserver' in window ? new ResizeObserver(noteAnchor) : null;
+    if (pageResize) pageResize.observe(document.body);
+    ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (type) {
+      window.addEventListener(type, onInput, { once: true, passive: true });
+    });
+    window.addEventListener('load', function () {
+      window.requestAnimationFrame(function () {
+        window.removeEventListener('scroll', onAnchorScroll);
+        if (pageResize) pageResize.disconnect();
+        var top = anchor.getBoundingClientRect().top;
+        if (!scrolledAway && (top < place() - 2 || top > place() + 2 && !atEnd())) anchor.scrollIntoView();
+      });
+    }, { once: true });
+  }
+
   /* Dialogs: menu drawer (search.js handles the search dialog) ----------- */
 
   // Close any of our dialogs with its close buttons or a click on the backdrop.
@@ -524,7 +602,8 @@
 
     // The current section is the last heading above a line just under the
     // sticky sub-bar; the observer tells us when headings cross that line.
-    var offset = Math.round((parseFloat(getComputedStyle(doc).getPropertyValue('--subbar-h')) || 53) + 24);
+    // Both follow the bar's height (--bar-h above).
+    var offset = barHeight + 24;
     var update = function () {
       var current = null;
       for (var i = 0; i < entries.length; i++) {
@@ -538,11 +617,18 @@
       setActive(current ? current.link : null);
     };
 
-    var observer = new IntersectionObserver(update, {
-      rootMargin: '-' + offset + 'px 0px -40% 0px',
-      threshold: [0, 1]
-    });
-    entries.forEach(function (entry) { observer.observe(entry.heading); });
+    var observer = null;
+    var observeHeadings = function () {
+      offset = barHeight + 24;
+      if (observer) observer.disconnect();
+      observer = new IntersectionObserver(update, {
+        rootMargin: '-' + offset + 'px 0px -40% 0px',
+        threshold: [0, 1]
+      });
+      entries.forEach(function (entry) { observer.observe(entry.heading); });
+    };
+    observeHeadings();
+    onBarResize.push(function () { observeHeadings(); update(); });
     window.addEventListener('hashchange', function () { window.requestAnimationFrame(update); });
     window.addEventListener('scrollend', update);
     update();

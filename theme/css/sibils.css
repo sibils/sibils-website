@@ -91,8 +91,10 @@
   --font: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   --radius: 6px;
+  /* Height of the sticky white bar: 53px by design (--subbar-h); theme.js
+     sets --bar-h to its measured height, which is larger when the bar wraps. */
   --subbar-h: 53px;
-  --sticky-top: calc(var(--subbar-h) + 24px);
+  --sticky-top: calc(var(--bar-h, var(--subbar-h)) + 24px);
 }
 /* One page box for the home bands, the documentation pages and the footer. */
 :root { --page-max: 1280px; --gutter: 24px; --grid-gap: 24px; }
@@ -186,8 +188,9 @@ body.section-api {
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  /* Anchors, the skip link and focused elements land below the sticky sub-bar. */
-  scroll-padding-top: calc(var(--subbar-h) + 16px);
+  /* Anchors, the skip link and focused elements land below the sticky sub-bar
+     (--bar-h: its measured height, see above). */
+  scroll-padding-top: calc(var(--bar-h, var(--subbar-h)) + 16px);
 }
 /* Without JavaScript, small screens have a static sub-bar. */
 @media (max-width: 1023.98px) {
@@ -288,6 +291,12 @@ a { color: var(--link); }
   border-bottom: 1px solid var(--line);
   background: var(--bg);
 }
+/* Tab or Shift+Tab into the bar once it is stuck: its controls are on
+   screen, but within scroll-padding-top, so Chromium and WebKit scroll the
+   page up to show them (Chromium by half a screen per step), which brings
+   the red band back. A negative margin keeps the page still. Only while
+   stuck: at the top of the page it would scroll the page down instead. */
+.subbar.is-stuck :is(a, button) { scroll-margin-top: -100vh; }
 
 .subbar__inner {
   display: flex;

@@ -65,6 +65,19 @@ this README.
 - Forced colours (Windows contrast themes): the chip, and the band's wordmark with an 8 px red
   edge, keep their red ground (`forced-color-adjust: none`); otherwise the white letters would
   sit on the system background.
+- Anchors and focused elements land 16 px below the sticky sub-bar (`scroll-padding-top`), and
+  the sidebar and "On this page" stick 24 px below it (`--sticky-top`). Both use `--bar-h`, the
+  bar's measured height, which `js/theme.js` keeps up to date with a `ResizeObserver`: the bar
+  is 53 px (`--subbar-h`, also the value without JavaScript) but wraps to two rows with a large
+  default font size. The "On this page" highlight uses the same height. An inline script right
+  after the bar sets `--bar-h` a first time, before the browser scrolls to the anchor of the
+  address. The page above the anchor can still change during the load (web font, `js/theme.js`)
+  and Firefox does not always follow it, so `js/theme.js` scrolls to it once more at `load` if
+  it is out of place, unless the page has been scrolled in the meantime (input events, or a
+  scroll that takes the anchor away from its place while it stays at the same place in the page).
+- Tab into a control of the stuck sub-bar does not scroll the page (`scroll-margin-top: -100vh`
+  while `.is-stuck`); without it Chromium and WebKit scroll up to "show" a control that lies in
+  the `scroll-padding-top` area, and bring the red band back.
 - The menu (`partials/drawer.html`) follows the order of the wide layout: the six sections (the
   sub-bar), then the pages of the current section under its name (the sidebar). It opens at its
   top when the current page fits below the sections; otherwise it scrolls as little as needed to
