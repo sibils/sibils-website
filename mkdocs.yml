@@ -67,7 +67,11 @@ markdown_extensions:
 extra:
   # The SIBiLS apps, for the home page's structured data
   # (theme/partials/jsonld.html): each one except the current site is a
-  # service channel of SIBiLS, at the address of the app.
+  # service channel of SIBiLS. The addresses are those of the list in the
+  # apps' red band (BiodiversityPMC, Question-Answering, BiotXplorer,
+  # Triage): keep them in step with the apps. Their SPARQL item opens the
+  # endpoint's Virtuoso query form (/sparql); the home page card opens the
+  # quick-start site (/).
   apps:
     - name: SIBiLS
       url: https://sibils.org/
@@ -85,7 +89,7 @@ extra:
     - name: Triage
       url: https://triage.sibils.org/
     - name: SPARQL
-      url: https://sparql.sibils.org/
+      url: https://sparql.sibils.org/sparql
   # Footer logos (files in theme/img/partners/). width and height: the pixel
   # size of the file, so the page reserves the space before the logo loads.
   partners:
