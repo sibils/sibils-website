@@ -66,10 +66,12 @@ Code of SIBiLS and of its services on GitHub (the [sibils organisation](https://
 
 ## Privacy
 
-This website counts page views with [Matomo](https://matomo.org/), an open-source web analytics tool, hosted on the team's own domain (matomo.text-analytics.ch) rather than by a third-party analytics service. Matomo sets no cookies, and only the first two bytes of IPv4 addresses are kept. The tracking code runs only on sibils.org: local copies and previews of this documentation do not load it. The site shows no advertising.
+This website counts page views with [Matomo](https://matomo.org/), an open-source web analytics tool, hosted on the team's own domain (matomo.text-analytics.ch) rather than by a third-party analytics service. Matomo sets no cookies, and only the first two bytes of IPv4 addresses are kept. For each page view it receives the web address and title of the page, the site you came from, your local time, how long the page took to load, your screen size, which plugins your browser supports (such as a PDF viewer), and the browser, operating system and language that your browser announces; it also records clicks on links to other sites and on downloads. The tracking code runs only on sibils.org: local copies and previews of this documentation do not load it. The site shows no advertising.
 
-The home page reads the current number of documents in each collection from the SIBiLS API (biodiversitypmc.sibils.org): your browser sends this request without cookies, with only the address of this site as referrer.
+The home page reads the current number of documents in each collection from the SIBiLS API (biodiversitypmc.sibils.org), and the API reference pages load their descriptions from biodiversitypmc.sibils.org and qa.sibils.org: your browser sends these requests without cookies, with only the address of this site as referrer. On the API reference pages, "Try it out" sends the request you write to that API.
 
-Videos are served from candy.text-analytics.ch, except the video on the [Variomes](../variomes/index.md) page, which is embedded from YouTube through youtube-nocookie.com.
+Videos are loaded from candy.text-analytics.ch only when you play them. The video on the [Variomes](../variomes/index.md) page is hosted on YouTube: the page shows a play button, and your browser loads the YouTube player from youtube-nocookie.com only when you start the video; the player then contacts YouTube and Google servers, and YouTube's privacy policy applies.
+
+If you change the colour theme or choose a tab in a code example, your browser keeps the choice in its local storage (keys sibils-theme and sibils-tab); it is not sent to any server.
 
 The web applications (BiodiversityPMC, Question-Answering, BiotXplorer, Variomes, Triage) have their own privacy pages, linked from their menus.

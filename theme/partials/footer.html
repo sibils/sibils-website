@@ -1,7 +1,7 @@
 {#- Partner logos (config.extra.partners, files in theme/img/partners/; width
     and height are the file's pixel size, used to reserve the space), then
-    licence, How to cite (Publications page), contact, institution and source
-    repository. -#}
+    licence, How to cite (Publications page), contact, copyright, the Privacy
+    section of the About page and the source repository. -#}
 {%- set extra = config.extra or {} %}
 {%- set partners = extra.get('partners') or [] %}
 {%- set license = extra.get('license') %}
@@ -27,6 +27,7 @@
       {%- if config.copyright %}
       <span>{{ config.copyright }}</span>
       {%- endif %}
+      <span><a href="{{ 'about/#privacy' | url }}">Privacy</a></span>
       <span><a href="{{ (config.repo_url or 'https://github.com/sibils/sibils-website') | e }}">Source on GitHub</a></span>
     </p>
   </div>

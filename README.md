@@ -357,12 +357,16 @@ Wide tables scroll sideways on small screens.
 
 ### Video
 
-16:9 and full width. For YouTube, use the `youtube-nocookie.com` address.
+16:9 and full width. Videos on candy.text-analytics.ch use `preload="none"` and a local poster. Do
+not embed a YouTube iframe directly: the player contacts Google as soon as the page opens. Use a
+link that `theme/js/theme.js` replaces with the `youtube-nocookie.com` player when the reader
+clicks; without JavaScript the link opens the video on YouTube. An `<img>` poster inside the link,
+before the `<span>`, is optional (a local file, not an image from YouTube).
 
 ```html
 <div class="video"><video controls preload="none" poster="../assets/video-poster.png"><source src="https://candy.text-analytics.ch/Speech.mp4" type="video/mp4"></video></div>
 
-<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID" title="Title of the video" allowfullscreen></iframe></div>
+<div class="video" data-embed="https://www.youtube-nocookie.com/embed/VIDEO_ID?autoplay=1" data-title="Title of the video (YouTube)"><a href="https://www.youtube.com/watch?v=VIDEO_ID"><span>Play the video (YouTube)<small>Starting it loads the YouTube player, from Google servers</small></span></a></div>
 ```
 
 ### Interactive API reference (Swagger UI)

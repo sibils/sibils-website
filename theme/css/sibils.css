@@ -1454,6 +1454,38 @@ a { color: var(--link); }
   height: 100%;
   border: 0;
 }
+/* Click-to-load video (theme.js): a link over an optional poster image; the
+   player iframe replaces the link when the reader clicks. */
+.content .video > a {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+}
+.content .video > a > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.content .video > a > span {
+  position: relative;
+  max-width: calc(100% - 32px);
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, 0.75);
+  font-weight: 600;
+  text-align: center;
+}
+/* The play sign is not read aloud (the second declaration gives it an empty
+   alternative text; browsers without that syntax keep the first). */
+.content .video > a > span::before { content: "\25B6\FE0E  "; content: "\25B6\FE0E  " / ""; white-space: pre; }
+.content .video > a > span > small { display: block; margin-top: 4px; font-weight: 400; font-size: 0.8125rem; }
+.content .video > a:hover > span, .content .video > a:focus-visible > span { background: var(--red-strong); }
 
 /* Swagger UI (mkdocs-swagger-ui-tag): the embedded UI is always light.
    Markdown wraps the tag in a paragraph: lift the paragraph reading width so

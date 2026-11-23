@@ -47,7 +47,7 @@ The web application offers three types of query: search the literature for one o
 
 A presentation of Variomes on the YouTube channel of SIB (11 min 16 s).
 
-<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/ovhu5U0EKHQ" title="Variomes: a search engine to support the curation of genetic variants (YouTube)" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+<div class="video" data-embed="https://www.youtube-nocookie.com/embed/ovhu5U0EKHQ?autoplay=1" data-title="Variomes: a search engine to support the curation of genetic variants (YouTube)"><a href="https://www.youtube.com/watch?v=ovhu5U0EKHQ"><span>Play the video (YouTube)<small>Starting it loads the YouTube player, from Google servers</small></span></a></div>
 
 ## API
 

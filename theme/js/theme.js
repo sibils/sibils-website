@@ -17,6 +17,7 @@
  *    tab set and remembered across pages
  *  - title of the embedded Swagger UI frames
  *  - "On this page" highlight of the current section
+ *  - click-to-load videos: the YouTube player is created on click
  *  - printing: details opened, link and video addresses
  */
 (function () {
@@ -498,6 +499,27 @@
     update();
   }
 
+  /* Click-to-load videos --------------------------------------------------- */
+
+  // <div class="video" data-embed="PLAYER URL" data-title="..."><a href="VIDEO PAGE">...</a></div>
+  // shows a local play button; the player iframe is created only when the
+  // reader clicks, so the page contacts the video host only then. Without
+  // JavaScript the link opens the video page.
+  $$('.content .video[data-embed] > a').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      var box = link.parentNode;
+      var frame = document.createElement('iframe');
+      e.preventDefault();
+      frame.src = box.getAttribute('data-embed');
+      frame.title = box.getAttribute('data-title') || link.textContent.trim();
+      frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      frame.allowFullscreen = true;
+      box.replaceChild(frame, link);
+      frame.focus();
+    });
+  });
+
   /* Printing ---------------------------------------------------------------- */
 
   // The print style adds the address after external links: not after links
@@ -510,8 +532,8 @@
   });
   // Videos print as their address.
   $$('.content .video').forEach(function (box) {
-    var media = box.querySelector('source[src], video[src], iframe[src]');
-    if (media) box.setAttribute('data-src', media.src || media.getAttribute('src'));
+    var media = box.querySelector('source[src], video[src], iframe[src], a[href]');
+    if (media) box.setAttribute('data-src', media.src || media.href || media.getAttribute('src'));
   });
 
   // Collapsed blocks are opened for printing.
