@@ -27,7 +27,7 @@ Output
 :   Ranked documents for each collection, or a ranked list of variants
 
 Reference
-:   Pasche et al., Bioinformatics 2022 [@pasche2022variomes]
+:   Pasche et al., *Bioinformatics* [-@pasche2022variomes]
 
 </div>
 
@@ -56,6 +56,6 @@ The Variomes API ranks the literature for a variant (`rankLit`) and fetches docu
 !!! cite "How to cite"
     If you use Variomes, please cite:
 
-    - Pasche E, Mottaz A, Caucheteur D, Gobeill J, Michel PA, Ruch P (2022). Variomes: a high recall search engine to support the curation of genomic variants. *Bioinformatics* 38(9):2595–2601. [doi:10.1093/bioinformatics/btac146](https://doi.org/10.1093/bioinformatics/btac146) · [PMID 35274687](https://pubmed.ncbi.nlm.nih.gov/35274687/)
+    <!-- sibils:cite pasche2022variomes -->
 
     Please also cite the SIBiLS papers listed under [How to cite](../publications.md#how-to-cite) on the Publications page.

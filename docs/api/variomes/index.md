@@ -25,7 +25,7 @@ Authentication
 
 </div>
 
-Variomes is described in Pasche et al. (2022) [@pasche2022variomes]. The [API documentation](https://variomes.sibils.org/apis) lists all the parameters: the variants (`genvars`), the disease, the patient's gender and age, the publication years, the collections (`collections=medline,pmc,ct,supp`), whether the disease, gene and variant must be mentioned or expanded with synonyms, positive and negative keywords, and the number of documents (`nb`).
+Variomes is described in Pasche et al. [-@pasche2022variomes]. The [API documentation](https://variomes.sibils.org/apis) lists all the parameters: the variants (`genvars`), the disease, the patient's gender and age, the publication years, the collections (`collections=medline,pmc,ct,supp`), whether the disease, gene and variant must be mentioned or expanded with synonyms, positive and negative keywords, and the number of documents (`nb`).
 
 ## Example
 

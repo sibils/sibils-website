@@ -27,7 +27,7 @@ Output
 :   Pairs of taxa with an interaction type from the Relation Ontology, each with its supporting passages and documents; export as JSON or CSV in the web application
 
 Reference
-:   Ruch et al., SPNHC-TDWG 2024 [@ruch2024biotxplorer]
+:   Ruch et al., SPNHC-TDWG [-@ruch2024biotxplorer]
 
 </div>
 
@@ -48,6 +48,6 @@ The BiotXplorer API has its own interactive documentation (Swagger UI) at [biotx
 !!! cite "How to cite"
     If you use BiotXplorer, please cite:
 
-    - Ruch P, Pasche E, Michel PA, Caucheteur D (2024). BiotXplorer: Navigating Evidence-Based Biotic Interactions. *Biodiversity Information Science and Standards* 8:e135453. Conference abstract, SPNHC-TDWG 2024. [doi:10.3897/biss.8.135453](https://doi.org/10.3897/biss.8.135453)
+    <!-- sibils:cite ruch2024biotxplorer -->
 
     Please also cite the SIBiLS papers listed under [How to cite](../publications.md#how-to-cite) on the Publications page.

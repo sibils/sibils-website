@@ -27,7 +27,7 @@ Output
 :   Ranked lists of documents; export as JSON or CSV in the web application, JSON or BioC through the API
 
 Reference
-:   Pasche et al., TDWG 2023 [@pasche2023towards] [@pasche2023sibils]
+:   Pasche et al., TDWG [-@pasche2023towards] [-@pasche2023sibils]
 
 </div>
 
@@ -50,7 +50,6 @@ The [BiodiversityPMC API](../api/biodiversitypmc/index.md) fetches, searches and
 !!! cite "How to cite"
     If you use BiodiversityPMC, please cite:
 
-    - Pasche E, Agosti D, Penev L, Groom Q, Flament A, Gobeill J, Ruch P (2023). Towards “Biodiversity PMC”. *Biodiversity Information Science and Standards* 7:e111647. Conference abstract, TDWG 2023. [doi:10.3897/biss.7.111647](https://doi.org/10.3897/biss.7.111647)
-    - Pasche E, Gobeill J, Agosti D, Penev L, Groom Q, Georgiev T, et al. (2023). From SIBiLS to Biodiversity PMC: Foundations for the One Health Library. *Biodiversity Information Science and Standards* 7:e111660. Conference abstract (demo), TDWG 2023. [doi:10.3897/biss.7.111660](https://doi.org/10.3897/biss.7.111660)
+    <!-- sibils:cite pasche2023towards pasche2023sibils -->
 
     Please also cite the SIBiLS papers listed under [How to cite](../publications.md#how-to-cite) on the Publications page.

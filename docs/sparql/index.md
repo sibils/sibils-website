@@ -28,7 +28,7 @@ Output
 :   SPARQL results (for example JSON or CSV); the RDF dataset can also be downloaded in Turtle format
 
 Reference
-:   No dedicated publication; see Caucheteur et al., Database 2026 [@caucheteur2026sibils]
+:   No dedicated publication; see Caucheteur et al., *Database* [-@caucheteur2026sibils]
 
 </div>
 
@@ -60,5 +60,4 @@ See the [SPARQL API](../api/sparql/index.md) page for programmatic access to `ht
 !!! cite "How to cite"
     There is no dedicated publication for the SPARQL endpoint. Please cite SIBiLS:
 
-    - Gobeill J, Caucheteur D, Michel PA, Mottin L, Pasche E, Ruch P (2020). SIB Literature Services: RESTful customizable search engines in biomedical literature, enriched with automatically mapped biomedical concepts. *Nucleic Acids Research* 48(W1):W12–W16. [doi:10.1093/nar/gkaa328](https://doi.org/10.1093/nar/gkaa328) · [PMID 32379317](https://pubmed.ncbi.nlm.nih.gov/32379317/)
-    - Caucheteur D, Flament A, Gobeill J, Pasche E, Michel PA, Mottin L, Liyanapathirana J, Mottaz A, Ruch P (2026). Enhancing the SIB Literature Services (SIBiLS) with annotations to support biocuration. *Database* 2026:baag034. [doi:10.1093/database/baag034](https://doi.org/10.1093/database/baag034) · [PMID 42768721](https://pubmed.ncbi.nlm.nih.gov/42768721/)
+    <!-- sibils:cite 10_1093_nar_gkaa328 caucheteur2026sibils -->

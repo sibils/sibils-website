@@ -27,7 +27,7 @@ Output
 :   XML or JSON; GA4GH VRS through the API
 
 Reference
-:   Mottaz et al., MIE 2022 [@mottaz2022synvar]
+:   Mottaz et al., MIE [-@mottaz2022synvar]
 
 </div>
 
@@ -114,7 +114,6 @@ See the [SynVar API](../api/synvar/index.md) page and the [usage guide](https://
 !!! cite "How to cite"
     If you use SynVar, please cite it together with Variomes:
 
-    - Mottaz A, Pasche E, Michel PA, Mottin L, Teodoro D, Ruch P (2022). Designing an Optimal Expansion Method to Improve the Recall of a Genomic Variant Curation-Support Service. *Studies in Health Technology and Informatics* 294:839–843 (MIE 2022). [doi:10.3233/SHTI220603](https://doi.org/10.3233/SHTI220603) · [PMID 35612222](https://pubmed.ncbi.nlm.nih.gov/35612222/)
-    - Pasche E, Mottaz A, Caucheteur D, Gobeill J, Michel PA, Ruch P (2022). Variomes: a high recall search engine to support the curation of genomic variants. *Bioinformatics* 38(9):2595–2601. [doi:10.1093/bioinformatics/btac146](https://doi.org/10.1093/bioinformatics/btac146) · [PMID 35274687](https://pubmed.ncbi.nlm.nih.gov/35274687/)
+    <!-- sibils:cite mottaz2022synvar pasche2022variomes -->
 
     Please also cite the SIBiLS papers listed under [How to cite](../publications.md#how-to-cite) on the Publications page.

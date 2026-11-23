@@ -40,8 +40,8 @@ git add -A && git commit && git push
 | `docs/` | The pages. The URL follows the path: `docs/sparql/index.md` is `/sparql/`, `docs/vocabularies.md` is `/vocabularies/`. Keep existing paths: other sites link to them. |
 | `docs/assets/` | Images and files used by the pages (external sites also link to the logos here). |
 | `mkdocs.yml` | Site settings: the navigation (`nav`), the SIBiLS apps given as service channels in the home page's structured data (`extra.apps`, see `theme/partials/jsonld.html`), footer logos (`extra.partners`), contact, licence, Matomo. |
-| `refs.bib` | Bibliography for `[@key]` citations. |
-| `hooks/sibils_data.py`, `data/` | Collection counts and vocabularies from the SIBiLS API (see below). |
+| `refs.bib` | Bibliography: `[@key]` citations, the How to cite boxes and the Publications page are written from it (see *Citations* below). |
+| `hooks/sibils_data.py`, `data/` | Collection counts and vocabularies from the SIBiLS API (see below), and the references written from `refs.bib`. |
 | `theme/` | The theme: templates, CSS, JavaScript, fonts, images. See [theme/README.md](theme/README.md). |
 | `.github/workflows/publish.yml` | Build and deployment. |
 
@@ -166,23 +166,89 @@ collapsed block, `???+` an expanded one.
 
 ### How to cite
 
+Write references as keys of `refs.bib`, never by hand: the build writes them all in the same
+style, so a correction in `refs.bib` reaches every page. The marker is alone on its line and
+indented like the box:
+
 ```markdown
 !!! cite "How to cite"
-    Gobeill J, Caucheteur D, Michel PA, Mottin L, Pasche E, Ruch P. SIB Literature Services:
-    RESTful customizable search engines in biomedical literature, enriched with automatically
-    mapped biomedical concepts. *Nucleic Acids Research* 48(W1):W12–W16, 2020.
-    [doi:10.1093/nar/gkaa328](https://doi.org/10.1093/nar/gkaa328)
+    If you use Variomes, please cite:
+
+    <!-- sibils:cite pasche2022variomes -->
+```
+
+Other markers: `<!-- sibils:bibtex KEY KEY -->` (a BibTeX block copied from `refs.bib`),
+`<!-- sibils:cite-short KEY -->` (*Pasche et al. (2022), [title](link)*, a link to the entry
+when the page lists it, else to the DOI) and `<!-- sibils:bibliography GROUP -->` (a group of
+the Publications page, see below). A key that is not in `refs.bib` is shown in the page as
+**Missing reference: KEY** and logged as a warning, which the deployment does not stop on: run
+`mkdocs build --strict` before pushing.
+
+Every author is listed, as in the byline of the publication (PubMed or the journal), group
+authors included (`and others` in `refs.bib` prints *et al.*).
+
+### Add a publication to the Publications page
+
+Add one entry to `refs.bib`, with `sibils_group`: the group named by a
+`<!-- sibils:bibliography GROUP -->` marker of `docs/publications.md`: `about-papers`
+(papers, conference abstracts and posters about SIBiLS), `about-reports` (reports and datasets
+on Zenodo) or `work-using` (published work that uses SIBiLS). The group lists its entries newest
+first, then by first author, then by title. The two SIBiLS papers have no group: they are in the
+How to cite box. A paper that users of a service should cite also goes in the table *Papers to
+cite for each service* (`<!-- sibils:cite-short KEY -->`) and in the BibTeX marker. Optional
+fields: `sibils_use`, how the work uses SIBiLS, printed after the reference (Markdown, for
+*Work using SIBiLS*); `addendum`, Markdown after the DOI; `shorttitle`, the title in the table
+of the page; `comment`, a note for the maintainers that is never shown. Standard fields are
+LaTeX: write `\%` for a percent sign (a bare `%` cuts the field).
+
+For example, the entry already in `refs.bib` for the OLIDA paper (copy it with a new key, or the
+build stops on the duplicate):
+
+```bibtex
+@article{nachtegael2022olida,
+  author = {Nachtegael, Charlotte and Gravel, Barbara and Dillen, Arnau and Smits, Guillaume and Nowé, Ann and Papadimitriou, Sofia and Lenaerts, Tom},
+  title = {Scaling up oligogenic diseases research with {OLIDA}: the Oligogenic Diseases Database},
+  journal = {Database},
+  volume = {2022},
+  pages = {baac023},
+  year = {2022},
+  doi = {10.1093/database/baac023},
+  pmid = {35411390},
+  pmcid = {PMC9216476},
+  sibils_group = {work-using},
+  sibils_use = {The curation pipeline runs variants through SynVar to obtain genomic coordinates.},
+}
 ```
 
 ### Citations
 
-Cite an entry of `refs.bib` by its key; the references are listed at the end of the page.
+Cite an entry of `refs.bib` by its key: `[@key]` gives *(Gobeill et al., 2020)*, a link to the
+full reference on the same page; `[-@key]` gives *(2020)*, for a sentence that already names the
+authors. `[@a] [@b]` or `[@a; @b]` give one parenthesis, in which works of the same authors share
+the label: *(Pasche et al., 2023b, 2023c)*. The link text has no-break spaces inside "et al." and
+before the year, so that a line never breaks there. Put the citation before the punctuation. A
+work listed in the page's How to cite box is linked there; the other cited works are listed
+under a *References* heading added at the end of the page.
+
+Nothing else goes inside the brackets: no space, page number or prefix. `[@key, p. 5]` or
+`[@ key]` stays in the page as written and logs a warning, so `mkdocs build --strict` stops; a
+link whose text starts with `@` (`[@name](url)`) is not a citation. A key is made of letters,
+digits and `_`, with `-`, `:`, `.`, `/` or `+` inside. Citations in fenced code blocks (```` ``` ````
+or `~~~`) and in code spans are left as written, but not in a code block indented by 4 spaces:
+use a fenced block for code that contains `[@`.
 
 ```markdown
 SIBiLS is described in the 2020 web server issue of Nucleic Acids Research [@10_1093_nar_gkaa328].
+Variomes is described in Pasche et al. [-@pasche2022variomes].
 ```
 
-Plain footnotes use the same list:
+When several works shown on the site have the same authors' label and year, a letter follows the
+year, in the order of their titles: today *Pasche et al., 2023a, 2023b, 2023c*. The letter is in
+the citations, the *References* sections, the Publications lists and the table *Papers to cite
+for each service*, but not in the How to cite boxes, which users copy into their own papers. A
+new work with the same label and year can shift these letters.
+
+Plain footnotes (`[^note]`) are for explanatory notes and are listed under *Notes*:
 
 ```markdown
 The count includes retracted articles.[^retracted]
@@ -289,6 +355,7 @@ The data feeds the counts on the home page and replaces these markers in the pag
 | `<!-- sibils:collection-counts -->` | The table of documents per collection |
 | `<!-- sibils:release -->` | The SIBiLS release, for example 5.1.5.10 |
 | `<!-- sibils:date -->` | The build day, or the day the snapshot in `data/` was saved (the API gives no date, so this is not the day the SIBiLS data changed) |
+| `<!-- sibils:cite KEY KEY -->`, `bibliography GROUP`, `bibtex KEY KEY`, `cite-short KEY` | References from `refs.bib` (see *How to cite* above) |
 
 ```sh
 SIBILS_OFFLINE=1 ./serve                            # do not call the API, use data/
@@ -338,5 +405,5 @@ the log but do not stop it) and calls the deployment service that publishes `gh-
 not from local previews.
 
 Dependencies (`requirements.txt`): MkDocs 1.6 (below 2.0), pymdown-extensions, Pygments,
-mkdocs-bibtex, mkdocs-swagger-ui-tag pinned to 0.6.10, and beautifulsoup4 (used by the latter)
-below 5.0.
+pybtex (read by `hooks/sibils_data.py`), mkdocs-swagger-ui-tag pinned to 0.6.10, and
+beautifulsoup4 (used by the latter) below 5.0.

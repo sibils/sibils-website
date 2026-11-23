@@ -1357,7 +1357,8 @@ a { color: var(--link); }
   transform: rotate(45deg);
 }
 
-/* Footnotes and bibliography (mkdocs-bibtex writes references as footnotes) */
+/* Footnotes ([^note]): explanatory notes, listed under "Notes". Citations of
+   refs.bib are author-year links (hooks/sibils_data.py), not footnotes. */
 .content .footnote-ref, .content sup > a[href^="#fn"] {
   padding: 0 2px;
   font-size: inherit;
@@ -1374,7 +1375,7 @@ a { color: var(--link); }
   line-height: 1.55;
 }
 .content .footnote::before {
-  content: "References";
+  content: "Notes";
   display: block;
   margin-bottom: 0.6em;
   color: var(--ink);
@@ -1391,8 +1392,9 @@ a { color: var(--link); }
   font-family: var(--mono);
   text-decoration: none !important;
 }
-/* Reference lists written by hand (docs/publications.md: <div class="biblio">):
-   no bullets, a hanging indent and space between entries. */
+/* Reference lists (<div class="biblio">, written by the
+   <!-- sibils:bibliography --> marker of hooks/sibils_data.py): no bullets, a
+   hanging indent and space between entries. */
 .content .biblio ul { list-style: none; padding-left: 0; }
 .content .biblio li { margin: 0 0 0.9em; padding-left: 1.5em; text-indent: -1.5em; }
 

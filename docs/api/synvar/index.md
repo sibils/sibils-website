@@ -25,7 +25,7 @@ Authentication
 
 </div>
 
-SynVar is described in Mottaz et al. (2022) [@mottaz2022synvar]. The [usage guide](https://synvar.sibils.org/resources/info.html) is the reference for the parameters and the outputs; this page summarizes it. The examples were run on 22 November 2026.
+SynVar is described in Mottaz et al. [-@mottaz2022synvar]. The [usage guide](https://synvar.sibils.org/resources/info.html) is the reference for the parameters and the outputs; this page summarizes it. The examples were run on 22 November 2026.
 
 ## Parameters
 

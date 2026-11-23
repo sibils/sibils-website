@@ -3,7 +3,9 @@
 mkdocs>=1.6,<2
 pymdown-extensions>=10.21,<11
 Pygments>=2.20,<3
-mkdocs-bibtex>=4.4,<5
+# Read by hooks/sibils_data.py to write the references and citations. 0.25 or
+# later: 0.24 imports pkg_resources, which needs setuptools.
+pybtex>=0.25,<1
 mkdocs-swagger-ui-tag==0.6.10
 # Used by mkdocs-swagger-ui-tag, which calls a method that beautifulsoup4 4.13+
 # reports as deprecated (a DeprecationWarning in the build log): stay below 5.

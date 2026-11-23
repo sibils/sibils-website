@@ -33,7 +33,7 @@ API id `pmc`. Documents are identified by their PMCID, for example [`PMC7319474`
 
 ## Supplementary data
 
-Supplementary files are published with a PMC article but outside its main text: data tables, spreadsheets, documents, images and videos, often holding raw data, detailed methods or additional analyses. SIBiLS extracts their text, using OCR for images, so that they can be searched like articles. Gobeill et al. (2025) describe the method and what these files add to the literature [@gobeill2025supplementary]. The collection has two partitions: supplementary data files and manuscript figures.
+Supplementary files are published with a PMC article but outside its main text: data tables, spreadsheets, documents, images and videos, often holding raw data, detailed methods or additional analyses. SIBiLS extracts their text, using OCR for images, so that they can be searched like articles. Gobeill et al. [-@gobeill2025supplementary] describe the method and what these files add to the literature. The collection has two partitions: supplementary data files and manuscript figures.
 
 API id `suppdata`. Documents are identified by the PMCID of the article followed by the file name, for example [`PMC10838014_gyad114_suppl_supplementary_data_sd3.xlsx`](https://biodiversitypmc.sibils.org/api/fetch?ids=PMC10838014_gyad114_suppl_supplementary_data_sd3.xlsx&col=suppdata).
 

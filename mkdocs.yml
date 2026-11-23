@@ -24,22 +24,20 @@ watch:
   - data
   - refs.bib
 
-# Broken links to a heading (page.md#anchor) are warnings, so that the strict
-# build of the deployment (.github/workflows/publish.yml) stops on them.
+# Broken links to a heading (page.md#anchor) are warnings: `mkdocs build --strict`
+# stops on them; the deployment (.github/workflows/publish.yml) logs them
+# without stopping.
 validation:
   anchors: warn
 
 hooks:
   # Fetches collection counts and the vocabulary list from the SIBiLS API at
-  # build time (falls back to data/*.json). See hooks/sibils_data.py.
+  # build time (falls back to data/*.json), and writes the references and the
+  # [@key] citations from refs.bib. See hooks/sibils_data.py.
   - hooks/sibils_data.py
 
 plugins:
   - search
-  - bibtex:
-      bib_file: refs.bib
-      # [@key] citations only; avoids reading "@context" in JSON or code as a citation.
-      enable_inline_citations: false
   - swagger-ui-tag
 
 markdown_extensions:

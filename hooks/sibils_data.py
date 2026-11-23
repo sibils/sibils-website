@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""SIBiLS data for the website: collection counts and vocabularies.
+"""SIBiLS data for the website: collection counts, vocabularies, references.
 
 MkDocs hook, registered under ``hooks:`` in mkdocs.yml. It uses the Python
-standard library only.
+standard library, and pybtex to read refs.bib.
 
 At build time (``on_config``) it reads two endpoints of the SIBiLS API:
 
@@ -57,6 +57,34 @@ On the page that contains ``sibils:vocabularies``, ``release`` and ``date``
 describe the vocabulary data; on all other pages they describe the counts.
 An unknown ``sibils:`` marker is reported as a warning (it is a typo in a page).
 
+References are written from refs.bib, in one style (format_reference()), by
+these markers; the first three must be alone on their line, indented as the
+block they belong to (for example 4 spaces inside ``!!! cite``):
+
+    <!-- sibils:cite KEY KEY... -->        list of references, in this order
+    <!-- sibils:bibliography GROUP -->     the entries whose sibils_group is GROUP,
+                                           newest first
+    <!-- sibils:bibtex KEY KEY... -->      BibTeX code block, copied from refs.bib
+    <!-- sibils:cite-short KEY -->         "Pasche et al. (2023), [title](link)": the
+                                           link goes to #ref-KEY when the page lists
+                                           KEY, else to the DOI
+
+The first entry of a work on a page gets the anchor #ref-KEY; a work printed
+twice on a page is reported as a warning.
+
+In-text citations (link_citations()), outside code: [@KEY] gives
+"(Gobeill et al., 2020)", [-@KEY] gives "(2020)" for a sentence that already
+names the authors, and [@a] [@b] or [@a; @b] give one parenthesis. Each
+label links to #ref-KEY: the entry in the page's How to cite box, or in a
+"References" section added at the end of the page for the works that the page
+does not list. A letter follows the year when several works shown on the
+site have the same label and year (Pasche et al., 2023a, 2023b...), in the
+order of their titles; year_suffixes() computes them from all the pages.
+
+An unknown key or group is reported as a warning and shown in the page as
+"Missing reference: KEY" (an unknown key in a citation stays as written); a
+group of refs.bib that no page lists is reported as a warning too.
+
 Environment variables:
 
     SIBILS_OFFLINE=1      do not call the API, use the snapshots
@@ -75,6 +103,7 @@ import argparse
 import concurrent.futures
 import copy
 import datetime
+import functools
 import html
 import json
 import logging
@@ -303,7 +332,12 @@ for _name, (_label, _variant) in DISPROT_VARIANTS.items():
         "description": ("", f"{DISPROT_BASE} {_variant}"),
     }
 
-MARKER_RE = re.compile(r"<!--\s*sibils:([A-Za-z0-9_-]+)\s*-->")
+# <!-- sibils:NAME --> or <!-- sibils:NAME ARG ARG... -->; "indent" is set when
+# the marker starts its line (block markers keep that indentation).
+MARKER_RE = re.compile(
+    r"(?P<indent>^[ \t]*)?<!--\s*sibils:(?P<name>[A-Za-z0-9_-]+)(?P<args>(?:[ \t]+[^\s<>]+)*)\s*-->",
+    re.M,
+)
 
 
 class DataError(Exception):
@@ -821,21 +855,518 @@ def counts_date_line(extra: dict) -> str:
     )
 
 
-def replace_markers(markdown: str, extra: dict, src: str = "") -> str:
+# --------------------------------------------------------------------------
+# References (refs.bib)
+#
+# Every full reference of the site is written from refs.bib, in the style of
+# the "How to cite" boxes:
+#
+#   Gobeill J, Caucheteur D, Michel PA, Mottin L, Pasche E, Ruch P (2020). SIB
+#   Literature Services: [...]. *Nucleic Acids Research* 48(W1):W12–W16.
+#   [doi:10.1093/nar/gkaa328](https://doi.org/10.1093/nar/gkaa328) · [PMID 32379317](...)
+#
+# Every author is listed, as in the byline of the publication (PubMed or the
+# journal), group authors included; "and others" in refs.bib prints "et al.".
+# Standard fields are LaTeX (write \% for a percent sign). Fields read
+# besides the usual ones:
+#
+#   note          printed after the journal or the publisher
+#   addendum      Markdown, printed after the DOI and the PMID
+#   shorttitle    title used by <!-- sibils:cite-short -->
+#   sibils_group  group of the Publications page (<!-- sibils:bibliography GROUP -->)
+#   sibils_use    Markdown, how the work uses SIBiLS, after the reference
+#   comment       for the maintainers, never printed
+
+BIB_FILE = REPO_DIR / "refs.bib"
+# Not copied into <!-- sibils:bibtex -->: they mean nothing outside this site.
+BIB_PRIVATE_FIELDS = ("sibils_group", "sibils_use", "comment", "addendum")
+BLOCK_MARKERS = ("cite", "bibliography", "bibtex")
+REF_MARKERS = BLOCK_MARKERS + ("cite-short",)
+
+
+class Bibliography:
+    """refs.bib, parsed by pybtex, with its source text for BibTeX blocks."""
+
+    def __init__(self, path: Path = BIB_FILE):
+        from pybtex.database import parse_string
+
+        self.path = path
+        self.text = path.read_text(encoding="utf-8")
+        self.entries = parse_string(self.text, "bibtex").entries
+        self.groups_shown: set = set()
+
+    def get(self, key: str, src: str = ""):
+        entry = self.entries.get(key)
+        if entry is None:
+            log.warning("sibils_data: unknown reference key %s in %s (not in %s)", key, src or "a page",
+                        self.path.name)
+        return entry
+
+    def groups(self) -> dict:
+        """{group: [keys]} from the sibils_group fields."""
+        result = {}
+        for key, entry in self.entries.items():
+            group = entry.fields.get("sibils_group", "").strip()
+            if group:
+                result.setdefault(group, []).append(key)
+        return result
+
+    def source(self, key: str) -> str:
+        """The entry as written in refs.bib, without BIB_PRIVATE_FIELDS."""
+        start = re.search(r"@\w+\s*\{\s*" + re.escape(key) + r"\s*,", self.text)
+        if start is None:
+            raise DataError(f"entry {key} not found in the text of {self.path.name}")
+        end = _closing_brace(self.text, self.text.index("{", start.start()))
+        body = self.text[start.start():end + 1]
+        for field in BIB_PRIVATE_FIELDS:
+            m = re.search(r"^[ \t]*" + field + r"\s*=\s*", body, flags=re.M | re.I)
+            if m:
+                stop = _closing_brace(body, m.end()) + 1 if body[m.end()] == "{" else body.index(",", m.end())
+                stop = body.index("\n", stop) + 1
+                body = body[:m.start()] + body[stop:]
+        return body
+
+
+def _closing_brace(text: str, start: int) -> int:
+    """Index of the brace that closes the one at text[start]."""
+    depth = 0
+    for i in range(start, len(text)):
+        if text[i] == "{":
+            depth += 1
+        elif text[i] == "}":
+            depth -= 1
+            if depth == 0:
+                return i
+    raise DataError(f"unbalanced braces after position {start}")
+
+
+@functools.lru_cache(maxsize=None)
+def _latex(value: str) -> str:
+    """LaTeX field value as plain text: {braces} removed, -- as an en dash, ``quotes''."""
+    # render(Backend()), not render_as("text"): render_as looks the backend up
+    # in the installed packages' entry points at each call (10 ms each).
+    from pybtex.backends.plaintext import Backend
+    from pybtex.richtext import Text
+
+    return " ".join(Text.from_latex(value).render(Backend()).split())
+
+
+def _md_inline(text: str) -> str:
+    """Plain text for running Markdown: escape what would become markup.
+
+    "|" is escaped too (the tables extension makes "\\|" an escape), so that a
+    title can be written in a table cell.
+    """
+    text = html.escape(text, quote=False)
+    text = re.sub(r"([\\`*\[\]|])", r"\\\1", text)
+    return re.sub(r"(?<!\w)_|_(?!\w)", r"\\_", text)
+
+
+def _person_family(person) -> str:
+    return _latex(" ".join(person.prelast_names + person.last_names))
+
+
+def _person_initials(person) -> str:
+    names = _latex(" ".join(person.first_names + person.middle_names))
+    return "".join(part[0] for part in re.split(r"[\s.\-]+", names) if part)
+
+
+def format_authors(entry) -> str:
+    """'Gobeill J, Caucheteur D, Michel PA': every author; "others" gives "et al."."""
+    names = []
+    for person in entry.persons.get("author", []):
+        family = _person_family(person)
+        if family == "others":
+            names.append("et al.")
+            break
+        initials = _person_initials(person)
+        names.append(f"{family} {initials}" if initials else family)
+    return ", ".join(_md_inline(n) for n in names)
+
+
+def short_authors(entry) -> str:
+    """'Pasche et al.', 'Gobeill and Ruch', 'Caucheteur'."""
+    families = [_person_family(p) for p in entry.persons.get("author", [])]
+    if len(families) >= 3 or "others" in families:
+        return _md_inline(families[0]) + " et al."
+    return " and ".join(_md_inline(f) for f in families)
+
+
+def _sentence(text: str) -> str:
+    text = text.strip()
+    return text if not text or text[-1] in ".?!" else text + "."
+
+
+def _container(entry) -> str:
+    """Journal, book, report or publisher part, without the final period."""
+    f = {k.lower(): _latex(v) for k, v in entry.fields.items()
+         if k.lower() in ("journal", "volume", "number", "pages", "booktitle", "series",
+                          "howpublished", "institution", "publisher")}
+    kind = entry.type.lower()
+    if kind == "article":
+        where = f"*{_md_inline(f['journal'])}*"
+        issue = f.get("volume", "") + (f"({f['number']})" if f.get("number") else "")
+        location = ":".join(x for x in (issue, f.get("pages", "")) if x)
+        return f"{where} {location}".strip()
+    if kind == "incollection" and f.get("series"):
+        # *Series* volume:pages (EVENT), EVENT from "Book title (EVENT)"
+        event = re.search(r"\(([^()]*)\)\s*$", f.get("booktitle", ""))
+        text = f"*{_md_inline(f['series'])}* {f.get('volume', '')}:{f.get('pages', '')}"
+        return text + (f" ({_md_inline(event.group(1))})" if event else "")
+    if kind in ("inproceedings", "incollection"):
+        text = f"*{_md_inline(f.get('booktitle', ''))}*"
+        if f.get("series"):
+            text += f", {_md_inline(f['series'])}" + (f" {f['number']}" if f.get("number") else "")
+        return text
+    if kind == "techreport":
+        authors = " and ".join(_person_family(p) for p in entry.persons.get("author", []))
+        parts = [f.get("institution", ""), f.get("publisher", "")]
+        return ". ".join(_md_inline(p) for p in parts if p and p != authors)
+    text = f.get("howpublished") or f.get("publisher", "")
+    if entry.fields.get("month"):  # a news release: "..., 15 February 2024"
+        text += f", {_latex(entry.fields['month'])} {_latex(entry.fields.get('year', ''))}"
+    return _md_inline(text)
+
+
+def _doi_url(doi: str) -> str:
+    return "https://doi.org/" + doi.replace("(", "%28").replace(")", "%29").replace(" ", "%20")
+
+
+def format_identifiers(entry) -> str:
+    """[doi:...](https://doi.org/...) · [PMID ...](https://pubmed.ncbi.nlm.nih.gov/.../)"""
+    fields = entry.fields
+    links = []
+    doi = fields.get("doi", "").strip()
+    if doi:
+        links.append(f"[doi:{_md_inline(doi)}]({_doi_url(doi)})")
+    elif fields.get("url"):
+        url = fields["url"].strip()
+        links.append(f"[{_md_inline(re.sub(r'^https?://', '', url))}]({url})")
+    pmid = fields.get("pmid", "").strip()
+    if pmid:
+        links.append(f"[PMID {pmid}](https://pubmed.ncbi.nlm.nih.gov/{pmid}/)")
+    # A no-break space before the dot: a line never starts with "·".
+    return "\u00a0· ".join(links)
+
+
+# {key: "a"}: letters after the year, set by year_suffixes() for the works
+# that share their label and year with another work shown on the site.
+YEAR_SUFFIX: dict = {}
+
+
+def format_year(entry, letter: bool = True) -> str:
+    """'2020', or '2023b' (YEAR_SUFFIX) unless letter is False."""
+    year = _latex(entry.fields.get("year", "n.d."))
+    return year + YEAR_SUFFIX.get(entry.key, "") if letter else year
+
+
+def citation_label(entry) -> str:
+    """'Gobeill et al., 2020', 'Gobeill and Ruch, 2026', 'Plazi, 2023'."""
+    return f"{short_authors(entry)}, {format_year(entry)}"
+
+
+def link_label(label: str) -> str:
+    """Text of an author-year link: a line may break after the surname, not
+    inside "et al." nor before the year ("Gobeill et\u00a0al.,\u00a02020")."""
+    label = label.replace(" et al.,", " et\u00a0al.,")
+    head, sep, year = label.rpartition(", ")
+    return head + ",\u00a0" + year if sep else label
+
+
+def year_suffixes(bib, keys) -> dict:
+    """{key: letter} for the keys that share their label and year with another key."""
+    by_label = {}
+    for key in sorted(set(keys)):
+        entry = bib.entries[key]
+        label = (short_authors(entry), _latex(entry.fields.get("year", "n.d.")))
+        by_label.setdefault(label, []).append(key)
+    suffixes = {}
+    for same in by_label.values():
+        if len(same) > 1:
+            same.sort(key=lambda k: (_latex(bib.entries[k].fields.get("title", "")).casefold(), k))
+            suffixes.update({k: "abcdefghijklmnopqrstuvwxyz"[i] for i, k in enumerate(same)})
+    return suffixes
+
+
+def format_reference(entry, letter: bool = True) -> str:
+    """One reference in the house style, as Markdown on one line.
+
+    letter=False leaves out the year letter (2023b): How to cite boxes are
+    copied into papers, where a letter of this site would mean nothing.
+    """
+    fields = entry.fields
+    parts = [
+        f"{format_authors(entry)} ({format_year(entry, letter)}).",
+        _sentence(_md_inline(_latex(fields.get("title", "")))),
+        _sentence(_container(entry)),
+    ]
+    if fields.get("note"):
+        parts.append(_sentence(_md_inline(_latex(fields["note"]))))
+    parts.append(format_identifiers(entry))
+    if fields.get("addendum"):
+        parts.append(" ".join(fields["addendum"].split()))  # Markdown, as written
+    return " ".join(p for p in parts if p and p != ".")
+
+
+def format_short(entry, target: str | None = None) -> str:
+    """'Pasche et al. (2023), [Towards “Biodiversity PMC”](link)'.
+
+    The link goes to target (an anchor on the page) or to the DOI.
+    """
+    fields = entry.fields
+    title = _md_inline(_latex(fields.get("shorttitle") or fields.get("title", "")))
+    doi = fields.get("doi", "").strip()
+    url = target or (_doi_url(doi) if doi else fields.get("url", "").strip())
+    link = f"[{title}]({url})" if url else f"*{title}*"
+    return f"{short_authors(entry)} ({format_year(entry)}), {link}"
+
+
+def _sort_key(entry):
+    """Newest first, then first author, then title."""
+    persons = entry.persons.get("author", [])
+    first = _person_family(persons[0]).casefold() if persons else ""
+    year = int(re.sub(r"\D", "", entry.fields.get("year", "")) or 0)
+    return (-year, first, _latex(entry.fields.get("title", "")).casefold())
+
+
+def _missing(key: str) -> str:
+    """Shown in the page in place of an unknown key, besides the warning."""
+    return f"**Missing reference: {_md_inline(key)} (not in refs.bib)**"
+
+
+def _ref_anchor(key: str, rendered: set, src: str) -> str:
+    """<span id="ref-KEY"></span> for the first entry of KEY on the page."""
+    if key in rendered:
+        log.warning("sibils_data: %s is printed twice on %s", key, src or "a page")
+        return ""
+    rendered.add(key)
+    return f'<span id="ref-{key}"></span>'
+
+
+def render_cite(bib: Bibliography, keys: list, src: str = "", rendered: set | None = None) -> list:
+    """Lines of <!-- sibils:cite KEY... -->: a Markdown list, years without letters."""
+    rendered = set() if rendered is None else rendered
+    lines = []
+    for key in keys:
+        entry = bib.get(key, src)
+        if entry is None:
+            lines.append(f"- {_missing(key)}")
+        else:
+            lines.append(f"- {_ref_anchor(key, rendered, src)}{format_reference(entry, letter=False)}")
+    return lines
+
+
+def render_bibliography(bib: Bibliography, group: str, src: str = "", rendered: set | None = None) -> list:
+    """Lines of <!-- sibils:bibliography GROUP -->: the group, newest first."""
+    rendered = set() if rendered is None else rendered
+    keys = bib.groups().get(group)
+    if not keys:
+        log.warning("sibils_data: no entry of refs.bib has sibils_group = {%s} (%s)", group, src or "a page")
+        return [f"**Missing group: {_md_inline(group)} (no entry of refs.bib has sibils_group = {{{_md_inline(group)}}})**"]
+    bib.groups_shown.add(group)
+    lines = ['<div class="biblio" markdown>', ""]
+    for key in sorted(keys, key=lambda k: _sort_key(bib.entries[k])):
+        entry = bib.entries[key]
+        item = f"- {_ref_anchor(key, rendered, src)}{format_reference(entry)}"
+        if entry.fields.get("sibils_use"):
+            item += "<br>" + " ".join(entry.fields["sibils_use"].split())
+        lines.append(item)
+    return lines + ["", "</div>"]
+
+
+def render_bibtex(bib: Bibliography, keys: list, src: str = "") -> list:
+    """Lines of <!-- sibils:bibtex KEY... -->: a fenced code block."""
+    blocks = [bib.source(k) if bib.get(k, src) is not None else f"% Missing reference: {k} (not in refs.bib)"
+              for k in keys]
+    return ["```bibtex", *"\n\n".join(blocks).split("\n"), "```"]
+
+
+def _anchored_keys(markdown: str, bib: Bibliography) -> set:
+    """Keys that a cite or bibliography marker of the page writes with id="ref-KEY"."""
+    groups = bib.groups()
+    keys = set()
+    for m in MARKER_RE.finditer(markdown):
+        if m.group("name") == "bibliography":
+            for group in m.group("args").split():
+                keys.update(groups.get(group, []))
+        elif m.group("name") == "cite":
+            keys.update(k for k in m.group("args").split() if k in bib.entries)
+    return keys
+
+
+def shown_keys(markdown: str, bib: Bibliography) -> set:
+    """Keys of refs.bib that a page shows: cited, or written by a marker."""
+    groups = bib.groups()
+    keys = set()
+    for is_code, text in split_code(markdown):
+        if not is_code:
+            for run in CITE_RUN_RE.finditer(text):
+                keys.update(k for _, k in CITE_KEY_RE.findall(run.group(0)))
+    for m in MARKER_RE.finditer(markdown):
+        args = m.group("args").split()
+        if m.group("name") in ("cite", "cite-short", "bibtex"):
+            keys.update(args)
+        elif m.group("name") == "bibliography":
+            for group in args:
+                keys.update(groups.get(group, []))
+    return {k for k in keys if k in bib.entries}
+
+
+# In-text citations: [@KEY], [-@KEY], [@a; @b], [@a] [@b] (one run).
+# A key: letters, digits and _, with - : . / + inside (Pandoc's rule,
+# without the characters that would break an id or a link: # $ % & ? < > ~).
+CITE_KEY = r"\w(?:[\w:./+-]*\w)?"
+_CITE_ITEMS = rf"\[-?@{CITE_KEY}(?:\s*;\s*-?@{CITE_KEY})*\]"
+CITE_RUN_RE = re.compile(rf"{_CITE_ITEMS}(?:[ \t]{_CITE_ITEMS})*(?!\()")
+CITE_KEY_RE = re.compile(rf"(-?)@({CITE_KEY})")
+# "[@" or "[-@" up to "]" or the end of the line: what is left of it after
+# the citations are linked is a mistake, unless it is the text of a link.
+STRAY_CITE_RE = re.compile(r"\[-?@[^\]\n]*\]?")
+FENCE_RE = re.compile(r"^[ \t]*(`{3,}|~{3,})")
+# A code span: a run of backticks, up to the same run, within a paragraph.
+CODE_SPAN_RE = re.compile(r"(?<!`)(`+)(?!`)(?:(?!\n[ \t]*\n).)+?(?<!`)\1(?!`)", re.S)
+
+
+def split_code(markdown: str) -> list:
+    """[(is_code, text)]: fenced blocks (``` or ~~~, at any indentation) and
+    code spans are code; joining the texts gives the page back."""
+    blocks, buf, fence = [], [], None
+    for line in markdown.splitlines(keepends=True):
+        m = FENCE_RE.match(line)
+        if fence is None:
+            if m:
+                if buf:
+                    blocks.append((False, "".join(buf)))
+                buf, fence = [line], m.group(1)
+            else:
+                buf.append(line)
+            continue
+        buf.append(line)
+        if m and m.group(1)[0] == fence[0] and len(m.group(1)) >= len(fence) \
+                and not line.strip()[len(m.group(1)):].strip():
+            blocks.append((True, "".join(buf)))
+            buf, fence = [], None
+    if buf:
+        blocks.append((fence is not None, "".join(buf)))
+    parts = []
+    for is_code, text in blocks:
+        if is_code:
+            parts.append((True, text))
+            continue
+        pos = 0
+        for m in CODE_SPAN_RE.finditer(text):
+            parts += [(False, text[pos:m.start()]), (True, m.group(0))]
+            pos = m.end()
+        parts.append((False, text[pos:]))
+    return parts
+
+
+def _check_stray_citations(text: str, src: str) -> None:
+    """Warn about the "[@" that are neither a citation nor the text of a link."""
+    for m in STRAY_CITE_RE.finditer(text):
+        found = m.group(0)
+        if found.endswith("]") and text[m.end():m.end() + 1] == "(":
+            continue  # [@name](url): a link
+        if CITE_RUN_RE.fullmatch(found):
+            continue  # an unknown key, already reported
+        log.warning("sibils_data: citation not understood in %s: %s (write [@key], [-@key] or [@a; @b], "
+                    "with nothing else inside the brackets)", src or "a page", found)
+
+
+def link_citations(markdown: str, bib: Bibliography, src: str = "", rendered: set = frozenset()) -> str:
+    """Author-year links for the citations of a page, and its References section."""
+    cited = []
+
+    def run(match):
+        items = CITE_KEY_RE.findall(match.group(0))
+        unknown = [k for _, k in items if k not in bib.entries]
+        if unknown:
+            log.warning("sibils_data: unknown citation key %s in %s (not in %s)", ", ".join(unknown),
+                        src or "a page", bib.path.name)
+            return match.group(0)
+        links = {}
+        for minus, key in items:
+            entry = bib.entries[key]
+            links.setdefault(key, (citation_label(entry).casefold(), short_authors(entry), bool(minus), key))
+        # Sorted by label; works of the same authors share it: "Pasche et al., 2023b, 2023c".
+        parts, previous = [], None
+        for _, authors, minus, key in sorted(links.values()):
+            entry = bib.entries[key]
+            if authors == previous:
+                parts.append(f", [{format_year(entry)}](#ref-{key})")
+            else:
+                text = format_year(entry) if minus else link_label(citation_label(entry))
+                parts.append(("; " if parts else "") + f"[{text}](#ref-{key})")
+            previous = authors
+            if key not in cited:
+                cited.append(key)
+        return "(" + "".join(parts) + ")"
+
+    def link(text):
+        text = CITE_RUN_RE.sub(run, text)
+        _check_stray_citations(text, src)
+        return text
+
+    markdown = "".join(text if is_code else link(text) for is_code, text in split_code(markdown))
+    listed = sorted((k for k in cited if k not in rendered), key=lambda k: citation_label(bib.entries[k]).casefold())
+    if listed:
+        items = "\n".join(f'- <span id="ref-{k}"></span>{format_reference(bib.entries[k])}' for k in listed)
+        markdown += f'\n\n## References\n\n<div class="biblio" markdown>\n\n{items}\n\n</div>\n'
+    return markdown
+
+
+def replace_markers(markdown: str, extra: dict, src: str = "", bib: Bibliography | None = None,
+                    rendered: set | None = None) -> str:
+    """Replace the <!-- sibils:... --> markers; rendered collects the keys given an id."""
+    rendered = set() if rendered is None else rendered
     vocab_page = re.search(r"<!--\s*sibils:vocabularies\s*-->", markdown) is not None
     release = extra["terminologies_release"] if vocab_page else extra["release"]
     date = extra["terminologies_date_display"] if vocab_page else extra["date_display"]
+    anchored = _anchored_keys(markdown, bib) if bib is not None else set()
+
+    def block(match, lines):
+        indent = match.group("indent")
+        rest = markdown[match.end():].split("\n", 1)[0]
+        if indent is None or rest.strip():
+            log.warning("sibils_data: <!-- sibils:%s --> must be alone on its line in %s",
+                        match.group("name"), src or "a page")
+            return match.group(0)
+        return "\n".join(indent + line if line else "" for line in lines)
 
     def repl(match):
-        name = match.group(1)
+        name = match.group("name")
+        args = match.group("args").split()
+        indent = match.group("indent") or ""
+        if name in REF_MARKERS:
+            if bib is None:
+                log.warning("sibils_data: <!-- sibils:%s --> in %s, but refs.bib is not loaded", name, src)
+                return match.group(0)
+            if not args or (name in ("bibliography", "cite-short") and len(args) != 1):
+                log.warning("sibils_data: wrong arguments in <!-- sibils:%s%s --> in %s",
+                            name, match.group("args"), src or "a page")
+                return match.group(0)
+        if name == "cite":
+            return block(match, render_cite(bib, args, src, rendered))
+        if name == "bibliography":
+            return block(match, render_bibliography(bib, args[0], src, rendered))
+        if name == "bibtex":
+            return block(match, render_bibtex(bib, args, src))
+        if name == "cite-short":
+            entry = bib.get(args[0], src)
+            if entry is None:
+                return indent + _missing(args[0])
+            return indent + format_short(entry, f"#ref-{args[0]}" if args[0] in anchored else None)
+        if args and name in ("vocabularies", "collection-counts", "release", "date"):
+            log.warning("sibils_data: <!-- sibils:%s --> takes no argument (%s)", name, src or "a page")
+            return match.group(0)
         if name == "vocabularies":
-            return render_vocabularies(extra, markdown)
+            return indent + render_vocabularies(extra, markdown)
         if name == "collection-counts":
-            return render_collection_counts(extra)
+            return indent + render_collection_counts(extra)
         if name == "release":
-            return md_text(release)
+            return indent + md_text(release)
         if name == "date":
-            return date
+            return indent + date
         log.warning("sibils_data: unknown marker <!-- sibils:%s --> in %s", name, src or "a page")
         return match.group(0)
 
@@ -860,13 +1391,46 @@ def on_config(config, **kwargs):
         message += " (no longer matching the API, remove them: " + ", ".join(corrections["stale"]) + ")"
     log.info(message)
     config["extra"]["sibils"] = extra
+    global BIB
+    try:
+        BIB = Bibliography(Path(config["config_file_path"]).parent / "refs.bib")
+    except Exception as exc:  # a syntax error in refs.bib, a missing file
+        from mkdocs.exceptions import PluginError
+
+        raise PluginError(f"sibils_data: cannot read refs.bib: {exc}") from exc
     return config
 
 
+BIB: Bibliography | None = None
+
+
+def on_files(files, config, **kwargs):
+    # Year letters (2023a, 2023b) depend on every work the site shows.
+    if BIB is not None:
+        keys = set()
+        for file in files.documentation_pages():
+            keys |= shown_keys(Path(file.abs_src_path).read_text(encoding="utf-8"), BIB)
+        YEAR_SUFFIX.clear()
+        YEAR_SUFFIX.update(year_suffixes(BIB, keys))
+    return files
+
+
 def on_page_markdown(markdown, page, config, files, **kwargs):
-    if "sibils:" not in markdown:
-        return markdown
-    return replace_markers(markdown, config["extra"]["sibils"], page.file.src_uri)
+    rendered = set()
+    if "sibils:" in markdown:
+        markdown = replace_markers(markdown, config["extra"]["sibils"], page.file.src_uri, BIB, rendered)
+    if BIB is not None and "@" in markdown:
+        markdown = link_citations(markdown, BIB, page.file.src_uri, rendered)
+    return markdown
+
+
+def on_post_build(config, **kwargs):
+    if BIB is None:
+        return
+    for group, keys in sorted(BIB.groups().items()):
+        if group not in BIB.groups_shown:
+            log.warning("sibils_data: no page has <!-- sibils:bibliography %s -->; not shown: %s",
+                        group, ", ".join(keys))
 
 
 # --------------------------------------------------------------------------
@@ -1016,9 +1580,132 @@ def selftest() -> int:
     names = {e["name_termino"] for e in extra["terminologies"]}
     check(all(name in names for name in TERMINOLOGY_OVERRIDES), "override for an unknown vocabulary")
 
+    # 7. References: the house style, the markers, no LaTeX left in the output.
+    bib = Bibliography()
+    expected = (
+        "Gobeill J, Caucheteur D, Michel PA, Mottin L, Pasche E, Ruch P (2020). SIB Literature Services: RESTful"
+        " customizable search engines in biomedical literature, enriched with automatically mapped biomedical"
+        " concepts. *Nucleic Acids Research* 48(W1):W12–W16. [doi:10.1093/nar/gkaa328]"
+        "(https://doi.org/10.1093/nar/gkaa328)\u00a0· [PMID 32379317](https://pubmed.ncbi.nlm.nih.gov/32379317/)"
+    )
+    check(format_reference(bib.entries["10_1093_nar_gkaa328"]) == expected, "house style of 10_1093_nar_gkaa328")
+    for key, entry in bib.entries.items():
+        text = format_reference(entry)
+        check(not re.search(r"[{}]|\\[a-z]|--|``", text), f"LaTeX left in the reference {key}: {text[:80]}")
+        if entry.fields.get("sibils_group"):
+            check(bool(entry.fields.get("doi") or entry.fields.get("url")), f"{key}: listed without a link")
+    page = "!!! cite\n    Cite:\n\n    <!-- sibils:cite 10_1093_nar_gkaa328 -->\n"
+    check(replace_markers(page, extra, "test", bib)
+          == '!!! cite\n    Cite:\n\n    - <span id="ref-10_1093_nar_gkaa328"></span>' + expected + "\n",
+          "cite marker keeps the indentation")
+    block = render_bibtex(bib, ["10_1093_nar_gkaa328"])
+    check(block[0] == "```bibtex" and block[1] == "@article{10_1093_nar_gkaa328," and block[-1] == "```",
+          "BibTeX block")
+    check(all(not re.search(r"^\s*(sibils_|comment\s*=|addendum\s*=)", bib.source(k), re.M) for k in bib.entries),
+          "private fields in a BibTeX block")
+    # Every author is listed (no "et al." unless refs.bib says "and others").
+    check(format_authors(bib.entries["pasche2023sibils"]).count(", ") == 10, "all 11 authors of pasche2023sibils")
+    # An unknown key is shown in the page, not only logged.
+    shown = replace_markers("<!-- sibils:cite nosuchkey -->\n", extra, "test", bib)
+    check("Missing reference: nosuchkey" in shown, "unknown key in a cite marker is visible")
+    check("Missing reference" in replace_markers("x <!-- sibils:cite-short nosuchkey --> y", extra, "test", bib),
+          "unknown key in a cite-short marker is visible")
+    check("Missing group" in replace_markers("<!-- sibils:bibliography nosuchgroup -->", extra, "test", bib),
+          "unknown group is visible")
+    # cite-short links to the entry when the page lists it, else to the DOI.
+    group, keys = next(iter(bib.groups().items()))
+    with_list = replace_markers(f"<!-- sibils:cite-short {keys[0]} -->\n\n<!-- sibils:bibliography {group} -->\n",
+                                extra, "test", bib)
+    check(f"](#ref-{keys[0]})" in with_list, "cite-short links to the entry listed on the page")
+    alone = replace_markers("<!-- sibils:cite-short 10_1093_nar_gkaa328 -->", extra, "test", bib)
+    check("](https://doi.org/10.1093/nar/gkaa328)" in alone, "cite-short links to the DOI")
+    # A block marker in running text is left as written.
+    check(replace_markers("see <!-- sibils:cite 10_1093_nar_gkaa328 -->", extra, "test", bib).endswith("-->"),
+          "block marker in running text")
+
+    # 8. In-text citations: labels, year letters, runs, code left alone.
+    keys = set()
+    for path in (REPO_DIR / "docs").rglob("*.md"):
+        keys |= shown_keys(path.read_text(encoding="utf-8"), bib)
+    YEAR_SUFFIX.clear()
+    YEAR_SUFFIX.update(year_suffixes(bib, keys))
+    check({k: v for k, v in YEAR_SUFFIX.items() if k.startswith("pasche2023")}
+          == {"pasche2023supplementary": "a", "pasche2023sibils": "b", "pasche2023towards": "c"}, "year letters")
+    check(citation_label(bib.entries["10_1093_nar_gkaa328"]) == "Gobeill et al., 2020", "label, 3+ authors")
+    check(citation_label(bib.entries["gobeill2026videos"]) == "Gobeill and Ruch, 2026", "label, 2 authors")
+    check(citation_label(bib.entries["sib2025sab"]) == "SIB Swiss Institute of Bioinformatics, 2025", "label, organisation")
+    cite = lambda md, rendered=frozenset(): link_citations(md, bib, "test", rendered)
+    check(link_label("SIB Swiss Institute of Bioinformatics, 2025") == "SIB Swiss Institute of Bioinformatics,\u00a02025"
+          and link_label("Gobeill and Ruch, 2026") == "Gobeill and Ruch,\u00a02026", "link text: no break before the year")
+    out = cite("Pasche et al. [-@pasche2023towards] [-@pasche2023sibils] x")
+    check(out.startswith("Pasche et al. ([2023b](#ref-pasche2023sibils), [2023c](#ref-pasche2023towards)) x"),
+          "run of [-@] citations: one parenthesis, sorted by label")
+    out = cite("a [@pasche2023towards; @10_1093_nar_gkaa328; @pasche2023sibils]")
+    check(out.startswith("a ([Gobeill et\u00a0al.,\u00a02020](#ref-10_1093_nar_gkaa328); [Pasche et\u00a0al.,\u00a02023b]"
+                         "(#ref-pasche2023sibils), [2023c](#ref-pasche2023towards))"),
+          "works of the same authors share the label")
+    check(cite("a [@10_1093_nar_gkaa328; @caucheteur2026sibils].").startswith(
+        "a ([Caucheteur et\u00a0al.,\u00a02026](#ref-caucheteur2026sibils); [Gobeill et\u00a0al.,\u00a02020](#ref-10_1093_nar_gkaa328))."),
+          "[@a; @b] gives one parenthesis")
+    out = cite("a [@10_1093_nar_gkaa328].")
+    check('\n## References\n\n<div class="biblio" markdown>\n\n- <span id="ref-10_1093_nar_gkaa328"></span>' in out,
+          "References section for a work the page does not list")
+    check("## References" not in cite("a [@10_1093_nar_gkaa328].", {"10_1093_nar_gkaa328"}),
+          "no References section when the page lists the work")
+    out = cite("a [@10_1093_nar_gkaa328] [@caucheteur2026sibils].", {"10_1093_nar_gkaa328"})
+    check('\n## References\n\n<div class="biblio" markdown>\n\n- <span id="ref-caucheteur2026sibils"></span>' in out
+          and 'id="ref-10_1093_nar_gkaa328"' not in out, "References lists only the works the page does not list")
+    check(cite("a [@nosuchkey] b") == "a [@nosuchkey] b", "unknown key left as written")
+    # A citation that is not understood stays as written, with a warning
+    # (the strict build stops); a link whose text starts with "@" is not one.
+    warnings = []
+    handler = logging.Handler()
+    handler.emit = lambda record: warnings.append(record.getMessage())
+    log.addHandler(handler)
+    try:
+        for text in ("[@10_1093_nar_gkaa328, p. 5]", "[@ 10_1093_nar_gkaa328]", "[@10_1093_nar_gkaa328 ]",
+                     "[-@ 10_1093_nar_gkaa328]", "[@10_1093_nar_gkaa328.]", "[see @10_1093_nar_gkaa328"):
+            warnings.clear()
+            out = cite(f"a {text} b")
+            check(text in out and "## References" not in out
+                  and (len(warnings) == 1 if text.startswith("[@") or text.startswith("[-@") else not warnings),
+                  f"citation not understood: {text} ({warnings})")
+        warnings.clear()
+        out = cite("[@sibils](https://example.org/), [@nosuchkey], `[@x, p. 5]`")
+        check(out.startswith("[@sibils](https://example.org/), [@nosuchkey], `[@x, p. 5]`")
+              and len(warnings) == 1 and "unknown citation key nosuchkey" in warnings[0],
+              f"links, unknown keys and code: no 'not understood' warning ({warnings})")
+    finally:
+        log.removeHandler(handler)
+    # Keys with : . / + (BibTeX allows them).
+    bib.entries["doe:2020/x.y+z"] = bib.entries["10_1093_nar_gkaa328"]
+    try:
+        check(cite("a [@doe:2020/x.y+z].").startswith("a ([Gobeill et\u00a0al.,\u00a02020](#ref-doe:2020/x.y+z))."),
+              "key with : / . +")
+    finally:
+        del bib.entries["doe:2020/x.y+z"]
+    code = ("!!! note\n\n    ```json\n    {\"x\": \"[@10_1093_nar_gkaa328]\"}\n    ```\n\n"
+            "~~~\n[@10_1093_nar_gkaa328]\n~~~\n\nInline `[@10_1093_nar_gkaa328]` code.\n")
+    check(cite(code) == code, "citations in fenced blocks (any indentation, ``` or ~~~) and code spans are left alone")
+    double = replace_markers("<!-- sibils:cite 10_1093_nar_gkaa328 -->\n\n<!-- sibils:cite 10_1093_nar_gkaa328 -->\n",
+                             extra, "test", bib)
+    check(double.count('id="ref-10_1093_nar_gkaa328"') == 1, "a work printed twice gets one id")
+    check(format_reference(bib.entries["pasche2023towards"]).startswith("Pasche E, Agosti D, Penev L, Groom Q,"
+                                                                         " Flament A, Gobeill J, Ruch P (2023c)."),
+          "year letter in the full reference")
+    box = replace_markers("<!-- sibils:cite pasche2023towards -->", extra, "test", bib)
+    check("Ruch P (2023). Towards" in box and "2023c" not in box, "no year letter in a How to cite box")
+
     tables = None
     try:
         import markdown as markdown_lib
+
+        # "|" in a title is escaped; with the tables extension the escape
+        # gives "|" in a list item and in a table cell.
+        sample = "a | b"
+        cell = markdown_lib.markdown(f"| x |\n|---|\n| {_md_inline(sample)} |", extensions=["tables"])
+        item = markdown_lib.markdown(f"- {_md_inline(sample)}", extensions=["tables"])
+        check("<td>a | b</td>" in cell and "<li>a | b</li>" in item, "escaped | in a table cell and a list")
 
         page_html = markdown_lib.markdown(vocab_md, extensions=["tables", "attr_list", "md_in_html", "toc"])
         tables = page_html.count("<table>")

@@ -25,7 +25,7 @@ Authentication
 
 </div>
 
-Documents are parsed, then annotated with concepts from reference vocabularies (see [Vocabularies](../../vocabularies.md)). BiodiversityPMC is described in two TDWG 2023 abstracts by Pasche et al. [@pasche2023towards] [@pasche2023sibils]. The OpenAPI description lists the endpoints and parameters; the guides below add the explanations, limits and examples.
+Documents are parsed, then annotated with concepts from reference vocabularies (see [Vocabularies](../../vocabularies.md)). BiodiversityPMC is described in two TDWG 2023 abstracts by Pasche et al. [-@pasche2023towards] [-@pasche2023sibils]. The OpenAPI description lists the endpoints and parameters; the guides below add the explanations, limits and examples.
 
 ## Endpoints
 

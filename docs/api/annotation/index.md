@@ -45,7 +45,7 @@ Use it to:
 - look up a concept: preferred term, synonyms and link to its source database;
 - find the concepts of a vocabulary from a few characters (autocomplete).
 
-The vocabularies are described on the [Vocabularies](../../vocabularies.md) page, and the annotation of the SIBiLS collections in Caucheteur et al. (2026) [@caucheteur2026sibils].
+The vocabularies are described on the [Vocabularies](../../vocabularies.md) page, and the annotation of the SIBiLS collections in Caucheteur et al. [-@caucheteur2026sibils].
 
 ## Endpoints
 
@@ -517,6 +517,6 @@ Errors use the same fields with `success` set to `false`. A missing or invalid p
 
 `GET /metrics` returns request counters and sizes in the Prometheus text format, for monitoring.
 
-## Reference
+## OpenAPI reference
 
 The complete list of parameters and schemas is in the [reference](reference.md), rendered from the OpenAPI description, and in the service's own [Swagger UI](https://biodiversitypmc.sibils.org/api/otf/).

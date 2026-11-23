@@ -560,6 +560,6 @@ For new code, use [`POST /qa`](#post-qa), which searches the three collections i
 
 [https://qa.sibils.org/?q=What%20diseases%20are%20transmitted%20by%20ticks%20%3F&col=medline&mode=generative&retrieval=dense&qa_size=5](https://qa.sibils.org/?q=What%20diseases%20are%20transmitted%20by%20ticks%20%3F&col=medline&mode=generative&retrieval=dense&qa_size=5)
 
-## Reference
+## OpenAPI reference
 
 The [OpenAPI reference](qa_reference.md) page embeds the interactive reference of this API, generated from its OpenAPI description, where requests can be tried.

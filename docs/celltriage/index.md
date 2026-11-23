@@ -28,7 +28,7 @@ Output
 :   Ranked lists of publications, updated every week; export as JSON or CSV in the web application
 
 Reference
-:   CellTriage: no dedicated publication. DisTriage: Nugnes et al., Nucleic Acids Research 2026 [@nugnes2026disprot]
+:   CellTriage: no dedicated publication. DisTriage: Nugnes et al., *Nucleic Acids Research* [-@nugnes2026disprot]
 
 </div>
 
@@ -60,9 +60,8 @@ The [CellTriage API](../api/celltriage/index.md) scores a list of PMIDs submitte
 !!! cite "How to cite"
     There is no dedicated publication for CellTriage. Please cite SIBiLS:
 
-    - Gobeill J, Caucheteur D, Michel PA, Mottin L, Pasche E, Ruch P (2020). SIB Literature Services: RESTful customizable search engines in biomedical literature, enriched with automatically mapped biomedical concepts. *Nucleic Acids Research* 48(W1):W12–W16. [doi:10.1093/nar/gkaa328](https://doi.org/10.1093/nar/gkaa328) · [PMID 32379317](https://pubmed.ncbi.nlm.nih.gov/32379317/)
-    - Caucheteur D, Flament A, Gobeill J, Pasche E, Michel PA, Mottin L, Liyanapathirana J, Mottaz A, Ruch P (2026). Enhancing the SIB Literature Services (SIBiLS) with annotations to support biocuration. *Database* 2026:baag034. [doi:10.1093/database/baag034](https://doi.org/10.1093/database/baag034) · [PMID 42768721](https://pubmed.ncbi.nlm.nih.gov/42768721/)
+    <!-- sibils:cite 10_1093_nar_gkaa328 caucheteur2026sibils -->
 
     DisTriage is described in:
 
-    - Nugnes MV, Bouhraoua KEA, Zoubiri M, Pancsa R, Fichó E, DisProt Consortium, Tompa P, Piovesan D, Tosatto SCE, Aspromonte MC (2026). DisProt in 2026: enhancing intrinsically disordered proteins accessibility, deposition, and annotation. *Nucleic Acids Research* 54(D1):D383–D392. [doi:10.1093/nar/gkaf1175](https://doi.org/10.1093/nar/gkaf1175) · [PMID 41249866](https://pubmed.ncbi.nlm.nih.gov/41249866/)
+    <!-- sibils:cite nugnes2026disprot -->

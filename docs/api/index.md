@@ -78,4 +78,4 @@ Values observed on 22 November 2026, with SIBiLS release 5.1.5.10.
 - Use `POST` for long id lists and long queries, which can exceed URL length limits. Each guide shows how to send the parameters.
 - Set a client timeout. Most requests answer in less than a few seconds; generative question answering and large `/fetch` requests can take longer.
 
-SIBiLS is described in Gobeill et al., *Nucleic Acids Research* 2020 [@10_1093_nar_gkaa328], and Caucheteur et al., *Database* 2026 [@caucheteur2026sibils].
+SIBiLS is described in Gobeill et al., *Nucleic Acids Research* [-@10_1093_nar_gkaa328], and Caucheteur et al., *Database* [-@caucheteur2026sibils].

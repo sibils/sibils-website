@@ -82,7 +82,7 @@ The [API documentation](api/index.md) lists the APIs of every service.
 </div>
 <figure class="diagram" markdown>
 ![Diagram of the SIBiLS architecture. Full texts and supplementary data (pmc, suppdata), citations (medline) and treatments (plazi) are parsed, then mapped to biomedical vocabularies such as DrugBank, neXtProt and GO, with daily updates. Parsed content and mapped entities are stored in MongoDB and indexed in Elasticsearch. The Fetch API takes PMIDs or PMCIDs and returns parsed content and mapped entities in BioC JSON; the Customizable Search API takes a Lucene query and returns ranked documents.](assets/graphical_abstract.png){ loading=lazy width="720" height="540" }
-<figcaption markdown>Architecture of SIBiLS, updated from the graphical abstract of the 2020 paper in *Nucleic Acids Research* ([Gobeill et al., 2020](#how-to-cite)). Current figures: [Collections](collections/sibils_collections.md) and [Vocabularies](vocabularies.md). [Full-size image](assets/graphical_abstract.png) (PNG, 283 kB).</figcaption>
+<figcaption markdown>Architecture of SIBiLS, updated from the graphical abstract of the 2020 paper in *Nucleic Acids Research* [@10_1093_nar_gkaa328]. Current figures: [Collections](collections/sibils_collections.md) and [Vocabularies](vocabularies.md). [Full-size image](assets/graphical_abstract.png) (PNG, 283 kB).</figcaption>
 </figure>
 </div>
 
@@ -95,10 +95,9 @@ The [API documentation](api/index.md) lists the APIs of every service.
 
     If you use SIBiLS, its APIs or one of its web applications, please cite both papers:
 
-    - Gobeill J, Caucheteur D, Michel PA, Mottin L, Pasche E, Ruch P (2020). SIB Literature Services: RESTful customizable search engines in biomedical literature, enriched with automatically mapped biomedical concepts. *Nucleic Acids Research* 48(W1):W12–W16. [doi:10.1093/nar/gkaa328](https://doi.org/10.1093/nar/gkaa328)
-    - Caucheteur D, Flament A, Gobeill J, Pasche E, Michel PA, Mottin L, Liyanapathirana J, Mottaz A, Ruch P (2026). Enhancing the SIB Literature Services (SIBiLS) with annotations to support biocuration. *Database* 2026:baag034. [doi:10.1093/database/baag034](https://doi.org/10.1093/database/baag034)
+    <!-- sibils:cite 10_1093_nar_gkaa328 caucheteur2026sibils -->
 
-    The [Publications](publications.md) page gives the papers to cite for each service, BibTeX entries and the full list of publications.
+    The [Publications](publications.md) page gives the papers to cite for each service, with their BibTeX entries, the publications about SIBiLS and published work that uses it.
 
 </div>
 <div markdown>

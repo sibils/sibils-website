@@ -27,7 +27,7 @@ Output
 :   Answers with their source documents (PMID, PMCID or Plazi treatment id) and passages, extractive answers with a confidence score; export as JSON or CSV in the web application
 
 Reference
-:   No dedicated publication yet; see Caucheteur et al., Database 2026 [@caucheteur2026sibils] and the milestone report of Flament et al., 2026 [@flament2026qademonstrator]
+:   No dedicated publication yet; see Caucheteur et al., *Database* [-@caucheteur2026sibils] and the milestone report of Flament et al. [-@flament2026qademonstrator]
 
 </div>
 
@@ -57,9 +57,8 @@ The [Question-Answering API](../api/biodiversitypmc/qa.md) page documents the en
 !!! cite "How to cite"
     There is no dedicated publication for Question-Answering yet. Please cite SIBiLS:
 
-    - Gobeill J, Caucheteur D, Michel PA, Mottin L, Pasche E, Ruch P (2020). SIB Literature Services: RESTful customizable search engines in biomedical literature, enriched with automatically mapped biomedical concepts. *Nucleic Acids Research* 48(W1):W12–W16. [doi:10.1093/nar/gkaa328](https://doi.org/10.1093/nar/gkaa328) · [PMID 32379317](https://pubmed.ncbi.nlm.nih.gov/32379317/)
-    - Caucheteur D, Flament A, Gobeill J, Pasche E, Michel PA, Mottin L, Liyanapathirana J, Mottaz A, Ruch P (2026). Enhancing the SIB Literature Services (SIBiLS) with annotations to support biocuration. *Database* 2026:baag034. [doi:10.1093/database/baag034](https://doi.org/10.1093/database/baag034) · [PMID 42768721](https://pubmed.ncbi.nlm.nih.gov/42768721/)
+    <!-- sibils:cite 10_1093_nar_gkaa328 caucheteur2026sibils -->
 
     The current question answering pipeline is described in a project milestone report:
 
-    - Flament A, Gaillac E, Knafou J, Ruch P (2026). SCIENCE BFSP CoS – WP10 – M10.3: An Agent Based Demonstrator to interact with the literature. ELIXIR (project milestone, KYBELE). Zenodo. [doi:10.5281/zenodo.22864180](https://doi.org/10.5281/zenodo.22864180)
+    <!-- sibils:cite flament2026qademonstrator -->
