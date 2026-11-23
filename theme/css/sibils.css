@@ -297,10 +297,23 @@ a { color: var(--link); }
   padding: 8px 16px;
 }
 
+/* Title. Under the red band: the text "SIBiLS Documentation". Once the band
+   has left the screen (theme.js: .subbar.is-stuck): the wordmark's letters
+   on a red chip (img/sibils-wordmark-letters-white.png, the top rows of
+   sibils-wordmark-white.png), alone. Both states share one grid cell, as
+   wide and tall as the larger one, and switch at once (no transition): the
+   cell keeps its size, so nothing moves. From 420px the chip (117.6px) is
+   narrower than the text (181.3px at the default font size, more with a
+   larger one), so the cell, and the bar, are those of the text alone.
+   The text stays in the accessibility tree (opacity, not visibility) and
+   names the link; the chip is aria-hidden. Without JavaScript only the
+   text exists. */
 .subbar__title {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 8px;
+  display: inline-grid;
+  flex: none;
+  align-items: center;
+  justify-items: start;
+  border-radius: 2px;
   color: var(--brand-text);
   font-size: 1.25rem;
   font-weight: 700;
@@ -308,10 +321,63 @@ a { color: var(--link); }
   text-decoration: none;
   white-space: nowrap;
 }
+.subbar__name, .subbar__logo { grid-area: 1 / 1; }
+.subbar__name {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
 .subbar__suffix {
   color: var(--muted);
   font-size: 1rem;
   font-weight: 400;
+}
+/* The chip: 36px tall like the search button, so the bar keeps its height.
+   The letters are 20px tall: the S has a cap height of 12.5px, against 14px
+   for the 20px bold "SIBiLS" it replaces. The clear space is at least the
+   size of the wordmark's badge, as the SIB brand book asks (the size of the
+   emblem around the logo, "optimal protection zone"): 8.4px of red around
+   the visible letters (8px of padding, plus the image's own edge, a 2%
+   halo) for a 6.1px badge; the red band gives the full wordmark 17.3px above
+   its letters for an 11.7px badge. The band's gradient is repeated. */
+.subbar__logo {
+  display: block;
+  padding: 8px;
+  border-radius: var(--radius);
+  background-color: var(--header);
+  background-image: linear-gradient(to top left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+  visibility: hidden;
+}
+.subbar__logo img {
+  display: block;
+  width: auto;
+  height: 20px;
+}
+.subbar.is-stuck .subbar__logo { visibility: visible; }
+.subbar.is-stuck .subbar__name { opacity: 0; }
+/* The pointer and the focus ring follow what is visible, not the whole
+   cell: under the band the text, then the chip (below 420px the chip is
+   wider than "SIBiLS"; from 420px the text is wider than the chip). */
+.js .subbar__title { pointer-events: none; }
+.js .subbar:not(.is-stuck) .subbar__name,
+.js .subbar.is-stuck .subbar__logo { pointer-events: auto; }
+.js .subbar__title:focus-visible { outline: none; }
+.js .subbar:not(.is-stuck) .subbar__title:focus-visible .subbar__name,
+.js .subbar.is-stuck .subbar__title:focus-visible .subbar__logo {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.js .subbar__title:focus-visible .subbar__name { border-radius: 2px; }
+/* Forced colours (Windows contrast themes): the white letters keep their red
+   ground, in the chip and in the band (whose red is otherwise replaced by
+   the system background, often white). The band's wordmark gets a red edge
+   of 8px, inside the band's padding, so nothing moves. */
+@media (forced-colors: active) {
+  .subbar__logo, .brand { forced-color-adjust: none; }
+  .brand {
+    background-color: var(--header);
+    box-shadow: 0 0 0 8px var(--header);
+  }
 }
 
 .mainnav { margin-left: auto; }
@@ -1975,8 +2041,17 @@ dialog::backdrop { background: var(--backdrop); }
   .search-btn { min-width: 0; width: 36px; padding: 0; justify-content: center; border-color: transparent; color: var(--nav-ink); }
   .search-btn__label, .search-btn__key { display: none; }
 }
+/* Phones: "Documentation" is left out of the title below 420px (still in the
+   link's name). */
 @media (max-width: 419.98px) {
-  .subbar__suffix { display: none; }
+  .subbar__suffix {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
 @media (max-width: 639.98px) {
   .content .lead, .intro__lead { font-size: 1.0625rem; }

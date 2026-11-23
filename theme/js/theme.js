@@ -5,6 +5,7 @@
  *
  *  - light/dark toggle (the initial theme is applied by the inline script
  *    in <head>, before the first paint)
+ *  - wordmark in the white bar once the red header has left the screen
  *  - menu drawer (below 1024px)
  *  - copy buttons on code blocks; hanging indent of wrapped JSON lines;
  *    long JSON outputs shortened to 18 lines with a "Show all" button
@@ -85,6 +86,28 @@
       setTheme(event.newValue, false);
     }
   });
+
+  /* Wordmark in the white bar once the red band has left the screen ------ */
+
+  // The white bar is sticky; the red band above it scrolls away. While the
+  // band (with its wordmark) is on screen, the bar's title is the text
+  // "SIBiLS Documentation"; once the band has gone, .is-stuck shows the
+  // wordmark's letters on a red chip instead (CSS), at once. The root's top
+  // edge is moved down 1px, so that a band at 0px of the screen counts as
+  // gone. A page opened lower down (at an anchor, or by Back) gets the chip
+  // from the observer's first report. The observer reports only after a
+  // frame is painted, so a jump to the top (Home key, a link to the top)
+  // showed both logos for a frame; scroll events run before the paint, so
+  // the scroll listener sets the same state in time.
+  var band = document.querySelector('.site-header');
+  var bar = document.querySelector('.subbar');
+  if (band && bar && 'IntersectionObserver' in window) {
+    var setStuck = function () {
+      bar.classList.toggle('is-stuck', band.getBoundingClientRect().bottom < 1);
+    };
+    new IntersectionObserver(setStuck, { rootMargin: '-1px 0px 0px 0px' }).observe(band);
+    window.addEventListener('scroll', setStuck, { passive: true });
+  }
 
   /* Dialogs: menu drawer (search.js handles the search dialog) ----------- */
 

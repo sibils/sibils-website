@@ -15,7 +15,7 @@ white sub-bar with the documentation sections.
 | `partials/head.html` | `<title>` (the page's H1), description (front matter, else the `{ .lead }` paragraph, else the site's), canonical URL, Open Graph and Twitter cards, icons, the script that applies the light/dark theme before the first paint |
 | `partials/jsonld.html` | schema.org description of SIBiLS, home page only. Its service channels are the SIBiLS apps of `extra.apps` |
 | `partials/header.html` | Red band: the wordmark, a link to the home page. Unlike the apps' own band, it does not list the SIBiLS apps: the Services section, the home page and each service page link to them |
-| `partials/subbar.html` | Site title, the top-level nav sections, search button, theme toggle, menu button (below 1024 px) |
+| `partials/subbar.html` | Site title, the top-level nav sections, search button, theme toggle, menu button (below 1024 px). Once the red band has left the screen, the title shows the wordmark's letters on a red chip in place of the text "SIBiLS Documentation" (see "Header" below) |
 | `partials/sidebar.html`, `toc.html`, `breadcrumb.html`, `pager.html` | Navigation around the content |
 | `partials/drawer.html`, `search.html` | The menu and search dialogs (`<dialog>`); `search.html` also lists each page's H1 and sections for the search results |
 | `partials/counts.html` | Home page collection counts: a round lower bound of each count from `config.extra.sibils` (set by `hooks/sibils_data.py`), in grey and read as "at least …" by screen readers, until `js/counts.js` replaces it |
@@ -28,11 +28,43 @@ white sub-bar with the documentation sections.
 | `js/search.js` | Search dialog over `search/search_index.json` (written by the MkDocs `search` plugin) |
 | `js/counts.js` | Home page only (loaded by `partials/counts.html`): reads the current counts from the SIBiLS API (`config.extra.sibils.count_url`) and writes the exact numbers in place of the approximate ones. See "Collection counts" below |
 | `fonts/` | DM Sans variable font (latin and latin-ext, normal and italic), licence in `fonts/OFL.txt` |
-| `img/` | Wordmarks, favicon, Apple touch icon, social card (`og-card.png`), `partners/` logos |
+| `img/` | Wordmarks (`sibils-wordmark-letters-white.png`: the letters of the white wordmark, without its descriptor line, for the sub-bar chip), favicon, Apple touch icon, social card (`og-card.png`), `partners/` logos |
 | `tools/build_pygments_css.py` | Regenerates `css/pygments.css` and checks its contrast |
 
 MkDocs copies every file of this folder to the site except templates (`*.html`), Python files and
 this README.
+
+## Header
+
+- The red band (`partials/header.html`) scrolls away with the page; the white sub-bar
+  (`partials/subbar.html`) sticks to the top of the screen.
+- While the band is on screen, the sub-bar title is the text "SIBiLS Documentation". Once the
+  band has left the screen (an `IntersectionObserver` in `js/theme.js` sets `.is-stuck` on the
+  sub-bar), the title is the wordmark's letters, white on a red chip, in place of the text. So
+  one SIBiLS logo is on screen at a time. The switch is instant (no transition) and moves
+  nothing: both states share one grid cell, as large as the larger state. From 420 px the text
+  is the larger one from an 11 px default font size up (181 px at 16 px, against 118 px for the
+  chip), so the bar and its wrapping are those of the text alone; below 420 px the cell is the
+  chip's width.
+- The chip is 36 px tall, like the search button, so the bar keeps its 53 px. The letters are
+  20 px tall; the red around them (8 px of padding, 8.4 px to the visible letters) is at least
+  the size of the wordmark's badge (6.1 px, the small square at its top right), the clear space
+  the SIB brand book asks for around a logo (the size of its emblem).
+- `img/sibils-wordmark-letters-white.png` is cut from `img/sibils-wordmark-white.png` at full
+  resolution, rows 2 to 116 and columns 4 to 587 (the letters and the badge, and the source's
+  own faint halo, alpha 5 of 255, around them; the descriptor line starts at row 147). If the
+  wordmark changes, cut it again:
+
+      ffmpeg -i theme/img/sibils-wordmark-white.png -vf crop=584:115:4:2 -frames:v 1 \
+        theme/img/sibils-wordmark-letters-white.png
+
+- The link is named by its text, "SIBiLS Documentation", in both states (the chip is
+  `aria-hidden` and its image has an empty `alt`). Without JavaScript the chip never shows.
+  Below 420 px the title is "SIBiLS" alone (the rest is visually hidden). The pointer and the
+  focus ring follow the visible state, not the whole cell.
+- Forced colours (Windows contrast themes): the chip, and the band's wordmark with an 8 px red
+  edge, keep their red ground (`forced-color-adjust: none`); otherwise the white letters would
+  sit on the system background.
 
 ## Navigation rules
 
