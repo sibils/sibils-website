@@ -1,6 +1,7 @@
 {#- Partner logos (config.extra.partners, files in theme/img/partners/; width
     and height are the file's pixel size, used to reserve the space), then
-    licence, contact, institution and source repository. -#}
+    licence, How to cite (Publications page), contact, institution and source
+    repository. -#}
 {%- set extra = config.extra or {} %}
 {%- set partners = extra.get('partners') or [] %}
 {%- set license = extra.get('license') %}
@@ -19,6 +20,7 @@
       {%- if license %}
       <span>Tagged entities are licensed under <a href="{{ license.url | e }}" rel="license">{{ license.name | e }}</a></span>
       {%- endif %}
+      <span><a href="{{ 'publications/#how-to-cite' | url }}">How to cite</a></span>
       {%- if extra.get('contact_email') %}
       <span>Contact: <a href="mailto:{{ extra.contact_email | e }}">{{ extra.contact_email | e }}</a></span>
       {%- endif %}

@@ -11,6 +11,8 @@ SIBiLS annotates the documents of all its collections (MEDLINE, PMC, supplementa
 
 The [annotation and vocabularies API](api/annotation/index.md) annotates any text with the same vocabularies and returns the preferred term and synonyms of their concepts. Caucheteur et al. [-@caucheteur2026sibils] describe how the annotations are made and measure their precision vocabulary by vocabulary.
 
+The COVoc vocabularies are described by Caucheteur et al. [-@caucheteur2023covoc].
+
 Each annotation names its vocabulary in the `concept_source` field and copies the entity `type` and the `version` of the vocabulary. The tables below give these values for each vocabulary. Documents also carry annotations that do not come from this list: identifiers such as DOIs and PubMed ids (`concept_source` `id_doi` and `id_pubmed`) and research funders (`grant`, identified by their Crossref Funder Registry DOI).
 
 Vocabularies of SIBiLS release <!-- sibils:release -->, as returned by the [terminologies endpoint](https://biodiversitypmc.sibils.org/api/otf/terminologies) on <!-- sibils:date -->. A few names, descriptions and links are corrected on this page where the endpoint has typos or out-of-date text.

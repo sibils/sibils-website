@@ -40,7 +40,7 @@ git add -A && git commit && git push
 | `docs/` | The pages. The URL follows the path: `docs/sparql/index.md` is `/sparql/`, `docs/vocabularies.md` is `/vocabularies/`. Keep existing paths: other sites link to them. |
 | `docs/assets/` | Images and files used by the pages (external sites also link to the logos here). |
 | `mkdocs.yml` | Site settings: the navigation (`nav`), the SIBiLS apps given as service channels in the home page's structured data (`extra.apps`, see `theme/partials/jsonld.html`), footer logos (`extra.partners`), contact, licence, Matomo. |
-| `refs.bib` | Bibliography: `[@key]` citations, the How to cite boxes and the Publications page are written from it (see *Citations* below). |
+| `refs.bib` | Bibliography: `[@key]` citations and the references of the Publications page are written from it (see *Citations* below). |
 | `hooks/sibils_data.py`, `data/` | Collection counts and vocabularies from the SIBiLS API (see below), and the references written from `refs.bib`. |
 | `theme/` | The theme: templates, CSS, JavaScript, fonts, images. See [theme/README.md](theme/README.md). |
 | `.github/workflows/publish.yml` | Build and deployment. |
@@ -80,7 +80,6 @@ hero_lead: One plain sentence.
 hero_actions:
   - {label: Search BiodiversityPMC, url: "https://biodiversitypmc.sibils.org/", primary: true}
   - {label: API documentation, url: api/index.md}
-  - {label: How to cite, url: publications.md}
 ---
 ```
 
@@ -167,14 +166,26 @@ collapsed block, `???+` an expanded one.
 ### How to cite
 
 Write references as keys of `refs.bib`, never by hand: the build writes them all in the same
-style, so a correction in `refs.bib` reaches every page. The marker is alone on its line and
-indented like the box:
+style, so a correction in `refs.bib` reaches every page. Requests to cite are in the How to cite
+section of the Publications page and in the *Citation* row of each service page (see *Citations*
+below). In its How to cite box, the marker is alone on its line and indented like the box:
 
 ```markdown
-!!! cite "How to cite"
-    If you use Variomes, please cite:
+## How to cite
 
-    <!-- sibils:cite pasche2022variomes -->
+!!! cite ""
+
+    If you use SIBiLS, its APIs or one of its web applications, please cite both papers:
+
+    <!-- sibils:cite 10_1093_nar_gkaa328 caucheteur2026sibils -->
+```
+
+A service page has no box: the *Citation* row of its facts box names the papers to cite, with
+author-year citations listed under *References* at the end of the page:
+
+```markdown
+Citation
+:   Pasche et al. [-@pasche2022variomes], with the SIBiLS papers Gobeill et al. [-@10_1093_nar_gkaa328] and Caucheteur et al. [-@caucheteur2026sibils]
 ```
 
 Other markers: `<!-- sibils:bibtex KEY KEY -->` (a BibTeX block copied from `refs.bib`),
@@ -194,12 +205,13 @@ Add one entry to `refs.bib`, with `sibils_group`: the group named by a
 (papers, conference abstracts and posters about SIBiLS), `about-reports` (reports and datasets
 on Zenodo) or `work-using` (published work that uses SIBiLS). The group lists its entries newest
 first, then by first author, then by title. The two SIBiLS papers have no group: they are in the
-How to cite box. A paper that users of a service should cite also goes in the table *Papers to
-cite for each service* (`<!-- sibils:cite-short KEY -->`) and in the BibTeX marker. Optional
-fields: `sibils_use`, how the work uses SIBiLS, printed after the reference (Markdown, for
-*Work using SIBiLS*); `addendum`, Markdown after the DOI; `shorttitle`, the title in the table
-of the page; `comment`, a note for the maintainers that is never shown. Standard fields are
-LaTeX: write `\%` for a percent sign (a bare `%` cuts the field).
+How to cite box. A paper that users of a service should cite also goes in the table of the How
+to cite section (`<!-- sibils:cite-short KEY -->`), in the BibTeX marker and in the *Citation*
+row of the service page (see *Citations* below). Optional fields: `sibils_use`, how the work
+uses SIBiLS, printed after the reference (Markdown, for *Work using SIBiLS*); `addendum`,
+Markdown after the DOI; `shorttitle`, the title in the table of the page; `comment`, a note for
+the maintainers that is never shown. Standard fields are LaTeX: write `\%` for a percent sign (a
+bare `%` cuts the field).
 
 For example, the entry already in `refs.bib` for the OLIDA paper (copy it with a new key, or the
 build stops on the duplicate):
@@ -227,8 +239,9 @@ full reference on the same page; `[-@key]` gives *(2020)*, for a sentence that a
 authors. `[@a] [@b]` or `[@a; @b]` give one parenthesis, in which works of the same authors share
 the label: *(Pasche et al., 2023b, 2023c)*. The link text has no-break spaces inside "et al." and
 before the year, so that a line never breaks there. Put the citation before the punctuation. A
-work listed in the page's How to cite box is linked there; the other cited works are listed
-under a *References* heading added at the end of the page.
+work that the page lists itself (the How to cite box and the lists of the Publications page) is
+linked there; the other cited works are listed under a *References* heading added at the end of
+the page.
 
 Nothing else goes inside the brackets: no space, page number or prefix. `[@key, p. 5]` or
 `[@ key]` stays in the page as written and logs a warning, so `mkdocs build --strict` stops; a
@@ -238,15 +251,15 @@ or `~~~`) and in code spans are left as written, but not in a code block indente
 use a fenced block for code that contains `[@`.
 
 ```markdown
-SIBiLS is described in the 2020 web server issue of Nucleic Acids Research [@10_1093_nar_gkaa328].
-Variomes is described in Pasche et al. [-@pasche2022variomes].
+Caucheteur et al. [-@caucheteur2026sibils] describe how the annotations are made and measure their precision vocabulary by vocabulary.
+The 2022 paper describes the first three [@pasche2022variomes]; supplementary materials were added later [@pasche2023supplementary].
 ```
 
 When several works shown on the site have the same authors' label and year, a letter follows the
 year, in the order of their titles: today *Pasche et al., 2023a, 2023b, 2023c*. The letter is in
-the citations, the *References* sections, the Publications lists and the table *Papers to cite
-for each service*, but not in the How to cite boxes, which users copy into their own papers. A
-new work with the same label and year can shift these letters.
+the citations, the *References* sections, the Publications lists and the table of the How to cite
+section, but not in the How to cite box, which users copy into their own papers. A new work with
+the same label and year can shift these letters.
 
 Plain footnotes (`[^note]`) are for explanatory notes and are listed under *Notes*:
 
@@ -255,6 +268,34 @@ The count includes retracted articles.[^retracted]
 
 [^retracted]: Retracted articles stay in PubMed with a retraction notice.
 ```
+
+Requests to cite are in the How to cite section of `docs/publications.md` and in the *Citation*
+row of each service page. The section has the box of the two SIBiLS papers (the only cite box of
+the site, and its only "please ... cite"), the table of the papers of each service, collection
+and vocabulary, and the BibTeX. Elsewhere the site points to the section without asking: the
+*How to cite* link in the footer of every page, the sentence of the About page next to the
+licence. A service page names the papers to cite in the *Citation* row of its facts box, as
+author-year citations listed under *References* at the end of the page: the papers of its row of
+the table and the two SIBiLS papers. An API guide links its service page (its *Web application*
+row), not the papers.
+
+The SIBiLS papers are not cited as the source of what the team states about its own service, such
+as the daily updates of the collections or what an annotation records: write such facts without a
+citation. Cite them for what only they give, such as the precision of the annotations, measured
+vocabulary by vocabulary (Vocabularies page).
+
+The build checks these rules (`check_cite_requests()` in `hooks/sibils_data.py`), with warnings,
+so `mkdocs build --strict` stops on:
+
+- a cite box (`<!-- sibils:cite -->` or a `cite` admonition) or a sentence with "please"
+  followed by "cite", "cites", "cited" or "citing" on a page other than `docs/publications.md`;
+- a page of the *Services* section of `nav` without a *Citation* row in its facts box;
+- a *Citation* row whose keys are not those of its service's row in the table of
+  `docs/publications.md` together with those of the How to cite box. In the row, a sentence that
+  says "described in" gives information, not a paper to cite (the KYBELE report of
+  Question-Answering), and "with the Variomes paper" adds the keys of the Variomes row.
+
+A new service page therefore gets its row in the table and its *Citation* row in the same commit.
 
 ### Code
 

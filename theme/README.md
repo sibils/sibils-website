@@ -19,7 +19,7 @@ white sub-bar with the documentation sections.
 | `partials/sidebar.html`, `toc.html`, `breadcrumb.html`, `pager.html` | Navigation around the content |
 | `partials/drawer.html`, `search.html` | The menu and search dialogs (`<dialog>`); `search.html` also lists each page's H1 and sections for the search results |
 | `partials/counts.html` | Home page collection counts: a round lower bound of each count from `config.extra.sibils` (set by `hooks/sibils_data.py`), in grey and read as "at least …" by screen readers, until `js/counts.js` replaces it |
-| `partials/footer.html` | Partner logos (`extra.partners`), licence, contact, source link |
+| `partials/footer.html` | Partner logos (`extra.partners`), licence, How to cite link (Publications page, `#how-to-cite`), contact, source link |
 | `partials/analytics.html` | Matomo (`extra.analytics`), only on sibils.org and www.sibils.org |
 | `partials/macros.html` | Navigation helpers, URL resolution for front-matter links, icons |
 | `css/sibils.css` | All styles: colour tokens (light and dark), layout, content components, print |

@@ -26,8 +26,8 @@ Collections
 Output
 :   Pairs of taxa with an interaction type from the Relation Ontology, each with its supporting passages and documents; export as JSON or CSV in the web application
 
-Reference
-:   Ruch et al., SPNHC-TDWG [-@ruch2024biotxplorer]
+Citation
+:   Ruch et al. [-@ruch2024biotxplorer], with the SIBiLS papers Gobeill et al. [-@10_1093_nar_gkaa328] and Caucheteur et al. [-@caucheteur2026sibils]
 
 </div>
 
@@ -44,10 +44,3 @@ A presentation of BiotXplorer (3 min 41 s, MP4, 60.5 MB).
 ## API
 
 The BiotXplorer API has its own interactive documentation (Swagger UI) at [biotxplorer.sibils.org/api/](https://biotxplorer.sibils.org/api/).
-
-!!! cite "How to cite"
-    If you use BiotXplorer, please cite:
-
-    <!-- sibils:cite ruch2024biotxplorer -->
-
-    Please also cite the SIBiLS papers listed under [How to cite](../publications.md#how-to-cite) on the Publications page.

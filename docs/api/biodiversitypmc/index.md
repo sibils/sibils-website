@@ -20,12 +20,15 @@ Interactive reference
 OpenAPI description
 :   [biodiversitypmc.sibils.org/api/openapi.json](https://biodiversitypmc.sibils.org/api/openapi.json) (OpenAPI 3.1)
 
+Web application
+:   [biodiversitypmc.sibils.org](https://biodiversitypmc.sibils.org/), described in [BiodiversityPMC](../../biodiversitypmc/index.md)
+
 Authentication
 :   None
 
 </div>
 
-Documents are parsed, then annotated with concepts from reference vocabularies (see [Vocabularies](../../vocabularies.md)). BiodiversityPMC is described in two TDWG 2023 abstracts by Pasche et al. [-@pasche2023towards] [-@pasche2023sibils]. The OpenAPI description lists the endpoints and parameters; the guides below add the explanations, limits and examples.
+Documents are parsed, then annotated with concepts from reference vocabularies (see [Vocabularies](../../vocabularies.md)). The OpenAPI description lists the endpoints and parameters; the guides below add the explanations, limits and examples.
 
 ## Endpoints
 

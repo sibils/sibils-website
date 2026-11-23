@@ -27,8 +27,8 @@ Collections
 Output
 :   Ranked lists of publications, updated every week; export as JSON or CSV in the web application
 
-Reference
-:   CellTriage: no dedicated publication. DisTriage: Nugnes et al., *Nucleic Acids Research* [-@nugnes2026disprot]
+Citation
+:   The SIBiLS papers Gobeill et al. [-@10_1093_nar_gkaa328] and Caucheteur et al. [-@caucheteur2026sibils]; for DisTriage, also Nugnes et al. [-@nugnes2026disprot]
 
 </div>
 
@@ -56,12 +56,3 @@ The Triage web application also hosts these services, each with its own weekly u
 ## API
 
 The [CellTriage API](../api/celltriage/index.md) scores a list of PMIDs submitted by the user; its interactive documentation is at [celltriage.sibils.org/docs](https://celltriage.sibils.org/docs).
-
-!!! cite "How to cite"
-    There is no dedicated publication for CellTriage. Please cite SIBiLS:
-
-    <!-- sibils:cite 10_1093_nar_gkaa328 caucheteur2026sibils -->
-
-    DisTriage is described in:
-
-    <!-- sibils:cite nugnes2026disprot -->

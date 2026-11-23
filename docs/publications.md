@@ -1,12 +1,12 @@
 ---
 description: >-
-  How to cite SIBiLS and its services, the papers, abstracts, reports and
-  datasets that describe them, and published work that uses them.
+  The papers, abstracts, reports and datasets that describe SIBiLS and its
+  services, published work that uses them, and how to cite them.
 ---
 
 # Publications
 
-How to cite SIBiLS and its services, the papers, abstracts, reports and datasets that describe them, and published work that uses them.
+The papers, abstracts, reports and datasets that describe SIBiLS and its services, published work that uses them, and how to cite them.
 { .lead }
 
 ## How to cite
@@ -17,13 +17,7 @@ How to cite SIBiLS and its services, the papers, abstracts, reports and datasets
 
     <!-- sibils:cite 10_1093_nar_gkaa328 caucheteur2026sibils -->
 
-??? note "BibTeX for the papers to cite"
-
-    <!-- sibils:bibtex 10_1093_nar_gkaa328 caucheteur2026sibils pasche2023towards pasche2023sibils ruch2024biotxplorer pasche2022variomes mottaz2022synvar nugnes2026disprot gobeill2025supplementary caucheteur2023covoc -->
-
-## Papers to cite for each service
-
-Some services, collections and vocabularies have their own publication. If you use one of them, please cite its publication as well as the two SIBiLS papers.
+Some services, collections and vocabularies have their own publication, to cite together with the two SIBiLS papers:
 
 | Service or data | Publication |
 |-----------------|-------------|
@@ -36,6 +30,10 @@ Some services, collections and vocabularies have their own publication. If you u
 | [SPARQL endpoint](sparql/index.md) | No dedicated publication |
 | [Supplementary data](collections/sibils_collections.md#supplementary-data) collection | <!-- sibils:cite-short gobeill2025supplementary --> |
 | [COVoc](vocabularies.md#covoc) vocabularies | <!-- sibils:cite-short caucheteur2023covoc --> |
+
+??? note "BibTeX for the papers to cite"
+
+    <!-- sibils:bibtex 10_1093_nar_gkaa328 caucheteur2026sibils pasche2023towards pasche2023sibils ruch2024biotxplorer pasche2022variomes mottaz2022synvar nugnes2026disprot gobeill2025supplementary caucheteur2023covoc -->
 
 ## Publications about SIBiLS
 

@@ -27,8 +27,8 @@ Data
 Output
 :   SPARQL results (for example JSON or CSV); the RDF dataset can also be downloaded in Turtle format
 
-Reference
-:   No dedicated publication; see Caucheteur et al., *Database* [-@caucheteur2026sibils]
+Citation
+:   The SIBiLS papers Gobeill et al. [-@10_1093_nar_gkaa328] and Caucheteur et al. [-@caucheteur2026sibils]
 
 </div>
 
@@ -56,8 +56,3 @@ A presentation of the SPARQL endpoint, recorded in 2023 (4 min 51 s, QuickTime, 
 ## API
 
 See the [SPARQL API](../api/sparql/index.md) page for programmatic access to `https://sparql.sibils.org/sparql`. The [SPARQL service page](https://sparql.sibils.org/sparql-service) of the SIBiLS RDF site gives curl and Python examples.
-
-!!! cite "How to cite"
-    There is no dedicated publication for the SPARQL endpoint. Please cite SIBiLS:
-
-    <!-- sibils:cite 10_1093_nar_gkaa328 caucheteur2026sibils -->

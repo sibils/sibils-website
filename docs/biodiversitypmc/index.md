@@ -26,8 +26,8 @@ Collections
 Output
 :   Ranked lists of documents; export as JSON or CSV in the web application, JSON or BioC through the API
 
-Reference
-:   Pasche et al., TDWG [-@pasche2023towards] [-@pasche2023sibils]
+Citation
+:   Pasche et al. [-@pasche2023towards] [-@pasche2023sibils], with the SIBiLS papers Gobeill et al. [-@10_1093_nar_gkaa328] and Caucheteur et al. [-@caucheteur2026sibils]
 
 </div>
 
@@ -46,10 +46,3 @@ The [Documentation](https://biodiversitypmc.sibils.org/docs) page of the web app
 ## API
 
 The [BiodiversityPMC API](../api/biodiversitypmc/index.md) fetches, searches and counts the same documents.
-
-!!! cite "How to cite"
-    If you use BiodiversityPMC, please cite:
-
-    <!-- sibils:cite pasche2023towards pasche2023sibils -->
-
-    Please also cite the SIBiLS papers listed under [How to cite](../publications.md#how-to-cite) on the Publications page.

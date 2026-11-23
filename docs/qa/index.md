@@ -26,8 +26,8 @@ Collections
 Output
 :   Answers with their source documents (PMID, PMCID or Plazi treatment id) and passages, extractive answers with a confidence score; export as JSON or CSV in the web application
 
-Reference
-:   No dedicated publication yet; see Caucheteur et al., *Database* [-@caucheteur2026sibils] and the milestone report of Flament et al. [-@flament2026qademonstrator]
+Citation
+:   The SIBiLS papers Gobeill et al. [-@10_1093_nar_gkaa328] and Caucheteur et al. [-@caucheteur2026sibils]
 
 </div>
 
@@ -38,6 +38,8 @@ Ask a question such as [What diseases are transmitted by ticks?](https://qa.sibi
 Question-Answering works on three SIBiLS collections: MEDLINE abstracts, PMC full-text articles and Plazi taxonomic treatments, the latter being of particular interest for biodiversity questions. The other collections (supplementary data, Zenodo) are not available for question answering. See [Collections](../collections/sibils_collections.md) for what each one contains.
 
 ## How answers are produced
+
+The current pipeline is described in a project milestone report of the ELIXIR project KYBELE [@flament2026qademonstrator].
 
 The service first retrieves documents, then produces answers from them.
 
@@ -53,12 +55,3 @@ The web application uses extractive mode with sparse retrieval by default; its a
 ## API
 
 The [Question-Answering API](../api/biodiversitypmc/qa.md) page documents the endpoints, parameters and response fields, and [how to move](../api/biodiversitypmc/qa.md#migrating-from-the-former-endpoint) from the former endpoint `https://biodiversitypmc.sibils.org/api/QA`.
-
-!!! cite "How to cite"
-    There is no dedicated publication for Question-Answering yet. Please cite SIBiLS:
-
-    <!-- sibils:cite 10_1093_nar_gkaa328 caucheteur2026sibils -->
-
-    The current question answering pipeline is described in a project milestone report:
-
-    <!-- sibils:cite flament2026qademonstrator -->

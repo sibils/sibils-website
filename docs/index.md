@@ -13,7 +13,6 @@ hero_lead: >-
 hero_actions:
   - {label: Search BiodiversityPMC, url: "https://biodiversitypmc.sibils.org/", primary: true}
   - {label: API documentation, url: api/index.md}
-  - {label: How to cite, url: publications.md}
 ---
 
 ## Services
@@ -82,25 +81,9 @@ The [API documentation](api/index.md) lists the APIs of every service.
 </div>
 <figure class="diagram" markdown>
 ![Diagram of the SIBiLS architecture. Full texts and supplementary data (pmc, suppdata), citations (medline) and treatments (plazi) are parsed, then mapped to biomedical vocabularies such as DrugBank, neXtProt and GO, with daily updates. Parsed content and mapped entities are stored in MongoDB and indexed in Elasticsearch. The Fetch API takes PMIDs or PMCIDs and returns parsed content and mapped entities in BioC JSON; the Customizable Search API takes a Lucene query and returns ranked documents.](assets/graphical_abstract.png){ loading=lazy width="720" height="540" }
-<figcaption markdown>Architecture of SIBiLS, updated from the graphical abstract of the 2020 paper in *Nucleic Acids Research* [@10_1093_nar_gkaa328]. Current figures: [Collections](collections/sibils_collections.md) and [Vocabularies](vocabularies.md). [Full-size image](assets/graphical_abstract.png) (PNG, 283 kB).</figcaption>
+<figcaption markdown>Architecture of SIBiLS, updated from the graphical abstract of the [2020 paper in *Nucleic Acids Research*](publications.md#ref-10_1093_nar_gkaa328). Current figures: [Collections](collections/sibils_collections.md) and [Vocabularies](vocabularies.md). [Full-size image](assets/graphical_abstract.png) (PNG, 283 kB).</figcaption>
 </figure>
 </div>
-
-<div class="split split--halves" markdown>
-<div markdown>
-
-## How to cite
-
-!!! cite ""
-
-    If you use SIBiLS, its APIs or one of its web applications, please cite both papers:
-
-    <!-- sibils:cite 10_1093_nar_gkaa328 caucheteur2026sibils -->
-
-    The [Publications](publications.md) page gives the papers to cite for each service, with their BibTeX entries, the publications about SIBiLS and published work that uses it.
-
-</div>
-<div markdown>
 
 ## Introduction video
 
@@ -108,6 +91,3 @@ The [API documentation](api/index.md) lists the APIs of every service.
 <div class="video"><video controls preload="none" poster="assets/posters/introduction.jpg"><source src="https://candy.text-analytics.ch/Speech.mp4" type="video/mp4"><a href="https://candy.text-analytics.ch/Speech.mp4">Download the introduction video (MP4)</a></video></div>
 <figcaption markdown>A presentation of SIBiLS and its services (2 min 45 s, MP4, 19.6 MB).</figcaption>
 </figure>
-
-</div>
-</div>

@@ -1589,11 +1589,10 @@ a { color: var(--link); }
 .home__content .cards > ul > li:first-child > p:not(:last-child) { max-width: 36em; }
 
 /* Split rows (<div class="split" markdown>, one <div markdown> or <figure>
-   per column): stacked, then 5/12 + 7/12 from 1200px; .split--halves: 6 + 6. */
+   per column): stacked, then 5/12 + 7/12 from 1200px. */
 .home__content .split > div > :is(p, ul, ol, h2, h3) { max-width: 40rem; }
 .home__content .split > figure,
 .home__content .split :is(.admonition, .video) { max-width: 760px; }
-.home__content .split--halves h2 + :is(.admonition, figure) { margin-top: 20px; }
 
 /* Figures: image and caption on the text edge. */
 .home__content figure { text-align: left; }
@@ -1648,9 +1647,7 @@ a { color: var(--link); }
   }
   .home__content .split > :first-child { grid-column: span 5; }
   .home__content .split > :last-child { grid-column: span 7; }
-  .home__content .split--halves > :first-child,
-  .home__content .split--halves > :last-child { grid-column: span 6; }
-  .home__content .split:not(.split--halves) > * > :first-child { margin-top: 0; }
+  .home__content .split > * > :first-child { margin-top: 0; }
   .home__content .split > * > :last-child { margin-bottom: 0; }
   .home__content .split > figure { max-width: none; margin: 0; }
   .home__content .split :is(.admonition, .video) { max-width: none; }

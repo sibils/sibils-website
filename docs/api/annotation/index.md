@@ -45,7 +45,7 @@ Use it to:
 - look up a concept: preferred term, synonyms and link to its source database;
 - find the concepts of a vocabulary from a few characters (autocomplete).
 
-The vocabularies are described on the [Vocabularies](../../vocabularies.md) page, and the annotation of the SIBiLS collections in Caucheteur et al. [-@caucheteur2026sibils].
+The vocabularies are described on the [Vocabularies](../../vocabularies.md) page.
 
 ## Endpoints
 

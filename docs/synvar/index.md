@@ -26,8 +26,8 @@ Resources used
 Output
 :   XML or JSON; GA4GH VRS through the API
 
-Reference
-:   Mottaz et al., MIE [-@mottaz2022synvar]
+Citation
+:   Mottaz et al. [-@mottaz2022synvar], with the Variomes paper Pasche et al. [-@pasche2022variomes] and the SIBiLS papers Gobeill et al. [-@10_1093_nar_gkaa328] and Caucheteur et al. [-@caucheteur2026sibils]
 
 </div>
 
@@ -110,10 +110,3 @@ The [usage guide](https://synvar.sibils.org/resources/info.html) on the SynVar s
 ## API
 
 See the [SynVar API](../api/synvar/index.md) page and the [usage guide](https://synvar.sibils.org/resources/info.html). For example, [`https://synvar.sibils.org/api?ref=BRAF&variant=V600E&level=protein&mode=normalize&format=json`](https://synvar.sibils.org/api?ref=BRAF&variant=V600E&level=protein&mode=normalize&format=json) returns the normalized descriptions of BRAF V600E.
-
-!!! cite "How to cite"
-    If you use SynVar, please cite it together with Variomes:
-
-    <!-- sibils:cite mottaz2022synvar pasche2022variomes -->
-
-    Please also cite the SIBiLS papers listed under [How to cite](../publications.md#how-to-cite) on the Publications page.

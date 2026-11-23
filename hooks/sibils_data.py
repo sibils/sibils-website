@@ -75,15 +75,24 @@ twice on a page is reported as a warning.
 In-text citations (link_citations()), outside code: [@KEY] gives
 "(Gobeill et al., 2020)", [-@KEY] gives "(2020)" for a sentence that already
 names the authors, and [@a] [@b] or [@a; @b] give one parenthesis. Each
-label links to #ref-KEY: the entry in the page's How to cite box, or in a
-"References" section added at the end of the page for the works that the page
-does not list. A letter follows the year when several works shown on the
-site have the same label and year (Pasche et al., 2023a, 2023b...), in the
-order of their titles; year_suffixes() computes them from all the pages.
+label links to #ref-KEY: the entry that a marker of the page writes, or the
+entry in a "References" section added at the end of the page for the works
+that the page does not list. A letter follows the year when several works
+shown on the site have the same label and year (Pasche et al., 2023a,
+2023b...), in the order of their titles; year_suffixes() computes them from
+all the pages.
 
 An unknown key or group is reported as a warning and shown in the page as
 "Missing reference: KEY" (an unknown key in a citation stays as written); a
 group of refs.bib that no page lists is reported as a warning too.
+
+Requests to cite (check_cite_requests(), when the nav is built) are reported
+as warnings when they are not where the site makes them: a cite box
+(<!-- sibils:cite --> or a "cite" admonition) or a sentence with "please" ...
+"cite", "cites", "cited" or "citing" on a page other than publications.md; a
+page of the Services section of the nav without a "Citation" row in its facts
+box; a Citation row whose keys are not those of the service's row in the table
+of publications.md together with those of its How to cite box.
 
 Environment variables:
 
@@ -108,6 +117,7 @@ import html
 import json
 import logging
 import os
+import posixpath
 import re
 import socket
 import sys
@@ -859,7 +869,7 @@ def counts_date_line(extra: dict) -> str:
 # References (refs.bib)
 #
 # Every full reference of the site is written from refs.bib, in the style of
-# the "How to cite" boxes:
+# the "How to cite" box of the Publications page:
 #
 #   Gobeill J, Caucheteur D, Michel PA, Mottin L, Pasche E, Ruch P (2020). SIB
 #   Literature Services: [...]. *Nucleic Acids Research* 48(W1):W12–W16.
@@ -1091,7 +1101,7 @@ def year_suffixes(bib, keys) -> dict:
 def format_reference(entry, letter: bool = True) -> str:
     """One reference in the house style, as Markdown on one line.
 
-    letter=False leaves out the year letter (2023b): How to cite boxes are
+    letter=False leaves out the year letter (2023b): the How to cite box is
     copied into papers, where a letter of this site would mean nothing.
     """
     fields = entry.fields
@@ -1374,6 +1384,90 @@ def replace_markers(markdown: str, extra: dict, src: str = "", bib: Bibliography
 
 
 # --------------------------------------------------------------------------
+# Requests to cite
+#
+# The site asks to be cited in the How to cite section of CITE_PAGE, with its
+# box (the two SIBiLS papers) and its table of the papers of each service, and
+# in the "Citation" row of the facts box of each service page (a page of the
+# SERVICES_SECTION of the nav), which names the papers to cite as author-year
+# citations and without "please": the papers of the service's row of the
+# table, with those of the box. In a cell of the table, a sentence that says
+# "described in" gives information, not a paper to cite (the KYBELE report of
+# Question-Answering), and "with the X paper" brings the papers of the row of
+# X (SynVar, with the Variomes paper).
+
+CITE_PAGE = "publications.md"
+SERVICES_SECTION = "Services"
+CITE_ADMONITION_RE = re.compile(r"^[ \t]*(?:!!!|\?\?\?\+?)[ \t]+cite\b", re.M)
+# "please" then "cite", "cites", "cited" or "citing" in the same sentence (and paragraph).
+PLEASE_CITE_RE = re.compile(r"\bplease\b(?:(?![.!?]\s|\n[ \t]*\n).)*?\bcit(?:e[sd]?|ing)\b", re.I | re.S)
+FACTS_RE = re.compile(r'<div class="facts" markdown>\n(.*?)\n</div>', re.S)
+CITATION_ROW_RE = re.compile(r"^Citation[ \t]*\n:[ \t]+(?P<text>[^\n]*(?:\n[ \t]+[^\n]+)*)", re.M)
+# A row of the table: | [Name](page.md) ... | cell |
+TABLE_ROW_RE = re.compile(r"^\|[ \t]*\[(?P<name>[^\]]+)\]\((?P<link>[^)#\s]+)[^)]*\)[^|\n]*\|(?P<cell>[^\n]*)\|[ \t]*$",
+                          re.M)
+WITH_PAPER_RE = re.compile(r"\bwith the (?P<name>.+?) paper\b")
+
+
+def _cell_keys(cell: str, cells: dict | None = None) -> set:
+    """Keys of the papers to cite that a cell of the table gives; cells: {name: cell}."""
+    keys = set()
+    for sentence in re.split(r"(?<=\.)\s+", cell):
+        if "described in" in sentence:
+            continue
+        keys.update(m.group("args").split()[0] for m in MARKER_RE.finditer(sentence)
+                    if m.group("name") == "cite-short" and m.group("args").split())
+        for m in WITH_PAPER_RE.finditer(sentence):
+            if cells and m.group("name") in cells:
+                keys |= _cell_keys(cells[m.group("name")])
+    return keys
+
+
+def check_cite_requests(pages: dict, services: list, cite_page: str = CITE_PAGE) -> list:
+    """Problems with the requests to cite (see above), as messages.
+
+    pages: {src_uri: Markdown} of every page; services: the src_uri of the
+    service pages.
+    """
+    problems = []
+    for src, markdown in sorted(pages.items()):
+        if src == cite_page:
+            continue
+        text = "".join(part for is_code, part in split_code(markdown) if not is_code)
+        if CITE_ADMONITION_RE.search(text) or any(m.group("name") == "cite" for m in MARKER_RE.finditer(text)):
+            problems.append(f"{src} has a cite box: only {cite_page} asks to be cited")
+        for m in PLEASE_CITE_RE.finditer(text):
+            problems.append(f"{src} asks to cite (\"{' '.join(m.group(0).split())}\"): only {cite_page} asks to be"
+                            " cited; a service page names its papers in the Citation row of its facts box")
+    source = pages.get(cite_page)
+    if source is None:
+        return problems + ([f"no {cite_page}: the Citation rows cannot be checked"] if services else [])
+    box = {k for m in MARKER_RE.finditer(source) if m.group("name") == "cite" for k in m.group("args").split()}
+    rows = {}
+    for m in TABLE_ROW_RE.finditer(source):
+        target = posixpath.normpath(posixpath.join(posixpath.dirname(cite_page), m.group("link")))
+        rows[target] = (m.group("name"), m.group("cell"))
+    cells = dict(rows.values())
+    for src in services:
+        facts = FACTS_RE.search(pages.get(src, ""))
+        row = CITATION_ROW_RE.search(facts.group(1)) if facts else None
+        if row is None:
+            problems.append(f"{src} has no Citation row in its facts box: a service page names there the papers"
+                            f" to cite, as in the table of {cite_page}")
+            continue
+        if src not in rows:
+            problems.append(f"{src} has no row in the table of {cite_page}")
+            continue
+        keys = {key for run in CITE_RUN_RE.finditer(row.group("text")) for _, key in CITE_KEY_RE.findall(run.group(0))}
+        expected = _cell_keys(rows[src][1], cells) | box
+        if keys != expected:
+            problems.append(f"the Citation row of {src} cites {', '.join(sorted(keys)) or 'nothing'}; the row of"
+                            f" {rows[src][0]} in the table of {cite_page}, with its How to cite box, gives"
+                            f" {', '.join(sorted(expected))}")
+    return problems
+
+
+# --------------------------------------------------------------------------
 # MkDocs events
 
 
@@ -1413,6 +1507,22 @@ def on_files(files, config, **kwargs):
         YEAR_SUFFIX.clear()
         YEAR_SUFFIX.update(year_suffixes(BIB, keys))
     return files
+
+
+def on_nav(nav, config, files, **kwargs):
+    # Requests to cite: only on publications.md; a Citation row on each service page.
+    services = None
+    for item in nav.items:
+        if item.is_section and item.title == SERVICES_SECTION:
+            services = [child.file.src_uri for child in item.children if child.is_page]
+    if services is None:
+        log.warning("sibils_data: no %s section in the nav, so no service page is checked for its Citation row",
+                    SERVICES_SECTION)
+    pages = {file.src_uri: Path(file.abs_src_path).read_text(encoding="utf-8")
+             for file in files.documentation_pages()}
+    for problem in check_cite_requests(pages, services or []):
+        log.warning("sibils_data: %s", problem)
+    return nav
 
 
 def on_page_markdown(markdown, page, config, files, **kwargs):
@@ -1695,6 +1805,53 @@ def selftest() -> int:
           "year letter in the full reference")
     box = replace_markers("<!-- sibils:cite pasche2023towards -->", extra, "test", bib)
     check("Ruch P (2023). Towards" in box and "2023c" not in box, "no year letter in a How to cite box")
+
+    # 9. Requests to cite: only on publications.md; a Citation row on each
+    # service page, with the papers of its row of the table and of the box.
+    sibils = "Gobeill et al. [-@10_1093_nar_gkaa328] and Caucheteur et al. [-@caucheteur2026sibils]"
+
+    def service(row):
+        return f'# S\n\n<div class="facts" markdown>\n\nAPI\n:   x\n\nCitation\n:   {row}\n\n</div>\n\nText.\n'
+
+    good = {
+        "publications.md": (
+            '## How to cite\n\n!!! cite ""\n\n    If you use SIBiLS, please cite both papers:\n\n'
+            "    <!-- sibils:cite 10_1093_nar_gkaa328 caucheteur2026sibils -->\n\n"
+            "| Service or data | Publication |\n|---|---|\n"
+            "| [Variomes](services/variomes/index.md) | <!-- sibils:cite-short pasche2022variomes --> |\n"
+            "| [SynVar](services/synvar/index.md) | <!-- sibils:cite-short mottaz2022synvar -->, with the Variomes paper |\n"
+            "| [QA](services/qa/index.md) | No dedicated publication. The pipeline is described in a report,"
+            " <!-- sibils:cite-short flament2026qademonstrator --> |\n"
+            "| [COVoc](data/vocabularies.md#covoc) vocabularies | <!-- sibils:cite-short caucheteur2023covoc --> |\n"),
+        "services/variomes/index.md": service(f"Pasche et al. [-@pasche2022variomes], with the SIBiLS papers {sibils}"),
+        "services/synvar/index.md": service(f"Mottaz et al. [-@mottaz2022synvar], with the Variomes paper Pasche et al."
+                                            f" [-@pasche2022variomes] and the SIBiLS papers {sibils}"),
+        "services/qa/index.md": service(f"The SIBiLS papers {sibils}") + "Described in [@flament2026qademonstrator].\n",
+        "about/index.md": ("To cite SIBiLS, see [How to cite](../publications.md#how-to-cite). Please write to us."
+                           " We cite the report [@flament2026qademonstrator]. Please read the citation rules.\n\n"
+                           "```markdown\n!!! cite \"\"\n"
+                           "    Please cite:\n\n    <!-- sibils:cite pasche2022variomes -->\n```\n"),
+    }
+    services = ["services/variomes/index.md", "services/synvar/index.md", "services/qa/index.md"]
+    found = check_cite_requests(good, services)
+    check(found == [], f"requests to cite where the site makes them: {found}")
+    for change, expected in (
+            ({"about/index.md": '!!! cite ""\n    <!-- sibils:cite pasche2022variomes -->\n'}, "has a cite box"),
+            ({"about/index.md": "??? cite \"BibTeX\"\n    x\n"}, "has a cite box"),
+            ({"about/index.md": "If you use it,\nplease also cite the SIBiLS papers.\n"}, "asks to cite"),
+            ({"about/index.md": "If you use it, please consider citing the SIBiLS papers.\n"}, "asks to cite"),
+            ({"about/index.md": "Please check that your paper cites both papers.\n"}, "asks to cite"),
+            ({"about/index.md": "Please make sure that\nthe SIBiLS papers are cited.\n"}, "asks to cite"),
+            ({"services/qa/index.md": "# S\n\nNo facts box.\n"}, "has no Citation row"),
+            ({"services/qa/index.md": service("The SIBiLS paper Gobeill et al. [-@10_1093_nar_gkaa328]")},
+             "the Citation row of services/qa/index.md cites 10_1093_nar_gkaa328;"),
+            ({"services/synvar/index.md": service(f"Mottaz et al. [-@mottaz2022synvar], with the SIBiLS papers {sibils}")},
+             "pasche2022variomes"),
+            ({"services/triage/index.md": service(f"The SIBiLS papers {sibils}")}, "has no row in the table")):
+        pages = dict(good, **change)
+        found = check_cite_requests(pages, services + [k for k in change if k.startswith("services/")
+                                                       and k not in services])
+        check(len(found) == 1 and expected in found[0], f"requests to cite, {expected!r}: {found}")
 
     tables = None
     try:

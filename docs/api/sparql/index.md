@@ -20,6 +20,9 @@ Quick start
 Ontology
 :   [SIBiLS ontology](https://sparql.sibils.org/rdf-ontology) · [downloads](https://sparql.sibils.org/rdf-downloads)
 
+Web application
+:   [sparql.sibils.org](https://sparql.sibils.org/), described in [SPARQL endpoint](../../sparql/index.md)
+
 Authentication
 :   None
 
