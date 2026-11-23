@@ -11,7 +11,8 @@
  *  - horizontal scrolling wrapper around tables; keyboard access to
  *    anything that scrolls sideways (tables, code blocks); parameter tables
  *    stacked on phones
- *  - line breaks in inline code and example URLs
+ *  - line breaks in inline code, example URLs and the web addresses of
+ *    references (after "/", not after a hyphen)
  *  - content tabs: the chosen label (curl, Python...) is selected in every
  *    tab set and remembered across pages
  *  - title of the embedded Swagger UI frames
@@ -201,9 +202,10 @@
     copyBlocks.push({ block: block, pre: block.querySelector('pre'), button: button, lines: lines });
     if (lines.length === 1) block.classList.add('is-oneline');
 
-    // Wrapped JSON (and shell commands on phones) continue right of their
-    // first line: --ind is the line's indentation (line spans, see CSS).
-    if (block.classList.contains('language-json') || block.classList.contains('language-bash')) {
+    // Wrapped JSON and BibTeX (and shell commands on phones) continue right
+    // of their first line: --ind is the line's indentation (line spans, see CSS).
+    if (block.classList.contains('language-json') || block.classList.contains('language-bash') ||
+        block.classList.contains('language-bibtex')) {
       $$('code > span[id^="__span"]', block).forEach(function (line) {
         line.style.setProperty('--ind', /^ */.exec(line.textContent)[0].length);
       });
@@ -521,5 +523,30 @@
   window.addEventListener('afterprint', function () {
     closedForPrint.forEach(function (d) { d.open = false; });
     closedForPrint = [];
+  });
+
+  /* Web addresses in references ------------------------------------------ */
+
+  // A web address shown in a reference (a bare link, marked .is-bare above)
+  // breaks after a "/" (<wbr>), not after a hyphen, where the break would
+  // read as a hyphenated word ("news- | releases"): each hyphen is kept with
+  // the next character (span.url-nobr). Done here rather than in the hook:
+  // tags in the link text would put spaces into the address in the search
+  // index.
+  $$('.content .biblio a.is-bare, .content .admonition.cite a.is-bare').forEach(function (a) {
+    var parts = a.textContent.match(/-+[^-\/]|\/|[^-\/]+|-+/g) || [];
+    a.textContent = '';
+    parts.forEach(function (part) {
+      var node;
+      if (/^-+[^-\/]$/.test(part)) {
+        node = document.createElement('span');
+        node.className = 'url-nobr';
+        node.textContent = part;
+      } else {
+        node = document.createTextNode(part);
+      }
+      a.appendChild(node);
+      if (part === '/') a.appendChild(document.createElement('wbr'));
+    });
   });
 })();

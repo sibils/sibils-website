@@ -664,9 +664,9 @@ a { color: var(--link); }
   overflow-wrap: break-word;
 }
 .content > :first-child { margin-top: 0; }
-/* Running text keeps a measure of about 80 characters; boxes (code, tables,
-   facts, cards, notes, tabs) use the full column. */
-.content > :is(p, ul, ol, dl, blockquote, h1, h2, h3, h4, h5, h6) { max-width: var(--measure); }
+/* Running text and reference lists keep a measure of about 80 characters;
+   boxes (code, tables, facts, cards, notes, tabs) use the full column. */
+.content > :is(p, ul, ol, dl, blockquote, .biblio, h1, h2, h3, h4, h5, h6) { max-width: var(--measure); }
 /* API section (wider column): notes and references without code or a table
    keep the reading measure too. A facts box is as wide as its content, at
    least the measure, so that an endpoint URL stays on one line; its values
@@ -878,12 +878,12 @@ a { color: var(--link); }
 }
 .content .highlighttable { width: 100%; border-collapse: collapse; }
 .content .highlighttable td { padding: 0; border: 0; }
-/* JSON and plain text wrap instead of scrolling. Each line is a span
+/* JSON, BibTeX and plain text wrap instead of scrolling. Each line is a span
    (pymdownx.highlight line_spans); theme.js sets --ind to its number of
    leading spaces, so a wrapped line continues 2 characters right of its key
    (a hanging indent) and the structure stays visible. */
-.content .highlight:is(.language-json, .language-text) pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
-.content .highlight.language-json code > span[id^="__span"] {
+.content .highlight:is(.language-json, .language-text, .language-bibtex) pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+.content .highlight:is(.language-json, .language-bibtex) code > span[id^="__span"] {
   display: block;
   padding-left: calc((var(--ind, 0) + 2) * 1ch);
   text-indent: calc((var(--ind, 0) + 2) * -1ch);
@@ -1195,15 +1195,14 @@ a { color: var(--link); }
 .content :is(.admonition, details):is(.cite, .quote) {
   --adm: var(--red); --adm-ink: var(--ink); --adm-bg: var(--surface);
 }
-/* References in a citation block: no bullets, a hanging indent (as .biblio). */
+/* References in a citation block: no bullets, a hanging indent, body size and
+   the reading measure (as .biblio). */
 .content .admonition.cite ul { padding-left: 0; list-style: none; }
 .content .admonition.cite li {
-  max-width: 40em;
-  margin: 0 0 0.6em;
+  max-width: var(--measure);
+  margin: 0 0 0.9em;
   padding-left: 1.5em;
   text-indent: -1.5em;
-  font-size: 0.9375rem;
-  line-height: 1.55;
 }
 .content details > summary {
   display: flex;
@@ -1397,6 +1396,23 @@ a { color: var(--link); }
    hanging indent and space between entries. */
 .content .biblio ul { list-style: none; padding-left: 0; }
 .content .biblio li { margin: 0 0 0.9em; padding-left: 1.5em; text-indent: -1.5em; }
+/* How a work uses SIBiLS (sibils_use), after the reference: muted, on its own
+   line, without the hanging indent of the reference. */
+.content .biblio .biblio-note { display: block; margin-top: 0.25em; text-indent: 0; color: var(--muted); }
+/* DOI and PMID links in references: a lighter underline, full on hover (as the
+   card links); "PMID 12345678" stays on one line. */
+.content :is(.biblio, .admonition.cite) li a { text-decoration-color: color-mix(in srgb, currentColor 40%, transparent); }
+.content :is(.biblio, .admonition.cite) li a:hover { text-decoration-color: currentColor; }
+.content :is(.biblio, .admonition.cite, .footnote) a[href^="https://pubmed.ncbi.nlm.nih.gov/"] { white-space: nowrap; }
+/* A web address shown in a reference breaks after a "/", not after a hyphen:
+   theme.js keeps each hyphen with the next character in a span.url-nobr. */
+.content .url-nobr { white-space: nowrap; }
+/* The entry an in-text citation (#ref-KEY) jumped to. */
+.content :is(.biblio, .admonition.cite) li:has([id^="ref-"]:target) {
+  background: var(--surface);
+  outline: 2px solid var(--line);
+  outline-offset: 4px;
+}
 
 /* Figures and media */
 .content figure {
@@ -1974,8 +1990,9 @@ dialog::backdrop { background: var(--backdrop); }
   .intro__inner, .home__content { max-width: none; padding: 0; }
   .content a, .counts__more a { color: #000; }
   /* Print the address of external links, unless the link text already is
-     the address (theme.js marks those .is-bare). */
-  .content a[href^="http"]:not(.btn):not(.md-button):not(.is-bare)::after {
+     the address (theme.js marks those .is-bare) or names it (the DOI and PMID
+     links of references). */
+  .content a[href^="http"]:not(.btn):not(.md-button):not(.is-bare):not(:is(.biblio, .footnote, .admonition.cite) a)::after {
     content: " (" attr(href) ")";
     color: #4b5563;
     font-size: 0.85em;
@@ -2001,4 +2018,11 @@ dialog::backdrop { background: var(--backdrop); }
     overflow-wrap: anywhere;
   }
   .content .video:not([data-src]) { display: none; }
+  /* References: black text, no back-links, an entry is not split across pages. */
+  .content .footnote-backref { display: none; }
+  .content .footnote { color: #000; }
+  .content :is(.biblio, .footnote, .admonition.cite) li { break-inside: avoid; }
+  /* A <details> with a BibTeX block is for copying: not printed, open or
+     not (theme.js opens the other collapsed blocks for printing). */
+  .content details:has(.language-bibtex) { display: none; }
 }

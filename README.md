@@ -198,6 +198,10 @@ the Publications page, see below). A key that is not in `refs.bib` is shown in t
 Every author is listed, as in the byline of the publication (PubMed or the journal), group
 authors included (`and others` in `refs.bib` prints *et al.*).
 
+An entry without a DOI shows its `url` as the link text, without `https://`. In the browser,
+`theme/js/theme.js` lets the address break after a `/` but not after a hyphen, which would read
+as a hyphenated word.
+
 ### Add a publication to the Publications page
 
 Add one entry to `refs.bib`, with `sibils_group`: the group named by a

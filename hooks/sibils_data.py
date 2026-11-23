@@ -1179,7 +1179,7 @@ def render_bibliography(bib: Bibliography, group: str, src: str = "", rendered: 
         entry = bib.entries[key]
         item = f"- {_ref_anchor(key, rendered, src)}{format_reference(entry)}"
         if entry.fields.get("sibils_use"):
-            item += "<br>" + " ".join(entry.fields["sibils_use"].split())
+            item += '<br><span class="biblio-note">' + " ".join(entry.fields["sibils_use"].split()) + "</span>"
         lines.append(item)
     return lines + ["", "</div>"]
 
