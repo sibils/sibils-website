@@ -39,7 +39,7 @@ API id `suppdata`. Documents are identified by the PMCID of the article followed
 
 ## Plazi treatments
 
-A taxonomic treatment is the part of a publication that describes a taxon: its classification, description and identification, synonyms, distribution and ecological notes. [Plazi](https://plazi.org/) extracts treatments from publications as structured records that taxonomists, ecologists and conservationists can reuse. SIBiLS began indexing Plazi treatments, together with Pensoft articles that are not in PMC, within the BiCIKL project [@pasche2023towards]; the [e-BioDiv](https://ebiodiv.org/) project (2021 to 2023), which complements BiCIKL, set up their production-level import.
+A taxonomic treatment is the part of a publication that describes a taxon: its classification, description and identification, synonyms, distribution and ecological notes. [Plazi](https://plazi.org/) extracts treatments from publications as structured records that taxonomists, ecologists and conservationists can reuse. SIBiLS began indexing Plazi treatments, together with Pensoft articles that are not in PMC, within the BiCIKL project [@pasche2023towards]; the [eBioDiv](https://ebiodiv.org/) project (2021 to 2023), which complements BiCIKL, set up their production-level import.
 
 API id `plazi`. Documents are identified by their Plazi treatment identifier, for example [`8F0287F93576FFAF381A50CBFA9A0B55`](https://biodiversitypmc.sibils.org/api/fetch?ids=8F0287F93576FFAF381A50CBFA9A0B55&col=plazi).
 

@@ -39,7 +39,7 @@ git add -A && git commit && git push
 |------|------|
 | `docs/` | The pages. The URL follows the path: `docs/sparql/index.md` is `/sparql/`, `docs/vocabularies.md` is `/vocabularies/`. Keep existing paths: other sites link to them. |
 | `docs/assets/` | Images and files used by the pages (external sites also link to the logos here). |
-| `mkdocs.yml` | Site settings: the navigation (`nav`), the SIBiLS apps given as service channels in the home page's structured data (`extra.apps`, see `theme/partials/jsonld.html`), footer logos (`extra.partners`), contact, licence, Matomo. |
+| `mkdocs.yml` | Site settings: the navigation (`nav`), the SIBiLS apps given as service channels in the home page's structured data (`extra.apps`, see `theme/partials/jsonld.html`), footer logos (`extra.partners`), contact, licence, Matomo. The contact address is also written in `docs/about/index.md` and `docs/collections/how_to_upload.md`, and the licence in `docs/about/index.md`: change them together. |
 | `refs.bib` | Bibliography: `[@key]` citations and the references of the Publications page are written from it (see *Citations* below). |
 | `hooks/sibils_data.py`, `data/` | Collection counts and vocabularies from the SIBiLS API (see below), and the references written from `refs.bib`. |
 | `theme/` | The theme: templates, CSS, JavaScript, fonts, images. See [theme/README.md](theme/README.md). |

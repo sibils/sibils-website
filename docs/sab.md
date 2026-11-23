@@ -6,7 +6,7 @@ description: >-
 
 # Scientific Advisory Board
 
-The Scientific Advisory Board (SAB) of the SIB Literature Services meets once a year. It reviews the progress of SIBiLS over the past year and its plans for the next, and places the development of the services in the context of the scientific community in Europe and beyond. Members are usually appointed for four years. From 2021 to 2023, the organisation of the meetings was funded by the [e-BioDiv](https://ebiodiv.org/) project.
+The Scientific Advisory Board (SAB) of the SIB Literature Services meets once a year. It reviews the progress of SIBiLS over the past year and its plans for the next, and places the development of the services in the context of the scientific community in Europe and beyond. Members are usually appointed for four years. From 2021 to 2023, the organisation of the meetings was funded by the [eBioDiv](https://ebiodiv.org/) project.
 
 ## Current members
 

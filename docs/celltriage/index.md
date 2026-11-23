@@ -48,7 +48,7 @@ The Triage web application also hosts these services, each with its own weekly u
 :   A literature triage service that helps biocurators identify and prioritize relevant publications for the curation of [DisProt](https://www.disprot.org/), the database of intrinsically disordered proteins [@nugnes2026disprot]. DisProt curators use it to rank new publications every week.
 
 [ScaleBioMTriage](https://triage.sibils.org/scalebiomtriage)
-:   An island biodiversity triage system, developed within the ScaleBioM project (Scalable Biodiversity Monitoring by Broadening Article Acquisition, 2025–2026; see the [list of approved projects](https://www.swissuniversities.ch/fileadmin/swissuniversities/Dokumente/Hochschulpolitik/Open_Science/2025/2025_B3.2_Approved_Projects.pdf) of swissuniversities), a joint project of HES-SO, SIB and the University of Neuchâtel.
+:   An island biodiversity triage system, developed within the ScaleBioM project (Scalable Biodiversity Monitoring by Broadening Article Acquisition, 2026), funded by swissuniversities, led by HES-SO with the University of Neuchâtel [@swissuniversities2025b32].
 
 [IpbesTriage](https://triage.sibils.org/ipbestriage)
 :   A triage service designed to support [IPBES](https://www.ipbes.net/) (the Intergovernmental Science-Policy Platform on Biodiversity and Ecosystem Services) in its global assessments. Unlike the other triage services, it is a multiclass, multilabel classifier.

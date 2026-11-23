@@ -8,7 +8,7 @@
 <footer class="site-footer">
   <div class="site-footer__inner">
     {%- if partners %}
-    <h2 class="visually-hidden">Partners</h2>
+    <h2 class="visually-hidden">Institutions and funders</h2>
     <ul class="partners">
       {%- for p in partners %}
       <li><a href="{{ p.url | e }}"><img src="{{ ('img/partners/' ~ p.logo) | url }}" alt="{{ p.name | e }}"

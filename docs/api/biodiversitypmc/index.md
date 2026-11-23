@@ -51,7 +51,7 @@ The `col` parameter selects the collection. [SIBiLS collections](../../collectio
 | `col` | Content | Document id | Example id |
 |---|---|---|---|
 | `medline` | MEDLINE citations | PMID | `14691011` |
-| `pmc` | PMC+: PMC Open Access subset, PMC author manuscripts, and the PMC+ subset (biodiversity articles that are not in PMC, such as Pensoft articles) | PMCID with the `PMC` prefix; DOI for the PMC+ subset | `PMC2196267`, `10.3389/fevo.2023.1081385` |
+| `pmc` | PMC+: PMC open-access subset, PMC author manuscripts, and the PMC+ subset (biodiversity articles that are not in PMC, such as Pensoft articles) | PMCID with the `PMC` prefix; DOI for the PMC+ subset | `PMC2196267`, `10.3389/fevo.2023.1081385` |
 | `suppdata` | PMC supplementary files and manuscript figures, with the text extracted from tables, documents and images | PMCID, underscore, file name | `PMC10838014_gyad114_suppl_supplementary_data_sd3.xlsx` |
 | `plazi` | Plazi taxonomic treatments | Plazi treatment id | `8F0287F93576FFAF381A50CBFA9A0B55` |
 | `zenodo` | Biodiversity Literature Repository (BLR) and related Zenodo communities (`biosyslit`, `bhl-blr`, `batlit`, `taxodros`). Records are split into chunks | Zenodo record id, underscore, chunk number | `15935589_0` |

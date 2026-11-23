@@ -94,8 +94,8 @@ extra:
       logo: sib.png
       width: 270
       height: 144
-    - name: HEG Genève (HES-SO)
-      url: https://www.hesge.ch/heg/
+    - name: HEG-Genève (HES-SO)
+      url: https://heg.hesge.ch/
       logo: heg.png
       width: 320
       height: 120
@@ -117,7 +117,7 @@ extra:
   contact_email: julien.gobeill@hesge.ch
   license:
     name: CC BY 3.0 CH
-    url: https://creativecommons.org/licenses/by/3.0/ch/
+    url: https://creativecommons.org/licenses/by/3.0/ch/deed.en
   analytics:
     matomo_url: //matomo.text-analytics.ch/
     matomo_site_id: 10
