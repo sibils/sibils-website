@@ -1510,11 +1510,11 @@ a { color: var(--link); }
 }
 
 /* Vertical rhythm of documentation pages (not the home page): a lead-in
-   sentence sits 8px above its code block, table or tabs, and the next text
-   starts 24px below the block, so each caption is closer to its own block
-   than to the one above. Sections: 48px above an h2, 40px above an h3. */
+   sentence sits 8px above its code block, table, tabs or list, and the next
+   text starts 24px below the block, so each caption is closer to its own
+   block than to the one above. Sections: 48px above an h2, 40px above an h3. */
 .page-doc .content :is(.highlight, .table-wrap, .tabbed-set), .page-doc .content > :is(pre, table) { margin: 0 0 24px; }
-.page-doc .content > p:has(+ :is(.highlight, pre, .table-wrap, table, .tabbed-set)) { margin-bottom: 8px; }
+.page-doc .content > p:has(+ :is(.highlight, pre, .table-wrap, table, .tabbed-set, ul, ol)) { margin-bottom: 8px; }
 .page-doc .content :is(.tabbed-block, .admonition, details, li, dd) > :last-child { margin-bottom: 0; }
 .page-doc .content h2 { margin: 48px 0 12px; }
 .page-doc .content h1 + h2 { margin-top: 24px; }
@@ -1522,6 +1522,9 @@ a { color: var(--link); }
 .page-doc .content h2 + h3 { margin-top: 16px; }
 .page-doc .content h4 { margin: 32px 0 8px; }
 .page-doc .content .lead { margin-bottom: 24px; }
+/* Items that open with a bold lead-in ("**2020:** ...", "**BiCIKL** (...)")
+   are often several lines long: 12px between them instead of 0.3em. */
+.page-doc .content :is(ul, ol):has(> li > strong:first-child) > li + li { margin-top: 12px; }
 .page-doc .content :is(.admonition, details, .facts, figure, .video) { margin: 24px 0; }
 .page-doc .content .facts { padding: 16px; }
 .page-doc .content .facts dl { gap: 8px 24px; }
