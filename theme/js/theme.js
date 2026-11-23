@@ -6,7 +6,7 @@
  *  - light/dark toggle (the initial theme is applied by the inline script
  *    in <head>, before the first paint)
  *  - wordmark in the white bar once the red header has left the screen
- *  - menu drawer (below 1024px)
+ *  - menu drawer (below 1024px): sections, section pages
  *  - copy buttons on code blocks; hanging indent of wrapped JSON lines;
  *    long JSON outputs shortened to 18 lines with a "Show all" button
  *  - horizontal scrolling wrapper around tables; keyboard access to
@@ -142,21 +142,47 @@
     });
   }
 
+  // The menu opens at its top (the sections) when the current page fits
+  // below; else it scrolls as little as needed to show the current page and,
+  // while the current page stays on screen, the page's headings listed under
+  // it.
+  var scrollDrawer = function () {
+    drawer.scrollTop = 0;
+    var current = drawer.querySelector('[aria-current="page"]');
+    if (!current) return;
+    var bottom = drawer.getBoundingClientRect().bottom;
+    var head = drawer.querySelector('.drawer__head');
+    var top = head ? head.getBoundingClientRect().bottom : drawer.getBoundingClientRect().top;
+    var next = current.nextElementSibling;
+    var last = next && next.classList.contains('snav__toc') ? next : current;
+    var link = current.getBoundingClientRect();
+    var needLink = link.bottom - bottom;
+    var needHeadings = last.getBoundingClientRect().bottom + 8 - bottom;
+    var keepLink = link.top - 8 - top;
+    drawer.scrollTop = Math.max(0, needLink, Math.min(needHeadings, keepLink));
+  };
+
   if (drawer && typeof drawer.showModal === 'function') {
     menuButtons.forEach(function (button) {
       button.addEventListener('click', function () {
         drawer.showModal();
         button.setAttribute('aria-expanded', 'true');
-        var current = drawer.querySelector('[aria-current="page"]');
-        if (current && current.scrollIntoView) current.scrollIntoView({ block: 'center' });
+        scrollDrawer();
       });
     });
     drawer.addEventListener('close', function () {
       menuButtons.forEach(function (button) {
         button.setAttribute('aria-expanded', 'false');
       });
-      if (menuButtons[0] && menuButtons[0].offsetParent !== null) menuButtons[0].focus();
+      // The button is in the sticky bar, always on screen: focusing it must
+      // not scroll the page (Chromium scrolls to show a focused element that
+      // lies in the scroll-padding-top area).
+      if (menuButtons[0] && menuButtons[0].offsetParent !== null) menuButtons[0].focus({ preventScroll: true });
     });
+    // Leaving the page with the menu open (by one of its links): close it,
+    // so that Back, which can restore the page as it was (back/forward
+    // cache), shows the page and not the open menu.
+    window.addEventListener('pagehide', function () { if (drawer.open) drawer.close(); });
     // The drawer is for small screens only.
     if (window.matchMedia) {
       var wide = window.matchMedia('(min-width: 1024px)');

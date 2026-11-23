@@ -65,6 +65,12 @@ this README.
 - Forced colours (Windows contrast themes): the chip, and the band's wordmark with an 8 px red
   edge, keep their red ground (`forced-color-adjust: none`); otherwise the white letters would
   sit on the system background.
+- The menu (`partials/drawer.html`) follows the order of the wide layout: the six sections (the
+  sub-bar), then the pages of the current section under its name (the sidebar). It opens at its
+  top when the current page fits below the sections; otherwise it scrolls as little as needed to
+  show the current page (and its headings, as long as the current page stays on screen). It
+  closes when the page is left (`pagehide`), so that Back does not bring the page back from the
+  back/forward cache with the menu open.
 
 ## Navigation rules
 

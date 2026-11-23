@@ -2005,7 +2005,9 @@ dialog::backdrop { background: var(--backdrop); }
   margin: 0;
   font-weight: 700;
 }
-.drawer__nav { padding: 12px 12px 32px; }
+/* Two groups, in the order of the wide layout: the sections, then the pages
+   of the current section. */
+.drawer__nav { padding: 12px 12px 8px; }
 .drawer__sections {
   margin: 0;
   padding: 0;
@@ -2021,10 +2023,22 @@ dialog::backdrop { background: var(--backdrop); }
 }
 .drawer__section-link:hover { background: var(--hover-bg); }
 .drawer__section-link.is-active { color: var(--brand-text); }
+.drawer__pages {
+  margin: 0 12px;
+  padding: 12px 0 32px;
+  border-top: 1px solid var(--line);
+}
+.drawer__pages-title {
+  margin: 0 0 6px;
+  padding: 0 8px;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
 .snav--drawer {
   position: static;
   max-height: none;
-  margin: 4px 0 12px 8px;
+  margin: 0 0 0 8px;
   padding: 0;
   overflow: visible;
 }
