@@ -196,7 +196,9 @@ the Publications page, see below). A key that is not in `refs.bib` is shown in t
 `mkdocs build --strict` before pushing.
 
 Every author is listed, as in the byline of the publication (PubMed or the journal), group
-authors included (`and others` in `refs.bib` prints *et al.*).
+authors included (`and others` in `refs.bib` prints *et al.*). A person who is in several entries
+has one spelling in all of them; where a byline or its registry record spells the name otherwise,
+the entry's `comment` says so.
 
 An entry without a DOI shows its `url` as the link text, without `https://`. In the browser,
 `theme/js/theme.js` lets the address break after a `/` but not after a hyphen, which would read
