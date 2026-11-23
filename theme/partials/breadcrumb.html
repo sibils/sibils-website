@@ -12,7 +12,10 @@
 <nav class="breadcrumb" aria-label="Breadcrumb">
   <ol>
     {%- for anc in crumbs %}
-    <li><a href="{{ m.first_url(anc) }}">{{ anc.title | e }}</a></li>
+    {%- set u = m.first_url(anc) %}
+    {#- A section whose first page is this page: plain text, not a second
+        link to the current page. #}
+    <li>{% if u == page.url | url %}<span>{{ anc.title | e }}</span>{% else %}<a href="{{ u }}">{{ anc.title | e }}</a>{% endif %}</li>
     {%- endfor %}
     <li><a href="{{ page.url | url }}" aria-current="page">{{ page.title | e }}</a></li>
   </ol>

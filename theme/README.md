@@ -37,6 +37,8 @@ this README.
 ## Navigation rules
 
 - The sub-bar lists the top-level entries of `nav`; a section links to its first page.
+- The breadcrumb lists the sections above the page. A section whose first page is the current
+  page is plain text, not a second link to the page.
 - The left sidebar lists the pages of the current top-level section. A top-level page without a
   section (Overview, Publications) has no sidebar.
 - A nav section whose first child is a page **without a title** (for example
