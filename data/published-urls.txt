@@ -96,3 +96,6 @@ https://sibils.org/assets/logo_sib.png
 https://sibils.org/assets/logo_swissuniversities.png
 https://sibils.org/assets/sib.png
 https://sibils.org/assets/images/favicon.png
+
+# Files added by the redesign.
+https://sibils.org/robots.txt
