@@ -3,7 +3,7 @@
     {% import "partials/macros.html" as m with context %}
 
   A nav section whose FIRST child is a page given without a title in
-  mkdocs.yml (for example `- api/biodiversitypmc/index.md` under
+  mkdocs.yml (for example `- developers/biodiversitypmc/index.md` under
   "BiodiversityPMC") uses that page as its landing page: the section label
   links to it and the page is not repeated as a child. MkDocs stores a title
   given in mkdocs.yml in the page's own attributes (`title` in __dict__);
@@ -94,7 +94,7 @@
 
 {#- Resolve a front-matter URL (home hero buttons): absolute URLs and anchors
     are kept; a relative path to a Markdown file becomes the URL of the built
-    page ("api/index.md" -> "api/", "publications.md" -> "publications/"). -#}
+    page ("developers/index.md" -> "developers/", "publications.md" -> "publications/"). -#}
 {%- macro resolve_url(value) -%}
   {%- set raw = value | string -%}
   {%- if raw.startswith(('http://', 'https://', 'mailto:', '#', '/')) -%}{{ raw | e }}

@@ -19,7 +19,7 @@
     <div class="counts__item"><dt>{{ labels[c.id] }}</dt><dd class="is-approx" data-count="{{ c.id | e }}" data-min="{{ c.live_min | int }}"><span class="visually-hidden">at least </span>{{ c.approx_display }}</dd></div>
     {%- endfor %}
   </dl>
-  <p class="counts__more"><a href="{{ m.resolve_url('collections/sibils_collections.md') }}">About the collections</a></p>
+  <p class="counts__more"><a href="{{ m.resolve_url('data/collections.md') }}">About the collections</a></p>
 </section>
   {%- if sibils.get('count_url') %}
 <script src="{{ 'js/counts.js' | url }}" defer></script>

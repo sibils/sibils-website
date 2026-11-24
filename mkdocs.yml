@@ -35,6 +35,9 @@ hooks:
   # build time (falls back to data/*.json), and writes the references and the
   # [@key] citations from refs.bib. See hooks/sibils_data.py.
   - hooks/sibils_data.py
+  # Writes a redirect page at the old address of each moved page
+  # (extra.redirects). See hooks/redirects.py.
+  - hooks/redirects.py
 
 plugins:
   - search
@@ -133,44 +136,113 @@ extra:
   license:
     name: CC BY 3.0 CH
     url: https://creativecommons.org/licenses/by/3.0/ch/deed.en
+  # Pages that moved. Key: the old address, without the leading slash, as
+  # published on sibils.org; value: the Markdown file of the page that
+  # replaces it. hooks/redirects.py writes a small redirect page at each old
+  # address, which passes the ?query and the #fragment on to the new page
+  # (with JavaScript; its meta refresh drops them).
+  # An old anchor with a clear successor can go to another page or heading:
+  # give "page" and "fragments" (old-id: file.md or file.md#new-id; matched
+  # without regard to case). Never remove an entry: papers, registries and
+  # other sites link to the old addresses (README.md, Addresses).
+  redirects:
+    api/:
+      page: developers/index.md
+      # The headings of the former page (docs/api/index.md on master), and
+      # the anchors that the KG-Registry entries of SIBiLS link
+      # (https://sibils.org/api#Fetch-API). Other anchors are passed on.
+      fragments:
+        sibils-api: developers/index.md
+        rest: developers/index.md
+        sparql: developers/sparql/index.md
+        fetch-api: developers/biodiversitypmc/fetch.md
+        customizable-search-api: developers/biodiversitypmc/search.md
+        question-answering-api: developers/qa/index.md
+    api/biodiversitypmc/: developers/biodiversitypmc/index.md
+    api/biodiversitypmc/fetch/: developers/biodiversitypmc/fetch.md
+    api/biodiversitypmc/search/: developers/biodiversitypmc/search.md
+    api/biodiversitypmc/mapping/: developers/biodiversitypmc/mapping.md
+    api/biodiversitypmc/qa/: developers/qa/index.md
+    api/celltriage/: developers/celltriage/index.md
+    api/sparql/: developers/sparql/index.md
+    api/synvar/: developers/synvar/index.md
+    api/variomes/: developers/variomes/index.md
+    biodiversitypmc/: services/biodiversitypmc/index.md
+    biotxplorer/: services/biotxplorer/index.md
+    celltriage/: services/triage/index.md
+    collections/how_to_upload/: data/add-publications.md
+    collections/sibils_collections/: data/collections.md
+    sab/: about/sab.md
+    sparql/: services/sparql/index.md
+    synvar/: services/synvar/index.md
+    variomes/: services/variomes/index.md
+    vocabularies/: data/vocabularies.md
+    # The address of a section that has no page of its own opens the first
+    # page of the section, as its tab does: change it when the nav puts
+    # another page first.
+    services/: services/biodiversitypmc/index.md
+    data/: data/collections.md
+    # Addresses lost earlier, before this list existed. biodiversitypmc/doc/...:
+    # where the proxy sends the pre-2024 https://sibils.text-analytics.ch/doc/...
+    # pages (renamed in c0ce51d, 2024-08-22). api/biodiversitypmc/pmid2doi/:
+    # page deleted in e2f3c7c (2025-05-09), now part of Identifier mapping.
+    api/biodiversitypmc/pmid2doi/: developers/biodiversitypmc/mapping.md
+    biodiversitypmc/doc/api/fetch/: developers/biodiversitypmc/fetch.md
+    biodiversitypmc/doc/api/search/: developers/biodiversitypmc/search.md
+    biodiversitypmc/doc/api/qa/: developers/qa/index.md
+    biodiversitypmc/doc/api/sparql/: developers/sparql/index.md
+    biodiversitypmc/doc/vocabularies/: data/vocabularies.md
+    biodiversitypmc/doc/sab/: about/sab.md
+    biodiversitypmc/doc/collections/sibils_collections/: data/collections.md
+    biodiversitypmc/doc/collections/how_to_upload/: data/add-publications.md
   analytics:
     matomo_url: //matomo.text-analytics.ch/
     matomo_site_id: 10
 
+# Each section has its folder, which is the prefix of the address of its pages:
+# services/, data/, developers/ (the API tab) and about/. The home page and
+# Publications are at the root (README.md, Addresses). The services/ and data/
+# entries of extra.redirects name the first page of Services and of Data.
 nav:
   - Overview: index.md
   - Services:
-      - BiodiversityPMC: biodiversitypmc/index.md
-      - Question-Answering: qa/index.md
-      - BiotXplorer: biotxplorer/index.md
-      - Variomes: variomes/index.md
-      - SynVar: synvar/index.md
-      - Triage: celltriage/index.md
-      - SPARQL endpoint: sparql/index.md
+      - BiodiversityPMC: services/biodiversitypmc/index.md
+      - Question-Answering: services/qa/index.md
+      - BiotXplorer: services/biotxplorer/index.md
+      - Variomes: services/variomes/index.md
+      - SynVar: services/synvar/index.md
+      - Triage: services/triage/index.md
+      - SPARQL endpoint: services/sparql/index.md
   - Data:
-      - Collections: collections/sibils_collections.md
-      - Vocabularies: vocabularies.md
-      - Add your publications: collections/how_to_upload.md
+      - Collections: data/collections.md
+      - Vocabularies: data/vocabularies.md
+      - Add your publications: data/add-publications.md
+  # The API guides are under developers/ (URL /developers/): no page of
+  # sibils.org is under /api/ (README.md, Addresses). One folder per API,
+  # named like the host that serves it; annotation/ is the exception (the
+  # annotation API is served at biodiversitypmc.sibils.org/api/otf/). The tab
+  # keeps the title "API" (theme/main.html derives the class section-api from
+  # it).
   - API:
-      - Overview: api/index.md
+      - Overview: developers/index.md
       - BiodiversityPMC:
-          - api/biodiversitypmc/index.md
-          - Fetch: api/biodiversitypmc/fetch.md
-          - Search: api/biodiversitypmc/search.md
-          - Query player: api/biodiversitypmc/query_player.md
-          - Identifier mapping: api/biodiversitypmc/mapping.md
-          - OpenAPI reference: api/biodiversitypmc/reference.md
+          - developers/biodiversitypmc/index.md
+          - Fetch: developers/biodiversitypmc/fetch.md
+          - Search: developers/biodiversitypmc/search.md
+          - Query player: developers/biodiversitypmc/query-player.md
+          - Identifier mapping: developers/biodiversitypmc/mapping.md
+          - OpenAPI reference: developers/biodiversitypmc/reference.md
       - Question-Answering:
-          - api/biodiversitypmc/qa.md
-          - OpenAPI reference: api/biodiversitypmc/qa_reference.md
+          - developers/qa/index.md
+          - OpenAPI reference: developers/qa/reference.md
       - Annotation and vocabularies:
-          - api/annotation/index.md
-          - OpenAPI reference: api/annotation/reference.md
-      - SynVar: api/synvar/index.md
-      - Variomes: api/variomes/index.md
-      - CellTriage: api/celltriage/index.md
-      - SPARQL: api/sparql/index.md
+          - developers/annotation/index.md
+          - OpenAPI reference: developers/annotation/reference.md
+      - SynVar: developers/synvar/index.md
+      - Variomes: developers/variomes/index.md
+      - CellTriage: developers/celltriage/index.md
+      - SPARQL: developers/sparql/index.md
   - Publications: publications.md
   - About:
       - About SIBiLS: about/index.md
-      - Scientific Advisory Board: sab.md
+      - Scientific Advisory Board: about/sab.md

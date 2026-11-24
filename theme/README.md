@@ -94,7 +94,7 @@ this README.
 - The left sidebar lists the pages of the current top-level section. A top-level page without a
   section (Overview, Publications) has no sidebar.
 - A nav section whose first child is a page **without a title** (for example
-  `- api/biodiversitypmc/index.md` under "BiodiversityPMC") uses that page as its landing page:
+  `- developers/biodiversitypmc/index.md` under "BiodiversityPMC") uses that page as its landing page:
   the section label links to it and the page is not listed again.
 - "On this page" appears when a page has at least two `##` headings and the window is at least
   1200 px wide. Its column is reserved on every page, so the main column has the same width and

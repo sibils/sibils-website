@@ -6,9 +6,9 @@ and a theme of our own in `theme/`. Every push to `master` publishes the site.
 
 ## Edit a page
 
-**On GitHub.** Open the file under `docs/` (for example `docs/biotxplorer/index.md`), click the
-pencil icon, edit, check the *Preview* tab, then *Commit changes* to `master`. The site updates
-a few minutes later.
+**On GitHub.** Open the file under `docs/` (for example `docs/services/biotxplorer/index.md`),
+click the pencil icon, edit, check the *Preview* tab, then *Commit changes* to `master`. The site
+updates a few minutes later.
 
 **On your computer.**
 
@@ -37,23 +37,70 @@ git add -A && git commit && git push
 
 | Path | What |
 |------|------|
-| `docs/` | The pages. The URL follows the path: `docs/sparql/index.md` is `/sparql/`, `docs/vocabularies.md` is `/vocabularies/`. Keep existing paths: other sites link to them. |
+| `docs/` | The pages. The URL follows the path: `docs/services/sparql/index.md` is `/services/sparql/`, `docs/data/vocabularies.md` is `/data/vocabularies/`. See *Addresses* below before adding or moving a page. |
 | `docs/assets/` | Images and files used by the pages (external sites also link to the logos here). |
-| `mkdocs.yml` | Site settings: the navigation (`nav`), the SIBiLS apps given as service channels in the home page's structured data (`extra.apps`, see `theme/partials/jsonld.html`), the Terminology Browser (`extra.terminology_browser`), footer logos (`extra.partners`), contact, licence, Matomo. The contact address is also written in `docs/about/index.md` and `docs/collections/how_to_upload.md`, and the licence in `docs/about/index.md`: change them together. |
+| `mkdocs.yml` | Site settings: the navigation (`nav`), the SIBiLS apps given as service channels in the home page's structured data (`extra.apps`, see `theme/partials/jsonld.html`), the Terminology Browser (`extra.terminology_browser`), footer logos (`extra.partners`), contact, licence, Matomo. The contact address is also written in `docs/about/index.md` and `docs/data/add-publications.md`, and the licence in `docs/about/index.md`: change them together. |
 | `refs.bib` | Bibliography: `[@key]` citations and the references of the Publications page are written from it (see *Citations* below). |
 | `hooks/sibils_data.py`, `data/` | Collection counts and vocabularies from the SIBiLS API (see below), and the references written from `refs.bib`. |
+| `hooks/redirects.py` | Redirect pages at the old addresses of moved pages, and at the section addresses `/services/` and `/data/` (`extra.redirects` in `mkdocs.yml`). |
 | `theme/` | The theme: templates, CSS, JavaScript, fonts, images. See [theme/README.md](theme/README.md). |
 | `.github/workflows/publish.yml` | Build and deployment. |
 
 ### Add a page
 
-1. Create the Markdown file under `docs/`, starting with a `# Title`.
+1. Create the Markdown file in the folder of its section under `docs/` (see *Addresses*),
+   starting with a `# Title`.
 2. Add it to `nav` in `mkdocs.yml`. The six top-level entries (Overview, Services, Data, API,
    Publications, About) are the sections of the sub-bar; the left sidebar lists the pages of the
    current section. A section whose first entry has no title, such as
-   `- api/biodiversitypmc/index.md`, uses that page as its landing page.
+   `- developers/biodiversitypmc/index.md`, uses that page as its landing page.
 3. Link pages with relative paths to the `.md` file, for example
-   `[Fetch](../api/biodiversitypmc/fetch.md)`, so that the build checks the link.
+   `[Fetch](../developers/biodiversitypmc/fetch.md)`, so that the build checks the link.
+
+### Addresses
+
+These rules are about the addresses of sibils.org only; each service host organises its own.
+
+- Every page of sibils.org is documentation. Each section of the nav has its prefix: a service
+  page is `docs/services/<service>/index.md`, at `/services/<service>/`; the Data pages are
+  under `docs/data/` (`/data/collections/`); the guide to an API is `docs/developers/<api>/`, at
+  `/developers/<api>/` (the API tab); the About pages are under `docs/about/` (`/about/sab/`).
+  The home page and Publications (`/publications/`) stay at the root. `/services/` and `/data/`
+  have no page of their own: they open the first page of their section, as the tab does.
+- No page of sibils.org is under `/api/`: the build stops on one. `docs/api/sparql/` keeps the
+  two files of the former ontology, `sibils-ontology.html` and `sibils-ontology.ttl`, at their
+  published address: they are files, not pages. The contract linked from Add your publications,
+  `docs/collections/contract/SIBiLS_contract.docx`, stays at its published address too.
+- Each `/developers/<api>/` page gives, at the top, the base URL of that API and its reference on
+  the service host, wherever the host puts it: `https://variomes.sibils.org/apis`,
+  `https://synvar.sibils.org/docs`, `https://celltriage.sibils.org/docs`,
+  `https://sparql.sibils.org/sparql-service`...
+- Folder names follow the host of the service: `/services/triage/` for `triage.sibils.org`,
+  `/developers/qa/` for `qa.sibils.org`. `/developers/annotation/` is the exception: the
+  annotation API is served at `https://biodiversitypmc.sibils.org/api/otf/`.
+- New addresses are lower case, with words separated by hyphens (`query-player`).
+- The address of a published page never disappears: papers, registries and other sites link to
+  it. If a page must move, add its old address to `extra.redirects` in `mkdocs.yml`;
+  `hooks/redirects.py` then writes a page at the old address that sends the reader to the new
+  one. Never remove an entry.
+
+With JavaScript, the redirect page passes the `?query` and the `#fragment` of the old address on
+to the new page; without it, its meta refresh opens the new page without them.
+Most anchors of the pages published before the redesign do not exist on the new pages (59 of the
+82 heading anchors of the 21 pages published in May 2026): the browser then shows the new page
+from the top. When an old anchor has a clear successor, list it under `fragments` (anchors are
+matched without regard to case); the build stops if a page or heading named there is missing:
+
+```yaml
+api/:
+  page: developers/index.md
+  fragments:
+    sparql: developers/sparql/index.md          # https://sibils.org/api/#sparql
+    fetch-api: developers/biodiversitypmc/fetch.md
+```
+
+`./venv/bin/python hooks/redirects.py --selftest` checks the entries of `mkdocs.yml`, and that
+each mistake listed at the top of `hooks/redirects.py` stops the build.
 
 ### Front matter
 
@@ -79,7 +126,7 @@ description: ...                         # meta description
 hero_lead: One plain sentence.
 hero_actions:
   - {label: Search BiodiversityPMC, url: "https://biodiversitypmc.sibils.org/", primary: true}
-  - {label: API documentation, url: api/index.md}
+  - {label: API documentation, url: developers/index.md}
 ---
 ```
 
@@ -109,7 +156,7 @@ Several buttons in one paragraph wrap on small screens. The old `.md-button` and
 `.md-button--primary` classes still work.
 
 ```markdown
-[Open BiotXplorer](https://biotxplorer.sibils.org/){ .btn .btn-primary } [API reference](../api/biodiversitypmc/index.md){ .btn }
+[Open BiotXplorer](https://biotxplorer.sibils.org/){ .btn .btn-primary } [API reference](../../developers/biodiversitypmc/index.md){ .btn }
 ```
 
 ### Facts box
@@ -139,13 +186,13 @@ Each item of the list is a card (one to three columns depending on the width).
 
     Search engine over MEDLINE, PMC, supplementary data, Plazi and Zenodo.
 
-    [Open](https://biodiversitypmc.sibils.org/) · [Documentation](biodiversitypmc/index.md) · [API](api/biodiversitypmc/index.md)
+    [Open](https://biodiversitypmc.sibils.org/) · [Documentation](services/biodiversitypmc/index.md) · [API](developers/biodiversitypmc/index.md)
 
 - ### Variomes
 
     Literature triage for genomic variants.
 
-    [Open](https://variomes.sibils.org/) · [Documentation](variomes/index.md)
+    [Open](https://variomes.sibils.org/) · [Documentation](services/variomes/index.md)
 
 </div>
 ```
@@ -364,7 +411,7 @@ clicks; without JavaScript the link opens the video on YouTube. An `<img>` poste
 before the `<span>`, is optional (a local file, not an image from YouTube).
 
 ```html
-<div class="video"><video controls preload="none" poster="../assets/video-poster.png"><source src="https://candy.text-analytics.ch/Speech.mp4" type="video/mp4"></video></div>
+<div class="video"><video controls preload="none" poster="../../assets/video-poster.png"><source src="https://candy.text-analytics.ch/Speech.mp4" type="video/mp4"></video></div>
 
 <div class="video" data-embed="https://www.youtube-nocookie.com/embed/VIDEO_ID?autoplay=1" data-title="Title of the video (YouTube)"><a href="https://www.youtube.com/watch?v=VIDEO_ID"><span>Play the video (YouTube)<small>Starting it loads the YouTube player, from Google servers</small></span></a></div>
 ```
@@ -402,7 +449,7 @@ The data feeds the counts on the home page and replaces these markers in the pag
 
 | Marker | Replaced by |
 |--------|-------------|
-| `<!-- sibils:vocabularies -->` | The vocabulary tables (`docs/vocabularies.md`) |
+| `<!-- sibils:vocabularies -->` | The vocabulary tables (`docs/data/vocabularies.md`) |
 | `<!-- sibils:collection-counts -->` | The table of documents per collection |
 | `<!-- sibils:release -->` | The SIBiLS release, for example 5.1.5.10 |
 | `<!-- sibils:date -->` | The build day, or the day the snapshot in `data/` was saved (the API gives no date, so this is not the day the SIBiLS data changed) |
@@ -413,7 +460,7 @@ The vocabulary tables also link each vocabulary to its page in the Terminology B
 
 Each row of the vocabulary tables carries its `type` in a `data-type` attribute, and an empty `div.vocab-filter` precedes the tables: `theme/js/vocab-filter.js` turns it into the "Annotation type" filter (see `theme/README.md`). Without JavaScript the page lists every vocabulary with its type.
 
-Other pages can link to the vocabularies of one type: ``[`species`](../vocabularies.md?type=species)``. The build checks these links: a type that no vocabulary has (a typo, or a type the API no longer returns) is a warning, since the filter would then show every vocabulary.
+Other pages can link to the vocabularies of one type: ``[`species`](../../data/vocabularies.md?type=species)``. The build checks these links: a type that no vocabulary has (a typo, or a type the API no longer returns) is a warning, since the filter would then show every vocabulary.
 
 ```sh
 SIBILS_OFFLINE=1 ./serve                            # do not call the API, use data/

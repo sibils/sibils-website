@@ -66,10 +66,10 @@ describe the vocabulary data; on all other pages they describe the counts.
 An unknown ``sibils:`` marker is reported as a warning (it is a typo in a page).
 
 A Markdown link to the filtered Vocabularies page, such as
-``[`species`](../vocabularies.md?type=species)``, is checked against the types
-of the vocabularies (check_type_links()): the filter shows everything for a
-type it does not know, so a type that no vocabulary has any more, or a typo,
-is reported as a warning.
+``[`species`](../../data/vocabularies.md?type=species)``, is checked against
+the types of the vocabularies (check_type_links()): the filter shows
+everything for a type it does not know, so a type that no vocabulary has any
+more, or a typo, is reported as a warning.
 
 References are written from refs.bib, in one style (format_reference()), by
 these markers; the first three must be alone on their line, indented as the
@@ -1702,8 +1702,8 @@ def selftest() -> int:
     check(browser_settings({"name": "Terminology Browser", "url": "ftp://x"}) is None, "browser url not http(s)")
 
     # 4. Rendering.
-    vocab_page = (REPO_DIR / "docs" / "vocabularies.md").read_text(encoding="utf-8")
-    vocab_md = replace_markers(vocab_page, extra, "vocabularies.md")
+    vocab_page = (REPO_DIR / "docs" / "data" / "vocabularies.md").read_text(encoding="utf-8")
+    vocab_md = replace_markers(vocab_page, extra, "data/vocabularies.md")
     counts_md = replace_markers("<!-- sibils:collection-counts -->", extra, "test")
     check(MARKER_RE.search(vocab_md) is None, "marker left on the vocabularies page")
     for e in extra["terminologies"]:
@@ -1743,8 +1743,8 @@ def selftest() -> int:
     handler.emit = lambda record: found.append(record.getMessage())
     log.addHandler(handler)
     try:
-        bad = check_type_links("[a](../vocabularies.md?type=species) [b](vocabularies.md?type=cell+line#x) "
-                               "[c](../../vocabularies.md?utm=1&type=Species) [d](vocabularies.md?type=nosuch) "
+        bad = check_type_links("[a](../data/vocabularies.md?type=species) [b](vocabularies.md?type=cell+line#x) "
+                               "[c](../../data/vocabularies.md?utm=1&type=Species) [d](data/vocabularies.md?type=nosuch) "
                                "[e](vocabularies.md#chebi) [f](https://example.org/?type=nosuch)", extra, "test")
     finally:
         log.removeHandler(handler)

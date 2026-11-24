@@ -2200,7 +2200,7 @@ dialog::backdrop { background: var(--backdrop); }
   .content .browser-note { display: none; }
   /* Vocabularies: the Terminology Browser link of each table row would print
      one more address per row (hooks/sibils_data.py: span.vocab-browse); the
-     sentence that introduces these links (docs/vocabularies.md) goes too. */
+     sentence that introduces these links (docs/data/vocabularies.md) goes too. */
   .content .vocab-browse { display: none; }
   /* Vocabularies: the type filter (theme/js/vocab-filter.js) is not printed;
      what it hides on screen is. */

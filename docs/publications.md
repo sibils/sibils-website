@@ -21,15 +21,15 @@ Some services, collections and vocabularies have their own publication, to cite 
 
 | Service or data | Publication |
 |-----------------|-------------|
-| [BiodiversityPMC](biodiversitypmc/index.md) | <!-- sibils:cite-short pasche2023sibils --> and <!-- sibils:cite-short pasche2023towards --> |
-| [Question-Answering](qa/index.md) | No dedicated publication: cite the two SIBiLS papers. The current pipeline is described in a project milestone report of the ELIXIR project KYBELE, <!-- sibils:cite-short flament2026qademonstrator --> |
-| [BiotXplorer](biotxplorer/index.md) | <!-- sibils:cite-short ruch2024biotxplorer --> |
-| [Variomes](variomes/index.md) | <!-- sibils:cite-short pasche2022variomes --> |
-| [SynVar](synvar/index.md) | <!-- sibils:cite-short mottaz2022synvar -->, with the Variomes paper |
-| [Triage](celltriage/index.md) | DisTriage: <!-- sibils:cite-short nugnes2026disprot -->. CellTriage, ScaleBioMTriage and IpbesTriage: no dedicated publication |
-| [SPARQL endpoint](sparql/index.md) | No dedicated publication |
-| [Supplementary data](collections/sibils_collections.md#supplementary-data) collection | <!-- sibils:cite-short gobeill2025supplementary --> |
-| [COVoc](vocabularies.md#covoc) vocabularies | <!-- sibils:cite-short caucheteur2023covoc --> |
+| [BiodiversityPMC](services/biodiversitypmc/index.md) | <!-- sibils:cite-short pasche2023sibils --> and <!-- sibils:cite-short pasche2023towards --> |
+| [Question-Answering](services/qa/index.md) | No dedicated publication: cite the two SIBiLS papers. The current pipeline is described in a project milestone report of the ELIXIR project KYBELE, <!-- sibils:cite-short flament2026qademonstrator --> |
+| [BiotXplorer](services/biotxplorer/index.md) | <!-- sibils:cite-short ruch2024biotxplorer --> |
+| [Variomes](services/variomes/index.md) | <!-- sibils:cite-short pasche2022variomes --> |
+| [SynVar](services/synvar/index.md) | <!-- sibils:cite-short mottaz2022synvar -->, with the Variomes paper |
+| [Triage](services/triage/index.md) | DisTriage: <!-- sibils:cite-short nugnes2026disprot -->. CellTriage, ScaleBioMTriage and IpbesTriage: no dedicated publication |
+| [SPARQL endpoint](services/sparql/index.md) | No dedicated publication |
+| [Supplementary data](data/collections.md#supplementary-data) collection | <!-- sibils:cite-short gobeill2025supplementary --> |
+| [COVoc](data/vocabularies.md#covoc) vocabularies | <!-- sibils:cite-short caucheteur2023covoc --> |
 
 When you report results obtained with SIBiLS, also give the date of your queries: the collections are updated daily. The release of the software is given by the `sibils_version` field of the [/count](https://biodiversitypmc.sibils.org/api/count) endpoint.
 
