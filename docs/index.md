@@ -35,7 +35,7 @@ hero_actions:
 
     Finds biotic interactions between taxa reported in the literature, such as “host of”, together with the passages that support each interaction.
 
-    [Open<span class="visually-hidden"> BiotXplorer</span>](https://biotxplorer.sibils.org/) · [Documentation<span class="visually-hidden"> of BiotXplorer</span>](services/biotxplorer/index.md) · [API<span class="visually-hidden"> of BiotXplorer</span>](https://biotxplorer.sibils.org/api/)
+    [Open<span class="visually-hidden"> BiotXplorer</span>](https://biotxplorer.sibils.org/) · [Documentation<span class="visually-hidden"> of BiotXplorer</span>](services/biotxplorer/index.md) · [API<span class="visually-hidden"> of BiotXplorer</span>](developers/biotxplorer/index.md)
 
 - ### Variomes
 

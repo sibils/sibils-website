@@ -73,6 +73,7 @@ https://sibils.org/services/sparql/
 https://sibils.org/services/synvar/
 https://sibils.org/services/triage/
 https://sibils.org/services/variomes/
+https://sibils.org/developers/biotxplorer/
 
 # Files of the site published on 2026-05-26 that it still serves. The theme
 # writes sitemap.xml and 404.html during the build: the hook looks for them

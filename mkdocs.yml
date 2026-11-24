@@ -242,6 +242,7 @@ nav:
       - Variomes: developers/variomes/index.md
       - CellTriage: developers/celltriage/index.md
       - SPARQL: developers/sparql/index.md
+      - BiotXplorer: developers/biotxplorer/index.md
   - Publications: publications.md
   - About:
       - About SIBiLS: about/index.md

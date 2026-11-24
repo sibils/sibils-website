@@ -69,7 +69,7 @@ Values observed on 22 November 2026, with SIBiLS release 5.1.5.10.
 | SynVar | Generates the synonyms of a genomic variant, or its normalized representations | [SynVar API](synvar/index.md) |
 | Variomes | Ranks the publications that mention a genomic variant | [Variomes API](variomes/index.md) |
 | CellTriage | Scores articles for Cellosaurus curation | [CellTriage API](celltriage/index.md) |
-| BiotXplorer | Searches the literature for pairs of taxa that could have a biotic relationship | [Swagger UI](https://biotxplorer.sibils.org/api/) on the BiotXplorer server |
+| BiotXplorer | Searches the literature for pairs of taxa that could have a biotic relationship | [BiotXplorer API](biotxplorer/index.md) |
 | SPARQL endpoint | Queries the SIBiLS RDF: publications cited by SIB resources, with their annotations | [SPARQL API](sparql/index.md) |
 
 ## Using the APIs

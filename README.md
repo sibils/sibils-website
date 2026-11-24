@@ -171,7 +171,7 @@ Several buttons in one paragraph wrap on small screens. The old `.md-button` and
 `.md-button--primary` classes still work.
 
 ```markdown
-[Open BiotXplorer](https://biotxplorer.sibils.org/){ .btn .btn-primary } [API reference](../../developers/biodiversitypmc/index.md){ .btn }
+[Open BiotXplorer](https://biotxplorer.sibils.org/){ .btn .btn-primary } [API documentation](../../developers/biotxplorer/index.md){ .btn }
 ```
 
 ### Facts box

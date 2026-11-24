@@ -10,7 +10,7 @@ BiotXplorer, the biotic interactions browser, searches the literature for pairs 
 { .lead }
 
 [Open BiotXplorer](https://biotxplorer.sibils.org/){ .btn .btn-primary }
-[API documentation](https://biotxplorer.sibils.org/api/){ .btn }
+[API documentation](../../developers/biotxplorer/index.md){ .btn }
 
 <div class="facts" markdown>
 
@@ -18,7 +18,7 @@ Web application
 :   [biotxplorer.sibils.org](https://biotxplorer.sibils.org/)
 
 API
-:   REST API at `https://biotxplorer.sibils.org/api`, interactive documentation at [biotxplorer.sibils.org/api/](https://biotxplorer.sibils.org/api/)
+:   REST API at `https://biotxplorer.sibils.org/api`, see the [BiotXplorer API](../../developers/biotxplorer/index.md); interactive documentation at [biotxplorer.sibils.org/api/](https://biotxplorer.sibils.org/api/)
 
 Collections
 :   MEDLINE, PMC+, supplementary data, Plazi treatments, Zenodo
