@@ -176,7 +176,9 @@ which repackages the Google Fonts build of DM Sans:
 ## Images
 
 - `img/favicon.png` (64 x 64) and `img/apple-touch-icon.png` (180 x 180) are the SIB emblem cropped
-  from the top right of `img/sibils-wordmark.png`.
+  from the top right of `img/sibils-wordmark.png`. `docs/assets/images/favicon.png` is a copy of
+  `img/favicon.png` at the address of the former site's favicon, which other sites may still
+  show: replace both together.
 - `img/og-card.png` (1200 x 630) is the preview shown when a page is shared. It is a screenshot of
   a small HTML page (red band with the white wordmark, the site description in DM Sans), taken with
   headless Chromium: `chrome --headless --window-size=1200,630 --screenshot=og-card.png card.html`.

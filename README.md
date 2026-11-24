@@ -42,7 +42,7 @@ git add -A && git commit && git push
 | `mkdocs.yml` | Site settings: the navigation (`nav`), the SIBiLS apps given as service channels in the home page's structured data (`extra.apps`, see `theme/partials/jsonld.html`), the Terminology Browser (`extra.terminology_browser`), footer logos (`extra.partners`), contact, licence, Matomo. The contact address is also written in `docs/about/index.md` and `docs/data/add-publications.md`, and the licence in `docs/about/index.md`: change them together. |
 | `refs.bib` | Bibliography: `[@key]` citations and the references of the Publications page are written from it (see *Citations* below). |
 | `hooks/sibils_data.py`, `data/` | Collection counts and vocabularies from the SIBiLS API (see below), and the references written from `refs.bib`. |
-| `hooks/redirects.py` | Redirect pages at the old addresses of moved pages, and at the section addresses `/services/` and `/data/` (`extra.redirects` in `mkdocs.yml`). |
+| `hooks/redirects.py`, `data/published-urls.txt` | Redirect pages at the old addresses of moved pages, and at the section addresses `/services/` and `/data/` (`extra.redirects` in `mkdocs.yml`); checks that every published address is still served and that the home page buttons link pages (see *Addresses* below). |
 | `theme/` | The theme: templates, CSS, JavaScript, fonts, images. See [theme/README.md](theme/README.md). |
 | `.github/workflows/publish.yml` | Build and deployment. |
 
@@ -83,6 +83,19 @@ These rules are about the addresses of sibils.org only; each service host organi
   it. If a page must move, add its old address to `extra.redirects` in `mkdocs.yml`;
   `hooks/redirects.py` then writes a page at the old address that sends the reader to the new
   one. Never remove an entry.
+
+`data/published-urls.txt` lists the published addresses: the pages, the old addresses of
+`extra.redirects` and the files that other sites may link to (the ontology files, the contract,
+the logos, `sitemap.xml`). The build stops, on GitHub too, when one of them has neither a page,
+nor a redirect page, nor a file; it warns (so `--strict` stops) when a page or an
+`extra.redirects` key is missing from the list. Other files are not listed and can change with
+the theme: its scripts, styles and images (the redesign drops those of the former theme,
+including the social cards). So:
+
+- New page: add its address, for example `https://sibils.org/developers/foo/`, to the list in
+  the same commit.
+- Page that moves: keep its line, add an `extra.redirects` entry for it, and add the new address.
+- Never remove a line.
 
 With JavaScript, the redirect page passes the `?query` and the `#fragment` of the old address on
 to the new page; without it, its meta refresh opens the new page without them.
@@ -130,7 +143,9 @@ hero_actions:
 ---
 ```
 
-Relative `url` values point to Markdown files and are turned into page URLs.
+Relative `url` values point to Markdown files (`developers/index.md`, optionally with
+`#heading`) and are turned into page URLs. The build stops when the file is not a page of the
+site, or when the page has no such heading.
 
 ## Writing
 
