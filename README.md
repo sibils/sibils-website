@@ -43,6 +43,7 @@ git add -A && git commit && git push
 | `refs.bib` | Bibliography: `[@key]` citations and the references of the Publications page are written from it (see *Citations* below). |
 | `hooks/sibils_data.py`, `data/` | Collection counts and vocabularies from the SIBiLS API (see below), and the references written from `refs.bib`. |
 | `hooks/redirects.py`, `data/published-urls.txt` | Redirect pages at the old addresses of moved pages, and at the section addresses `/services/` and `/data/` (`extra.redirects` in `mkdocs.yml`); checks that every published address is still served and that the home page buttons link pages (see *Addresses* below). |
+| `hooks/unlisted.py`, `theme/sitemap.xml` | Unlisted pages (`not_in_nav` in `mkdocs.yml`): out of the site search and the sitemap, `noindex`, no link from listed pages, shown in the section of the nearest listed page (see *Addresses* below). `./venv/bin/python hooks/unlisted.py --selftest` |
 | `theme/` | The theme: templates, CSS, JavaScript, fonts, images. See [theme/README.md](theme/README.md). |
 | `.github/workflows/publish.yml` | Build and deployment. |
 
@@ -76,8 +77,16 @@ These rules are about the addresses of sibils.org only; each service host organi
   `https://synvar.sibils.org/docs`, `https://celltriage.sibils.org/docs`,
   `https://sparql.sibils.org/sparql-service`...
 - Folder names follow the host of the service: `/services/triage/` for `triage.sibils.org`,
-  `/developers/qa/` for `qa.sibils.org`. `/developers/annotation/` is the exception: the
-  annotation API is served at `https://biodiversitypmc.sibils.org/api/otf/`.
+  `/developers/qa/` for `qa.sibils.org`. The APIs that share the BiodiversityPMC host follow
+  their path there: `/developers/otf/` for `https://biodiversitypmc.sibils.org/api/otf/`,
+  `/developers/query/` for `https://biodiversitypmc.sibils.org/api/query/`.
+- A page can be unlisted: built and reachable at its address, but in no menu, search result or
+  sitemap, with `noindex`, and linked from no listed page (the build checks it). Add it to
+  `not_in_nav` in `mkdocs.yml` and leave it out of `nav`; `hooks/unlisted.py` shows it with the
+  tab, sidebar and breadcrumb of the section of the nearest listed page above its address. Used
+  for the guides of the APIs the team keeps internal: `/developers/otf/` (annotation and
+  vocabularies) and `/developers/query/` (query parser). Their addresses stay in
+  `data/published-urls.txt`.
 - New addresses are lower case, with words separated by hyphens (`query-player`).
 - The address of a published page never disappears: papers, registries and other sites link to
   it. If a page must move, add its old address to `extra.redirects` in `mkdocs.yml`;

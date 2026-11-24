@@ -38,6 +38,9 @@ hooks:
   # Writes a redirect page at the old address of each moved page
   # (extra.redirects). See hooks/redirects.py.
   - hooks/redirects.py
+  # Pages matched by not_in_nav (below): built, but not linked, searched or in
+  # the sitemap. See hooks/unlisted.py.
+  - hooks/unlisted.py
 
 plugins:
   - search
@@ -199,6 +202,14 @@ extra:
     matomo_url: //matomo.text-analytics.ch/
     matomo_site_id: 10
 
+# Pages that are built and reachable at their address but kept out of the
+# nav, the site search and the sitemap, with noindex; no page of the nav may
+# link to them (hooks/unlisted.py). The guides of the APIs the team keeps
+# internal. Patterns as in .gitignore, relative to docs/.
+not_in_nav: |
+  /developers/otf/
+  /developers/query/
+
 # Each section has its folder, which is the prefix of the address of its pages:
 # services/, data/, developers/ (the API tab) and about/. The home page and
 # Publications are at the root (README.md, Addresses). The services/ and data/
@@ -219,8 +230,9 @@ nav:
       - Add your publications: data/add-publications.md
   # The API guides are under developers/ (URL /developers/): no page of
   # sibils.org is under /api/ (README.md, Addresses). One folder per API,
-  # named like the host that serves it; annotation/ is the exception (the
-  # annotation API is served at biodiversitypmc.sibils.org/api/otf/). The tab
+  # named like the host that serves it; the APIs that share the BiodiversityPMC
+  # host are named like their path there (otf/ for /api/otf/, query/ for
+  # /api/query/). The tab
   # keeps the title "API" (theme/main.html derives the class section-api from
   # it).
   - API:
@@ -235,9 +247,6 @@ nav:
       - Question-Answering:
           - developers/qa/index.md
           - OpenAPI reference: developers/qa/reference.md
-      - Annotation and vocabularies:
-          - developers/annotation/index.md
-          - OpenAPI reference: developers/annotation/reference.md
       - SynVar: developers/synvar/index.md
       - Variomes: developers/variomes/index.md
       - CellTriage: developers/celltriage/index.md

@@ -50,8 +50,6 @@ https://sibils.org/data/add-publications/
 https://sibils.org/data/collections/
 https://sibils.org/data/vocabularies/
 https://sibils.org/developers/
-https://sibils.org/developers/annotation/
-https://sibils.org/developers/annotation/reference/
 https://sibils.org/developers/biodiversitypmc/
 https://sibils.org/developers/biodiversitypmc/fetch/
 https://sibils.org/developers/biodiversitypmc/mapping/
@@ -74,6 +72,12 @@ https://sibils.org/services/synvar/
 https://sibils.org/services/triage/
 https://sibils.org/services/variomes/
 https://sibils.org/developers/biotxplorer/
+
+# Unlisted pages (not_in_nav in mkdocs.yml, hooks/unlisted.py): not linked,
+# but reachable by whoever has the address.
+https://sibils.org/developers/otf/
+https://sibils.org/developers/otf/reference/
+https://sibils.org/developers/query/
 
 # Files of the site published on 2026-05-26 that it still serves. The theme
 # writes sitemap.xml and 404.html during the build: the hook looks for them

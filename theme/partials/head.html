@@ -35,6 +35,11 @@
 {%- if page and page.canonical_url %}
 <link rel="canonical" href="{{ page.canonical_url | e }}">
 {%- endif %}
+{#- Unlisted pages (not_in_nav in mkdocs.yml, hooks/unlisted.py) stay out of
+    search engines. #}
+{%- if page and page.file and page.file.inclusion.is_not_in_nav() %}
+<meta name="robots" content="noindex">
+{%- endif %}
 <meta name="theme-color" content="#cc0000">
 <meta name="color-scheme" content="light dark">
 <meta name="generator" content="MkDocs {{ mkdocs_version }}">

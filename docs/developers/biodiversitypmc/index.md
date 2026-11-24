@@ -42,7 +42,7 @@ Documents are parsed, then annotated with concepts from reference vocabularies (
 | `/pmid2pmcid` | Map PMIDs to PMCIDs | [Identifier mapping](mapping.md#pmids-to-pmcids) |
 | `/doi2pmid` | Map DOIs to PMIDs | [Identifier mapping](mapping.md#dois-to-pmids) |
 
-Question-Answering is a separate API, hosted at `qa.sibils.org`: see [Question-Answering API](../qa/index.md). Annotating your own text is done with the [annotation and vocabularies API](../annotation/index.md).
+Question-Answering is a separate API, hosted at `qa.sibils.org`: see [Question-Answering API](../qa/index.md).
 
 ## Collections
 

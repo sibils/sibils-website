@@ -131,7 +131,7 @@ Each annotation contains:
 | `score` | Annotation score | `0.5` |
 | `attributes` | Additional attributes, or `null` | `null` |
 
-To locate a mention, find the sentence whose `sentence_number` equals the annotation's `sentence_number`: the mention is `sentence[start_index:end_index]` of that sentence. Sentence numbers start at 1 and identify a single sentence of the document, so `sentences[sentence_number]` (a list index) gives the wrong sentence. The [annotation API](../annotation/index.md#annotation-fields) uses the same fields, but there `sentence_number` is a list index that starts at 0.
+To locate a mention, find the sentence whose `sentence_number` equals the annotation's `sentence_number`: the mention is `sentence[start_index:end_index]` of that sentence. Sentence numbers start at 1 and identify a single sentence of the document, so `sentences[sentence_number]` (a list index) gives the wrong sentence.
 
 ### BioC
 

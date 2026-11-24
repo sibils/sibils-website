@@ -41,4 +41,4 @@ BiodiversityPMC was soft-launched in summer 2023 and officially announced at the
 
 ## Using BiodiversityPMC
 
-The [Documentation](https://biodiversitypmc.sibils.org/docs) page of the web application describes the query syntax and the fields that can be searched in each collection.
+The [Documentation](https://biodiversitypmc.sibils.org/docs) page of the web application describes what a query can contain (words, phrases, annotated concepts, fields, fuzzy and proximity search, ranges, Boolean operators, grouping) in its *Search Syntax* tab, and the fields that can be searched in each collection in its *Field Reference* tab.
