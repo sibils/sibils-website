@@ -51,7 +51,7 @@ hero_actions:
 
 - ### Triage
 
-    Ranks new publications every week for curation teams: CellTriage for Cellosaurus (MEDLINE and PMC), and DisTriage, ScaleBioMTriage and IpbesTriage for DisProt, island biodiversity and IPBES.
+    Four services rank the new MEDLINE publications of each week: CellTriage for Cellosaurus, DisTriage for DisProt (a prototype), ScaleBioMTriage for island biodiversity and IpbesTriage for IPBES.
 
     [Open<span class="visually-hidden"> the Triage app</span>](https://triage.sibils.org/) · [Documentation<span class="visually-hidden"> of Triage</span>](services/triage/index.md) · [API<span class="visually-hidden"> of CellTriage</span>](developers/celltriage/index.md)
 

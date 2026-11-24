@@ -27,7 +27,7 @@ A [Scientific Advisory Board](sab.md) advises the team on the development of the
 Past and current funding, most recent first:
 
 - **ELIXIR project KYBELE** (2026): new taxon and [trophic-guild vocabularies](../data/vocabularies.md#kybele) for the annotation of BiodiversityPMC, and a [Question-Answering](../services/qa/index.md) demonstrator.
-- **ScaleBioM** (swissuniversities, Open Science II programme, 2026; led by HES-SO with the University of Neuchâtel): to add a channel that acquires biodiversity articles from OpenAlex for BiodiversityPMC. [ScaleBioMTriage](../services/triage/index.md#other-triage-services) was developed within it.
+- **ScaleBioM** (swissuniversities, Open Science II programme, 2026; led by HES-SO with the University of Neuchâtel): to add a channel that acquires biodiversity articles from OpenAlex for BiodiversityPMC. [ScaleBioMTriage](../services/triage/index.md#scalebiomtriage) was developed within it.
 - **METAPLANTCODE** (Biodiversa+, Swiss National Science Foundation, grant 216811, 2024 to 2028): the addition of biodiversity vocabularies.
 - **FAIRClinical** (CHIST-ERA, Swiss National Science Foundation, grant 217525, 2024 to 2027): part of the evaluation of the annotations.
 - **eBioDiv** (swissuniversities, 2021 to 2023; [ebiodiv.org](https://ebiodiv.org/)), a project of HES-SO and SIB with Plazi, the Natural History Museum of Bern and the Bern University of Applied Sciences: the production-level import of Plazi taxonomic treatments into SIBiLS. The swissuniversities Open Science programme funded work on BiodiversityPMC presented in 2023.
