@@ -61,7 +61,7 @@ Code of SIBiLS and of its services on GitHub (the [sibils organisation](https://
 - **2020:** SIBiLS is described in the web server issue of *Nucleic Acids Research*, with daily updated copies of MEDLINE and the PubMed Central open-access subset.
 - **2021 to 2023:** the eBioDiv project, which complements BiCIKL, sets up a production-level import of Plazi taxonomic treatments into SIBiLS.
 - **2023:** [BiodiversityPMC](../biodiversitypmc/index.md), built within the BiCIKL project, gives one entry point to MEDLINE, PMC, Plazi treatments and Pensoft articles that are not in PMC. After a soft launch in summer 2023, it is officially announced at the BiCIKL General Assembly on 14 February 2024.
-- **2024:** the [Scientific Advisory Board](../sab.md) meets online on 10 December 2024; its report is on Zenodo.
+- **2024 and 2025:** the [Scientific Advisory Board](../sab.md) meets online on 10 December 2024, then in Geneva on 17 and 18 December 2025; its reports are on Zenodo.
 - **2025 and 2026:** papers describe the [supplementary data collection](../collections/sibils_collections.md#supplementary-data) and the current annotation pipeline and its evaluation.
 
 ## Privacy

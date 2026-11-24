@@ -14,7 +14,6 @@ The Scientific Advisory Board (SAB) of the SIB Literature Services meets once a 
 * Laurence Bénichou (CETAF / MNHN Paris)
 * Melissa Harrison (EBI, Hinxton)
 * Nona Naderi (Université Paris Saclay, Paris)
-* Michelle Price (CJB, Genève)
 * Dietrich Rebholz-Schuhmann (ZB MED, Köln)
 * Robert Waterhouse (SIB, Lausanne)
 
@@ -24,4 +23,7 @@ The Scientific Advisory Board (SAB) of the SIB Literature Services meets once a 
 
 ## Reports
 
-The report of the session held online on 10 December 2024 summarises the board's recommendations [@sib2025sab].
+The reports of the sessions summarise the board's recommendations:
+
+- the inaugural session, held online on 10 December 2024 [@sib2025sab];
+- the second session, held in Geneva on 17 and 18 December 2025 [@benichou2026sab].
