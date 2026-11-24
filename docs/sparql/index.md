@@ -52,7 +52,3 @@ The [SIBiLS RDF site](https://sparql.sibils.org/) also offers a Concept Hopper t
 A presentation of the SPARQL endpoint, recorded in 2023 (4 min 51 s, QuickTime, 183 MB). Some addresses and namespaces shown in it have changed since; the current ones are on the [ontology page](https://sparql.sibils.org/rdf-ontology).
 
 <div class="video"><video controls preload="none" poster="../assets/posters/sparql.jpg" aria-label="SIBiLS SPARQL endpoint video"><source src="https://candy.text-analytics.ch/sibils-sparql.mov" type="video/mp4"><a href="https://candy.text-analytics.ch/sibils-sparql.mov">Download the SPARQL video</a> (QuickTime, 183 MB).</video></div>
-
-## API
-
-See the [SPARQL API](../api/sparql/index.md) page for programmatic access to `https://sparql.sibils.org/sparql`. The [SPARQL service page](https://sparql.sibils.org/sparql-service) of the SIBiLS RDF site gives curl and Python examples.

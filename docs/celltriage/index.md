@@ -19,7 +19,7 @@ Web application
 :   [triage.sibils.org](https://triage.sibils.org/): CellTriage, DisTriage, ScaleBioMTriage, IpbesTriage
 
 API
-:   CellTriage API, interactive documentation at [celltriage.sibils.org/docs](https://celltriage.sibils.org/docs); see the [CellTriage API](../api/celltriage/index.md) page
+:   CellTriage API, which scores a list of PMIDs: see the [CellTriage API](../api/celltriage/index.md) page and the interactive documentation at [celltriage.sibils.org/docs](https://celltriage.sibils.org/docs)
 
 Collections
 :   MEDLINE and PMC (CellTriage)
@@ -52,7 +52,3 @@ The Triage web application also hosts these services, each with its own weekly u
 
 [IpbesTriage](https://triage.sibils.org/ipbestriage)
 :   A triage service designed to support [IPBES](https://www.ipbes.net/) (the Intergovernmental Science-Policy Platform on Biodiversity and Ecosystem Services) in its global assessments. Unlike the other triage services, it is a multiclass, multilabel classifier.
-
-## API
-
-The [CellTriage API](../api/celltriage/index.md) scores a list of PMIDs submitted by the user; its interactive documentation is at [celltriage.sibils.org/docs](https://celltriage.sibils.org/docs).

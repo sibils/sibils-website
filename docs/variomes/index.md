@@ -18,7 +18,7 @@ Web application
 :   [variomes.sibils.org](https://variomes.sibils.org/)
 
 API
-:   REST API at `https://variomes.sibils.org/api`, documented at [variomes.sibils.org/apis](https://variomes.sibils.org/apis)
+:   REST API at `https://variomes.sibils.org/api`, see the [Variomes API](../api/variomes/index.md); parameters at [variomes.sibils.org/apis](https://variomes.sibils.org/apis)
 
 Collections
 :   MEDLINE, PMC, supplementary data, ClinicalTrials.gov
@@ -48,7 +48,3 @@ The web application offers three types of query: search the literature for one o
 A presentation of Variomes on the YouTube channel of SIB (11 min 16 s).
 
 <div class="video" data-embed="https://www.youtube-nocookie.com/embed/ovhu5U0EKHQ?autoplay=1" data-title="Variomes: a search engine to support the curation of genetic variants (YouTube)"><a href="https://www.youtube.com/watch?v=ovhu5U0EKHQ"><span>Play the video (YouTube)<small>Starting it loads the YouTube player, from Google servers</small></span></a></div>
-
-## API
-
-The Variomes API ranks the literature for a variant (`rankLit`) and fetches documents (`fetchDoc`). Its parameters are documented on [variomes.sibils.org/apis](https://variomes.sibils.org/apis); see also the [Variomes API](../api/variomes/index.md) page.

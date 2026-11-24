@@ -106,7 +106,3 @@ SynVar handles human variants only (Homo sapiens, NCBI Taxonomy 9606).
 * **Additional shifted synonyms**: add shifted deletion and duplication synonyms in repetitive sequence.
 
 The [usage guide](https://synvar.sibils.org/resources/info.html) on the SynVar site describes each option and the supported notations in detail.
-
-## API
-
-See the [SynVar API](../api/synvar/index.md) page and the [usage guide](https://synvar.sibils.org/resources/info.html). For example, [`https://synvar.sibils.org/api?ref=BRAF&variant=V600E&level=protein&mode=normalize&format=json`](https://synvar.sibils.org/api?ref=BRAF&variant=V600E&level=protein&mode=normalize&format=json) returns the normalized descriptions of BRAF V600E.

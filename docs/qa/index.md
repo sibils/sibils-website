@@ -18,7 +18,7 @@ Web application
 :   [qa.sibils.org](https://qa.sibils.org/)
 
 API
-:   REST API at `https://qa.sibils.org/api`, see the [Question-Answering API](../api/biodiversitypmc/qa.md)
+:   REST API at `https://qa.sibils.org/api`, see the [Question-Answering API](../api/biodiversitypmc/qa.md); it replaces `https://biodiversitypmc.sibils.org/api/QA` ([how to move](../api/biodiversitypmc/qa.md#migrating-from-the-former-endpoint))
 
 Collections
 :   MEDLINE, PMC, Plazi treatments (API ids `medline`, `pmc`, `plazi`)
@@ -51,7 +51,3 @@ The web application uses extractive mode with sparse retrieval by default; its a
 
 !!! note "Check generated answers"
     A generative answer is written by a language model. It can be incomplete or wrong: read it together with the documents it lists.
-
-## API
-
-The [Question-Answering API](../api/biodiversitypmc/qa.md) page documents the endpoints, parameters and response fields, and [how to move](../api/biodiversitypmc/qa.md#migrating-from-the-former-endpoint) from the former endpoint `https://biodiversitypmc.sibils.org/api/QA`.

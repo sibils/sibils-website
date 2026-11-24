@@ -40,7 +40,3 @@ A search takes up to three terms: a first taxon, a second taxon and an interacti
 A presentation of BiotXplorer (3 min 41 s, MP4, 60.5 MB).
 
 <div class="video"><video controls preload="none" poster="../assets/posters/biotxplorer.jpg" aria-label="BiotXplorer video"><source src="https://candy.text-analytics.ch/biotxplorer.mp4" type="video/mp4"><a href="https://candy.text-analytics.ch/biotxplorer.mp4">Download the BiotXplorer video</a> (MP4, 60.5 MB).</video></div>
-
-## API
-
-The BiotXplorer API has its own interactive documentation (Swagger UI) at [biotxplorer.sibils.org/api/](https://biotxplorer.sibils.org/api/).

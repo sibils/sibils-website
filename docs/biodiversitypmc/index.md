@@ -42,7 +42,3 @@ BiodiversityPMC was soft-launched in summer 2023 and officially announced at the
 ## Using BiodiversityPMC
 
 The [Documentation](https://biodiversitypmc.sibils.org/docs) page of the web application describes the query syntax and the fields that can be searched in each collection.
-
-## API
-
-The [BiodiversityPMC API](../api/biodiversitypmc/index.md) fetches, searches and counts the same documents.
