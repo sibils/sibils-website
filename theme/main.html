@@ -76,6 +76,12 @@
 <p class="visually-hidden" id="__live-status" role="status" aria-live="polite"></p>
 <script src="{{ 'js/theme.js' | url }}" defer></script>
 <script src="{{ 'js/search.js' | url }}" defer></script>
+{#- The vocabulary filter, only on the page whose content has the empty
+    div.vocab-filter written by hooks/sibils_data.py. Deferred scripts run in
+    order, so theme.js has wrapped the tables by then. #}
+{%- if 'class="vocab-filter"' in (page.content or '') %}
+<script src="{{ 'js/vocab-filter.js' | url }}" defer></script>
+{%- endif %}
 {%- for script in config.extra_javascript %}
 {{ script | script_tag }}
 {%- endfor %}

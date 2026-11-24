@@ -1129,6 +1129,63 @@ a { color: var(--link); }
   .content .vocab-table tr > :last-child { display: none; }
   .content .vocab-version { display: inline; }
 }
+/* Vocabulary filter: theme/js/vocab-filter.js fills the empty div.vocab-filter
+   that hooks/sibils_data.py writes above the tables. Without JavaScript the
+   div has no box: an empty flex box would keep the margins above and below
+   it from collapsing, and move the tables down by 16 px. With JavaScript it
+   has the height of the filled filter before the deferred script fills it,
+   so the tables do not move when the filter appears (after a link to #chebi
+   has scrolled the page, for example). What the filter leaves out
+   (.is-filtered-out: rows, tables with their heading and shared paragraph,
+   category headings, their entries in "On this page" and the sidebar) is
+   hidden on screen only: print shows every vocabulary. */
+.vocab-filter {
+  --vocab-control-h: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+.vocab-filter:empty { display: none; }
+@media screen {
+  .js .vocab-filter:empty { display: block; min-height: var(--vocab-control-h); }
+}
+.vocab-filter label { font-weight: 600; }
+.vocab-filter select {
+  max-width: 100%;
+  min-height: var(--vocab-control-h);
+  padding: 6px 10px;
+  border: 1px solid var(--control);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem; /* 16 px: iOS does not zoom on focus */
+}
+/* "Show all N vocabularies": a button that looks like the content links. */
+.vocab-filter__reset {
+  min-height: var(--vocab-control-h);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--link);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+.vocab-filter__reset:hover { color: var(--link-hover); text-decoration-thickness: 2px; }
+@media (max-width: 639.98px) {
+  .vocab-filter :is(label, select) { flex: 1 1 100%; }
+  /* The label's line (line-height 1.65, as body) and the gap above the select. */
+  .js .vocab-filter:empty { min-height: calc(1.65em + 8px + var(--vocab-control-h)); }
+}
+@media screen {
+  .is-filtered-out { display: none !important; }
+  .content tbody tr:nth-last-child(1 of :not(.is-filtered-out)) > * { border-bottom: 0; }
+  .page-doc .content h3.is-first-group { margin-top: 16px; }
+}
 .no-js .content table {
   display: block;
   max-width: 100%;
@@ -2110,6 +2167,7 @@ dialog::backdrop { background: var(--backdrop); }
   .copy-btn { min-width: 44px; min-height: 44px; padding: 0 14px; top: 4px; right: 4px; }
   .content .highlight.has-copy-clash:not(:has(> .filename)) > pre { padding-top: 52px; }
   .highlight > .filename ~ .copy-btn { top: 0; min-height: 32px; }
+  .vocab-filter { --vocab-control-h: 44px; }
 }
 @media (pointer: coarse) and (max-width: 639.98px) {
   .search-btn { width: 44px; }
@@ -2144,6 +2202,9 @@ dialog::backdrop { background: var(--backdrop); }
      one more address per row (hooks/sibils_data.py: span.vocab-browse); the
      sentence that introduces these links (docs/vocabularies.md) goes too. */
   .content .vocab-browse { display: none; }
+  /* Vocabularies: the type filter (theme/js/vocab-filter.js) is not printed;
+     what it hides on screen is. */
+  .content .vocab-filter { display: none; }
   /* Print the address of external links, unless the link text already is
      the address (theme.js marks those .is-bare) or names it (the DOI and PMID
      links of references). */

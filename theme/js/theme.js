@@ -607,6 +607,8 @@
     var update = function () {
       var current = null;
       for (var i = 0; i < entries.length; i++) {
+        // A heading hidden by a filter (js/vocab-filter.js) has no box: skip it.
+        if (!entries[i].heading.getClientRects().length) continue;
         if (entries[i].heading.getBoundingClientRect().top - offset <= 1) current = entries[i];
         else break;
       }

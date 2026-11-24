@@ -411,6 +411,8 @@ The data feeds the counts on the home page and replaces these markers in the pag
 
 The vocabulary tables also link each vocabulary to its page in the Terminology Browser (`url` followed by `terminology/<concept_source>`). When the browser gets a production address, change `url` and remove `note` under `extra.terminology_browser` in `mkdocs.yml`: the tables and the marker follow.
 
+Each row of the vocabulary tables carries its `type` in a `data-type` attribute, and an empty `div.vocab-filter` precedes the tables: `theme/js/vocab-filter.js` turns it into the "Annotation type" filter (see `theme/README.md`). Without JavaScript the page lists every vocabulary with its type.
+
 ```sh
 SIBILS_OFFLINE=1 ./serve                            # do not call the API, use data/
 SIBILS_API_BASE=https://example.org/api ./serve     # read another API base URL (default https://biodiversitypmc.sibils.org/api)
@@ -432,7 +434,7 @@ stay; they remain true as long as the collections grow.
 
 ## Theme
 
-The theme is plain Jinja templates, one CSS file and three small JavaScript files, with no
+The theme is plain Jinja templates, one CSS file and four small JavaScript files, with no
 dependency on Material for MkDocs or on any CDN:
 
 ```
@@ -442,6 +444,7 @@ theme/
   css/sibils.css  css/pygments.css   styles, light and dark
   js/theme.js  js/search.js          theme toggle, menu, copy buttons, search
   js/counts.js                       current collection counts on the home page
+  js/vocab-filter.js                 annotation type filter on the Vocabularies page
   fonts/                             DM Sans (OFL licence)
   img/                               wordmarks, favicon, social card, partner logos
   tools/build_pygments_css.py        regenerates css/pygments.css

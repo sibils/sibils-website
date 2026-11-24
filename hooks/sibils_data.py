@@ -49,7 +49,8 @@ The data is stored in ``config.extra.sibils`` for the templates::
 
 and these markers are replaced in the Markdown of the pages:
 
-    <!-- sibils:vocabularies -->       vocabulary tables, by category
+    <!-- sibils:vocabularies -->       vocabulary tables, by category, under an empty
+                                       div.vocab-filter for the theme's type filter
     <!-- sibils:collection-counts -->  table of documents per collection
     <!-- sibils:release -->            SIBiLS release, for example 5.1.5.10
     <!-- sibils:date -->               build day, or the day the snapshot was saved,
@@ -776,6 +777,13 @@ def _link(label: str, url: str | None) -> str:
     return md_text(label)
 
 
+def _attr(text: str) -> str:
+    """Value of an HTML attribute inside a Markdown table cell: spaces
+    collapsed as in md_code() (a line break would end the table row),
+    escaped, with "|" as &#124; so that it cannot end the cell."""
+    return html.escape(_squash(text), quote=True).replace("|", "&#124;")
+
+
 def _slug(text: str) -> str:
     text = re.sub(r"[^\w\s-]", "", text.lower(), flags=re.UNICODE)
     return re.sub(r"[-\s]+", "-", text).strip("-")
@@ -798,14 +806,21 @@ def render_vocabularies(extra: dict, page_markdown: str = "") -> str:
     for cat in groups:
         taken.add(_slug(cat["title"]))
         taken.update(_slug(g["title"]) for g in cat["groups"] if g["title"])
-    taken.add(_slug("Vocabularies by annotation type"))
     anchors = {e["name_termino"]: _anchor(e["name_termino"], taken) for e in entries}
 
     n_cat = len(groups)
     lines = [
         f"The list has {len(entries)} vocabularies in {n_cat} {'category' if n_cat == 1 else 'categories'}.",
         "",
+        # Filled by theme/js/vocab-filter.js (the "Annotation type" select); empty without JavaScript.
+        '<div class="vocab-filter"></div>',
+        "",
     ]
+    # theme/js/vocab-filter.js takes each div.vocab-table together with what
+    # comes before it, up to the previous heading (the shared description, and
+    # the ### group heading if there is one), and each ## category with its
+    # tables up to the next ##. Keep the order: heading, optional shared
+    # description, div.vocab-table.
     for cat in groups:
         lines += [f"## {cat['title']}", ""]
         for group in cat["groups"]:
@@ -834,7 +849,7 @@ def render_vocabularies(extra: dict, page_markdown: str = "") -> str:
                         f'<span class="visually-hidden"> of {md_text(label)} in the {md_text(browser["name"])}</span></a></span>'
                     )
                 cell = (
-                    f'<span id="{anchors[name]}"></span>{_link(label, _http_url(e.get("url")))}'
+                    f'<span id="{anchors[name]}" data-type="{_attr(e["type"])}"></span>{_link(label, _http_url(e.get("url")))}'
                     f"<br><small>{meta}</small>"
                 )
                 description = _squash(e.get("description"))
@@ -844,23 +859,6 @@ def render_vocabularies(extra: dict, page_markdown: str = "") -> str:
                 version = f'<span style="white-space: nowrap">{md_text(e["version"])}</span>'
                 lines.append(f"| {cell} | {version} |")
             lines += ["", "</div>", ""]
-
-    # Which vocabularies produce each annotation type.
-    by_type = {}
-    for e in entries:
-        by_type.setdefault(e["type"], []).append(e["name_termino"])
-    lines += [
-        "## Vocabularies by annotation type",
-        "",
-        "Annotations carry the entity type of their vocabulary in the `type` field.",
-        "",
-        "| Type | Vocabularies (`concept_source`) |",
-        "|------|---------------------------------|",
-    ]
-    for type_, names in sorted(by_type.items(), key=lambda kv: kv[0].casefold()):
-        links = ", ".join(f"[{md_code(n)}](#{anchors[n]})" for n in sorted(names))
-        lines.append(f"| {md_code(type_)} | {links} |")
-    lines.append("")
     return "\n".join(lines)
 
 
@@ -1683,13 +1681,25 @@ def selftest() -> int:
     counts_md = replace_markers("<!-- sibils:collection-counts -->", extra, "test")
     check(MARKER_RE.search(vocab_md) is None, "marker left on the vocabularies page")
     for e in extra["terminologies"]:
-        check(vocab_md.count(f'<span id="{e["name_termino"]}"></span>') == 1, f"anchor {e['name_termino']}")
+        check(vocab_md.count(f'<span id="{e["name_termino"]}" data-type="{_attr(e["type"])}"></span>') == 1,
+              f"anchor {e['name_termino']}")
+    check(vocab_md.count('<div class="vocab-filter"></div>') == 1, "filter placeholder")
     for word in ("None", "null", "xxx"):
         check(re.search(rf"\b{word}\b", vocab_md) is None, f"{word!r} in the vocabularies page")
     rows = [line for line in vocab_md.splitlines() if line.startswith("| <span id=")]
     check(len(rows) == len(extra["terminologies"]), "one row per vocabulary")
     for row in rows:
         check(len(re.findall(r"(?<!\\)\|", row)) == 3, f"cells in row {row[:60]}")
+    # A type with "|", quotes and a line break stays in its data-type
+    # attribute and in its cell, on one line. The type is also in a code span
+    # of the meta line, where a "|" does not end the cell (md_code): those
+    # spans are left out of the count.
+    check(_attr('a|b "c" <d>\n\te') == 'a&#124;b &quot;c&quot; &lt;d&gt; e', "_attr")
+    synthetic = copy.deepcopy(extra)  # keeps the entries shared by terminologies and terminology_groups
+    synthetic["terminologies"][0]["type"] = 'a|b "c"\nd'
+    odd = [re.sub(r"(`+).*?\1", "", line) for line in render_vocabularies(synthetic).splitlines()
+           if 'data-type="a&#124;b &quot;c&quot; d"' in line]
+    check(len(odd) == 1 and len(re.findall(r"(?<!\\)\|", odd[0])) == 3, "row with |, quotes and a line break in its type")
     for e in extra["terminologies"]:
         check(vocab_md.count(f'href="https://browser.example/x/terminology/{e["name_termino"]}"') == 1,
               f"browser link {e['name_termino']}")
@@ -1925,7 +1935,12 @@ def selftest() -> int:
         page_html = markdown_lib.markdown(vocab_md, extensions=["tables", "attr_list", "md_in_html", "toc"])
         tables = page_html.count("<table>")
         n_groups = sum(len(c["groups"]) for c in extra["terminology_groups"])
-        check(tables == n_groups + 1, f"{tables} tables in the HTML, expected {n_groups + 1}")
+        check(tables == n_groups, f"{tables} tables in the HTML, expected {n_groups}")
+        check(page_html.count(' data-type="') == len(extra["terminologies"]), "data-type in the HTML")
+        check('<div class="vocab-filter"></div>' in page_html, "filter placeholder in the HTML")
+        odd_html = markdown_lib.markdown(render_vocabularies(synthetic), extensions=["tables", "attr_list", "md_in_html", "toc"])
+        check(odd_html.count("<tr>") == page_html.count("<tr>")
+              and 'data-type="a&#124;b &quot;c&quot; d"></span><a ' in odd_html, "row with an odd type in the HTML")
         counts_html = markdown_lib.markdown(counts_md, extensions=["tables"])
         check(counts_html.count("<tr>") == len(extra["collections"]) + 1, "counts table rows in the HTML")
     except ImportError:
