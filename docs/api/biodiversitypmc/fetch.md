@@ -115,7 +115,7 @@ Each annotation contains:
 
 | Field | Content | Example |
 |---|---|---|
-| `type` | Entity type | `species` |
+| `type` | Entity type of the vocabulary; the example links to the vocabularies of that type | [`species`](../../vocabularies.md?type=species) |
 | `concept_source` | Vocabulary code, see [Vocabularies](../../vocabularies.md) | `covocorganism` |
 | `version` | Vocabulary version | `v2.0` |
 | `concept_id` | Concept id in the vocabulary | `SP_11` |

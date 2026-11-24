@@ -65,6 +65,12 @@ On the page that contains ``sibils:vocabularies``, ``release`` and ``date``
 describe the vocabulary data; on all other pages they describe the counts.
 An unknown ``sibils:`` marker is reported as a warning (it is a typo in a page).
 
+A Markdown link to the filtered Vocabularies page, such as
+``[`species`](../vocabularies.md?type=species)``, is checked against the types
+of the vocabularies (check_type_links()): the filter shows everything for a
+type it does not know, so a type that no vocabulary has any more, or a typo,
+is reported as a warning.
+
 References are written from refs.bib, in one style (format_reference()), by
 these markers; the first three must be alone on their line, indented as the
 block they belong to (for example 4 spaces inside ``!!! cite``):
@@ -862,6 +868,24 @@ def render_vocabularies(extra: dict, page_markdown: str = "") -> str:
     return "\n".join(lines)
 
 
+TYPE_LINK_RE = re.compile(r"\]\([^()\s]*vocabularies\.md\?([^()\s#]*)")
+
+
+def check_type_links(markdown: str, extra: dict, src: str = "") -> list:
+    """Warn about each Markdown link to vocabularies.md?type=X whose X is not
+    exactly the type of a vocabulary; return those values."""
+    types = {e["type"] for e in extra["terminologies"]}
+    bad = []
+    for match in TYPE_LINK_RE.finditer(markdown):
+        query = urllib.parse.parse_qs(match.group(1), keep_blank_values=True)
+        for value in query.get("type", []):
+            if value not in types:
+                bad.append(value)
+                log.warning("sibils_data: %s links to vocabularies.md?type=%s, but no vocabulary has "
+                            "that type (the filter would show all of them)", src or "a page", value)
+    return bad
+
+
 def render_collection_counts(extra: dict) -> str:
     """Markdown for <!-- sibils:collection-counts -->."""
     lines = ["| Collection | Documents | Parts |", "|------------|----------:|-------|"]
@@ -1568,6 +1592,8 @@ def on_page_markdown(markdown, page, config, files, **kwargs):
     rendered = set()
     if "sibils:" in markdown:
         markdown = replace_markers(markdown, config["extra"]["sibils"], page.file.src_uri, BIB, rendered)
+    if "vocabularies.md?" in markdown:
+        check_type_links(markdown, config["extra"]["sibils"], page.file.src_uri)
     if BIB is not None and "@" in markdown:
         markdown = link_citations(markdown, BIB, page.file.src_uri, rendered)
     return markdown
@@ -1711,6 +1737,18 @@ def selftest() -> int:
           .startswith("<!--"), "terminology-browser marker without the mkdocs.yml setting")
     check("vocab-browse" not in render_vocabularies({**extra, "terminology_browser": None}),
           "browser links without the mkdocs.yml setting")
+    # Links to the filtered Vocabularies page name an existing type, exactly.
+    found = []
+    handler = logging.Handler()
+    handler.emit = lambda record: found.append(record.getMessage())
+    log.addHandler(handler)
+    try:
+        bad = check_type_links("[a](../vocabularies.md?type=species) [b](vocabularies.md?type=cell+line#x) "
+                               "[c](../../vocabularies.md?utm=1&type=Species) [d](vocabularies.md?type=nosuch) "
+                               "[e](vocabularies.md#chebi) [f](https://example.org/?type=nosuch)", extra, "test")
+    finally:
+        log.removeHandler(handler)
+    check(bad == ["Species", "nosuch"] and len(found) == 2, f"links to vocabularies.md?type= ({bad})")
     count_rows = [line for line in counts_md.splitlines() if line.startswith("| ")]
     check(len(count_rows) == len(extra["collections"]) + 1, "one counts row per collection")
     check(extra["release"] in counts_md and extra["date_display"] in counts_md, "as-of line")

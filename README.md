@@ -413,6 +413,8 @@ The vocabulary tables also link each vocabulary to its page in the Terminology B
 
 Each row of the vocabulary tables carries its `type` in a `data-type` attribute, and an empty `div.vocab-filter` precedes the tables: `theme/js/vocab-filter.js` turns it into the "Annotation type" filter (see `theme/README.md`). Without JavaScript the page lists every vocabulary with its type.
 
+Other pages can link to the vocabularies of one type: ``[`species`](../vocabularies.md?type=species)``. The build checks these links: a type that no vocabulary has (a typo, or a type the API no longer returns) is a warning, since the filter would then show every vocabulary.
+
 ```sh
 SIBILS_OFFLINE=1 ./serve                            # do not call the API, use data/
 SIBILS_API_BASE=https://example.org/api ./serve     # read another API base URL (default https://biodiversitypmc.sibils.org/api)

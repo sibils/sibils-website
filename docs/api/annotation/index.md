@@ -243,7 +243,7 @@ Annotates several texts in one request. Each item needs `text` and `split`; `spl
 
 | Field | Description |
 |-------|-------------|
-| `type` | Entity type of the vocabulary, for example `disease`, `drug`, `species` |
+| `type` | Entity type of the vocabulary, for example [`disease`](../../vocabularies.md?type=disease), [`drug`](../../vocabularies.md?type=drug) or [`species`](../../vocabularies.md?type=species); each link shows the vocabularies of that type |
 | `concept_source` | Vocabulary of the concept (`name_termino` in `/terminologies`) |
 | `version` | Version of the vocabulary |
 | `concept_id` | Identifier of the concept in the vocabulary |
@@ -317,7 +317,7 @@ Fields of each entry:
 | `name_termino` | Vocabulary identifier: `concept_source` in annotations, `source` in the concept endpoints |
 | `label` | Display name |
 | `code` | Short code, shared by related vocabularies (for example `go` for the three GO aspects, `cov` for COVoc) |
-| `type` | Entity type, copied to `type` in annotations |
+| `type` | Entity type, copied to `type` in annotations; the [Vocabularies](../../vocabularies.md) page filters its tables by type |
 | `version` | Version of the vocabulary, copied to `version` in annotations |
 | `date` | Date SIBiLS took this version of the vocabulary from its source (YYYY-MM-DD); not the release date of the vocabulary |
 | `file_creation` | Date the SIBiLS dictionary file was generated from the vocabulary (YYYY-MM-DD) |
