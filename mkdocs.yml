@@ -90,6 +90,17 @@ extra:
       url: https://triage.sibils.org/
     - name: SPARQL
       url: https://sparql.sibils.org/sparql
+  # Terminology Browser: a web application to browse and search the
+  # vocabularies of the Vocabularies page. It is not a SIBiLS service and the
+  # apps' red band does not list it, so it is not in apps. The hook
+  # (hooks/sibils_data.py) links each vocabulary row to
+  # url + "terminology/<concept_source>", and <!-- sibils:terminology-browser -->
+  # writes the name as a link followed by "(note)". Only a development server
+  # exists: when a production one does, change url and remove note.
+  terminology_browser:
+    name: Terminology Browser
+    url: https://terminologies.dev.sibils.org/
+    note: development server
   # Footer logos (files in theme/img/partners/). width and height: the pixel
   # size of the file, so the page reserves the space before the logo loads.
   partners:

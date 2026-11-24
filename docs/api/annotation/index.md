@@ -45,7 +45,7 @@ Use it to:
 - look up a concept: preferred term, synonyms and link to its source database;
 - find the concepts of a vocabulary from a few characters (autocomplete).
 
-The vocabularies are described on the [Vocabularies](../../vocabularies.md) page.
+The vocabularies are described on the [Vocabularies](../../vocabularies.md) page. To look up the vocabularies and their concepts without code, use the <!-- sibils:terminology-browser -->.
 
 ## Endpoints
 

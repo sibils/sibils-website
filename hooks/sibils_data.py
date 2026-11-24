@@ -43,6 +43,9 @@ The data is stored in ``config.extra.sibils`` for the templates::
     terminology_groups     [{category, title, groups: [{subcategory, title,
                              shared_description, entries}]}]
     terminology_corrections {applied: ["name.field"], stale: [...]}  (TERMINOLOGY_OVERRIDES)
+    terminology_browser    {name, url, note} from extra.terminology_browser in
+                           mkdocs.yml, url ending with "/"; None when absent
+                           (then the vocabulary rows have no browser link)
 
 and these markers are replaced in the Markdown of the pages:
 
@@ -52,6 +55,10 @@ and these markers are replaced in the Markdown of the pages:
     <!-- sibils:date -->               build day, or the day the snapshot was saved,
                                        for example 22 November 2026 (the API gives
                                        no date: not the day the SIBiLS data changed)
+    <!-- sibils:terminology-browser --> link to the Terminology Browser, then its
+                                       note: "Terminology Browser (development
+                                       server)" (mkdocs.yml extra.terminology_browser);
+                                       the note, in span.browser-note, is not printed
 
 On the page that contains ``sibils:vocabularies``, ``release`` and ``date``
 describe the vocabulary data; on all other pages they describe the counts.
@@ -123,6 +130,7 @@ import socket
 import sys
 import tempfile
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -725,6 +733,18 @@ def build_extra(datasets: dict) -> dict:
     }
 
 
+def browser_settings(value) -> dict | None:
+    """extra.terminology_browser of mkdocs.yml, checked: {name, url ending with "/", note}, or None."""
+    if not value:
+        return None
+    url = _http_url(value.get("url")) if isinstance(value, dict) else None
+    name = _squash(value.get("name")) if isinstance(value, dict) else ""
+    if not url or not name:
+        log.warning("sibils_data: extra.terminology_browser in mkdocs.yml needs a name and an http(s) url")
+        return None
+    return {"name": name, "url": url.rstrip("/") + "/", "note": _squash(value.get("note"))}
+
+
 # --------------------------------------------------------------------------
 # Markdown rendering
 
@@ -773,6 +793,7 @@ def render_vocabularies(extra: dict, page_markdown: str = "") -> str:
     """Markdown for <!-- sibils:vocabularies -->."""
     groups = extra["terminology_groups"]
     entries = extra["terminologies"]
+    browser = extra.get("terminology_browser")
     taken = {_slug(m) for m in re.findall(r"^#{1,6}\s+(.+?)\s*#*\s*$", page_markdown, flags=re.M)}
     for cat in groups:
         taken.add(_slug(cat["title"]))
@@ -802,6 +823,16 @@ def render_vocabularies(extra: dict, page_markdown: str = "") -> str:
                 meta = f"concept_source {md_code(name)} · type {md_code(e['type'])}"
                 if _squash(e.get("version")):
                     meta += f'<span class="vocab-version"> · version {md_code(e["version"])}</span>'
+                # The vocabulary's page in the Terminology Browser, whose ids are the
+                # concept_source values (49 of 49 on 24 November 2026). Hidden in
+                # print (sibils.css). The no-break space keeps the "·" with the link
+                # when the line wraps on phones.
+                if browser:
+                    href = f'{browser["url"]}terminology/{urllib.parse.quote(name, safe="")}'
+                    meta += (
+                        f'<span class="vocab-browse"> ·&nbsp;<a href="{html.escape(href, quote=True)}">browse concepts'
+                        f'<span class="visually-hidden"> of {md_text(label)} in the {md_text(browser["name"])}</span></a></span>'
+                    )
                 cell = (
                     f'<span id="{anchors[name]}"></span>{_link(label, _http_url(e.get("url")))}'
                     f"<br><small>{meta}</small>"
@@ -1366,7 +1397,7 @@ def replace_markers(markdown: str, extra: dict, src: str = "", bib: Bibliography
             if entry is None:
                 return indent + _missing(args[0])
             return indent + format_short(entry, f"#ref-{args[0]}" if args[0] in anchored else None)
-        if args and name in ("vocabularies", "collection-counts", "release", "date"):
+        if args and name in ("vocabularies", "collection-counts", "release", "date", "terminology-browser"):
             log.warning("sibils_data: <!-- sibils:%s --> takes no argument (%s)", name, src or "a page")
             return match.group(0)
         if name == "vocabularies":
@@ -1377,6 +1408,15 @@ def replace_markers(markdown: str, extra: dict, src: str = "", bib: Bibliography
             return indent + md_text(release)
         if name == "date":
             return indent + date
+        if name == "terminology-browser":
+            browser = extra.get("terminology_browser")
+            if not browser:
+                log.warning("sibils_data: <!-- sibils:terminology-browser --> in %s, but mkdocs.yml has no "
+                            "valid extra.terminology_browser", src or "a page")
+                return match.group(0)
+            # Print shows the link's address instead of the note (sibils.css).
+            note = f'<span class="browser-note"> ({md_text(browser["note"])})</span>' if browser["note"] else ""
+            return indent + _link(browser["name"], browser["url"]) + note
         log.warning("sibils_data: unknown marker <!-- sibils:%s --> in %s", name, src or "a page")
         return match.group(0)
 
@@ -1479,6 +1519,7 @@ def on_config(config, **kwargs):
 
         raise PluginError(f"sibils_data: no API data and no usable snapshot: {exc}") from exc
     extra = build_extra(datasets)
+    extra["terminology_browser"] = browser_settings(config["extra"].get("terminology_browser"))
     corrections = extra["terminology_corrections"]
     message += f"; {len(corrections['applied'])} vocabulary corrections applied"
     if corrections["stale"]:
@@ -1630,6 +1671,12 @@ def selftest() -> int:
     check(all(ds["source"] == "snapshot" for ds in fallback.values()), "fallback did not use the snapshots")
     check("snapshot" in message, "fallback message")
 
+    # The Terminology Browser setting comes from mkdocs.yml; a fixed value here.
+    extra["terminology_browser"] = browser_settings(
+        {"name": "Terminology Browser", "url": "https://browser.example/x", "note": "development server"})
+    check(extra["terminology_browser"]["url"] == "https://browser.example/x/", "browser url ends with /")
+    check(browser_settings({"name": "Terminology Browser", "url": "ftp://x"}) is None, "browser url not http(s)")
+
     # 4. Rendering.
     vocab_page = (REPO_DIR / "docs" / "vocabularies.md").read_text(encoding="utf-8")
     vocab_md = replace_markers(vocab_page, extra, "vocabularies.md")
@@ -1643,6 +1690,17 @@ def selftest() -> int:
     check(len(rows) == len(extra["terminologies"]), "one row per vocabulary")
     for row in rows:
         check(len(re.findall(r"(?<!\\)\|", row)) == 3, f"cells in row {row[:60]}")
+    for e in extra["terminologies"]:
+        check(vocab_md.count(f'href="https://browser.example/x/terminology/{e["name_termino"]}"') == 1,
+              f"browser link {e['name_termino']}")
+    check(replace_markers("the <!-- sibils:terminology-browser -->.", extra, "test")
+          == 'the <a href="https://browser.example/x/">Terminology Browser</a>'
+          '<span class="browser-note"> (development server)</span>.',
+          "terminology-browser marker")
+    check(replace_markers("<!-- sibils:terminology-browser -->", {**extra, "terminology_browser": None}, "test")
+          .startswith("<!--"), "terminology-browser marker without the mkdocs.yml setting")
+    check("vocab-browse" not in render_vocabularies({**extra, "terminology_browser": None}),
+          "browser links without the mkdocs.yml setting")
     count_rows = [line for line in counts_md.splitlines() if line.startswith("| ")]
     check(len(count_rows) == len(extra["collections"]) + 1, "one counts row per collection")
     check(extra["release"] in counts_md and extra["date_display"] in counts_md, "as-of line")

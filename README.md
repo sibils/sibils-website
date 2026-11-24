@@ -39,7 +39,7 @@ git add -A && git commit && git push
 |------|------|
 | `docs/` | The pages. The URL follows the path: `docs/sparql/index.md` is `/sparql/`, `docs/vocabularies.md` is `/vocabularies/`. Keep existing paths: other sites link to them. |
 | `docs/assets/` | Images and files used by the pages (external sites also link to the logos here). |
-| `mkdocs.yml` | Site settings: the navigation (`nav`), the SIBiLS apps given as service channels in the home page's structured data (`extra.apps`, see `theme/partials/jsonld.html`), footer logos (`extra.partners`), contact, licence, Matomo. The contact address is also written in `docs/about/index.md` and `docs/collections/how_to_upload.md`, and the licence in `docs/about/index.md`: change them together. |
+| `mkdocs.yml` | Site settings: the navigation (`nav`), the SIBiLS apps given as service channels in the home page's structured data (`extra.apps`, see `theme/partials/jsonld.html`), the Terminology Browser (`extra.terminology_browser`), footer logos (`extra.partners`), contact, licence, Matomo. The contact address is also written in `docs/about/index.md` and `docs/collections/how_to_upload.md`, and the licence in `docs/about/index.md`: change them together. |
 | `refs.bib` | Bibliography: `[@key]` citations and the references of the Publications page are written from it (see *Citations* below). |
 | `hooks/sibils_data.py`, `data/` | Collection counts and vocabularies from the SIBiLS API (see below), and the references written from `refs.bib`. |
 | `theme/` | The theme: templates, CSS, JavaScript, fonts, images. See [theme/README.md](theme/README.md). |
@@ -406,7 +406,10 @@ The data feeds the counts on the home page and replaces these markers in the pag
 | `<!-- sibils:collection-counts -->` | The table of documents per collection |
 | `<!-- sibils:release -->` | The SIBiLS release, for example 5.1.5.10 |
 | `<!-- sibils:date -->` | The build day, or the day the snapshot in `data/` was saved (the API gives no date, so this is not the day the SIBiLS data changed) |
+| `<!-- sibils:terminology-browser -->` | A link to the Terminology Browser followed by its note, for example "Terminology Browser (development server)", from `extra.terminology_browser` in `mkdocs.yml` |
 | `<!-- sibils:cite KEY KEY -->`, `bibliography GROUP`, `bibtex KEY KEY`, `cite-short KEY` | References from `refs.bib` (see *How to cite* above) |
+
+The vocabulary tables also link each vocabulary to its page in the Terminology Browser (`url` followed by `terminology/<concept_source>`). When the browser gets a production address, change `url` and remove `note` under `extra.terminology_browser` in `mkdocs.yml`: the tables and the marker follow.
 
 ```sh
 SIBILS_OFFLINE=1 ./serve                            # do not call the API, use data/

@@ -1111,6 +1111,20 @@ a { color: var(--link); }
    span.vocab-version in each row's meta line): on phones the version moves
    from its own column into the meta line, leaving the width to the text. */
 .content .vocab-version { display: none; }
+/* The "browse concepts" link of a row (span.vocab-browse) does not break
+   inside; the hook ties it to its "·" with a no-break space. It is a
+   secondary link, repeated on 49 rows: grey like the rest of the meta line,
+   with the light underline of the reference links, and the link colour on
+   hover and keyboard focus only. */
+.content .vocab-table .vocab-browse a {
+  white-space: nowrap;
+  color: inherit;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+.content .vocab-table .vocab-browse a:is(:hover, :focus-visible) {
+  color: var(--link);
+  text-decoration-color: currentColor;
+}
 @media (max-width: 639.98px) {
   .content .vocab-table tr > :last-child { display: none; }
   .content .vocab-version { display: inline; }
@@ -2122,6 +2136,14 @@ dialog::backdrop { background: var(--backdrop); }
   .intro, .counts { border: 0; background: none; }
   .intro__inner, .home__content { max-width: none; padding: 0; }
   .content a, .counts__more a { color: #000; }
+  /* The note after the Terminology Browser link ("development server",
+     hooks/sibils_data.py: span.browser-note) is not printed: the address
+     printed after the link takes its place, without two brackets in a row. */
+  .content .browser-note { display: none; }
+  /* Vocabularies: the Terminology Browser link of each table row would print
+     one more address per row (hooks/sibils_data.py: span.vocab-browse); the
+     sentence that introduces these links (docs/vocabularies.md) goes too. */
+  .content .vocab-browse { display: none; }
   /* Print the address of external links, unless the link text already is
      the address (theme.js marks those .is-bare) or names it (the DOI and PMID
      links of references). */

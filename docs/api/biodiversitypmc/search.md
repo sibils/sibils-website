@@ -115,7 +115,7 @@ The indexed documents also contain the `interpreted` and `stats` objects describ
 
 ### Searching identified concepts
 
-In the index, the `annotations` field of each document lists the concepts mapped in the document. `annotations.all` holds all of them, as `vocabulary|concept_id|preferred_term` values, for example `nextprot|NX_P51587|BRCA2` or `mesh|D000086642|Pangolins`. The same values are available per field: `annotations.title`, `annotations.abstract`, `annotations.mesh_terms`, etc. for MEDLINE, and `annotations.text`, `annotations.fig_caption`, `annotations.table_caption`, etc. for PMC. [Vocabularies](../../vocabularies.md) lists the vocabulary codes.
+In the index, the `annotations` field of each document lists the concepts mapped in the document. `annotations.all` holds all of them, as `vocabulary|concept_id|preferred_term` values, for example `nextprot|NX_P51587|BRCA2` or `mesh|D000086642|Pangolins`. The same values are available per field: `annotations.title`, `annotations.abstract`, `annotations.mesh_terms`, etc. for MEDLINE, and `annotations.text`, `annotations.fig_caption`, `annotations.table_caption`, etc. for PMC. [Vocabularies](../../vocabularies.md) lists the vocabulary codes. To find a concept id from a name, search for the name in the <!-- sibils:terminology-browser --> and open the concept: its "Terminology" and "ID" values are the vocabulary and the id of a `prefix` query, as in the second example below. From code, [`/concept/autocomplete`](../annotation/index.md#get-conceptautocomplete) of the annotation API finds the concepts of one vocabulary from the beginning of a term.
 
 Documents with a given concept:
 
