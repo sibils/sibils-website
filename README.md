@@ -139,7 +139,7 @@ description: ...                         # meta description
 hero_lead: One plain sentence.
 hero_actions:
   - {label: Search BiodiversityPMC, url: "https://biodiversitypmc.sibils.org/", primary: true}
-  - {label: API documentation, url: developers/index.md}
+  - {label: APIs, url: developers/index.md}
 ---
 ```
 

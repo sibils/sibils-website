@@ -12,7 +12,7 @@ hero_lead: >-
   and a SPARQL endpoint.
 hero_actions:
   - {label: Search BiodiversityPMC, url: "https://biodiversitypmc.sibils.org/", primary: true}
-  - {label: API documentation, url: developers/index.md}
+  - {label: APIs, url: developers/index.md}
 ---
 
 ## Services
@@ -76,7 +76,7 @@ SIBiLS keeps a local copy of MEDLINE, PMC+ (PubMed Central and open-access artic
 - [Search](developers/biodiversitypmc/search.md) runs a free-text or Elasticsearch JSON query on one collection and returns ranked documents.
 - [Question-Answering](developers/qa/index.md) answers a question written in natural language from MEDLINE, PMC and Plazi, with the documents each answer is based on.
 
-The [API documentation](developers/index.md) lists the APIs of every service.
+The [APIs](developers/index.md) page lists the APIs of every service.
 
 </div>
 <figure class="diagram" markdown>

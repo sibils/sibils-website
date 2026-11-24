@@ -112,7 +112,7 @@ Always check `success`. Errors raised while processing a valid request, for exam
 {"sibils_version": "5.1.5.10", "success": false, "error": "query/n: Input should be less than or equal to 1000", "warning": ""}
 ```
 
-[SIBiLS APIs](../index.md#responses) compares these fields with the other SIBiLS APIs.
+The *Responses* section of the [APIs](../index.md#responses) page compares these fields with the other SIBiLS APIs.
 
 ## Output formats
 

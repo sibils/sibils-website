@@ -4,7 +4,7 @@ description: >-
   vocabularies and answer questions, free and without an API key.
 ---
 
-# SIBiLS APIs
+# APIs
 
 SIBiLS offers three REST APIs over its collections: the BiodiversityPMC API to fetch, search and count documents, the Question-Answering (QA) API, and the annotation and vocabularies API to annotate your own texts. They are free and need no API key.
 { .lead }
