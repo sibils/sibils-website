@@ -97,7 +97,7 @@
   --sticky-top: calc(var(--bar-h, var(--subbar-h)) + 24px);
 }
 /* One page box for the home bands, the documentation pages and the footer. */
-:root { --page-max: 1280px; --gutter: 24px; --grid-gap: 24px; }
+:root { --page-max: 1280px; --gutter: 24px; --grid-gap: 24px; --hero-search-w: 48rem; }
 @media (max-width: 639.98px) { :root { --gutter: 16px; } }
 /* Documentation grid: sidebar, gaps, "On this page" and the reading measure
    of running text. The API section has a wider main column (--main-max) for
@@ -841,7 +841,7 @@ a { color: var(--link); }
 .content sup, .content sub { line-height: 0; }
 
 /* Lead paragraph: "text\n{ .lead }" */
-.content .lead, .intro__lead {
+.content .lead {
   color: var(--muted);
   font-size: 1.15rem;
   line-height: 1.55;
@@ -1688,87 +1688,346 @@ a { color: var(--link); }
 .home { flex: 1 0 auto; }
 .home:focus { outline: none; }
 
-.intro {
-  border-top: 1px solid var(--band-line);
-  border-bottom: 1px solid var(--band-line);
-  background: var(--band);
+/* Home tokens. The hero is a dark band in both colour modes, so its text
+   colours are the same in both: white 12.2:1 on the lightest part of the
+   band (#2a3647), --hero-muted 8.3:1, --hero-approx 5.5:1. The search field
+   and the cards follow the colour mode. Card edges, light: #bfc5cd is 1.6:1
+   on the grey band and 1.7:1 on the card (#d1d5db was 1.3 and 1.5), 2.8:1
+   on hover. */
+.page-home {
+  --hero-ink: #ffffff;
+  --hero-muted: #d1d5db;
+  --hero-approx: #a7aeba;
+  --hero-line: rgba(255, 255, 255, 0.18);
+  --field-bg: #ffffff;
+  --field-ink: #1f2937;
+  --field-line: #d1d5db;
+  --field-border: #ffffff;
+  --field-placeholder: #6b7280;  /* 4.8:1 on the field */
+  --card-bg: #ffffff;
+  --card-line: #bfc5cd;
+  --card-line-hover: #8b93a1;
+  --card-shadow: 0 1px 2px rgba(17, 24, 39, 0.08), 0 2px 6px rgba(17, 24, 39, 0.08);
+  --card-shadow-hover: 0 2px 4px rgba(17, 24, 39, 0.06), 0 12px 28px -6px rgba(17, 24, 39, 0.2);
+  --chip-bg: #fdecec;   /* --brand-text #cc0000 on it: 5.2:1 */
 }
-.intro__inner, .home__content {
+@media screen {
+  :root[data-theme="dark"] .page-home {
+    --field-bg: #111827;
+    --field-ink: #e5e7eb;
+    --field-line: #4b5563;
+    --field-border: #9ca3af;
+    --field-placeholder: #9ca3af;  /* 7.0:1 */
+    --card-bg: #1f2937;
+    --card-line: #4b5563;
+    --card-line-hover: #9ca3af;
+    --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --card-shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.4), 0 12px 28px -6px rgba(0, 0, 0, 0.7);
+    --chip-bg: #3a2a31;   /* --brand-text #ff6b61 on it: 4.6:1 */
+  }
+}
+@media screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .page-home {
+    --field-bg: #111827;
+    --field-ink: #e5e7eb;
+    --field-line: #4b5563;
+    --field-border: #9ca3af;
+    --field-placeholder: #9ca3af;
+    --card-bg: #1f2937;
+    --card-line: #4b5563;
+    --card-line-hover: #9ca3af;
+    --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --card-shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.4), 0 12px 28px -6px rgba(0, 0, 0, 0.7);
+    --chip-bg: #3a2a31;
+  }
+}
+
+/* Hero: title, lead, search box, then the counts as a row of large figures.
+   The wordmark's annotation bars, drawn as lines of text
+   (img/hero-annotations.svg, decorative, theme/tools/make_hero_svg.py), fill
+   its right side from 1024px. Its heights are tight so that the first row of
+   service cards starts on the first screen of a 1440x900 window. */
+.hero {
+  background-color: #1f2937;
+  background-image: linear-gradient(115deg, #2a3647 0%, #1f2937 55%, #161e2b 100%);
+  color: var(--hero-ink);
+}
+.hero :focus-visible { outline-color: #fff; }
+.hero__inner, .counts__inner, .home__content {
   width: 100%;
   max-width: var(--page-max);
   margin: 0 auto;
   padding-right: var(--gutter);
   padding-left: var(--gutter);
 }
-.intro__inner { padding-top: 40px; padding-bottom: 40px; }
-.intro__title {
-  margin: 0 0 12px;
-  font-size: 2.25rem;
-  line-height: 1.15;
-  font-weight: 700;
-  letter-spacing: -0.015em;
+.hero__inner {
+  position: relative;
+  z-index: 0;
+  padding-top: 40px;
+  padding-bottom: 28px;
 }
-.intro__lead {
+.hero__title {
   max-width: 40rem;
-  margin: 0 0 24px;
-  color: var(--muted);
-  text-wrap: balance;
+  margin: 0 0 10px;
+  color: var(--hero-ink);
+  font-size: 3rem;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
-.intro__actions {
+.hero__lead {
+  max-width: 38rem;
+  margin: 0 0 20px;
+  color: var(--hero-muted);
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+/* Buttons under the search box (front matter hero_actions, none at present). */
+.hero__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 12px;
-  margin: 0;
+  margin: 20px 0 0;
 }
-.intro__actions .btn { margin: 0; }
+.hero__actions .btn { margin: 0; }
+.hero__actions .btn:not(.btn-primary) {
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #fff;
+}
+.hero__actions .btn:not(.btn-primary):hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
 
-/* Collection counts (partials/counts.html), in the intro band: under the
-   buttons, then beside the intro text from 1024px. */
-.counts {
-  margin: 28px 0 0;
-  padding-top: 20px;
-  border-top: 1px solid var(--band-line);
+/* Search box: a GET form to the apps (home.html), no JavaScript. One field,
+   then one button per target. The field's name, "Search the literature or
+   ask a question", is read, not shown: the buttons beside it say what it is
+   for. In the white bar, the field and the first button, red, the one Enter
+   presses: "Search BiodiversityPMC". Beside the bar, on the band, an outline
+   button for each other target: "Ask a question" sends the same field to
+   Question-Answering (formaction). Below 640px the field takes the whole
+   width and the buttons share the line under it. */
+/* As wide as the search needs: the field gets about twice the room of the two
+   buttons. The illustration (below) keeps clear of it. */
+.hero-search { max-width: var(--hero-search-w); margin: 0; }
+.hero-search__row {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
 }
-/* From 640 to 1023px, one row of five equal columns. An item is never
-   narrower than its text (min-width: auto), so with a larger text size or
-   text spacing the row wraps instead of the numbers running into each other.
-   The round numbers are the wider ones: "0" is a wide digit in DM Sans. */
-.counts__list {
+.hero-search__bar {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: stretch;
+  min-width: 0;
+  min-height: 52px;
+  border: 1px solid var(--field-border);
+  border-radius: 8px;
+  background: var(--field-bg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 10px 24px -10px rgba(0, 0, 0, 0.6);
+}
+.hero-search__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 7px 0 0 7px;
+  background: transparent;
+  color: var(--field-ink);
+  font: inherit;
+  font-size: 1.0625rem;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.hero-search__input::placeholder { color: var(--field-placeholder); opacity: 1; }
+/* Focus ring of the field: on the field itself; where :has() works, around
+   the whole bar instead (outside it, white on the dark band). */
+.hero-search__input:focus-visible { outline: 2px solid var(--field-ink); outline-offset: -4px; }
+@supports selector(:has(*)) {
+  .hero-search__bar:has(.hero-search__input:focus-visible) {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+  .hero-search__input:focus-visible { outline: none; }
+}
+/* The clear button of the search field, in grey rather than the default blue. */
+.hero-search__input::-webkit-search-cancel-button { filter: grayscale(1); cursor: pointer; }
+/* Empty, the field keeps no room for it, so the placeholder has the
+   field's whole width. */
+.hero-search__input:placeholder-shown::-webkit-search-cancel-button { display: none; }
+.hero-search__submit,
+.hero-search__also {
+  flex: none;
+  margin: 0;
+  padding: 0 20px;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+.hero-search__submit {
+  margin: -1px -1px -1px 0;
+  border: 0;
+  border-radius: 0 8px 8px 0;
+  background: var(--red);
+  color: #fff;
+}
+.hero-search__submit:hover { background: var(--red-strong); }
+/* Inside the button: white on red, 5.9:1. */
+.hero-search__submit:focus-visible { outline: 2px solid #fff; outline-offset: -5px; }
+/* The other targets: white text on the band (12.2:1 at its lightest), an
+   edge at 70% white, a faint white fill. */
+.hero-search__also {
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+.hero-search__also:hover { border-color: #fff; background: rgba(255, 255, 255, 0.14); }
+.hero-search__also:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+/* Examples: one row per target (home.html), its verb ("Search:", "Ask:") in
+   a column of its own, so that the two rows of links start at the same x. */
+.hero-search__examples-set {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+}
+.hero-search__examples {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  color: var(--hero-muted);
+  font-size: 0.875rem;
+  line-height: 1.3;
+}
+.hero-search__examples-label {
+  flex: none;
+  min-width: 3.5em;
+  padding: 7px 0;
+}
+.hero-search__chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 16px;
-  margin: 0 0 8px;
+  gap: 8px;
+  min-width: 0;
 }
-.counts__item {
-  display: flex;
-  flex: 1 1 6.5rem;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
+.hero-search__examples a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 4px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.15s, border-color 0.15s;
 }
-.counts__item dt {
-  color: var(--muted);
+.hero-search__examples a:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Illustration (decorative), beside the text from 1200px: as wide as the room
+   right of the search box (--hero-search-w and a 48px gap), up to 520px, so
+   that the lead and the search box never run into it. Below 1200px that room
+   is too narrow for it. */
+@media (min-width: 1200px) {
+  .hero__inner::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 24px;
+    right: var(--gutter);
+    bottom: 12px;
+    width: min(520px, 100% - 2 * var(--gutter) - var(--hero-search-w) - 48px);
+    background: url("../img/hero-annotations.svg") right center / contain no-repeat;
+    pointer-events: none;
+  }
+}
+
+/* Collection counts (partials/counts.html): a row of figures at the foot of
+   the hero, its heading and the link to the Collections page above it. Each
+   figure has its own column (5, 3 or 2 per row), as wide as its share of the
+   row: the exact number that js/counts.js writes in place of the round one
+   changes nothing else on the page. */
+.counts { border-top: 1px solid var(--hero-line); }
+.counts__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "title more" "list list";
+  align-items: baseline;
+  column-gap: 24px;
+  padding-top: 16px;
+  padding-bottom: 24px;
+}
+/* Not in capitals: they would write "SIBILS". */
+.counts__title {
+  grid-area: title;
+  margin: 0;
+  color: var(--hero-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.counts__more {
+  grid-area: more;
+  margin: 0;
   font-size: 0.875rem;
   line-height: 1.4;
 }
+.counts__more a { color: #fff; text-decoration-color: rgba(255, 255, 255, 0.55); text-underline-offset: 0.2em; }
+.counts__more a:hover { text-decoration-color: #fff; }
+.counts__list {
+  grid-area: list;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px 24px;
+  margin: 12px 0 0;
+}
+.counts__item {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  min-width: 0;
+  padding-left: 12px;
+  border-left: 2px solid var(--hero-line);
+  container-type: inline-size;
+}
+.counts__item dt {
+  color: var(--hero-muted);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+/* Font size: 2rem, or less where the column is narrower: at 15cqi (15% of
+   the width of its column), "100,000,000" (11 characters, 6.3em wide in DM
+   Sans 700) fits on one line, at every width and default text size, and so
+   do the current counts with the text spacing of WCAG 1.4.12 (letters 0.12em
+   apart). A number that is still too wide (a round number with that
+   spacing) wraps rather than overflow its column. Browsers without
+   container units keep 1.5rem, which fits the narrowest column (124px). */
 .counts__item dd {
   margin: 0;
-  color: var(--ink);
-  font-size: 1.125rem;
-  font-weight: 600;
-  line-height: 1.3;
+  color: var(--hero-ink);
+  font-size: 1.5rem;
+  font-size: min(2rem, 15cqi);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
 }
 /* Round lower bound written at build time, until the API answers (and for
-   good if it does not): grey, but still >= 4.5:1 on the band. */
-.counts__item dd.is-approx { color: var(--approx-ink); }
-.counts__more {
-  margin: 0;
-  font-size: 0.8125rem;
-  line-height: 1.45;
-}
-.counts__more a { color: var(--link); white-space: nowrap; }
+   good if it does not): grey, 5.5:1 on the band. */
+.counts__item dd.is-approx { color: var(--hero-approx); }
 
 .home__content {
-  padding-top: 40px;
+  padding-top: 0;
   padding-bottom: 64px;
 }
 .home__content > h1:first-child { display: none; }
@@ -1780,16 +2039,196 @@ a { color: var(--link); }
 }
 .home__content :is(p, li) { text-wrap: pretty; }
 
+/* Bands (<div class="band" markdown>): a section on a grey ground across
+   the whole window (the box-shadow paints the sides without widening the
+   page). The Services band follows the hero directly. */
+.home__content > .band {
+  margin: 0 0 8px;
+  padding: 28px 0 48px;
+  background: var(--surface);
+  box-shadow: 0 0 0 100vmax var(--surface);
+  clip-path: inset(0 -100vmax);
+}
+.home__content > .band > h2:first-child { margin-top: 0; }
+
 /* Service cards: one column, two from 640px (BiodiversityPMC on its own
-   row), four from 1200px (BiodiversityPMC over two), so no row has a hole. */
-.home__content .cards > ul { grid-template-columns: minmax(0, 1fr); }
+   row), four from 1200px (BiodiversityPMC over two), so no row has a hole.
+   White cards with a border and a shadow on the grey band. Each title is a
+   task, with the name of the app under it; the name is the link to the app
+   and covers the whole card with its ::before. Documentation and API (the
+   last paragraph, span.card-links) stay links of their own, above it. */
+.home__content .cards > ul {
+  grid-template-columns: minmax(0, 1fr);
+  margin: 16px 0 0;
+}
+.home__content .cards > ul > li {
+  --card-pad: 20px;
+  --card-top: 20px;
+  position: relative;
+  padding: var(--card-top) var(--card-pad) 0;
+  border: 1px solid var(--card-line);
+  border-radius: 10px;
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
 .home__content .cards > ul > li:first-child > p:not(:last-child) { max-width: 36em; }
+.home__content .cards > ul > li > p:not(:last-child) { color: var(--muted); }
+/* The permalinks of the card titles are not needed on a landing page (and
+   were 7 invisible tab stops). */
+.home__content .cards .headerlink { display: none; }
+
+/* Card title (### Task<span class="visually-hidden"> with</span> [App](url)
+   { #app .svc .svc-<icon> } in index.md): the task in large type, then the
+   name of the app on a line of its own, smaller, in the link colour; before
+   them a 44px chip in a tint of the brand red, the icon drawn as a mask.
+   The heading reads "Task with App". The title is not positioned, so that
+   the ::before of the link covers the card (li); the chip is placed on the
+   card too, level with the top of the title. */
+.home__content .cards .svc {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 44px;
+  margin: 0 0 14px;
+  padding-left: 58px;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+.home__content .cards .svc::before,
+.home__content .cards .svc::after {
+  content: "";
+  position: absolute;
+  top: var(--card-top);
+  left: var(--card-pad);
+  pointer-events: none;  /* a click on the icon reaches the link below */
+}
+.home__content .cards .svc::before {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--chip-bg);
+}
+.home__content .cards .svc::after {
+  margin: 10px 0 0 10px;
+  width: 24px;
+  height: 24px;
+  background: var(--brand-text);
+  -webkit-mask: var(--svc-icon) center / 24px 24px no-repeat;
+  mask: var(--svc-icon) center / 24px 24px no-repeat;
+}
+.home__content .svc-search { --svc-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4'/%3E%3Cpath d='M13.5 3 19 8.5V11'/%3E%3Cpath d='M13.5 3v5.5H19'/%3E%3Cpath d='M8.5 12.5h3M8.5 16h1.5'/%3E%3Ccircle cx='16.5' cy='16.5' r='3.25'/%3E%3Cpath d='m19 19 2.5 2.5'/%3E%3C/svg%3E"); }
+.home__content .svc-question { --svc-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 3.5h14a2 2 0 0 1 2 2V15a2 2 0 0 1-2 2h-7l-5 4v-4H5a2 2 0 0 1-2-2V5.5a2 2 0 0 1 2-2Z'/%3E%3Cpath d='M9.75 8.5a2.25 2.25 0 1 1 3.15 2.06c-.52.23-.9.72-.9 1.29v.4'/%3E%3Cpath d='M12 14.6h.01'/%3E%3C/svg%3E"); }
+.home__content .svc-interaction { --svc-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='4.5' cy='12' r='2.5'/%3E%3Ccircle cx='19.5' cy='12' r='2.5'/%3E%3Cpath d='M8.5 8.5h7'/%3E%3Cpath d='m13.5 6.5 2 2-2 2'/%3E%3Cpath d='M15.5 15.5h-7'/%3E%3Cpath d='m10.5 13.5-2 2 2 2'/%3E%3C/svg%3E"); }
+.home__content .svc-variant { --svc-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 3c0 5 8 4 8 9s-8 4-8 9'/%3E%3Cpath d='M16 3c0 5-8 4-8 9s8 4 8 9'/%3E%3Cpath d='M9.25 12h5.5M9.5 4.75h5M9.5 19.25h5'/%3E%3C/svg%3E"); }
+.home__content .svc-synonyms { --svc-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='4.5' cy='12' r='2'/%3E%3Cpath d='M6.5 12h3.5'/%3E%3Cpath d='M10 12c2.5 0 3-6 5.75-6h.75M10 12h6.5M10 12c2.5 0 3 6 5.75 6h.75'/%3E%3Ccircle cx='19' cy='6' r='1.75'/%3E%3Ccircle cx='19' cy='12' r='1.75'/%3E%3Ccircle cx='19' cy='18' r='1.75'/%3E%3C/svg%3E"); }
+.home__content .svc-triage { --svc-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 4.5h17l-6.5 8V19l-4 2v-8.5Z'/%3E%3C/svg%3E"); }
+.home__content .svc-graph { --svc-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='5.5' cy='6.5' r='2.5'/%3E%3Ccircle cx='18.5' cy='6.5' r='2.5'/%3E%3Ccircle cx='12' cy='18' r='2.5'/%3E%3Cpath d='M8 6.5h8M6.8 8.7l3.95 7.1M17.2 8.7l-3.95 7.1'/%3E%3C/svg%3E"); }
+
+/* Name of the app: the link to the app, an arrow after it, and the whole
+   card as its target (a 44px target on touch screens too). */
+.home__content .cards .svc > a:not(.headerlink) {
+  margin-top: 3px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.home__content .cards .svc > a:not(.headerlink)::after {
+  content: "\2192";
+  content: "\2192" / "";
+  display: inline-block;
+  margin-left: 6px;
+  transition: transform 0.15s;
+}
+.home__content .cards .svc > a:not(.headerlink)::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 10px;
+}
+.home__content .cards .svc > a:not(.headerlink):hover { text-decoration: underline; text-underline-offset: 0.18em; }
+.home__content .cards .svc > a:not(.headerlink):focus-visible { outline: none; }
+.home__content .cards .svc > a:not(.headerlink):focus-visible::before {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .home__content .cards .svc > a:not(.headerlink):hover::after { transform: translateX(3px); }
+}
+
+/* The cards of a row share three rows of the list's grid (subgrid): their
+   titles, descriptions and link rows start at the same height, whether a
+   title takes one line or two. Without subgrid, each card is a column of its
+   own and only the link rows line up. */
+@supports (grid-template-rows: subgrid) {
+  .home__content .cards > ul > li {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+}
+
+/* Link row (last paragraph): Documentation · API (span.card-links, never
+   split). */
+.home__content .cards > ul > li > p:last-child:not(:first-child) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 16px;
+  margin: auto calc(-1 * var(--card-pad)) 0;
+  padding: 4px var(--card-pad);
+  border-top: 1px solid var(--line);
+  line-height: 1.4;
+}
+.home__content .cards > ul > li > p:last-child:not(:first-child) a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+}
+.home__content .cards .card-links {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  column-gap: 0.5em;
+  white-space: nowrap;
+}
+/* Hover (anywhere on the card but Documentation and API) and keyboard focus:
+   the edge and the shadow of the card. Without :has(), the underline, the
+   arrow and the focus ring above still show. */
+@supports selector(:has(*)) {
+  .home__content .cards > ul > li:has(> .svc > a:not(.headerlink):is(:hover, :focus-visible)) {
+    border-color: var(--card-line-hover);
+    box-shadow: var(--card-shadow-hover);
+  }
+}
+@media (pointer: coarse) {
+  .home__content .cards > ul > li > p:last-child:not(:first-child) a { min-height: 44px; }
+  .hero-search__examples a { min-height: 44px; padding: 4px 16px; border-radius: 22px; }
+  @media (min-width: 640px) { .hero-search__examples-label { padding: 13px 0; } }
+  /* A 44px target that takes no more room than the line. */
+  .counts__more a { display: inline-block; margin: -13px 0; padding: 13px 0; }
+}
+/* Windows contrast themes: the hero on the system background (its text is in
+   system colours), no illustration; the chips and the icons in system colours. */
+@media (forced-colors: active) {
+  .hero { background-image: none; }
+  .hero__inner::before { display: none; }
+  .home__content .cards .svc::before { border: 1px solid CanvasText; background: Canvas; }
+  .home__content .cards .svc::after { forced-color-adjust: none; background: CanvasText; }
+  .hero-search__bar { border-color: CanvasText; }
+}
 
 /* Split rows (<div class="split" markdown>, one <div markdown> or <figure>
    per column): stacked, then 5/12 + 7/12 from 1200px. */
 .home__content .split > div > :is(p, ul, ol, h2, h3) { max-width: 40rem; }
 .home__content .split > figure,
 .home__content .split :is(.admonition, .video) { max-width: 760px; }
+/* "APIs of every service": a button at the end of the APIs part. */
+.home__content .split > div > p > .btn:only-child { margin: 4px 0 0; }
 
 /* Figures: image and caption on the text edge. */
 .home__content figure { text-align: left; }
@@ -1803,39 +2242,21 @@ a { color: var(--link); }
   .home__content .cards > ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--grid-gap); }
   .home__content .cards > ul > li:first-child { grid-column: 1 / -1; }
 }
-@media (min-width: 1024px) {
-  /* The last row takes any extra height of the counts, so the title, lead and
-     buttons keep their own spacing. */
-  .intro__inner:has(> .counts) {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem);
-    grid-template-rows: auto auto 1fr;
-    column-gap: 48px;
-    align-items: start;
-  }
-  .intro__inner:has(> .counts) > :not(.counts) { grid-column: 1; }
-  .counts { grid-column: 2; grid-row: 1 / span 3; margin: 0; padding: 0; border: 0; }
+/* Counts: five figures per row from 1024px, three below, two on phones. */
+@media (max-width: 1023.98px) {
+  .counts__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hero__title { font-size: 2.5rem; }
 }
-/* Counts on phones and beside the intro text: one line per collection. */
-@media (max-width: 639.98px), (min-width: 1024px) {
-  .counts__list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .counts__item {
-    min-width: 0;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 12px;
-    padding: 3px 0;
-    border-bottom: 1px solid var(--band-line);
-  }
-  /* The number fills the rest of the line, right-aligned: when js/counts.js
-     writes the exact number (DM Sans has no tabular figures, so its width
-     differs from the approximate one), the box does not move. */
-  .counts__item dd { flex: 1 0 auto; text-align: right; }
+@media (min-width: 1024px) and (max-width: 1199.98px) {
+  .hero__lead { max-width: 36rem; }
 }
 @media (min-width: 1200px) {
   .home__content .cards > ul { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .home__content .cards > ul > li:first-child { grid-column: span 2; }
+  /* 270 to 290px cards: most tasks take two lines beside the icon. */
+  .home__content .cards .svc { padding-left: 54px; font-size: 1.125rem; }
+  .home__content .cards .svc::before { width: 42px; height: 42px; }
+  .home__content .cards .svc::after { margin: 9px 0 0 9px; }
   .home__content .split {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -1849,15 +2270,57 @@ a { color: var(--link); }
   .home__content .split > figure { max-width: none; margin: 0; }
   .home__content .split :is(.admonition, .video) { max-width: none; }
 }
+/* From 1200 to 1279px the four cards are 270 to 290px wide (as in
+   home-proto-cards): less side padding gives the tasks and the names more
+   room. */
+@media (min-width: 1200px) and (max-width: 1279.98px) {
+  .home__content .cards > ul > li { --card-pad: 16px; }
+  .home__content .cards .svc { padding-left: 52px; }
+}
+/* From 640 to 699px the search row is 592 to 651px wide: a 16px field and
+   tighter buttons keep its placeholder whole. */
+@media (min-width: 640px) and (max-width: 699.98px) {
+  .hero-search__row { gap: 8px; }
+  .hero-search__input { padding: 0 12px; font-size: 1rem; }
+  .hero-search__submit, .hero-search__also { padding: 0 14px; }
+}
 @media (max-width: 639.98px) {
-  .intro__inner { padding-top: 28px; padding-bottom: 28px; }
-  .intro__title { font-size: 1.75rem; }
-  .counts__item dd { font-size: 1.0625rem; }
-  .home__content { padding-top: 28px; }
+  .hero__inner { padding-top: 28px; padding-bottom: 24px; }
+  .hero__title { font-size: 2rem; }
+  .hero__lead { margin-bottom: 20px; font-size: 1.0625rem; }
+  /* The field on a line of its own, the buttons side by side under it from
+     370px (15px text), each on its own line below. The bar's box
+     goes, so its three parts are items of the row. */
+  .hero-search__row { flex-wrap: wrap; gap: 8px; }
+  .hero-search__bar { display: contents; }
+  .hero-search__input {
+    flex: 1 0 100%;
+    min-height: 48px;
+    border: 1px solid var(--field-border);
+    border-radius: 8px;
+    background: var(--field-bg);
+  }
+  .hero-search__submit, .hero-search__also { flex: 1 1 auto; min-height: 48px; margin: 0; padding: 4px 12px; border-radius: 8px; font-size: 0.9375rem; white-space: normal; }
+  .hero-search__submit:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .hero-search__input:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  /* Examples: the verb above its links, which then have the whole width
+     (both BiodiversityPMC examples on one line, the question on one line
+     from 375px). */
+  .hero-search__examples-set { gap: 10px; }
+  .hero-search__examples { flex-direction: column; gap: 4px; }
+  .hero-search__examples-label { min-width: 0; padding: 0; }
+  @supports selector(:has(*)) {
+    .hero-search__bar:has(.hero-search__input:focus-visible) { outline: none; }
+    .hero-search__input:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  }
+  .counts__inner { padding-top: 16px; padding-bottom: 24px; }
+  .counts__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 16px; margin-top: 12px; }
+  .counts__item { padding-left: 10px; }
+  .home__content > .band { padding: 28px 0 32px; }
+  .home__content .cards > ul > li { --card-pad: 16px; --card-top: 16px; }
 }
 @media (max-width: 559.98px) {
-  .intro__actions .btn { flex: 1 1 auto; }
-  .intro__actions .btn-primary { flex-basis: 100%; }
+  .hero__actions .btn { flex: 1 1 auto; }
 }
 
 /* 9. Footer --------------------------------------------------------------------- */
@@ -2148,7 +2611,7 @@ dialog::backdrop { background: var(--backdrop); }
   }
 }
 @media (max-width: 639.98px) {
-  .content .lead, .intro__lead { font-size: 1.0625rem; }
+  .content .lead { font-size: 1.0625rem; }
   .content h1 { font-size: 1.75rem; }
 }
 
@@ -2185,14 +2648,22 @@ dialog::backdrop { background: var(--backdrop); }
 
 @media print {
   .site-header, .subbar, .layout__nav, .layout__toc, .site-footer, .pager,
-  .breadcrumb, .skip-link, .copy-btn, dialog, .headerlink, .intro__actions {
+  .breadcrumb, .skip-link, .copy-btn, dialog, .headerlink, .hero__actions, .hero-search {
     display: none !important;
   }
   body { display: block; font-size: 11pt; background: #fff; color: #000; }
   .layout { display: block; max-width: none; padding: 0; }
   .layout__main { max-width: none; }
-  .intro, .counts { border: 0; background: none; }
-  .intro__inner, .home__content { max-width: none; padding: 0; }
+  .hero, .counts { border: 0; background: none; color: #000; }
+  .page-home { --hero-ink: #000; --hero-muted: #374151; --hero-approx: #4b5563; --hero-line: #d1d5db; }
+  .hero__inner::before { display: none; }
+  .hero__inner, .counts__inner, .home__content { max-width: none; padding: 0; }
+  .home__content > .band { padding: 16px 0 0; background: none; box-shadow: none; clip-path: none; }
+  .home__content .cards > ul > li { break-inside: avoid; box-shadow: none; }
+  /* The chip and the icon of a card title are backgrounds, which browsers
+     do not print by default: no blank indent in their place. */
+  .home__content .cards .svc { min-height: 0; padding-left: 0; }
+  .home__content .cards .svc::before, .home__content .cards .svc::after { display: none; }
   .content a, .counts__more a { color: #000; }
   /* The note after the Terminology Browser link ("development server",
      hooks/sibils_data.py: span.browser-note) is not printed: the address

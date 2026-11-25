@@ -10,7 +10,7 @@ white sub-bar with the documentation sections.
 | Path | Role |
 |------|------|
 | `main.html` | Layout of every documentation page: section sidebar, breadcrumb, content, previous/next, "On this page" |
-| `home.html` | Home page (`template: home.html` in `docs/index.md`): intro band from the front matter, collection counts, content |
+| `home.html` | Home page (`template: home.html` in `docs/index.md`): the hero from the front matter (title, lead, search box), the collection counts at its foot, then the content. See "Home page" below |
 | `404.html` | "Page not found" (a static template, see `static_templates` in `mkdocs.yml`) |
 | `partials/head.html` | `<title>` (the page's H1), description (front matter, else the `{ .lead }` paragraph, else the site's), canonical URL, Open Graph and Twitter cards, icons, the script that applies the light/dark theme before the first paint |
 | `partials/jsonld.html` | schema.org description of SIBiLS, home page only. Its service channels are the SIBiLS apps of `extra.apps` |
@@ -29,8 +29,9 @@ white sub-bar with the documentation sections.
 | `js/counts.js` | Home page only (loaded by `partials/counts.html`): reads the current counts from the SIBiLS API (`config.extra.sibils.count_url`) and writes the exact numbers in place of the approximate ones. See "Collection counts" below |
 | `js/vocab-filter.js` | Vocabularies page only (`main.html` loads it when the content has the empty `div.vocab-filter` written by `hooks/sibils_data.py`): the "Annotation type" filter of the vocabulary tables. See "Vocabulary filter" below |
 | `fonts/` | DM Sans variable font (latin and latin-ext, normal and italic), licence in `fonts/OFL.txt` |
-| `img/` | Wordmarks (`sibils-wordmark-letters-white.png`: the letters of the white wordmark, without its descriptor line, for the sub-bar chip), favicon, Apple touch icon, social card (`og-card.png`), `partners/` logos |
+| `img/` | Wordmarks (`sibils-wordmark-letters-white.png`: the letters of the white wordmark, without its descriptor line, for the sub-bar chip), favicon, Apple touch icon, social card (`og-card.png`), `partners/` logos, `hero-annotations.svg` (the decoration of the home page hero) |
 | `tools/build_pygments_css.py` | Regenerates `css/pygments.css` and checks its contrast |
+| `tools/make_hero_svg.py` | Regenerates `img/hero-annotations.svg` (the widths and hues of the wordmark's bars are typed in, read from the wordmark by hand) |
 
 MkDocs copies every file of this folder to the site except templates (`*.html`), Python files and
 this README.
@@ -116,11 +117,56 @@ pairs again; `tools/build_pygments_css.py` does it for the code colours:
 
     ./venv/bin/python theme/tools/build_pygments_css.py
 
+## Home page
+
+`home.html` writes the hero from the front matter of `docs/index.md` (keys in the main README,
+*Front matter*), then the Markdown content: the Services band and its cards, "What SIBiLS does",
+the video.
+
+- **Hero.** A dark band in both colour modes (its text colours are the same in both), the H1,
+  the lead and the search box on the left; from 1024 px, `img/hero-annotations.svg` on the
+  right, as wide as the room right of the 40rem text column (up to 520 px), so the text never
+  runs into it. The heights are tight enough for the first row of service cards to start on
+  the first screen of a 1440 x 900 window. Regenerate the SVG with
+  `./venv/bin/python theme/tools/make_hero_svg.py theme/img/hero-annotations.svg`.
+- **Search box** (`hero_search`). A plain GET form, with no JavaScript: one field, then one
+  submit button per target. The first target is the form's address and its button comes first,
+  so Enter sends the field there ("Search BiodiversityPMC", red, inside the white bar with the
+  field); each other target's button sends the same field to its app with `formaction` ("Ask a
+  question", an outline button on the band, beside the bar). The buttons have no `name`, so the
+  address carries only `q`. The field's name (`label`, "Search the literature or ask a
+  question") is a visually hidden `<label>`: the buttons beside the field say what it is for. A
+  button whose label does not name its app ends with a visually hidden " in <app>". Under the
+  field, one row of examples per target: its `examples_label` ("Search:", "Ask:") in a column
+  of its own, then links to `url?q=<example>`. Below 640 px the bar's box goes
+  (`display: contents`), the field takes the whole width and the buttons share the line under
+  it (15 px text, from 370 px; each on its own line below); each example label sits above
+  its links. From 640 to 699 px a 16 px field and tighter buttons keep the placeholder whole.
+  Focus: a white ring around the whole bar where `:has()` works (the rules are inside
+  `@supports selector(:has(*))`), else a ring on the field itself; white rings outside the
+  outline button and the examples, inside the red button (outside it below 640 px, where it
+  stands alone).
+- **Counts** (`partials/counts.html`). A row of figures at the foot of the hero, see
+  "Collection counts" below.
+- **Cards** (`<div class="band" markdown>` and `<div class="cards" markdown>` in
+  `docs/index.md`, recipe in the main README). White cards on the grey band, one column, two
+  from 640 px (BiodiversityPMC over both), four from 1200 px (BiodiversityPMC over two). Each
+  title is a task, then the name of the app, a link on a line of its own; that link covers the
+  whole card (its `::before`, so the title is not positioned and the chip is placed on the card),
+  so the whole card opens the app; Documentation and API (`span.card-links`, the last paragraph)
+  stay links of their own above it. The icon does not take clicks (`pointer-events: none`), so a
+  click on it reaches the link. Where subgrid works, each card spans three rows of the list's
+  grid (`grid-template-rows: subgrid`), so the titles, descriptions and link rows of a row of
+  cards start at the same height when one task takes two lines and another one; elsewhere only
+  the link rows line up. From 1200 to 1279 px the cards are 270 to 290 px wide, with less side
+  padding (`--card-pad`). In print, the icon chips (backgrounds) are dropped with the indent they
+  need, and the address of each app is printed after its name.
+
 ## Collection counts
 
 The home page is built with approximate counts: each count of the build, rounded down to two
-significant digits (`approximate()` in `hooks/sibils_data.py`), in the `--approx-ink` grey
-(at least 4.5:1 on the intro band, in light and dark), with a visually hidden "at least " before
+significant digits (`approximate()` in `hooks/sibils_data.py`), in grey
+(`--hero-approx`, 5.5:1 on the hero, in light and dark), with a visually hidden "at least " before
 it. `js/counts.js` then fetches `count_url` once: a simple CORS GET (no custom header, so no
 preflight), without cookies, timeout 3 seconds. For each collection whose count is an integer
 not below `data-min` (`live_min`: half the round number, so a 0 or a partial count is not shown)
@@ -128,11 +174,14 @@ it writes the exact number (`Intl.NumberFormat('en-US')`, the format of the buil
 the grey and the hidden text, at once (no transition). Anything else (no answer, HTTP error,
 CORS refusal, invalid JSON, `success` not `true`, a missing or invalid count) leaves the
 approximate values: no message, no retry, no `aria-live` announcement. DM Sans has no tabular
-figures and its "0" is wide, so the round numbers are a little wider than the exact ones. Where
-the numbers are right-aligned, the number fills the rest of its line; from 640 to 1023 px the
-five columns are equal (`flex: 1 1 6.5rem`) and never narrower than their text, so a larger text
-size or text spacing wraps the row instead of making the numbers overlap. In both layouts the
-exact number does not move the layout. No other page loads the script.
+figures and its "0" is wide, so the round numbers are a little wider than the exact ones. The
+counts are a row of figures at the foot of the hero, one grid column per collection (five per
+row from 1024 px, three from 640 px, two below), each column as wide as its share of the row,
+so the exact number does not move the layout. Each column is a size container: the number is
+`min(2rem, 15cqi)`, so "100,000,000" (6.3em) fits its column on one line at every width and
+default text size, and so do the current counts with the text spacing of WCAG 1.4.12; a number
+still too wide wraps (`overflow-wrap: anywhere`) rather than overflow. No other page loads the
+script.
 
 ## Vocabulary filter
 

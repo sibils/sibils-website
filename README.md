@@ -143,18 +143,45 @@ The home page (`docs/index.md`) uses its own template and keys:
 ```yaml
 ---
 template: home.html
-title: SIB Literature Services           # browser title and H1
+title: SIB Literature Services           # browser title and H1 of the hero
 description: ...                         # meta description
-hero_lead: One plain sentence.
-hero_actions:
-  - {label: Search BiodiversityPMC, url: "https://biodiversitypmc.sibils.org/", primary: true}
+hero_lead: One plain sentence.           # under the H1
+hero_search:                             # the search box of the hero
+  param: q                               # name of the field (default q)
+  label: Search the literature or ask a question   # name of the field, read, not shown
+  placeholder: Topic, species or question
+  targets:                               # one button each; the first one is Enter's
+    - app: BiodiversityPMC
+      url: "https://biodiversitypmc.sibils.org/"
+      submit: Search BiodiversityPMC     # label of its button
+      examples_label: Search             # its row of examples: "Search:", then the links
+      examples: [Halacarid mites, Ixodiphagus hookeri]   # links to url?q=<example>
+    - app: Question-Answering
+      url: "https://qa.sibils.org/"
+      submit: Ask a question             # read "Ask a question in Question-Answering"
+      examples_label: Ask
+      examples: ["What fungus can control ambrosia ragweed?"]
+hero_actions:                            # optional buttons under the search box (none at present)
   - {label: APIs, url: developers/index.md}
 ---
 ```
 
-Relative `url` values point to Markdown files (`developers/index.md`, optionally with
-`#heading`) and are turned into page URLs. The build stops when the file is not a page of the
-site, or when the page has no such heading.
+The search box is a plain GET form with no JavaScript: one field, then one button per target.
+Enter or the first button opens the first target's `url?q=<text>`, which the app runs when it
+loads (an empty field opens the app); each other button sends the same field to its own app
+(`formaction`). The buttons have no name, so the address carries only `q`. Use `q`:
+Question-Answering also reads `?query=`, but then sends each API call twice. A button whose
+label does not name its app ends with " in <app>" for screen readers. Under the field, each
+target has a row of examples. Take them from the app's own list ("Show examples" in the app),
+prefer ones a newcomer can read, and keep each row on one line from 1024 px (about 580 px of
+links), or the cards move down.
+
+Under the hero, the counts of the collections are a row of large figures (see *Collection
+counts and vocabularies* below); they need no front matter.
+
+Relative `url` values of `hero_actions` point to Markdown files (`developers/index.md`,
+optionally with `#heading`) and are turned into page URLs. The build stops when the file is not
+a page of the site, or when the page has no such heading.
 
 ## Writing
 
@@ -219,6 +246,28 @@ Each item of the list is a card (one to three columns depending on the width).
     [Open](https://variomes.sibils.org/) · [Documentation](services/variomes/index.md)
 
 </div>
+```
+
+### Service cards of the home page
+
+On the home page, the cards of the Services band (`<div class="band" markdown>` around the
+`## Services` heading and the cards) are white boxes on a grey band. Each title is a task (what
+the visitor can do), followed by the name of the service as a link to its app: the name shows
+on a line of its own under the task, smaller, with an arrow, and its target covers the whole
+card. The hidden " with" (" with the" before "SPARQL endpoint") makes the heading read as a
+sentence, "Rank literature on a variant with Variomes". The title takes an id (the name of the
+service, so that old links to `/#variomes` still work) and the classes `svc` and `svc-<icon>`,
+which draw the service's icon on a red chip before the title (icons: `search`, `question`,
+`interaction`, `variant`, `synonyms`, `triage`, `graph`, defined in `theme/css/sibils.css`). The
+last paragraph is the link row: Documentation and API together in a `span.card-links`, which
+never splits. The hidden words tell screen readers which service each link is about.
+
+```markdown
+- ### Rank literature on a variant<span class="visually-hidden"> with</span> [Variomes](https://variomes.sibils.org/) { #variomes .svc .svc-variant }
+
+    Ranks the literature about a genomic variant, ...
+
+    <span class="card-links">[Documentation<span class="visually-hidden"> of Variomes</span>](services/variomes/index.md) · [API<span class="visually-hidden"> of Variomes</span>](developers/variomes/index.md)</span>
 ```
 
 ### Notes and warnings
@@ -497,13 +546,16 @@ SIBILS_API_BASE=https://example.org/api ./serve     # read another API base URL 
 docstring of `hooks/sibils_data.py` documents every key of `config.extra.sibils`.
 
 The API gives no date for its counts: the date on the Collections page is the day of the build
-(or the day the snapshot was saved), and the page says so. The home page shows no date. It is
-built with a round lower bound of each count (two significant digits, rounded down: 41,438,260
-becomes 41,000,000), in grey; in the browser, `theme/js/counts.js` reads
-`https://biodiversitypmc.sibils.org/api/count` (the same URL as the build, so `SIBILS_API_BASE`
-changes both) and writes the exact numbers in place. If the API does not answer within 3 seconds,
-answers with an error, or gives a count below half the round number, the grey round numbers
-stay; they remain true as long as the collections grow.
+(or the day the snapshot was saved), and the page says so. The home page shows no date: its
+counts are a row of large figures at the foot of the hero (`theme/partials/counts.html`), one
+column per collection (five per row from 1024 px, three from 640 px, two on phones), each
+number sized to its column. It is built with a round lower bound of each count (two
+significant digits, rounded down: 41,438,260 becomes 41,000,000), in grey; in the browser,
+`theme/js/counts.js` reads `https://biodiversitypmc.sibils.org/api/count` (the same URL as the
+build, so `SIBILS_API_BASE` changes both) and writes the exact numbers in place, without moving
+anything else. If the API does not answer within 3 seconds, answers with an error, or gives a
+count below half the round number, the grey round numbers stay; they remain true as long as the
+collections grow.
 
 ## Theme
 
@@ -519,8 +571,9 @@ theme/
   js/counts.js                       current collection counts on the home page
   js/vocab-filter.js                 annotation type filter on the Vocabularies page
   fonts/                             DM Sans (OFL licence)
-  img/                               wordmarks, favicon, social card, partner logos
+  img/                               wordmarks, favicon, social card, partner logos, hero decoration
   tools/build_pygments_css.py        regenerates css/pygments.css
+  tools/make_hero_svg.py             regenerates img/hero-annotations.svg
 ```
 
 Light and dark follow the system setting; the button in the sub-bar switches and remembers the

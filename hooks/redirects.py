@@ -476,8 +476,10 @@ def selftest() -> int:
 
     # 6. The buttons of the home page.
     on_files(files, config)
+    # docs/index.md may have no hero_actions (none at present): its buttons,
+    # if any, are checked, then made-up ones.
     _, home_meta = get_data((Path(config["docs_dir"]) / "index.md").read_text(encoding="utf-8"))
-    check(bool(home_meta.get("hero_actions")), "docs/index.md has hero_actions")
+    check(isinstance(home_meta.get("hero_actions") or [], list), "hero_actions of docs/index.md is a list")
 
     def home(actions):
         return SimpleNamespace(file=SimpleNamespace(src_uri="index.md"), meta={"hero_actions": actions})
@@ -490,7 +492,7 @@ def selftest() -> int:
             check(text in str(exc), f"{label}: unexpected message {exc}")
 
     try:
-        on_page_markdown("", home(home_meta["hero_actions"]), config, files)
+        on_page_markdown("", home(home_meta.get("hero_actions") or []), config, files)
         on_page_markdown("", home([{"label": "A", "url": "https://biodiversitypmc.sibils.org/"},
                                    {"label": "B", "url": "#how-to-cite"},
                                    {"label": "C", "url": "developers/index.md#responses"}]), config, files)

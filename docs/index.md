@@ -10,56 +10,84 @@ hero_lead: >-
   SIBiLS gives free access to biomedical and biodiversity literature, annotated
   with concepts from reference vocabularies, through web applications, REST APIs
   and a SPARQL endpoint.
-hero_actions:
-  - {label: Search BiodiversityPMC, url: "https://biodiversitypmc.sibils.org/", primary: true}
-  - {label: APIs, url: developers/index.md}
+# Search box of the hero (theme/home.html): a GET form to url?q=<text>, which
+# the app runs when it loads (an empty q opens the app; not ?query=, which
+# Question-Answering rewrites and then sends each API call twice). One field
+# (label: its name, read by screen readers; the buttons say what it is for)
+# and one button per target: the first one is the form's own address and
+# Enter's; the others send the same field to their app (formaction). No
+# JavaScript. Examples: the apps' own ("Show examples" in each app), one row
+# per target (examples_label, then links to url?q=<example>), each kept to one
+# line from 1024 px.
+hero_search:
+  param: q
+  label: Search the literature or ask a question
+  placeholder: Topic, species or question
+  targets:
+    - app: BiodiversityPMC
+      url: "https://biodiversitypmc.sibils.org/"
+      submit: Search
+      examples_label: Search
+      examples:
+        - Halacarid mites
+        - Ixodiphagus hookeri
+    - app: Question-Answering
+      url: "https://qa.sibils.org/"
+      submit: Ask a question
+      examples_label: Ask
+      examples:
+        - What diseases are associated with ticks?
 ---
+
+<div class="band" markdown>
 
 ## Services
 
 <div class="cards" markdown>
 
-- ### BiodiversityPMC
+- ### Search the literature<span class="visually-hidden"> with</span> [BiodiversityPMC](https://biodiversitypmc.sibils.org/) { #biodiversitypmc .svc .svc-search }
 
     Searches MEDLINE, PMC+, supplementary data, Plazi treatments and Zenodo records in one place, for life-science and biodiversity researchers, and shows the concepts annotated in each document.
 
-    [Open<span class="visually-hidden"> BiodiversityPMC</span>](https://biodiversitypmc.sibils.org/) · [Documentation<span class="visually-hidden"> of BiodiversityPMC</span>](services/biodiversitypmc/index.md) · [API<span class="visually-hidden"> of BiodiversityPMC</span>](developers/biodiversitypmc/index.md)
+    <span class="card-links">[Documentation<span class="visually-hidden"> of BiodiversityPMC</span>](services/biodiversitypmc/index.md) · [API<span class="visually-hidden"> of BiodiversityPMC</span>](developers/biodiversitypmc/index.md)</span>
 
-- ### Question-Answering
+- ### Ask a question<span class="visually-hidden"> with</span> [Question-Answering](https://qa.sibils.org/) { #question-answering .svc .svc-question }
 
     Answers questions written in natural language from MEDLINE, PMC and Plazi documents, and shows the passages each answer comes from.
 
-    [Open<span class="visually-hidden"> Question-Answering</span>](https://qa.sibils.org/) · [Documentation<span class="visually-hidden"> of Question-Answering</span>](services/qa/index.md) · [API<span class="visually-hidden"> of Question-Answering</span>](developers/qa/index.md)
+    <span class="card-links">[Documentation<span class="visually-hidden"> of Question-Answering</span>](services/qa/index.md) · [API<span class="visually-hidden"> of Question-Answering</span>](developers/qa/index.md)</span>
 
-- ### BiotXplorer
+- ### Find biotic interactions<span class="visually-hidden"> with</span> [BiotXplorer](https://biotxplorer.sibils.org/) { #biotxplorer .svc .svc-interaction }
 
     Finds biotic interactions between taxa reported in the literature, such as “host of”, together with the passages that support each interaction.
 
-    [Open<span class="visually-hidden"> BiotXplorer</span>](https://biotxplorer.sibils.org/) · [Documentation<span class="visually-hidden"> of BiotXplorer</span>](services/biotxplorer/index.md) · [API<span class="visually-hidden"> of BiotXplorer</span>](developers/biotxplorer/index.md)
+    <span class="card-links">[Documentation<span class="visually-hidden"> of BiotXplorer</span>](services/biotxplorer/index.md) · [API<span class="visually-hidden"> of BiotXplorer</span>](developers/biotxplorer/index.md)</span>
 
-- ### Variomes
+- ### Rank literature on a variant<span class="visually-hidden"> with</span> [Variomes](https://variomes.sibils.org/) { #variomes .svc .svc-variant }
 
     Ranks the literature about a genomic variant, or prioritises a list of variants, across MEDLINE, PMC, supplementary data and clinical trials, to support variant curation.
 
-    [Open<span class="visually-hidden"> Variomes</span>](https://variomes.sibils.org/) · [Documentation<span class="visually-hidden"> of Variomes</span>](services/variomes/index.md) · [API<span class="visually-hidden"> of Variomes</span>](developers/variomes/index.md)
+    <span class="card-links">[Documentation<span class="visually-hidden"> of Variomes</span>](services/variomes/index.md) · [API<span class="visually-hidden"> of Variomes</span>](developers/variomes/index.md)</span>
 
-- ### SynVar
+- ### Generate variant synonyms<span class="visually-hidden"> with</span> [SynVar](https://synvar.sibils.org/) { #synvar .svc .svc-synonyms }
 
     Generates the synonyms and normalised descriptions of a human variant at genome, transcript and protein level; Variomes uses them to find more of the literature about a variant.
 
-    [Open<span class="visually-hidden"> SynVar</span>](https://synvar.sibils.org/) · [Documentation<span class="visually-hidden"> of SynVar</span>](services/synvar/index.md) · [API<span class="visually-hidden"> of SynVar</span>](developers/synvar/index.md)
+    <span class="card-links">[Documentation<span class="visually-hidden"> of SynVar</span>](services/synvar/index.md) · [API<span class="visually-hidden"> of SynVar</span>](developers/synvar/index.md)</span>
 
-- ### Triage
+- ### Rank new MEDLINE papers<span class="visually-hidden"> with</span> [Triage](https://triage.sibils.org/) { #triage .svc .svc-triage }
 
     Four services rank the new MEDLINE publications of each week: CellTriage for Cellosaurus, DisTriage for DisProt (a prototype), ScaleBioMTriage for island biodiversity and IpbesTriage for IPBES.
 
-    [Open<span class="visually-hidden"> the Triage app</span>](https://triage.sibils.org/) · [Documentation<span class="visually-hidden"> of Triage</span>](services/triage/index.md) · [API<span class="visually-hidden"> of CellTriage</span>](developers/celltriage/index.md)
+    <span class="card-links">[Documentation<span class="visually-hidden"> of Triage</span>](services/triage/index.md) · [API<span class="visually-hidden"> of CellTriage</span>](developers/celltriage/index.md)</span>
 
-- ### SPARQL endpoint
+- ### Run federated queries<span class="visually-hidden"> with the</span> [SPARQL endpoint](https://sparql.sibils.org/) { #sparql-endpoint .svc .svc-graph }
 
     Gives SPARQL access to an RDF version of the publications cited by SIB resources such as UniProtKB, Rhea, SwissLipids and Cellosaurus, and of their SIBiLS annotations, for federated queries.
 
-    [Open<span class="visually-hidden"> the SPARQL endpoint</span>](https://sparql.sibils.org/) · [Documentation<span class="visually-hidden"> of the SPARQL endpoint</span>](services/sparql/index.md) · [API<span class="visually-hidden"> of the SPARQL endpoint</span>](developers/sparql/index.md)
+    <span class="card-links">[Documentation<span class="visually-hidden"> of the SPARQL endpoint</span>](services/sparql/index.md) · [API<span class="visually-hidden"> of the SPARQL endpoint</span>](developers/sparql/index.md)</span>
+
+</div>
 
 </div>
 
@@ -76,7 +104,7 @@ SIBiLS keeps a local copy of MEDLINE, PMC+ (PubMed Central and open-access artic
 - [Search](developers/biodiversitypmc/search.md) runs a free-text or Elasticsearch JSON query on one collection and returns ranked documents.
 - [Question-Answering](developers/qa/index.md) answers a question written in natural language from MEDLINE, PMC and Plazi, with the documents each answer is based on.
 
-The [APIs](developers/index.md) page lists the APIs of every service.
+[APIs of every service](developers/index.md){ .btn }
 
 </div>
 <figure class="diagram" markdown>
