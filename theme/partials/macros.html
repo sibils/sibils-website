@@ -1,0 +1,132 @@
+{#-
+  Navigation helpers. Import with context (the `url` filter needs the page):
+    {% import "partials/macros.html" as m with context %}
+
+  A nav section whose FIRST child is a page given without a title in
+  mkdocs.yml (for example `- developers/biodiversitypmc/index.md` under
+  "BiodiversityPMC") uses that page as its landing page: the section label
+  links to it and the page is not repeated as a child. MkDocs stores a title
+  given in mkdocs.yml in the page's own attributes (`title` in __dict__);
+  without one, the title comes from the page itself.
+-#}
+
+{%- macro is_landing(section) -%}
+  {%- if section.is_section and section.children
+        and section.children[0].is_page
+        and 'title' not in section.children[0].__dict__ -%}1{%- endif -%}
+{%- endmacro -%}
+
+{#- URL of the home page ("/" rather than "/." on the 404 page). -#}
+{%- macro home_url() -%}
+  {%- set u = (nav.homepage.url if nav and nav.homepage else '') | url -%}
+  {{- u[:-1] if u.endswith('/.') else u -}}
+{%- endmacro -%}
+
+{#- URL of the first page of a nav item (page, link or section). -#}
+{%- macro first_url(item) -%}
+  {%- if item.is_page -%}
+    {%- set u = item.url | url -%}
+    {{- u[:-1] if u.endswith('/.') else u -}}
+  {%- elif item.is_link -%}{{ item.url | e }}
+  {%- elif item.children -%}{{ first_url(item.children[0]) }}
+  {%- endif -%}
+{%- endmacro -%}
+
+{#- aria-current for a nav item: "page" when it is the current page, "true"
+    when it contains it. -#}
+{%- macro current_attr(item) -%}
+  {%- if item.active -%}
+    {%- if item.is_page %} aria-current="page"{% else %} aria-current="true"{% endif -%}
+  {%- endif -%}
+{%- endmacro -%}
+
+{#- h2 headings of the current page, listed under its entry in the sidebar
+    and the drawer (shown by the CSS where the "On this page" column is
+    hidden). Same rule as that column: 2 h2 or more, and no "hide: [toc]". -#}
+{%- macro page_toc() -%}
+  {%- set hide = (page.meta.hide if page.meta and page.meta.hide else []) -%}
+  {%- set ns = namespace(h2=[]) -%}
+  {%- for item in page.toc -%}
+    {%- if item.level == 1 -%}
+      {%- for child in item.children if child.level == 2 %}{% set ns.h2 = ns.h2 + [child] %}{% endfor -%}
+    {%- elif item.level == 2 -%}
+      {%- set ns.h2 = ns.h2 + [item] -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if ns.h2 | length >= 2 and 'toc' not in hide %}
+    <ul class="snav__toc" aria-label="On this page">
+      {%- for h in ns.h2 %}
+      <li><a href="{{ h.url }}">{{ h.title | striptags }}</a></li>
+      {%- endfor %}
+    </ul>
+  {%- endif -%}
+{%- endmacro -%}
+
+{#- Recursive list of pages for the section sidebar and the mobile drawer. -#}
+{%- macro nav_list(items, level=1) -%}
+<ul class="snav__list snav__list--l{{ level }}">
+  {%- for item in items %}
+    {%- if item.is_page %}
+  <li class="snav__item"><a class="snav__link{% if item.active %} is-active{% endif %}" href="{{ item.url | url }}"{{ current_attr(item) }}>{{ item.title | e }}</a>
+    {%- if item.active %}{{ page_toc() }}{% endif %}</li>
+    {%- elif item.is_link %}
+  <li class="snav__item"><a class="snav__link" href="{{ item.url | e }}">{{ item.title | e }}</a></li>
+    {%- elif item.is_section and item.children %}
+      {%- if is_landing(item) %}
+        {%- set landing = item.children[0] %}
+  <li class="snav__item snav__item--section">
+    <a class="snav__link snav__link--section{% if landing.active %} is-active{% endif %}" href="{{ landing.url | url }}"{{ current_attr(landing) }}>{{ item.title | e }}</a>
+        {%- if landing.active %}{{ page_toc() }}{% endif %}
+        {%- if item.children | length > 1 %}
+    {{ nav_list(item.children[1:], level + 1) }}
+        {%- endif %}
+  </li>
+      {%- else %}
+  <li class="snav__item snav__item--section">
+    <span class="snav__label">{{ item.title | e }}</span>
+    {{ nav_list(item.children, level + 1) }}
+  </li>
+      {%- endif %}
+    {%- endif %}
+  {%- endfor %}
+</ul>
+{%- endmacro -%}
+
+{#- Resolve a front-matter URL (home hero buttons): absolute URLs and anchors
+    are kept; a relative path to a Markdown file becomes the URL of the built
+    page ("developers/index.md" -> "developers/", "publications.md" -> "publications/"). -#}
+{%- macro resolve_url(value) -%}
+  {%- set raw = value | string -%}
+  {%- if raw.startswith(('http://', 'https://', 'mailto:', '#', '/')) -%}{{ raw | e }}
+  {%- else -%}
+    {%- set parts = raw.split('#', 1) -%}
+    {%- set path = parts[0] -%}
+    {%- set anchor = ('#' ~ parts[1]) if parts | length > 1 else '' -%}
+    {%- if path.endswith('.md') -%}
+      {%- set stem = path[:-3] -%}
+      {%- if config.use_directory_urls -%}
+        {%- if stem == 'index' -%}{%- set path = '' -%}
+        {%- elif stem.endswith('/index') -%}{%- set path = stem[:-5] -%}
+        {%- else -%}{%- set path = stem ~ '/' -%}{%- endif -%}
+      {%- else -%}
+        {%- set path = stem ~ '.html' -%}
+      {%- endif -%}
+    {%- endif -%}
+    {{- (path | url) ~ anchor -}}
+  {%- endif -%}
+{%- endmacro -%}
+
+{#- Inline SVG icons (decorative: aria-hidden). -#}
+{%- macro icon(name) -%}
+  {%- if name == 'search' -%}
+<svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  {%- elif name == 'moon' -%}
+<svg class="icon icon--moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+  {%- elif name == 'sun' -%}
+<svg class="icon icon--sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  {%- elif name == 'menu' -%}
+<svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  {%- elif name == 'close' -%}
+<svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  {%- endif -%}
+{%- endmacro -%}

@@ -1,0 +1,22 @@
+{#- Matomo, configured by config.extra.analytics. Runs only on the production
+    hosts, so local builds and previews send no page views. -#}
+{%- set analytics = (config.extra or {}).get('analytics') or {} %}
+{%- if analytics.get('matomo_url') and analytics.get('matomo_site_id') %}
+<script>
+  (function () {
+    var host = window.location.hostname;
+    if (host !== 'sibils.org' && host !== 'www.sibils.org') return;
+    var _paq = window._paq = window._paq || [];
+    // No cookies: sibils.org sets none (the Matomo server also keeps only the
+    // first two bytes of IPv4 addresses).
+    _paq.push(['disableCookies']);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    var u = {{ analytics.matomo_url | string | tojson }};
+    _paq.push(['setTrackerUrl', u + 'matomo.php']);
+    _paq.push(['setSiteId', {{ analytics.matomo_site_id | string | tojson }}]);
+    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+    g.async = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
+  })();
+</script>
+{%- endif %}

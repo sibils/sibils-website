@@ -1,4 +1,12 @@
-mkdocs<2
-mkdocs-material[imaging]>=8.5.8
+# Build dependencies of sibils.org (see README.md). Ranges tested with a fresh
+# virtual environment; mkdocs-swagger-ui-tag is pinned (bundles Swagger UI 5.17.3).
+mkdocs>=1.6,<2
+pymdown-extensions>=10.21,<11
+Pygments>=2.20,<3
+# Read by hooks/sibils_data.py to write the references and citations. 0.25 or
+# later: 0.24 imports pkg_resources, which needs setuptools.
+pybtex>=0.25,<1
 mkdocs-swagger-ui-tag==0.6.10
-mkdocs-bibtex
+# Used by mkdocs-swagger-ui-tag, which calls a method that beautifulsoup4 4.13+
+# reports as deprecated (a DeprecationWarning in the build log): stay below 5.
+beautifulsoup4>=4.12,<5

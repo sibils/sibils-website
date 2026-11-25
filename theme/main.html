@@ -1,0 +1,90 @@
+{#-
+  SIBiLS theme: layout of every documentation page.
+  home.html and 404.html extend it and replace the "layout" block.
+  See theme/README.md.
+-#}
+<!doctype html>
+<html lang="{{ config.theme.locale.language if config.theme.locale else 'en' }}" class="no-js" data-base-url="{{ base_url }}">
+<head>
+{%- block head %}
+{% include "partials/head.html" %}
+{%- endblock %}
+</head>
+{#- body.section-<title> (section-api, section-services, ...) names the active
+    top-level nav section, so the CSS can give one section its own layout
+    (the API section has a wider main column, see sibils.css section 6). -#}
+<body class="{% block body_class %}page-doc{% for item in nav if item.active and item.is_section %} section-{{ item.title | lower | replace(' ', '-') }}{% endfor %}{% endblock %}">
+<a class="skip-link" href="#__content">Skip to content</a>
+{% include "partials/header.html" %}
+{% include "partials/subbar.html" %}
+{%- block layout %}
+  {#- Front matter "hide: [navigation, toc]" is honoured. -#}
+  {%- set hide = (page.meta.hide if page.meta and page.meta.hide else []) %}
+  {#- Wide pages have no "On this page" column: the main column takes its
+      track, for content that needs room. Pages that embed an OpenAPI reference
+      (<swagger-ui>, rendered later by mkdocs-swagger-ui-tag) are wide by
+      default; front matter "wide: true" or "wide: false" decides otherwise. -#}
+  {%- if page.meta and page.meta.wide is defined %}
+    {%- set wide = page.meta.wide %}
+  {%- else %}
+    {%- set wide = '<swagger-ui' in (page.content or '') %}
+  {%- endif %}
+  {%- set ns = namespace(section=none, h2=[]) %}
+  {%- for item in nav %}
+    {%- if item.active and item.is_section %}{% set ns.section = item %}{% endif %}
+  {%- endfor %}
+  {%- for item in page.toc %}
+    {%- if item.level == 1 %}
+      {%- for child in item.children %}{% if child.level == 2 %}{% set ns.h2 = ns.h2 + [child] %}{% endif %}{% endfor %}
+    {%- elif item.level == 2 %}
+      {%- set ns.h2 = ns.h2 + [item] %}
+    {%- endif %}
+  {%- endfor %}
+  {%- set section = ns.section %}
+  {%- set toc_h2 = ns.h2 %}
+  {%- set show_nav = section and 'navigation' not in hide %}
+  {%- set show_toc = toc_h2 | length >= 2 and 'toc' not in hide and not wide %}
+<div class="layout{% if show_nav %} has-nav{% endif %}{% if show_toc %} has-toc{% endif %}{% if wide %} is-wide{% endif %}">
+  <div class="layout__nav">
+    {%- if show_nav %}
+    {% include "partials/sidebar.html" %}
+    {%- endif %}
+  </div>
+  <main class="layout__main" id="__content" tabindex="-1">
+    {% include "partials/breadcrumb.html" %}
+    <article class="content">
+      {%- block content %}
+      {#- Pages are expected to start with "# Title"; without one, use the nav title. #}
+      {%- if not (page.toc and page.toc.items | selectattr('level', 'equalto', 1) | list) %}
+      <h1>{{ page.title | e }}</h1>
+      {%- endif %}
+{{ page.content }}
+      {%- endblock %}
+    </article>
+    {% include "partials/pager.html" %}
+  </main>
+  {%- if show_toc %}
+  <div class="layout__toc">
+    {% include "partials/toc.html" %}
+  </div>
+  {%- endif %}
+</div>
+{%- endblock %}
+{% include "partials/footer.html" %}
+{% include "partials/drawer.html" %}
+{% include "partials/search.html" %}
+<p class="visually-hidden" id="__live-status" role="status" aria-live="polite"></p>
+<script src="{{ 'js/theme.js' | url }}" defer></script>
+<script src="{{ 'js/search.js' | url }}" defer></script>
+{#- The vocabulary filter, only on the page whose content has the empty
+    div.vocab-filter written by hooks/sibils_data.py. Deferred scripts run in
+    order, so theme.js has wrapped the tables by then. #}
+{%- if 'class="vocab-filter"' in (page.content or '') %}
+<script src="{{ 'js/vocab-filter.js' | url }}" defer></script>
+{%- endif %}
+{%- for script in config.extra_javascript %}
+{{ script | script_tag }}
+{%- endfor %}
+{% include "partials/analytics.html" %}
+</body>
+</html>

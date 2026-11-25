@@ -1,0 +1,48 @@
+{#- White bar under the red band: site title, the top-level sections, search,
+    theme toggle and (below 1024px) the menu button. It is a named region so
+    that the title link sits in a landmark; it cannot go inside the <header>
+    of the red band, which scrolls away while this bar stays (sticky).
+    The title has two states in one place: the text "SIBiLS Documentation",
+    and the wordmark's letters on a red chip, shown once the red band (and
+    its wordmark) has left the screen (theme.js sets .is-stuck on the bar).
+    The text names the link in both states; the chip is hidden from screen
+    readers and needs JavaScript. -#}
+{%- import "partials/macros.html" as m with context %}
+<div class="subbar" role="region" aria-label="Documentation">
+  <div class="subbar__inner">
+    <a class="subbar__title" href="{{ m.home_url() }}">
+      <span class="subbar__name">{{ config.site_name | e }} <span class="subbar__suffix">Documentation</span></span>
+      <span class="subbar__logo js-only" aria-hidden="true"><img src="{{ 'img/sibils-wordmark-letters-white.png' | url }}" width="584" height="115" alt=""></span>
+    </a>
+    <nav class="mainnav" aria-label="Main">
+      <ul>
+        {%- for item in nav if not (item.is_section and not item.children) %}
+        <li><a href="{{ m.first_url(item) }}"{{ m.current_attr(item) }}{% if item.active %} class="is-active"{% endif %}>{{ item.title | e }}</a></li>
+        {%- endfor %}
+      </ul>
+    </nav>
+    <div class="subbar__tools">
+      <button class="tool-btn search-btn js-only" type="button" data-search-open aria-label="Search"
+              aria-haspopup="dialog" aria-controls="__search-dialog" aria-keyshortcuts="/">
+        {{ m.icon('search') }}<span class="search-btn__label">Search</span><kbd class="search-btn__key" aria-hidden="true">/</kbd>
+      </button>
+      <button class="tool-btn icon-btn theme-toggle js-only" type="button" data-theme-toggle
+              aria-pressed="false" aria-label="Dark theme" title="Switch to dark theme">
+        {{ m.icon('moon') }}{{ m.icon('sun') }}
+      </button>
+      <button class="tool-btn icon-btn menu-btn js-only" type="button" data-drawer-open
+              aria-haspopup="dialog" aria-controls="__drawer" aria-expanded="false" aria-label="Menu">
+        {{ m.icon('menu') }}
+      </button>
+    </div>
+  </div>
+</div>
+{#- The bar's height (--bar-h, see js/theme.js), measured before the browser
+    scrolls to the anchor of the address, further down the page: a bar that
+    wraps (large default font size) does not cover the anchor. -#}
+<script>
+  (function () {
+    var bar = document.querySelector('.subbar');
+    if (bar) document.documentElement.style.setProperty('--bar-h', Math.ceil(bar.getBoundingClientRect().height) + 'px');
+  })();
+</script>

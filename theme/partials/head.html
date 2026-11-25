@@ -1,0 +1,88 @@
+{#- <head> content: meta, colour scheme, styles, icons, social cards. -#}
+{%- set site_name = config.site_name or 'SIBiLS' %}
+{%- if page and page.is_homepage %}
+  {#- The nav label of the home page is "Overview": prefer its front matter title. #}
+  {%- set home_title = (page.meta.title if page.meta and page.meta.title else page.title) %}
+  {%- set doc_title = site_name ~ ' – ' ~ home_title if home_title else site_name %}
+{%- elif page and page.title %}
+  {#- Prefer the page's H1 to its nav label: a nav label such as "Overview"
+      (API section) says little in a browser tab or a search result. #}
+  {%- set toc_items = page.toc.items if page.toc and page.toc.items else [] %}
+  {%- set h1 = toc_items[0].title if toc_items and toc_items[0].level == 1 else '' %}
+  {%- set doc_title = (h1 or page.title) ~ ' – ' ~ site_name %}
+{%- else %}
+  {%- set doc_title = 'Page not found – ' ~ site_name %}
+{%- endif %}
+{#- Description: front matter "description", else the page's lead paragraph
+    (first `{ .lead }` paragraph, footnote marks removed), else the site's. #}
+{%- set description = page.meta.description if page and page.meta and page.meta.description else '' %}
+{%- if not description and page and page.content and '<p class="lead">' in page.content %}
+  {%- set lead = page.content.split('<p class="lead">', 1)[1].split('</p>', 1)[0] %}
+  {%- set lead_ns = namespace(text='') %}
+  {%- for chunk in lead.split('<sup') %}
+    {%- set lead_ns.text = lead_ns.text ~ (chunk if loop.first else chunk.split('</sup>', 1)[-1]) %}
+  {%- endfor %}
+  {%- set description = lead_ns.text | striptags %}
+{%- endif %}
+{%- set description = description or config.site_description or '' %}
+{%- set og_image = (config.site_url ~ 'img/og-card.png') if config.site_url else ('img/og-card.png' | url) %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block htmltitle %}{{ doc_title | striptags | e }}{% endblock %}</title>
+{%- if description %}
+<meta name="description" content="{{ description | striptags | trim | e }}">
+{%- endif %}
+{%- if page and page.canonical_url %}
+<link rel="canonical" href="{{ page.canonical_url | e }}">
+{%- endif %}
+{#- Unlisted pages (not_in_nav in mkdocs.yml, hooks/unlisted.py) stay out of
+    search engines. #}
+{%- if page and page.file and page.file.inclusion.is_not_in_nav() %}
+<meta name="robots" content="noindex">
+{%- endif %}
+<meta name="theme-color" content="#cc0000">
+<meta name="color-scheme" content="light dark">
+<meta name="generator" content="MkDocs {{ mkdocs_version }}">
+<script>
+  {#- Runs before the first paint: applies the saved theme, else the system one. #}
+  (function () {
+    var d = document.documentElement, t = null;
+    d.className = d.className.replace(/\bno-js\b/, 'js');
+    try { t = localStorage.getItem('sibils-theme'); } catch (e) {}
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    d.setAttribute('data-theme', t);
+  })();
+</script>
+<link rel="preload" href="{{ 'fonts/dm-sans-latin-wght-normal.woff2' | url }}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ 'css/sibils.css' | url }}">
+<link rel="stylesheet" href="{{ 'css/pygments.css' | url }}">
+{%- for path in config.extra_css %}
+<link rel="stylesheet" href="{{ path | url }}">
+{%- endfor %}
+<link rel="icon" type="image/png" sizes="64x64" href="{{ 'img/favicon.png' | url }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ 'img/apple-touch-icon.png' | url }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site_name | e }}">
+<meta property="og:title" content="{{ doc_title | striptags | e }}">
+{%- if description %}
+<meta property="og:description" content="{{ description | striptags | trim | e }}">
+{%- endif %}
+{%- if page and page.canonical_url %}
+<meta property="og:url" content="{{ page.canonical_url | e }}">
+{%- endif %}
+<meta property="og:image" content="{{ og_image | e }}">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SIBiLS – {{ config.site_description | striptags | trim | e }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ doc_title | striptags | e }}">
+{%- if description %}
+<meta name="twitter:description" content="{{ description | striptags | trim | e }}">
+{%- endif %}
+<meta name="twitter:image" content="{{ og_image | e }}">
+{%- if page and page.is_homepage %}
+{% include "partials/jsonld.html" %}
+{%- endif %}

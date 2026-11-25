@@ -1,0 +1,38 @@
+{#- schema.org description of SIBiLS, home page only. Service channels come
+    from config.extra.apps (all except the current site), the contact from
+    config.extra.contact_email. -#}
+{%- set extra = config.extra or {} %}
+{%- set site_url = config.site_url or 'https://sibils.org/' %}
+{%- set channels = [] %}
+{%- for app in extra.get('apps') or [] %}
+  {%- if not app.get('current') and app.get('url') %}
+    {%- set _ = channels.append({
+      '@type': 'ServiceChannel',
+      'serviceUrl': app.url,
+      'providesService': {'@type': 'Service', 'name': app.name}
+    }) %}
+  {%- endif %}
+{%- endfor %}
+{%- set ld = {
+  '@context': {'@vocab': 'https://schema.org/'},
+  '@type': ['Service', 'ResearchProject'],
+  'name': config.site_name,
+  'alternateName': 'SIB Literature Services',
+  'url': site_url,
+  'description': config.site_description | trim,
+  'logo': {'@type': 'ImageObject', 'url': site_url ~ 'img/sibils-wordmark.png'},
+  'parentOrganization': {
+    '@type': 'Organization',
+    '@id': 'https://www.sib.swiss/',
+    'legalName': 'SIB Swiss Institute of Bioinformatics',
+    'name': 'SIB',
+    'url': 'https://www.sib.swiss/'
+  }
+} %}
+{%- if extra.get('contact_email') %}
+  {%- set _ = ld.update({'contactPoint': {'@type': 'ContactPoint', 'email': extra.contact_email, 'contactType': 'contact'}}) %}
+{%- endif %}
+{%- if channels %}
+  {%- set _ = ld.update({'availableChannel': channels}) %}
+{%- endif %}
+<script type="application/ld+json">{{ ld | tojson(indent=2) }}</script>

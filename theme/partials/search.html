@@ -1,0 +1,44 @@
+{#- Search dialog. js/search.js fills it from search/search_index.json, the
+    index written by the MkDocs "search" plugin.
+
+    The index titles pages by their nav label ("Overview" twice) and lists
+    each page twice (the page, then its H1 section). The JSON below gives
+    js/search.js, for each page of the nav: its H1 ("t"; the front matter
+    title for the home page), the H1 anchor ("h", to drop the duplicate) and
+    the sections above it ("p", as in the breadcrumb). -#}
+{%- import "partials/macros.html" as m with context %}
+{%- macro search_pages(items, trail, out, landing=false) -%}
+  {%- for item in items -%}
+    {%- set here = trail[:-1] if (landing and loop.first) else trail -%}
+    {%- if item.is_page -%}
+      {%- set toc = item.toc.items if item.toc else [] -%}
+      {%- set h1 = toc[0] if toc and toc[0].level == 1 else none -%}
+      {%- if item.is_homepage and item.meta and item.meta.title -%}
+        {%- set title = item.meta.title -%}
+      {%- elif h1 -%}
+        {%- set title = h1.title | striptags -%}
+      {%- else -%}
+        {%- set title = item.title -%}
+      {%- endif -%}
+      {%- set _ = out.update({item.url: {'t': title, 'h': h1.url if h1 else '', 'p': here | join(' › ')}}) -%}
+    {%- elif item.is_section and item.children -%}
+      {{- search_pages(item.children, here + [item.title], out, m.is_landing(item) == '1') -}}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endmacro -%}
+{%- set search_map = {} %}
+{{- search_pages(nav, [], search_map) }}
+<dialog class="search" id="__search-dialog" aria-labelledby="__search-label">
+  <div class="search__bar" role="search">
+    {{ m.icon('search') }}
+    <label class="visually-hidden" for="__search-input" id="__search-label">Search the documentation</label>
+    <input class="search__input" id="__search-input" type="search" autocomplete="off" autocapitalize="off"
+           spellcheck="false" placeholder="Search the documentation" enterkeyhint="search"
+           aria-controls="__search-results" aria-describedby="__search-status">
+    <button class="tool-btn icon-btn search__close" type="button" data-dialog-close aria-label="Close search">{{ m.icon('close') }}</button>
+  </div>
+  <p class="search__status" id="__search-status" role="status" aria-live="polite"></p>
+  <ul class="search__results" id="__search-results" aria-label="Search results"></ul>
+  <p class="search__help" aria-hidden="true"><kbd>↑</kbd> <kbd>↓</kbd> to move, <kbd>Enter</kbd> to open, <kbd>Esc</kbd> to close</p>
+  <script type="application/json" id="__search-pages">{{ search_map | tojson }}</script>
+</dialog>

@@ -1,0 +1,30 @@
+{#- Previous / next page, in nav order. When the target page is in another
+    top-level section, its title is prefixed with that section ("API ›
+    Overview"), so that a generic title such as "Overview" is not ambiguous.
+    A title used by several pages ("OpenAPI reference") is prefixed with its
+    parent section ("Question-Answering › OpenAPI reference"). -#}
+{%- macro pager_title(target) -%}
+  {%- set t_top = target.ancestors[-1] if target.ancestors else none -%}
+  {%- set c_top = page.ancestors[-1] if page.ancestors else none -%}
+  {%- set dup = nav.pages | selectattr('title', 'equalto', target.title) | list | length > 1 -%}
+  {%- if t_top and (not c_top or t_top.title != c_top.title) and t_top.title != target.title -%}
+    <span class="pager__section">{{ t_top.title | e }} ›</span> {% elif dup and target.parent and target.parent.title != target.title -%}
+    <span class="pager__section">{{ target.parent.title | e }} ›</span> {% endif -%}
+  {{ target.title | e }}
+{%- endmacro -%}
+{%- if page.previous_page or page.next_page %}
+<nav class="pager" aria-label="Previous and next pages">
+  {%- if page.previous_page %}
+  <a class="pager__link pager__link--prev" href="{{ page.previous_page.url | url }}" rel="prev">
+    <span class="pager__dir">Previous</span>
+    <span class="pager__title">{{ pager_title(page.previous_page) }}</span>
+  </a>
+  {%- endif %}
+  {%- if page.next_page %}
+  <a class="pager__link pager__link--next" href="{{ page.next_page.url | url }}" rel="next">
+    <span class="pager__dir">Next</span>
+    <span class="pager__title">{{ pager_title(page.next_page) }}</span>
+  </a>
+  {%- endif %}
+</nav>
+{%- endif %}

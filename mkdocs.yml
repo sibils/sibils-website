@@ -1,76 +1,258 @@
 site_name: SIBiLS
-site_description: Swiss Institute of Bioinformatics Literature Services
+site_description: >-
+  SIB Literature Services: search, annotation and question answering over
+  biomedical and biodiversity literature, with free REST APIs.
 site_url: https://sibils.org/
-markdown_extensions:
-  - abbr
-  - attr_list
-  - md_in_html
-  - admonition
-  - tables
-  - footnotes
-  - def_list
-  - footnotes
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+copyright: SIB Swiss Institute of Bioinformatics
+
+# Standalone theme, see theme/README.md. No dependency on Material for MkDocs.
 theme:
-  name: material
-  palette:
-    scheme: sibils
-  logo: assets/sib.png
-  custom_dir: overrides
+  name: null
+  custom_dir: theme
   locale: en
-  include_sidebar: false
-  font: false
-  features:
-    - navigation.tabs
-    - navigation.indexes
-    - content.code.copy       # ajouter un bouton "copier" à droite dans les blocs de code
-extra_css:
-  - assets/extra.css
-extra:
-  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-analytics/#custom-site-analytics
-  analytics:
-    provider: custom
+  static_templates:
+    - 404.html
+    - sitemap.xml
+  # The theme has its own search UI (theme/js/search.js) on top of the index
+  # written by the "search" plugin; do not load the plugin's own scripts.
+  search_index_only: true
+
+# "mkdocs serve" (./serve) also rebuilds when these change, not only docs/.
+watch:
+  - theme
+  - hooks
+  - data
+  - refs.bib
+
+# Broken links to a heading (page.md#anchor) are warnings: `mkdocs build --strict`
+# stops on them; the deployment (.github/workflows/publish.yml) logs them
+# without stopping.
+validation:
+  anchors: warn
+
+hooks:
+  # Fetches collection counts and the vocabulary list from the SIBiLS API at
+  # build time (falls back to data/*.json), and writes the references and the
+  # [@key] citations from refs.bib. See hooks/sibils_data.py.
+  - hooks/sibils_data.py
+  # Writes a redirect page at the old address of each moved page
+  # (extra.redirects). See hooks/redirects.py.
+  - hooks/redirects.py
+  # Pages matched by not_in_nav (below): built, but not linked, searched or in
+  # the sitemap. See hooks/unlisted.py.
+  - hooks/unlisted.py
 
 plugins:
+  - search
   - swagger-ui-tag
-  - bibtex:
-      bib_file: "refs.bib"
 
-#### nav section ####
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      permalink_title: Link to this section
+  - pymdownx.details
+  - pymdownx.highlight:
+      pygments_lang_class: true
+      # One span per line: the theme wraps long JSON lines with a hanging
+      # indent (theme/css/sibils.css, theme/js/theme.js).
+      line_spans: __span
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+extra:
+  # The SIBiLS apps, for the home page's structured data
+  # (theme/partials/jsonld.html): each one except the current site is a
+  # service channel of SIBiLS. The addresses are those of the list in the
+  # apps' red band (BiodiversityPMC, Question-Answering, BiotXplorer,
+  # Triage): keep them in step with the apps. Their SPARQL item opens the
+  # endpoint's Virtuoso query form (/sparql); the home page card opens the
+  # quick-start site (/).
+  apps:
+    - name: SIBiLS
+      url: https://sibils.org/
+      current: true
+    - name: BiodiversityPMC
+      url: https://biodiversitypmc.sibils.org/
+    - name: Question-Answering
+      url: https://qa.sibils.org/
+    - name: BiotXplorer
+      url: https://biotxplorer.sibils.org/
+    - name: Variomes
+      url: https://variomes.sibils.org/
+    - name: SynVar
+      url: https://synvar.sibils.org/
+    - name: Triage
+      url: https://triage.sibils.org/
+    - name: SPARQL
+      url: https://sparql.sibils.org/sparql
+  # Terminology Browser: a web application to browse and search the
+  # vocabularies of the Vocabularies page. It is not a SIBiLS service and the
+  # apps' red band does not list it, so it is not in apps. The hook
+  # (hooks/sibils_data.py) links each vocabulary row to
+  # url + "terminology/<concept_source>", and <!-- sibils:terminology-browser -->
+  # writes the name as a link followed by "(note)". Only a development server
+  # exists: when a production one does, change url and remove note.
+  terminology_browser:
+    name: Terminology Browser
+    url: https://terminologies.dev.sibils.org/
+    note: development server
+  # Footer logos (files in theme/img/partners/). width and height: the pixel
+  # size of the file, so the page reserves the space before the logo loads.
+  partners:
+    - name: SIB Swiss Institute of Bioinformatics
+      url: https://www.sib.swiss/
+      logo: sib.png
+      width: 270
+      height: 144
+    - name: HEG-Genève (HES-SO)
+      url: https://heg.hesge.ch/
+      logo: heg.png
+      width: 320
+      height: 120
+    - name: HES-SO
+      url: https://www.hes-so.ch/
+      logo: hesso.png
+      width: 632
+      height: 144
+    - name: ELIXIR
+      url: https://elixir-europe.org/
+      logo: elixir.png
+      width: 210
+      height: 144
+    - name: swissuniversities
+      url: https://www.swissuniversities.ch/
+      logo: swissuniversities.png
+      width: 1024
+      height: 119
+  contact_email: julien.gobeill@hesge.ch
+  license:
+    name: CC BY 3.0 CH
+    url: https://creativecommons.org/licenses/by/3.0/ch/deed.en
+  # Pages that moved. Key: the old address, without the leading slash, as
+  # published on sibils.org; value: the Markdown file of the page that
+  # replaces it. hooks/redirects.py writes a small redirect page at each old
+  # address, which passes the ?query and the #fragment on to the new page
+  # (with JavaScript; its meta refresh drops them).
+  # An old anchor with a clear successor can go to another page or heading:
+  # give "page" and "fragments" (old-id: file.md or file.md#new-id; matched
+  # without regard to case). Never remove an entry: papers, registries and
+  # other sites link to the old addresses (README.md, Addresses).
+  redirects:
+    api/:
+      page: developers/index.md
+      # The headings of the former page (docs/api/index.md on master), and
+      # the anchors that the KG-Registry entries of SIBiLS link
+      # (https://sibils.org/api#Fetch-API). Other anchors are passed on.
+      fragments:
+        sibils-api: developers/index.md
+        rest: developers/index.md
+        sparql: developers/sparql/index.md
+        fetch-api: developers/biodiversitypmc/fetch.md
+        customizable-search-api: developers/biodiversitypmc/search.md
+        question-answering-api: developers/qa/index.md
+    api/biodiversitypmc/: developers/biodiversitypmc/index.md
+    api/biodiversitypmc/fetch/: developers/biodiversitypmc/fetch.md
+    api/biodiversitypmc/search/: developers/biodiversitypmc/search.md
+    api/biodiversitypmc/mapping/: developers/biodiversitypmc/mapping.md
+    api/biodiversitypmc/qa/: developers/qa/index.md
+    api/celltriage/: developers/celltriage/index.md
+    api/sparql/: developers/sparql/index.md
+    api/synvar/: developers/synvar/index.md
+    api/variomes/: developers/variomes/index.md
+    biodiversitypmc/: services/biodiversitypmc/index.md
+    biotxplorer/: services/biotxplorer/index.md
+    celltriage/: services/triage/index.md
+    collections/how_to_upload/: data/add-publications.md
+    collections/sibils_collections/: data/collections.md
+    sab/: about/sab.md
+    sparql/: services/sparql/index.md
+    synvar/: services/synvar/index.md
+    variomes/: services/variomes/index.md
+    vocabularies/: data/vocabularies.md
+    # The address of a section that has no page of its own opens the first
+    # page of the section, as its tab does: change it when the nav puts
+    # another page first.
+    services/: services/biodiversitypmc/index.md
+    data/: data/collections.md
+    # Addresses lost earlier, before this list existed. biodiversitypmc/doc/...:
+    # where the proxy sends the pre-2024 https://sibils.text-analytics.ch/doc/...
+    # pages (renamed in c0ce51d, 2024-08-22). api/biodiversitypmc/pmid2doi/:
+    # page deleted in e2f3c7c (2025-05-09), now part of Identifier mapping.
+    api/biodiversitypmc/pmid2doi/: developers/biodiversitypmc/mapping.md
+    biodiversitypmc/doc/api/fetch/: developers/biodiversitypmc/fetch.md
+    biodiversitypmc/doc/api/search/: developers/biodiversitypmc/search.md
+    biodiversitypmc/doc/api/qa/: developers/qa/index.md
+    biodiversitypmc/doc/api/sparql/: developers/sparql/index.md
+    biodiversitypmc/doc/vocabularies/: data/vocabularies.md
+    biodiversitypmc/doc/sab/: about/sab.md
+    biodiversitypmc/doc/collections/sibils_collections/: data/collections.md
+    biodiversitypmc/doc/collections/how_to_upload/: data/add-publications.md
+  analytics:
+    matomo_url: //matomo.text-analytics.ch/
+    matomo_site_id: 10
+
+# Pages that are built and reachable at their address but kept out of the
+# nav, the site search and the sitemap, with noindex; no page of the nav may
+# link to them (hooks/unlisted.py). The guides of the APIs the team keeps
+# internal. Patterns as in .gitignore, relative to docs/.
+not_in_nav: |
+  /developers/otf/
+  /developers/query/
+
+# Each section has its folder, which is the prefix of the address of its pages:
+# services/, data/, developers/ (the API tab) and about/. The home page and
+# Publications are at the root (README.md, Addresses). The services/ and data/
+# entries of extra.redirects name the first page of Services and of Data.
 nav:
-  - 'Introduction': 'index.md'
-  - 'Biodiversity PMC': 'biodiversitypmc/index.md'
-  - 'BiotXplorer': 'biotxplorer/index.md'
-  - 'Variomes': 'variomes/index.md'
-  - 'SynVar': 'synvar/index.md'
-  - 'Celltriage': 'celltriage/index.md'
-  - 'SPARQL': 'sparql/index.md'
-  - 'Collections':
-    - 'SIBiLS collections': 'collections/sibils_collections.md'
-    - 'upload publications in SIBiLS': 'collections/how_to_upload.md'
-  - 'Vocabularies': 'vocabularies.md'
-  - 'API':
-    - 'API': 'api/index.md'
-    - 'Biodiversity PMC':
-      - 'Biodiversity PMC': 'api/biodiversitypmc/index.md'
-      - 'Fetch': 'api/biodiversitypmc/fetch.md'
-      - 'Search': 'api/biodiversitypmc/search.md'
-      - 'QA': 'api/biodiversitypmc/qa.md'
-      - 'Mapping ids': 'api/biodiversitypmc/mapping.md'
-    - 'Celltriage': 'api/celltriage/index.md'
-    - 'Variomes': 'api/variomes/index.md'
-    - 'SynVar': 'api/synvar/index.md'
-    - 'SPARQL': 'api/sparql/index.md'
-  - 'SAB': 'sab.md'
-
+  - Overview: index.md
+  - Services:
+      - BiodiversityPMC: services/biodiversitypmc/index.md
+      - Question-Answering: services/qa/index.md
+      - BiotXplorer: services/biotxplorer/index.md
+      - Variomes: services/variomes/index.md
+      - SynVar: services/synvar/index.md
+      - Triage: services/triage/index.md
+      - SPARQL endpoint: services/sparql/index.md
+  - Data:
+      - Collections: data/collections.md
+      - Vocabularies: data/vocabularies.md
+      - Add your publications: data/add-publications.md
+  # The API guides are under developers/ (URL /developers/): no page of
+  # sibils.org is under /api/ (README.md, Addresses). One folder per API,
+  # named like the host that serves it; the APIs that share the BiodiversityPMC
+  # host are named like their path there (otf/ for /api/otf/, query/ for
+  # /api/query/). The tab
+  # keeps the title "API" (theme/main.html derives the class section-api from
+  # it).
+  - API:
+      - Overview: developers/index.md
+      - BiodiversityPMC:
+          - developers/biodiversitypmc/index.md
+          - Fetch: developers/biodiversitypmc/fetch.md
+          - Search: developers/biodiversitypmc/search.md
+          - Query player: developers/biodiversitypmc/query-player.md
+          - Identifier mapping: developers/biodiversitypmc/mapping.md
+          - OpenAPI reference: developers/biodiversitypmc/reference.md
+      - Question-Answering:
+          - developers/qa/index.md
+          - OpenAPI reference: developers/qa/reference.md
+      - SynVar: developers/synvar/index.md
+      - Variomes: developers/variomes/index.md
+      - CellTriage: developers/celltriage/index.md
+      - SPARQL: developers/sparql/index.md
+      - BiotXplorer: developers/biotxplorer/index.md
+  - Publications: publications.md
+  - About:
+      - About SIBiLS: about/index.md
+      - Scientific Advisory Board: about/sab.md

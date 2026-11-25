@@ -1,0 +1,105 @@
+# Addresses published on https://sibils.org/, one per line.
+#
+# hooks/redirects.py stops the build when one of them has neither a page, nor
+# a redirect page (extra.redirects in mkdocs.yml), nor a file of the site, and
+# warns about a page or a redirect missing from this list. Never remove a
+# line: papers, registries and other sites link to these addresses. Add the
+# address of a new page in the same commit as the page (README.md, Addresses).
+
+# The 21 pages of https://sibils.org/sitemap.xml on 2026-11-24 (published
+# 2026-05-26, gh-pages 612c79c).
+https://sibils.org/
+https://sibils.org/sab/
+https://sibils.org/vocabularies/
+https://sibils.org/api/
+https://sibils.org/api/biodiversitypmc/
+https://sibils.org/api/biodiversitypmc/fetch/
+https://sibils.org/api/biodiversitypmc/mapping/
+https://sibils.org/api/biodiversitypmc/qa/
+https://sibils.org/api/biodiversitypmc/search/
+https://sibils.org/api/celltriage/
+https://sibils.org/api/sparql/
+https://sibils.org/api/synvar/
+https://sibils.org/api/variomes/
+https://sibils.org/biodiversitypmc/
+https://sibils.org/biotxplorer/
+https://sibils.org/celltriage/
+https://sibils.org/collections/how_to_upload/
+https://sibils.org/collections/sibils_collections/
+https://sibils.org/sparql/
+https://sibils.org/synvar/
+https://sibils.org/variomes/
+
+# Addresses lost in 2024-2025, redirected since (extra.redirects).
+https://sibils.org/api/biodiversitypmc/pmid2doi/
+https://sibils.org/biodiversitypmc/doc/api/fetch/
+https://sibils.org/biodiversitypmc/doc/api/search/
+https://sibils.org/biodiversitypmc/doc/api/qa/
+https://sibils.org/biodiversitypmc/doc/api/sparql/
+https://sibils.org/biodiversitypmc/doc/vocabularies/
+https://sibils.org/biodiversitypmc/doc/sab/
+https://sibils.org/biodiversitypmc/doc/collections/sibils_collections/
+https://sibils.org/biodiversitypmc/doc/collections/how_to_upload/
+
+# Pages added by the redesign, public with it, and the redirect pages of the
+# addresses of two of its sections (/services/, /data/).
+https://sibils.org/about/
+https://sibils.org/about/sab/
+https://sibils.org/data/
+https://sibils.org/data/add-publications/
+https://sibils.org/data/collections/
+https://sibils.org/data/vocabularies/
+https://sibils.org/developers/
+https://sibils.org/developers/biodiversitypmc/
+https://sibils.org/developers/biodiversitypmc/fetch/
+https://sibils.org/developers/biodiversitypmc/mapping/
+https://sibils.org/developers/biodiversitypmc/query-player/
+https://sibils.org/developers/biodiversitypmc/reference/
+https://sibils.org/developers/biodiversitypmc/search/
+https://sibils.org/developers/celltriage/
+https://sibils.org/developers/qa/
+https://sibils.org/developers/qa/reference/
+https://sibils.org/developers/sparql/
+https://sibils.org/developers/synvar/
+https://sibils.org/developers/variomes/
+https://sibils.org/publications/
+https://sibils.org/services/
+https://sibils.org/services/biodiversitypmc/
+https://sibils.org/services/biotxplorer/
+https://sibils.org/services/qa/
+https://sibils.org/services/sparql/
+https://sibils.org/services/synvar/
+https://sibils.org/services/triage/
+https://sibils.org/services/variomes/
+https://sibils.org/developers/biotxplorer/
+
+# Unlisted pages (not_in_nav in mkdocs.yml, hooks/unlisted.py): not linked,
+# but reachable by whoever has the address.
+https://sibils.org/developers/otf/
+https://sibils.org/developers/otf/reference/
+https://sibils.org/developers/query/
+
+# Files of the site published on 2026-05-26 that it still serves. The theme
+# writes sitemap.xml and 404.html during the build: the hook looks for them
+# after the build. The server serves 404.html for missing pages (nginx
+# error_page), so it must not disappear either.
+https://sibils.org/sitemap.xml
+https://sibils.org/404.html
+https://sibils.org/api/sparql/sibils-ontology.html
+https://sibils.org/api/sparql/sibils-ontology.ttl
+https://sibils.org/collections/contract/SIBiLS_contract.docx
+https://sibils.org/assets/SIBiLS_logo.png
+https://sibils.org/assets/SIBiLS_logo_red.png
+https://sibils.org/assets/graphical_abstract.png
+https://sibils.org/assets/graphical_abstract_original.png
+https://sibils.org/assets/logo_elixir.png
+https://sibils.org/assets/logo_heg.png
+https://sibils.org/assets/logo_hesso.jpg
+https://sibils.org/assets/logo_hesso.png
+https://sibils.org/assets/logo_sib.png
+https://sibils.org/assets/logo_swissuniversities.png
+https://sibils.org/assets/sib.png
+https://sibils.org/assets/images/favicon.png
+
+# Files added by the redesign.
+https://sibils.org/robots.txt

@@ -1,0 +1,18 @@
+{#- Right column "On this page": h2 and h3 headings. Expects `toc_h2` (list of
+    h2 AnchorLinks) from main.html. Titles are HTML already (toc extension). -#}
+<nav class="toc" aria-labelledby="__toc-title">
+  <p class="toc__title" id="__toc-title">On this page</p>
+  <ul class="toc__list">
+    {%- for h2 in toc_h2 %}
+    <li><a href="{{ h2.url }}">{{ h2.title }}</a>
+      {%- if h2.children %}
+      <ul>
+        {%- for h3 in h2.children %}
+        <li><a href="{{ h3.url }}">{{ h3.title }}</a></li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+</nav>

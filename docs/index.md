@@ -1,191 +1,121 @@
 ---
-hide:
-  - navigation
-  - toc
+template: home.html
+title: SIB Literature Services
+description: >-
+  SIBiLS (SIB Literature Services) annotates MEDLINE, PubMed Central,
+  supplementary data, Plazi treatments and Zenodo records with concepts from
+  reference vocabularies, and gives free access to them through web
+  applications, REST APIs and a SPARQL endpoint.
+hero_lead: >-
+  SIBiLS gives free access to biomedical and biodiversity literature, annotated
+  with concepts from reference vocabularies, through web applications, REST APIs
+  and a SPARQL endpoint.
+# Search box of the hero (theme/home.html): a GET form to url?q=<text>, which
+# the app runs when it loads (an empty q opens the app; not ?query=, which
+# Question-Answering rewrites and then sends each API call twice). One field
+# (label: its name, read by screen readers; the buttons say what it is for)
+# and one button per target: the first one is the form's own address and
+# Enter's; the others send the same field to their app (formaction). No
+# JavaScript. Examples: the apps' own ("Show examples" in each app), one row
+# per target (examples_label, then links to url?q=<example>), each kept to one
+# line from 1024 px.
+hero_search:
+  param: q
+  label: Search the literature or ask a question
+  placeholder: Topic, species or question
+  targets:
+    - app: BiodiversityPMC
+      url: "https://biodiversitypmc.sibils.org/"
+      submit: Search
+      examples_label: Search
+      examples:
+        - Halacarid mites
+        - Ixodiphagus hookeri
+    - app: Question-Answering
+      url: "https://qa.sibils.org/"
+      submit: Ask a question
+      examples_label: Ask
+      examples:
+        - What diseases are associated with ticks?
 ---
 
-<script type="application/ld+json">
-{
-  "@context": {
-    "@vocab": "https://schema.org/"
-  },
-  "@type": [
-    "Service",
-    "ResearchProject"
-  ],
-  "name": "SIBiLS",
-  "url": "https://sibils.org",
-  "description": "Swiss Institute of Bioinformatics Literature Services",
-  "sameAs": [
-    "https://sibils.text-analytics.ch/"
-  ],
-  "logo": {
-    "@type": "ImageObject",
-    "url": "https://sibils.org/assets/SIBiLS_logo_red.png"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "name": "Julien Gobeill",
-    "email": "julien.gobeill@hesge.ch",
-    "contactType": "contact"
-  },
-  "parentOrganization": {
-    "@type": "Organization",
-    "@id": "http://sib.swiss",
-    "legalName": "Swiss Institute of Bioinformatics",
-    "name": "SIB",
-    "url": "http://sib.swiss"
-  },
-  "availableChannel": [
-    {
-      "@type": "ServiceChannel",
-      "serviceUrl": "https://biodiversitypmc.sibils.org/",
-      "providesService": {
-        "@type": "Service",
-        "name": "Biodiversity PMC"
-      }
-    },
-    {
-      "@type": "ServiceChannel",
-      "serviceUrl": "https://biotxplorer.sibils.org/",
-      "providesService": {
-        "@type": "Service",
-        "name": "BiotXplorer"
-      }
-    },
-    {
-      "@type": "ServiceChannel",
-      "serviceUrl": "https://variomes.sibils.org/",
-      "providesService": {
-        "@type": "Service",
-        "name": "Variomes"
-      }
-    },
-    {
-      "@type": "ServiceChannel",
-      "serviceUrl": "https://celltriage.sibils.org/",
-      "providesService": {
-        "@type": "Service",
-        "name": "Celltriage"
-      }
-    },
-    {
-      "@type": "ServiceChannel",
-      "serviceUrl": "https://sparql.sibils.org/",
-      "providesService": {
-        "@type": "Service",
-        "name": "SIBiLS SPARQL endpoint"
-      }
-    }
-  ]
-}
-</script>
-<style>
-  .md-typeset h1 {
-    color: black;
-    text-align: center;
-    font-variant: small-caps;
-    font-family: 'HelveticaNeue-Light', Arial, Verdana, Tahoma, sans-serif;
-    font-weight: bold;
-    font-size: 2.2em;
-    margin-bottom: 40px;
-  }
+<div class="band" markdown>
 
-  .md-typeset h1 img {
-    display: block;
-    margin: 1.5rem auto 2.5rem auto;
-  }
-</style>
+## Services
 
-<h1>Welcome to SIBiLS !</h1>
+<div class="cards" markdown>
 
-<figure style="margin-bottom: 3em; margin-top: 2em">
-    <video width="800" height="454" src="https://candy.text-analytics.ch/Speech.mp4" controls="controls">
-    </video>
-    <figcaption></figcaption>
+- ### Search the literature<span class="visually-hidden"> with</span> [BiodiversityPMC](https://biodiversitypmc.sibils.org/) { #biodiversitypmc .svc .svc-search }
+
+    Searches MEDLINE, PMC+, supplementary data, Plazi treatments and Zenodo records in one place, for life-science and biodiversity researchers, and shows the concepts annotated in each document.
+
+    <span class="card-links">[Documentation<span class="visually-hidden"> of BiodiversityPMC</span>](services/biodiversitypmc/index.md) · [API<span class="visually-hidden"> of BiodiversityPMC</span>](developers/biodiversitypmc/index.md)</span>
+
+- ### Ask a question<span class="visually-hidden"> with</span> [Question-Answering](https://qa.sibils.org/) { #question-answering .svc .svc-question }
+
+    Answers questions written in natural language from MEDLINE, PMC and Plazi documents, and shows the passages each answer comes from.
+
+    <span class="card-links">[Documentation<span class="visually-hidden"> of Question-Answering</span>](services/qa/index.md) · [API<span class="visually-hidden"> of Question-Answering</span>](developers/qa/index.md)</span>
+
+- ### Find biotic interactions<span class="visually-hidden"> with</span> [BiotXplorer](https://biotxplorer.sibils.org/) { #biotxplorer .svc .svc-interaction }
+
+    Finds biotic interactions between taxa reported in the literature, such as “host of”, together with the passages that support each interaction.
+
+    <span class="card-links">[Documentation<span class="visually-hidden"> of BiotXplorer</span>](services/biotxplorer/index.md) · [API<span class="visually-hidden"> of BiotXplorer</span>](developers/biotxplorer/index.md)</span>
+
+- ### Rank literature on a variant<span class="visually-hidden"> with</span> [Variomes](https://variomes.sibils.org/) { #variomes .svc .svc-variant }
+
+    Ranks the literature about a genomic variant, or prioritises a list of variants, across MEDLINE, PMC, supplementary data and clinical trials, to support variant curation.
+
+    <span class="card-links">[Documentation<span class="visually-hidden"> of Variomes</span>](services/variomes/index.md) · [API<span class="visually-hidden"> of Variomes</span>](developers/variomes/index.md)</span>
+
+- ### Generate variant synonyms<span class="visually-hidden"> with</span> [SynVar](https://synvar.sibils.org/) { #synvar .svc .svc-synonyms }
+
+    Generates the synonyms and normalised descriptions of a human variant at genome, transcript and protein level; Variomes uses them to find more of the literature about a variant.
+
+    <span class="card-links">[Documentation<span class="visually-hidden"> of SynVar</span>](services/synvar/index.md) · [API<span class="visually-hidden"> of SynVar</span>](developers/synvar/index.md)</span>
+
+- ### Rank new MEDLINE papers<span class="visually-hidden"> with</span> [Triage](https://triage.sibils.org/) { #triage .svc .svc-triage }
+
+    Four services rank the new MEDLINE publications of each week: CellTriage for Cellosaurus, DisTriage for DisProt (a prototype), ScaleBioMTriage for island biodiversity and IpbesTriage for IPBES.
+
+    <span class="card-links">[Documentation<span class="visually-hidden"> of Triage</span>](services/triage/index.md) · [API<span class="visually-hidden"> of CellTriage</span>](developers/celltriage/index.md)</span>
+
+- ### Run federated queries<span class="visually-hidden"> with the</span> [SPARQL endpoint](https://sparql.sibils.org/) { #sparql-endpoint .svc .svc-graph }
+
+    Gives SPARQL access to an RDF version of the publications cited by SIB resources such as UniProtKB, Rhea, SwissLipids and Cellosaurus, and of their SIBiLS annotations, for federated queries.
+
+    <span class="card-links">[Documentation<span class="visually-hidden"> of the SPARQL endpoint</span>](services/sparql/index.md) · [API<span class="visually-hidden"> of the SPARQL endpoint</span>](developers/sparql/index.md)</span>
+
+</div>
+
+</div>
+
+## What SIBiLS does
+
+<div class="split" markdown>
+<div markdown>
+
+SIBiLS keeps a local copy of MEDLINE, PMC+ (PubMed Central and open-access articles from other publishers), PMC supplementary data, Plazi treatments and Zenodo records, updated daily, and annotates every new or updated document with concepts from reference vocabularies such as MeSH, the Gene Ontology, NCBI Taxonomy and ENVO. For each match it records the vocabulary, the concept identifier, the preferred term and the position in the text. The [Collections](data/collections.md) and [Vocabularies](data/vocabularies.md) pages give the details.
+
+### APIs
+
+- [Fetch](developers/biodiversitypmc/fetch.md) returns parsed and annotated documents for a list of identifiers (PMIDs, PMCIDs…), in JSON or BioC.
+- [Search](developers/biodiversitypmc/search.md) runs a free-text or Elasticsearch JSON query on one collection and returns ranked documents.
+- [Question-Answering](developers/qa/index.md) answers a question written in natural language from MEDLINE, PMC and Plazi, with the documents each answer is based on.
+
+[APIs of every service](developers/index.md){ .btn }
+
+</div>
+<figure class="diagram" markdown>
+![Diagram of the SIBiLS architecture. Full texts and supplementary data (pmc, suppdata), citations (medline) and treatments (plazi) are parsed, then mapped to biomedical vocabularies such as DrugBank, neXtProt and GO, with daily updates. Parsed content and mapped entities are stored in MongoDB and indexed in Elasticsearch. The Fetch API takes PMIDs or PMCIDs and returns parsed content and mapped entities in BioC JSON; the Customizable Search API takes a Lucene query and returns ranked documents.](assets/graphical_abstract.png){ loading=lazy width="720" height="540" }
+<figcaption markdown>Architecture of SIBiLS, updated from the graphical abstract of the [2020 paper in *Nucleic Acids Research*](publications.md#ref-10_1093_nar_gkaa328). Current figures: [Collections](data/collections.md) and [Vocabularies](data/vocabularies.md). [Full-size image](assets/graphical_abstract.png) (PNG, 283 kB).</figcaption>
 </figure>
+</div>
 
-<p style="text-align: center" markdown>
-  [Biodiversity PMC](https://biodiversitypmc.sibils.org/){ .md-button .md-button--primary .sibils-service }
-
-  [BiotXplorer](https://biotxplorer.sibils.org/){ .md-button .md-button--primary .sibils-service }
-
-  [Variomes](https://variomes.sibils.org/){ .md-button .md-button--primary .sibils-service }
-
-  [SynVar](https://synvar.sibils.org/){ .md-button .md-button--primary .sibils-service }
-
-  [Celltriage](https://celltriage.sibils.org/){ .md-button .md-button--primary .sibils-service }
-
-  [SPARQL endpoint](https://sparql.sibils.org/){ .md-button .md-button--primary .sibils-service }
-</p>
-
-## Introduction
-
-This page provides a description of SIBiLS (Swiss Institute of Bioinformatics Literature Services). SIBiLS provide **personalized Information Retrieval** in the biological literature. Indeed, SIBiLS allow **fully customizable search** in **semantically enriched contents**, based on keywords and/or mapped biomedical entities from a growing set of standardized and legacy vocabularies. The services have been used and favourably evaluated to assist the curation of genes and gene products, by delivering **customized literature triage** engines to different curation teams. SIBiLS are freely accessible via **REST APIs** and are **ready to empower any curation workflow**, built on modern technologies scalable with big data: MongoDB and Elasticsearch.
-
-The services are used by different SIB teams, some are mostly geared towards serving internal curation-support needs, while others are publicly available for a wider audience of life scientists.
-
-## Data
-
-SIBiLS today cover 4 collections: MEDLINE, PubMedCentral (PMC), Plazi treatments, and PMC supplementary files. Collections are **daily updated**. Contents are parsed, then enriched by **billions of mapped biomedical entities** from reference vocabularies (described [here](../vocabularies.md)). Output are json, in BioC (for fetch) or native Elasticsearch (for search) formats. 
-
-## Fetch API
-
-It allows to retrieve annotated contents from a given collection. The input is a set of document ids (up to 1,000 per request). The output is a set of parsed and annotated contents, in JSON and/or BioC formats. For MEDLINE citations, delivered and annotated fields include for example abstracts, or MeSH terms; for PMC full texts, paragraphs provided with their hierarchical level in the document structure, or figure captions; for supplementary data, text extracted from Excel files or ocerized from images. Annotations are delivered with many features including the type of the mapped entity (drug, gene, disease...), the vocabulary used, the vocabulary unique identifier and preferred term, or the mapping characters offsets.
-
-* [how to fetch](api/biodiversitypmc/fetch.md)
-
-## Customizable search API
-
-It allows to perform a fully customizable search for valuable documents in a given collection. The power of this service is based on the efficiency of Elasticsearch engines, and on the rich Lucene query language, which allows to investigate a large panel of searching strategies. For example: basic search with keywords or entity identifiers (“ZBED1” or “NP_NX_O96006”), searches in specified fields (“figures_captions: ZBED1” or “tables: mapped treatments”), boosting fields or query parts, Boolean, exploiting identified concepts or identified concept types... The input is thus a Lucene json query. The output is the Elasticsearch ranked result set in its native json format; for each document (up to 10,000 per request), a relevance score and the indexed content.
-
-* [how to search](api/biodiversitypmc/search.md)
-
-## Question Answering API
-
-it allows to ask questions in natural languages, and to obtain answers extracted from documents from a given collection. The power of this service is based on previous Elasticserch indexes, and BERT language model. For example: asking for "what diseases are transmitted by ticks ?" in Plazi treatments. The input is a free text question. The output is a set of answers, ranked by scores, along with documents' snippet.
-
-* [how to question](api/biodiversitypmc/qa.md)
-
-## Reference
-
-SIBiLS are detailed in the 2020 web server issue of Nucleic Acids Research: *SIB Literature Services: RESTful customizable search engines in biomedical literature, enriched with automatically mapped biomedical concepts* [@10_1093_nar_gkaa328]. Here is the graphical abstract designed for the publication :
+## Introduction video
 
 <figure markdown>
-  ![graphical abstract](../assets/graphical_abstract.png){ loading=lazy style="width: calc(min(100%, 35rem)); margin: auto;" }
-  <figcaption></figcaption>
+<div class="video"><video controls preload="none" poster="assets/posters/introduction.jpg"><source src="https://candy.text-analytics.ch/Speech.mp4" type="video/mp4"><a href="https://candy.text-analytics.ch/Speech.mp4">Download the introduction video (MP4)</a></video></div>
+<figcaption markdown>A presentation of SIBiLS and its services (2 min 45 s, MP4, 19.6 MB).</figcaption>
 </figure>
-
-
-<ul class="partners">
-  <li itemscope itemtype="https://schema.org/Organization">
-    <a href="https://sib.swiss/" target="_blank" itemprop="url">
-      <span itemprop="name">SIB</span>
-        <img src="assets/logo_sib.png" alt="SIB">
-    </a>
-  </li>
-  <li itemscope itemtype="https://schema.org/Organization">
-    <a href="https://www.elixir-europe.org/" target="_blank" itemprop="url">
-      <span itemprop="name">Exlir</span>
-        <img class="bigger" src="assets/logo_elixir.png" alt="Elixir">
-    </a>
-  </li>
-  <li itemscope itemtype="https://schema.org/Organization">
-    <a href="https://www.hesge.ch/heg/" target="_blank" itemprop="url">
-      <span itemprop="name">Haute Ecole de Gestion, Genève</span>
-        <img class="bigger" src="assets/logo_heg.png" alt="Haute Ecole de Gestion, Genève">
-    </a>
-  </li>
-  <li itemscope itemtype="https://schema.org/Organization">
-    <a href="https://www.swissuniversities.ch/" target="_blank" itemprop="url">
-      <span itemprop="name">swissuniversities</span>
-        <img class="bigger" src="assets/logo_swissuniversities.png" alt="swissuniversities">
-    </a>
-  </li>
-  <li itemscope itemtype="https://schema.org/Organization">
-    <a href="https://www.hes-so.ch/en/homepage" target="_blank" itemprop="url">
-      <span itemprop="name">HES-SO</span>
-        <img src="assets/logo_hesso.png" alt="HES-SO">
-    </a>
-  </li>
-</ul>

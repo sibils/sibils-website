@@ -1,85 +1,592 @@
-# SIBILS documentation
+# sibils.org
 
-## How to edit the documentation
+Source of [sibils.org](https://sibils.org/), the documentation site of SIBiLS (SIB Literature
+Services). The pages are Markdown files in `docs/`, built with [MkDocs](https://www.mkdocs.org/)
+and a theme of our own in `theme/`. Every push to `master` publishes the site.
 
-### Git clone
+## Edit a page
 
-* Python must be installed
-* `git clone git@github.com:sibils/sibils-website`
-* `cd sibils.github.io`
-* Start mkdocs:
-    * Linux and Mac: `./serve`
-    * Windows: `.\serve.bat`
-* Open http://127.0.0.1:8000/
-* Change some files; the browser page is updated automatically.
-* `git add .; git commit; git push`
-* The website is going to update itself after a few minutes.
+**On GitHub.** Open the file under `docs/` (for example `docs/services/biotxplorer/index.md`),
+click the pencil icon, edit, check the *Preview* tab, then *Commit changes* to `master`. The site
+updates a few minutes later.
 
-### On GitHub
+**On your computer.**
 
-* On a web page, click on the pencil icon in the top right corner: the link goes to the GitHub page.
-* Make the change on GitHub; check using the Preview tab.
-* Confirm the change using the "Commit changes" at the bottom of the page (commit into the master branch).
-* The website is going to update itself after a few minutes.
+```sh
+git clone git@github.com:sibils/sibils-website.git
+cd sibils-website
+./serve                        # Linux and macOS; on Windows: serve.bat
+```
 
-### Change the website structure
+Then open <http://127.0.0.1:8000/>; the page reloads when you save a file in `docs/`, `theme/`,
+`hooks/` or `data/`, `refs.bib` or `mkdocs.yml`. If port 8000 is taken, choose another one:
+`./serve -a 127.0.0.1:8001`. The first run creates `./venv` and installs `requirements.txt`
+(Python 3.9 or later); `./serve` reinstalls when that file changes.
 
-* git clone the project.
-* make the change into the `nav` section of `mkdocs.yml`.
+Before pushing, run a strict build: it turns every warning (a broken link or anchor, an unknown
+citation key or an unknown `<!-- sibils:... -->` marker) into an error. The deployment does not
+run in strict mode, so these mistakes would otherwise reach sibils.org; after an edit made on
+GitHub, check the warnings in the log of the *Actions* tab.
 
-## Syntax
+```sh
+./venv/bin/mkdocs build --strict   # output in site/, ignored by git
+git add -A && git commit && git push
+```
 
-* [markdown with Mkdocs](https://www.mkdocs.org/user-guide/writing-your-docs/#writing-with-markdown)
-* markdown extensions provided by Material for Mkdocs:
-    * [Admonitions](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) (Tips, Warning boxes)
-    * [Diagrams](https://squidfunk.github.io/mkdocs-material/reference/diagrams/), see also [mermaid documentation](https://mermaid-js.github.io/mermaid/#/README?id=diagram-types)
-    * [Content tabs](https://squidfunk.github.io/mkdocs-material/reference/content-tabs/)
-    * [Footnotes](https://squidfunk.github.io/mkdocs-material/reference/footnotes/)
-    * [Images with captions](https://squidfunk.github.io/mkdocs-material/reference/images/#image-captions)
-    * [Various list types](https://squidfunk.github.io/mkdocs-material/reference/lists/)
-    * [Abbreviations](https://squidfunk.github.io/mkdocs-material/reference/tooltips/#adding-abbreviations)
-    * [Icons and emojis](https://squidfunk.github.io/mkdocs-material/reference/icons-emojis/)
+## Where things are
 
-## Python Dependencies
+| Path | What |
+|------|------|
+| `docs/` | The pages. The URL follows the path: `docs/services/sparql/index.md` is `/services/sparql/`, `docs/data/vocabularies.md` is `/data/vocabularies/`. See *Addresses* below before adding or moving a page. |
+| `docs/assets/` | Images and files used by the pages (external sites also link to the logos here). |
+| `mkdocs.yml` | Site settings: the navigation (`nav`), the SIBiLS apps given as service channels in the home page's structured data (`extra.apps`, see `theme/partials/jsonld.html`), the Terminology Browser (`extra.terminology_browser`), footer logos (`extra.partners`), contact, licence, Matomo. The contact address is also written in `docs/about/index.md` and `docs/data/add-publications.md`, and the licence in `docs/about/index.md`: change them together. |
+| `refs.bib` | Bibliography: `[@key]` citations and the references of the Publications page are written from it (see *Citations* below). |
+| `hooks/sibils_data.py`, `data/` | Collection counts and vocabularies from the SIBiLS API (see below), and the references written from `refs.bib`. |
+| `hooks/redirects.py`, `data/published-urls.txt` | Redirect pages at the old addresses of moved pages, and at the section addresses `/services/` and `/data/` (`extra.redirects` in `mkdocs.yml`); checks that every published address is still served and that the home page buttons link pages (see *Addresses* below). |
+| `hooks/unlisted.py`, `theme/sitemap.xml` | Unlisted pages (`not_in_nav` in `mkdocs.yml`): out of the site search and the sitemap, `noindex`, no link from listed pages, shown in the section of the nearest listed page (see *Addresses* below). `./venv/bin/python hooks/unlisted.py --selftest` |
+| `theme/` | The theme: templates, CSS, JavaScript, fonts, images. See [theme/README.md](theme/README.md). |
+| `.github/workflows/publish.yml` | Build and deployment. |
 
-* [MkDocs](https://www.mkdocs.org/) for documentation generator
-* [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/getting-started/) for theme
+### Add a page
 
-## Customizations used in this repository
+1. Create the Markdown file in the folder of its section under `docs/` (see *Addresses*),
+   starting with a `# Title`.
+2. Add it to `nav` in `mkdocs.yml`. The six top-level entries (Overview, Services, Data, API,
+   Publications, About) are the sections of the sub-bar; the left sidebar lists the pages of the
+   current section. A section whose first entry has no title, such as
+   `- developers/biodiversitypmc/index.md`, uses that page as its landing page.
+3. Link pages with relative paths to the `.md` file, for example
+   `[Fetch](../developers/biodiversitypmc/fetch.md)`, so that the build checks the link.
 
-* https://squidfunk.github.io/mkdocs-material/customization/
-    * `mkdocs.yml`, section `theme.custom_dir`
-    * `overrides/partials/copyright.html`: custom footer.
-* https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#custom-color-schemes
-    * `mkdocs.yml`, section `extra_css`
-    * `mkdocs.yml`, section `theme.palette.scheme`
-    * `docs/assets/extra.css`
-* https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/#autoloading
-    * disable Google Font to complying with the General Data Protection Regulation (GDPR)
-    * `mkdocs.yml`, section `theme.font`
-* https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#navigation-tabs
-    * `mkdocs.yml`, `theme.features.navigation.tabs`
-* https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#section-index-pages
-    * `mkdocs.yml`, `theme.features.navigation.indexes`
-* https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/#hiding-the-sidebars
-    * `docs/index.md`
-    * `docs/vocabularies.md`
+### Addresses
 
-## mkdocs.publish.yml
+These rules are about the addresses of sibils.org only; each service host organises its own.
 
-After each commit, the website is built and updated automaticaly using `.github\workflows\publish.yml`.
+- Every page of sibils.org is documentation. Each section of the nav has its prefix: a service
+  page is `docs/services/<service>/index.md`, at `/services/<service>/`; the Data pages are
+  under `docs/data/` (`/data/collections/`); the guide to an API is `docs/developers/<api>/`, at
+  `/developers/<api>/` (the API tab); the About pages are under `docs/about/` (`/about/sab/`).
+  The home page and Publications (`/publications/`) stay at the root. `/services/` and `/data/`
+  have no page of their own: they open the first page of their section, as the tab does.
+- No page of sibils.org is under `/api/`: the build stops on one. `docs/api/sparql/` keeps the
+  two files of the former ontology, `sibils-ontology.html` and `sibils-ontology.ttl`, at their
+  published address: they are files, not pages. The contract linked from Add your publications,
+  `docs/collections/contract/SIBiLS_contract.docx`, stays at its published address too.
+- Each `/developers/<api>/` page gives, at the top, the base URL of that API and its reference on
+  the service host, wherever the host puts it: `https://variomes.sibils.org/apis`,
+  `https://synvar.sibils.org/docs`, `https://celltriage.sibils.org/docs`,
+  `https://sparql.sibils.org/sparql-service`...
+- Folder names follow the host of the service: `/services/triage/` for `triage.sibils.org`,
+  `/developers/qa/` for `qa.sibils.org`. The APIs that share the BiodiversityPMC host follow
+  their path there: `/developers/otf/` for `https://biodiversitypmc.sibils.org/api/otf/`,
+  `/developers/query/` for `https://biodiversitypmc.sibils.org/api/query/`.
+- A page can be unlisted: built and reachable at its address, but in no menu, search result or
+  sitemap, with `noindex`, and linked from no listed page (the build checks it). Add it to
+  `not_in_nav` in `mkdocs.yml` and leave it out of `nav`; `hooks/unlisted.py` shows it with the
+  tab, sidebar and breadcrumb of the section of the nearest listed page above its address. Used
+  for the guides of the APIs the team keeps internal: `/developers/otf/` (annotation and
+  vocabularies) and `/developers/query/` (query parser). Their addresses stay in
+  `data/published-urls.txt`.
+- New addresses are lower case, with words separated by hyphens (`query-player`).
+- The address of a published page never disappears: papers, registries and other sites link to
+  it. If a page must move, add its old address to `extra.redirects` in `mkdocs.yml`;
+  `hooks/redirects.py` then writes a page at the old address that sends the reader to the new
+  one. Never remove an entry.
 
-The [mkdocs plugin social](https://squidfunk.github.io/mkdocs-material/setup/setting-up-social-cards/) adds card when links
-from the website are shared (the preview link on Teams, Outlook, social media etc...).
+`data/published-urls.txt` lists the published addresses: the pages, the old addresses of
+`extra.redirects` and the files that other sites may link to (the ontology files, the contract,
+the logos, `sitemap.xml`). The build stops, on GitHub too, when one of them has neither a page,
+nor a redirect page, nor a file; it warns (so `--strict` stops) when a page or an
+`extra.redirects` key is missing from the list. Other files are not listed and can change with
+the theme: its scripts, styles and images (the redesign drops those of the former theme,
+including the social cards). So:
 
-This plugin requires dependencies that are complicated to install especially on Windows.
-[An option](https://squidfunk.github.io/mkdocs-material/setup/setting-up-social-cards/#disabling-social-cards) ask to plugin not to build the cards, however the dependencies are still required.
+- New page: add its address, for example `https://sibils.org/developers/foo/`, to the list in
+  the same commit.
+- Page that moves: keep its line, add an `extra.redirects` entry for it, and add the new address.
+- Never remove a line.
 
-The implemented solution uses two mkdocs configuration file:
-* `mkdocs.yml` is the default configuration.
-* `mkdocs.publish.yml` inherits from `mkdocs.yml` and adds the social plugin. The GitHub workflow uses this configuration file.
+With JavaScript, the redirect page passes the `?query` and the `#fragment` of the old address on
+to the new page; without it, its meta refresh opens the new page without them.
+Most anchors of the pages published before the redesign do not exist on the new pages (59 of the
+82 heading anchors of the 21 pages published in May 2026): the browser then shows the new page
+from the top. When an old anchor has a clear successor, list it under `fragments` (anchors are
+matched without regard to case); the build stops if a page or heading named there is missing:
 
-To sum up:
-* don't care about `mkdocs.publish.yml`.
-* make change in `mkdocs.yml` as expected.
-* the scripts `serve` and `serve.bat` should work everything (Windows, Mac, Linux).
+```yaml
+api/:
+  page: developers/index.md
+  fragments:
+    sparql: developers/sparql/index.md          # https://sibils.org/api/#sparql
+    fetch-api: developers/biodiversitypmc/fetch.md
+```
+
+`./venv/bin/python hooks/redirects.py --selftest` checks the entries of `mkdocs.yml`, and that
+each mistake listed at the top of `hooks/redirects.py` stops the build.
+
+### Front matter
+
+Optional keys at the top of a page:
+
+```yaml
+---
+description: One sentence for search engines and link previews (default: the lead paragraph).
+hide:
+  - toc          # no "On this page" column
+wide: true       # no "On this page" column and a wider main column; pages that embed
+                 # <swagger-ui ...> are wide by default (set "wide: false" to opt out)
+---
+```
+
+The home page (`docs/index.md`) uses its own template and keys:
+
+```yaml
+---
+template: home.html
+title: SIB Literature Services           # browser title and H1 of the hero
+description: ...                         # meta description
+hero_lead: One plain sentence.           # under the H1
+hero_search:                             # the search box of the hero
+  param: q                               # name of the field (default q)
+  label: Search the literature or ask a question   # name of the field, read, not shown
+  placeholder: Topic, species or question
+  targets:                               # one button each; the first one is Enter's
+    - app: BiodiversityPMC
+      url: "https://biodiversitypmc.sibils.org/"
+      submit: Search BiodiversityPMC     # label of its button
+      examples_label: Search             # its row of examples: "Search:", then the links
+      examples: [Halacarid mites, Ixodiphagus hookeri]   # links to url?q=<example>
+    - app: Question-Answering
+      url: "https://qa.sibils.org/"
+      submit: Ask a question             # read "Ask a question in Question-Answering"
+      examples_label: Ask
+      examples: ["What fungus can control ambrosia ragweed?"]
+hero_actions:                            # optional buttons under the search box (none at present)
+  - {label: APIs, url: developers/index.md}
+---
+```
+
+The search box is a plain GET form with no JavaScript: one field, then one button per target.
+Enter or the first button opens the first target's `url?q=<text>`, which the app runs when it
+loads (an empty field opens the app); each other button sends the same field to its own app
+(`formaction`). The buttons have no name, so the address carries only `q`. Use `q`:
+Question-Answering also reads `?query=`, but then sends each API call twice. A button whose
+label does not name its app ends with " in <app>" for screen readers. Under the field, each
+target has a row of examples. Take them from the app's own list ("Show examples" in the app),
+prefer ones a newcomer can read, and keep each row on one line from 1024 px (about 580 px of
+links), or the cards move down.
+
+Under the hero, the counts of the collections are a row of large figures (see *Collection
+counts and vocabularies* below); they need no front matter.
+
+Relative `url` values of `hero_actions` point to Markdown files (`developers/index.md`,
+optionally with `#heading`) and are turned into page URLs. The build stops when the file is not
+a page of the site, or when the page has no such heading.
+
+## Writing
+
+Plain, factual sentences in the present tense; sentence case headings ("Search API", not
+"Search Api" or "SEARCH API"); no emoji and no exclamation marks. Give a source and a date for
+every number: a citation, or the API data inserted by the hook. Test every example URL and command
+before publishing it.
+
+## Component cheat sheet
+
+The Markdown extensions are listed under `markdown_extensions` in `mkdocs.yml`. Copy and adapt.
+
+### Lead paragraph
+
+```markdown
+BiodiversityPMC is a search engine over the SIBiLS literature collections.
+{ .lead }
+```
+
+### Buttons
+
+Several buttons in one paragraph wrap on small screens. The old `.md-button` and
+`.md-button--primary` classes still work.
+
+```markdown
+[Open BiotXplorer](https://biotxplorer.sibils.org/){ .btn .btn-primary } [API documentation](../../developers/biotxplorer/index.md){ .btn }
+```
+
+### Facts box
+
+A definition list in a box, at the top of service pages.
+
+```markdown
+<div class="facts" markdown>
+
+Web application
+:   [biotxplorer.sibils.org](https://biotxplorer.sibils.org/)
+
+Data
+:   MEDLINE, PMC, supplementary data, Plazi
+
+</div>
+```
+
+### Cards
+
+Each item of the list is a card (one to three columns depending on the width).
+
+```markdown
+<div class="cards" markdown>
+
+- ### BiodiversityPMC
+
+    Search engine over MEDLINE, PMC, supplementary data, Plazi and Zenodo.
+
+    [Open](https://biodiversitypmc.sibils.org/) · [Documentation](services/biodiversitypmc/index.md) · [API](developers/biodiversitypmc/index.md)
+
+- ### Variomes
+
+    Literature triage for genomic variants.
+
+    [Open](https://variomes.sibils.org/) · [Documentation](services/variomes/index.md)
+
+</div>
+```
+
+### Service cards of the home page
+
+On the home page, the cards of the Services band (`<div class="band" markdown>` around the
+`## Services` heading and the cards) are white boxes on a grey band. Each title is a task (what
+the visitor can do), followed by the name of the service as a link to its app: the name shows
+on a line of its own under the task, smaller, with an arrow, and its target covers the whole
+card. The hidden " with" (" with the" before "SPARQL endpoint") makes the heading read as a
+sentence, "Rank literature on a variant with Variomes". The title takes an id (the name of the
+service, so that old links to `/#variomes` still work) and the classes `svc` and `svc-<icon>`,
+which draw the service's icon on a red chip before the title (icons: `search`, `question`,
+`interaction`, `variant`, `synonyms`, `triage`, `graph`, defined in `theme/css/sibils.css`). The
+last paragraph is the link row: Documentation and API together in a `span.card-links`, which
+never splits. The hidden words tell screen readers which service each link is about.
+
+```markdown
+- ### Rank literature on a variant<span class="visually-hidden"> with</span> [Variomes](https://variomes.sibils.org/) { #variomes .svc .svc-variant }
+
+    Ranks the literature about a genomic variant, ...
+
+    <span class="card-links">[Documentation<span class="visually-hidden"> of Variomes</span>](services/variomes/index.md) · [API<span class="visually-hidden"> of Variomes</span>](developers/variomes/index.md)</span>
+```
+
+### Notes and warnings
+
+Types: `note`, `info`, `tip`, `warning`, `danger`, `example`. Use them sparingly. `???` makes a
+collapsed block, `???+` an expanded one.
+
+```markdown
+!!! warning "Rate limit"
+    Send at most one request per second.
+
+??? note "Response example"
+    Content shown when the reader opens the block.
+```
+
+### How to cite
+
+Write references as keys of `refs.bib`, never by hand: the build writes them all in the same
+style, so a correction in `refs.bib` reaches every page. Requests to cite are in the How to cite
+section of the Publications page and in the *Citation* row of each service page (see *Citations*
+below). In its How to cite box, the marker is alone on its line and indented like the box:
+
+```markdown
+## How to cite
+
+!!! cite ""
+
+    If you use SIBiLS, its APIs or one of its web applications, please cite both papers:
+
+    <!-- sibils:cite 10_1093_nar_gkaa328 caucheteur2026sibils -->
+```
+
+A service page has no box: the *Citation* row of its facts box names the papers to cite, with
+author-year citations listed under *References* at the end of the page:
+
+```markdown
+Citation
+:   Pasche et al. [-@pasche2022variomes], with the SIBiLS papers Gobeill et al. [-@10_1093_nar_gkaa328] and Caucheteur et al. [-@caucheteur2026sibils]
+```
+
+Other markers: `<!-- sibils:bibtex KEY KEY -->` (a BibTeX block copied from `refs.bib`),
+`<!-- sibils:cite-short KEY -->` (*Pasche et al. (2022), [title](link)*, a link to the entry
+when the page lists it, else to the DOI) and `<!-- sibils:bibliography GROUP -->` (a group of
+the Publications page, see below). A key that is not in `refs.bib` is shown in the page as
+**Missing reference: KEY** and logged as a warning, which the deployment does not stop on: run
+`mkdocs build --strict` before pushing.
+
+Every author is listed, as in the byline of the publication (PubMed or the journal), group
+authors included (`and others` in `refs.bib` prints *et al.*). A person who is in several entries
+has one spelling in all of them; where a byline or its registry record spells the name otherwise,
+the entry's `comment` says so.
+
+An entry without a DOI shows its `url` as the link text, without `https://`. In the browser,
+`theme/js/theme.js` lets the address break after a `/` but not after a hyphen, which would read
+as a hyphenated word.
+
+### Add a publication to the Publications page
+
+Add one entry to `refs.bib`, with `sibils_group`: the group named by a
+`<!-- sibils:bibliography GROUP -->` marker of `docs/publications.md`: `about-papers`
+(papers, conference abstracts and posters about SIBiLS), `about-reports` (reports and datasets
+on Zenodo) or `work-using` (published work that uses SIBiLS). The group lists its entries newest
+first, then by first author, then by title. The two SIBiLS papers have no group: they are in the
+How to cite box. A paper that users of a service should cite also goes in the table of the How
+to cite section (`<!-- sibils:cite-short KEY -->`), in the BibTeX marker and in the *Citation*
+row of the service page (see *Citations* below). Optional fields: `sibils_use`, how the work
+uses SIBiLS, printed after the reference (Markdown, for *Work using SIBiLS*); `addendum`,
+Markdown after the DOI; `shorttitle`, the title in the table of the page; `comment`, a note for
+the maintainers that is never shown. Standard fields are LaTeX: write `\%` for a percent sign (a
+bare `%` cuts the field).
+
+For example, the entry already in `refs.bib` for the OLIDA paper (copy it with a new key, or the
+build stops on the duplicate):
+
+```bibtex
+@article{nachtegael2022olida,
+  author = {Nachtegael, Charlotte and Gravel, Barbara and Dillen, Arnau and Smits, Guillaume and Nowé, Ann and Papadimitriou, Sofia and Lenaerts, Tom},
+  title = {Scaling up oligogenic diseases research with {OLIDA}: the Oligogenic Diseases Database},
+  journal = {Database},
+  volume = {2022},
+  pages = {baac023},
+  year = {2022},
+  doi = {10.1093/database/baac023},
+  pmid = {35411390},
+  pmcid = {PMC9216476},
+  sibils_group = {work-using},
+  sibils_use = {The curation pipeline runs variants through SynVar to obtain genomic coordinates.},
+}
+```
+
+### Citations
+
+Cite an entry of `refs.bib` by its key: `[@key]` gives *(Gobeill et al., 2020)*, a link to the
+full reference on the same page; `[-@key]` gives *(2020)*, for a sentence that already names the
+authors. `[@a] [@b]` or `[@a; @b]` give one parenthesis, in which works of the same authors share
+the label: *(Pasche et al., 2023b, 2023c)*. The link text has no-break spaces inside "et al." and
+before the year, so that a line never breaks there. Put the citation before the punctuation. A
+work that the page lists itself (the How to cite box and the lists of the Publications page) is
+linked there; the other cited works are listed under a *References* heading added at the end of
+the page.
+
+Nothing else goes inside the brackets: no space, page number or prefix. `[@key, p. 5]` or
+`[@ key]` stays in the page as written and logs a warning, so `mkdocs build --strict` stops; a
+link whose text starts with `@` (`[@name](url)`) is not a citation. A key is made of letters,
+digits and `_`, with `-`, `:`, `.`, `/` or `+` inside. Citations in fenced code blocks (```` ``` ````
+or `~~~`) and in code spans are left as written, but not in a code block indented by 4 spaces:
+use a fenced block for code that contains `[@`.
+
+```markdown
+Caucheteur et al. [-@caucheteur2026sibils] describe how the annotations are made and measure their precision vocabulary by vocabulary.
+The 2022 paper describes the first three [@pasche2022variomes]; supplementary materials were added later [@pasche2023supplementary].
+```
+
+When several works shown on the site have the same authors' label and year, a letter follows the
+year, in the order of their titles: today *Pasche et al., 2023a, 2023b, 2023c*. The letter is in
+the citations, the *References* sections, the Publications lists and the table of the How to cite
+section, but not in the How to cite box, which users copy into their own papers. A new work with
+the same label and year can shift these letters.
+
+Plain footnotes (`[^note]`) are for explanatory notes and are listed under *Notes*:
+
+```markdown
+The count includes retracted articles.[^retracted]
+
+[^retracted]: Retracted articles stay in PubMed with a retraction notice.
+```
+
+Requests to cite are in the How to cite section of `docs/publications.md` and in the *Citation*
+row of each service page. The section has the box of the two SIBiLS papers (the only cite box of
+the site, and its only "please ... cite"), the table of the papers of each service, collection
+and vocabulary, and the BibTeX. Elsewhere the site points to the section without asking: the
+*How to cite* link in the footer of every page, the sentence of the About page next to the
+licence. A service page names the papers to cite in the *Citation* row of its facts box, as
+author-year citations listed under *References* at the end of the page: the papers of its row of
+the table and the two SIBiLS papers. An API guide links its service page (its *Web application*
+row), not the papers.
+
+The SIBiLS papers are not cited as the source of what the team states about its own service, such
+as the daily updates of the collections or what an annotation records: write such facts without a
+citation. Cite them for what only they give, such as the precision of the annotations, measured
+vocabulary by vocabulary (Vocabularies page).
+
+The build checks these rules (`check_cite_requests()` in `hooks/sibils_data.py`), with warnings,
+so `mkdocs build --strict` stops on:
+
+- a cite box (`<!-- sibils:cite -->` or a `cite` admonition) or a sentence with "please"
+  followed by "cite", "cites", "cited" or "citing" on a page other than `docs/publications.md`;
+- a page of the *Services* section of `nav` without a *Citation* row in its facts box;
+- a *Citation* row whose keys are not those of its service's row in the table of
+  `docs/publications.md` together with those of the How to cite box. In the row, a sentence that
+  says "described in" gives information, not a paper to cite (the KYBELE report of
+  Question-Answering), and "with the Variomes paper" adds the keys of the Variomes row.
+
+A new service page therefore gets its row in the table and its *Citation* row in the same commit.
+
+### Code
+
+A copy button appears on every code block. `title` adds a file name above the block.
+
+````markdown
+```bash
+curl 'https://biodiversitypmc.sibils.org/api/fetch?ids=14691011&col=medline'
+```
+
+```sparql title="publications.sparql"
+SELECT ?s WHERE { ?s ?p ?o } LIMIT 10
+```
+````
+
+### Tabs
+
+````markdown
+=== "curl"
+
+    ```bash
+    curl 'https://biodiversitypmc.sibils.org/api/search?q=pangolin&col=medline'
+    ```
+
+=== "Python"
+
+    ```python
+    import requests
+    r = requests.get("https://biodiversitypmc.sibils.org/api/search",
+                     params={"q": "pangolin", "col": "medline"}, timeout=60)
+    ```
+````
+
+### Tables
+
+Wide tables scroll sideways on small screens.
+
+```markdown
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `ids`     | yes      | Document ids, separated by commas |
+| `col`     | yes      | Collection: `medline`, `pmc`, `suppdata`, `plazi` |
+```
+
+### Figures
+
+```markdown
+<figure markdown>
+  ![Architecture of SIBiLS](../assets/graphical_abstract.png){ loading=lazy }
+  <figcaption>Architecture of SIBiLS, from the 2020 paper.</figcaption>
+</figure>
+```
+
+### Video
+
+16:9 and full width. Videos on candy.text-analytics.ch use `preload="none"` and a local poster. Do
+not embed a YouTube iframe directly: the player contacts Google as soon as the page opens. Use a
+link that `theme/js/theme.js` replaces with the `youtube-nocookie.com` player when the reader
+clicks; without JavaScript the link opens the video on YouTube. An `<img>` poster inside the link,
+before the `<span>`, is optional (a local file, not an image from YouTube).
+
+```html
+<div class="video"><video controls preload="none" poster="../../assets/video-poster.png"><source src="https://candy.text-analytics.ch/Speech.mp4" type="video/mp4"></video></div>
+
+<div class="video" data-embed="https://www.youtube-nocookie.com/embed/VIDEO_ID?autoplay=1" data-title="Title of the video (YouTube)"><a href="https://www.youtube.com/watch?v=VIDEO_ID"><span>Play the video (YouTube)<small>Starting it loads the YouTube player, from Google servers</small></span></a></div>
+```
+
+### Interactive API reference (Swagger UI)
+
+```html
+<swagger-ui src="https://biodiversitypmc.sibils.org/api/openapi.json"/>
+```
+
+### Other
+
+```markdown
+- [x] Task list item, done
+- [ ] Task list item, open
+
+Term
+:   Definition list.
+
+The API returns JSON.
+
+*[JSON]: JavaScript Object Notation
+```
+
+Keyboard keys: `<kbd>Ctrl</kbd>`. Every `##` and `###` heading gets a link anchor, shown on hover.
+
+## Collection counts and vocabularies
+
+`hooks/sibils_data.py` runs during every build. It reads the document counts
+(`https://biodiversitypmc.sibils.org/api/count`) and the vocabulary list
+(`https://biodiversitypmc.sibils.org/api/otf/terminologies`) from the SIBiLS API; if the API does
+not answer, it uses the snapshots committed in `data/`. The build log says which one it used.
+
+The data feeds the counts on the home page and replaces these markers in the pages:
+
+| Marker | Replaced by |
+|--------|-------------|
+| `<!-- sibils:vocabularies -->` | The vocabulary tables (`docs/data/vocabularies.md`) |
+| `<!-- sibils:collection-counts -->` | The table of documents per collection |
+| `<!-- sibils:release -->` | The SIBiLS release, for example 5.1.5.10 |
+| `<!-- sibils:date -->` | The build day, or the day the snapshot in `data/` was saved (the API gives no date, so this is not the day the SIBiLS data changed) |
+| `<!-- sibils:terminology-browser -->` | A link to the Terminology Browser followed by its note, for example "Terminology Browser (development server)", from `extra.terminology_browser` in `mkdocs.yml` |
+| `<!-- sibils:cite KEY KEY -->`, `bibliography GROUP`, `bibtex KEY KEY`, `cite-short KEY` | References from `refs.bib` (see *How to cite* above) |
+
+The vocabulary tables also link each vocabulary to its page in the Terminology Browser (`url` followed by `terminology/<concept_source>`). When the browser gets a production address, change `url` and remove `note` under `extra.terminology_browser` in `mkdocs.yml`: the tables and the marker follow.
+
+Each row of the vocabulary tables carries its `type` in a `data-type` attribute, and an empty `div.vocab-filter` precedes the tables: `theme/js/vocab-filter.js` turns it into the "Annotation type" filter (see `theme/README.md`). Without JavaScript the page lists every vocabulary with its type.
+
+Other pages can link to the vocabularies of one type: ``[`species`](../../data/vocabularies.md?type=species)``. The build checks these links: a type that no vocabulary has (a typo, or a type the API no longer returns) is a warning, since the filter would then show every vocabulary.
+
+```sh
+SIBILS_OFFLINE=1 ./serve                            # do not call the API, use data/
+SIBILS_API_BASE=https://example.org/api ./serve     # read another API base URL (default https://biodiversitypmc.sibils.org/api)
+./venv/bin/python hooks/sibils_data.py --refresh    # update the snapshots in data/, then commit them
+./venv/bin/python hooks/sibils_data.py --selftest   # check the snapshots, the fallback and the rendering
+```
+
+`--refresh` rewrites the snapshots only when both endpoints answer correctly. The module
+docstring of `hooks/sibils_data.py` documents every key of `config.extra.sibils`.
+
+The API gives no date for its counts: the date on the Collections page is the day of the build
+(or the day the snapshot was saved), and the page says so. The home page shows no date: its
+counts are a row of large figures at the foot of the hero (`theme/partials/counts.html`), one
+column per collection (five per row from 1024 px, three from 640 px, two on phones), each
+number sized to its column. It is built with a round lower bound of each count (two
+significant digits, rounded down: 41,438,260 becomes 41,000,000), in grey; in the browser,
+`theme/js/counts.js` reads `https://biodiversitypmc.sibils.org/api/count` (the same URL as the
+build, so `SIBILS_API_BASE` changes both) and writes the exact numbers in place, without moving
+anything else. If the API does not answer within 3 seconds, answers with an error, or gives a
+count below half the round number, the grey round numbers stay; they remain true as long as the
+collections grow.
+
+## Theme
+
+The theme is plain Jinja templates, one CSS file and four small JavaScript files, with no
+dependency on Material for MkDocs or on any CDN:
+
+```
+theme/
+  main.html  home.html  404.html     page templates
+  partials/                          header, sub-bar, sidebar, search, footer, ...
+  css/sibils.css  css/pygments.css   styles, light and dark
+  js/theme.js  js/search.js          theme toggle, menu, copy buttons, search
+  js/counts.js                       current collection counts on the home page
+  js/vocab-filter.js                 annotation type filter on the Vocabularies page
+  fonts/                             DM Sans (OFL licence)
+  img/                               wordmarks, favicon, social card, partner logos, hero decoration
+  tools/build_pygments_css.py        regenerates css/pygments.css
+  tools/make_hero_svg.py             regenerates img/hero-annotations.svg
+```
+
+Light and dark follow the system setting; the button in the sub-bar switches and remembers the
+choice. Search uses the index of the MkDocs `search` plugin. Details in
+[theme/README.md](theme/README.md).
+
+## Deployment
+
+On every push to `master`, `.github/workflows/publish.yml` installs `requirements.txt`, runs
+`mkdocs gh-deploy --force` (build, then push to the `gh-pages` branch; build warnings appear in
+the log but do not stop it) and calls the deployment service that publishes `gh-pages` on sibils.org. Matomo statistics are only sent from sibils.org,
+not from local previews.
+
+Dependencies (`requirements.txt`): MkDocs 1.6 (below 2.0), pymdown-extensions, Pygments,
+pybtex (read by `hooks/sibils_data.py`), mkdocs-swagger-ui-tag pinned to 0.6.10, and
+beautifulsoup4 (used by the latter) below 5.0.

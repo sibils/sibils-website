@@ -1,0 +1,5 @@
+# Every page of sibils.org may be crawled.
+User-agent: *
+Disallow:
+
+Sitemap: https://sibils.org/sitemap.xml

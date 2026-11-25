@@ -1,0 +1,12 @@
+{#- Red band, as in the SIBiLS web applications: the wordmark. The apps' own
+    band also lists the apps; here the Services section, the home page and
+    each service page list them and link to them. -#}
+{%- import "partials/macros.html" as m with context %}
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="{{ m.home_url() }}">
+      <img src="{{ 'img/sibils-wordmark-white.png' | url }}" width="1596" height="576"
+           alt="SIBiLS – Swiss Institute of Bioinformatics Literature Services">
+    </a>
+  </div>
+</header>
